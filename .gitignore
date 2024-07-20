@@ -1,0 +1,15 @@
+*~
+build
+node_modules/
+dist/
+.DS_Store
+.env
+.env
+/sui-alpha-sdk/src/#types.ts#
+#/sui-alpha-sdk/**/*.js
+/scripts/**/*.js
+/scripts/.env
+client_id
+settings.dat
+pending/
+.envrc
