@@ -1,1 +1,2 @@
-console.log("Hello");
+export { getVaults } from "./getVaults";
+export { getVaultBalance } from "./getVaultBalances";
