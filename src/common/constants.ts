@@ -1,0 +1,601 @@
+export const CONF_ENV = "production";
+
+export const conf = {
+  testing: {
+    // General Contants
+    MS_IN_A_DAY: 864_00_000,
+
+    HALF_MUL: 1000000000000000000,
+
+    HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
+
+    HOP_MAX_SLIPPAGE_BPS: 100,
+
+    DEFAULT_HOP_SLIPPAGE: 1,
+
+    DEFAULT_CETUS_SLIPPAGE: 1,
+
+    DEFAULT_SWAP_SLIPPAGE: 1,
+
+    SUI_NETWORK: "mainnet",
+
+    CLOCK_PACKAGE_ID: "0x6",
+
+    PRICE_ORACLE:
+      "0x1568865ed9a0b5ec414220e8f79b3d04c77acc82358f6e5ae4635687392ffbef",
+
+    ALPHA_XUSDC_COIN_TYPE: "",
+
+    ALPHA_XUSDT_COIN_TYPE: "",
+
+    // constants for Alpha Protocol
+
+    ALPHA_FIRST_PACKAGE_ID:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
+
+    ALPHA_LATEST_PACKAGE_ID:
+      "0x17c23e2bc45d4b4b3e398902246494e9e44bc6d72d8a68f8bf1c61a3f71280ad",
+
+    ALPHA_MODULE_PACKAGE_IDS: [
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
+      "0xd125a4fd587ae87cd0290df876601b352842aaeeb4cf813a6fdc7d62f2b5b699",
+    ],
+
+    ALPHA_DISTRIBUTOR:
+      "0xc83a5765802d20d19b66b1be808131a58b10f480a5bbebb8f9ea04c6e5baade2",
+
+    VERSION:
+      "0xd835f0c985eadf2b41941e70fa4090af4e206ea39b7d7477174c54fa6686386a",
+
+    ALPHA_NAVI_BORROW_FACTOR: 0.95,
+
+    ALPHA_TOKEN_REWARD_SHARE: 0.45,
+
+    ALPHA_PROTOCOL_INFO_OBJECT_ID: "", // TODO
+
+    // Coin Types
+
+    ALPHA_COIN_TYPE:
+      "0x3813ca8aa2849b6369106ea749b0bdc5d72a671a267bf55a4be68c6c86fb911f::beta::BETA",
+
+    SUI_COIN_TYPE: "0x2::sui::SUI",
+
+    USDT_COIN_TYPE:
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+
+    USDC_COIN_TYPE:
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+
+    VSUI_COIN_TYPE:
+      "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT",
+
+    CETUS_COIN_TYPE:
+      "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS",
+
+    SCALLOP_COIN_TYPE:
+      "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA",
+
+    NAVX_COIN_TYPE:
+      "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
+
+    USDY_COIN_TYPE:
+      "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
+
+    HaSUI_COIN_TYPE:
+      "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
+
+    ALPHA_XSUI_COIN_TYPE:
+      "0x07cb3a546202773a06b0b18c9af9c76c8679a2a0fe8d653cecb7dfbf7933e019::xsui::XSUI",
+
+    WBTC_COIN_TYPE:
+      "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+    WETH_COIN_TYPE:
+      "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+
+    // Alpha POOL Id's
+
+    ALPHA_POOL:
+      "0x0c59f8e743a0ab97b82cbd6b83e8e8791f9b408735d32d8fe6cd4a268732ee61",
+
+    USDC_USDT_POOL:
+      "0x44dc3da97b8e387652c4035a50ecb2c8378e5267943324c4147b3be290d3bd12",
+
+    ALPHA_SUI_POOL:
+      "0x438459191401d90c5e1da4d9f5f4b5fcca9abee0ef870588437632294f1160c5",
+
+    HaSUI_SUI_POOL:
+      "0xab1ac9c8c9cedf59671f286a208861b717b91b9553176b65d63ba9cdcfd335ec",
+
+    USDY_USDC_POOL:
+      "0xff2b3f3a26281a8cdffa8ce028315f603262e2bb4b2f5e2689256215e5ac75cf",
+    USDC_WBTC_POOL:
+      "0x1ef0da85103101ed4e9523115d46d29e57ecf0909dee574af5b421ba0483e38e",
+    ALPHA_USDC_POOL: "",
+    ALPHA_USDT_POOL: "",
+    USDC_SUI_POOL: "",
+    WETH_USDC_POOL: "",
+
+    // CETUS Pool Id's
+
+    USDC_SUI_CETUS_POOL_ID:
+      "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630",
+
+    CETUS_SUI_CETUS_POOL_ID:
+      "0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded",
+
+    USDT_USDC_CETUS_POOL_ID:
+      "0xc8d7a1503dc2f9f5b05449a87d8733593e2f0f3e7bffd90541252782e4d2ca20",
+
+    ALPHA_SUI_CETUS_POOL_ID:
+      "0x79882488b71c90d0be2fe8116972b46f62a2a92cbbca23e67e8788338c85b204",
+
+    USDY_USDC_CETUS_POOL_ID:
+      "0x0e809689d04d87f4bd4e660cd1b84bf5448c5a7997e3d22fc480e7e5e0b3f58d",
+
+    HaSUI_SUI_CETUS_POOL_ID:
+      "0x871d8a227114f375170f149f7e9d45be822dd003eba225e83c05ac80828596bc",
+
+    USDC_WBTC_CETUS_POOL_ID:
+      "0xaa57c66ba6ee8f2219376659f727f2b13d49ead66435aa99f57bb008a64a8042",
+
+    WETH_USDC_CETUS_POOL_ID:
+      "0x5b0b24c27ccf6d0e98f3a8704d2e577de83fa574d3a9060eb8945eeb82b3e2df",
+
+    //Cetus Info Id's
+
+    CETUS_REWARDER_GLOBAL_VAULT_ID:
+      "0xce7bceef26d3ad1f6d9b6f13a953f053e6ed3ca77907516481ce99ae8e588f2b",
+
+    CETUS_GLOBAL_CONFIG_ID:
+      "0xdaa46292632c3c4d8f31f23ea0f9b36a28ff3677e9684980e4438403a67a3d8f",
+
+    // Cetus Investor Id's
+
+    ALPHA_CETUS_INVESTOR: "",
+
+    USDT_USDC_CETUS_INVESTOR:
+      "0x6eaf967d65d7586f206ca5522a728a0ec1b80992f8f1a34e09a935138f627dfa",
+
+    ALPHA_SUI_CETUS_INVESTOR:
+      "0xd92fb59b0173c5429658c73534fb567ae51863f1a9f6c63b1fb5b8c07dec5a9f",
+
+    HaSUI_SUI_CETUS_INVESTOR:
+      "0xf649267641724f85734543b2f60aeb157e8a046ac773fc97c22d2638124c9efc",
+
+    USDY_USDC_CETUS_INVESTOR:
+      "0x522d71aa19d30a8c154a34e2e38020c1be6ea6f69887057f1eded5580eeb768d",
+
+    USDC_WBTC_CETUS_INVESTOR:
+      "0x298b8f6fc49cefa46a8d45f1c5e86ab58c79e1bab968cf0b93daf074ad3269c6",
+    ALPHA_USDT_CETUS_INVESTOR: "",
+    USDC_SUI_CETUS_INVESTOR: "",
+    ALPHA_USDC_CETUS_INVESTOR: "",
+
+    WETH_USDC_CETUS_INVESTOR: "",
+
+    // Receipt Types
+
+    ALPHA_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphapool::Receipt",
+
+    ALPHA_SUI_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
+
+    USDT_USDC_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_pool::Receipt",
+
+    USDY_USDC_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_pool::Receipt",
+
+    HaSUI_SUI_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
+
+    USDC_WBTC_POOL_RECEIPT:
+      "0xd125a4fd587ae87cd0290df876601b352842aaeeb4cf813a6fdc7d62f2b5b699::alphafi_cetus_pool_base_a::Receipt",
+    USDC_SUI_POOL_RECEIPT: "",
+
+    WETH_USDC_POOL_RECEIPT: "",
+
+    // Receipt Names
+
+    ALPHA_POOL_RECEIPT_NAME: "Betafi-BETA-receipt",
+
+    ALPHA_SUI_POOL_RECEIPT_NAME: "Betafi-ALPHA-SUI-receipt",
+
+    USDT_USDC_POOL_RECEIPT_NAME: "Betafi-USDT-USDC-receipt",
+
+    USDY_USDC_POOL_RECEIPT_NAME: "Betafi-USDY-USDC-receipt",
+
+    HaSUI_SUI_POOL_RECEIPT_NAME: "Betafi-HASUI-SUI-receipt",
+
+    USDC_SUI_POOL_RECEIPT_NAME: "Betafi-USDC-SUI-receipt",
+
+    USDC_WBTC_POOL_RECEIPT_NAME: "Betafi-USDC-WBTC-receipt",
+
+    WETH_USDC_POOL_RECEIPT_NAME: "Betafi-WETH-USDC-receipt",
+
+    // Wallets
+
+    AIRDROP_WALLET_ADDRESS:
+      "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a",
+
+    // Constants for Navi Protocol",
+
+    NAVI_STORAGE:
+      "0xbb4e2f4b6205c2e2a2db47aeb4f830796ec7c005f88537ee775986639bc442fe",
+
+    NAVI_SUI_POOL:
+      "0x96df0fce3c471489f4debaaa762cf960b3d97820bd1f3f025ff8190730e958c5",
+
+    NAVI_VSUI_BORROW_POOL:
+      "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
+
+    NAVI_USDC_POOL: "",
+
+    NAVI_USDC_BORROW_POOL: "",
+
+    NAVI_USDT_POOL: "",
+
+    NAVI_USDT_BORROW_POOL: "",
+
+    NAVI_INCENTIVE_V1:
+      "0xaaf735bf83ff564e1b219a0d644de894ef5bdc4b2250b126b2a46dd002331821",
+
+    NAVI_INCENTIVE_V2:
+      "0xf87a8acb8b81d14307894d12595541a73f19933f88e1326d5be349c7a6f7559c",
+
+    NAVI_FUNDS_POOL:
+      "0xe2b5ada45273676e0da8ae10f8fe079a7cec3d0f59187d3d20b1549c275b07ea",
+
+    // constants for Scallop Protocol
+
+    SCALLOP_VERSION:
+      "0x07871c4b3c847a0f674510d4978d5cf6f960452795e8ff6f189fd2088a3f6ac7",
+
+    SCALLOP_MARKET:
+      "0xa757975255146dc9686aa823b7838b507f315d704f428cbadad2f4ea061939d9",
+
+    SCALLOP_SUI_SPOOL:
+      "0x69ce8e537e750a95381e6040794afa5ab1758353a1a2e1de7760391b01f91670",
+
+    SCALLOP_SUI_REWARDS_POOL:
+      "0xbca914adce058ad0902c7f3cfcd698392a475f00dcfdc3f76001d0370b98777a",
+
+    SCALLOP_USDC_SPOOL:
+      "0x4ace6648ddc64e646ba47a957c562c32c9599b3bba8f5ac1aadb2ae23a2f8ca0",
+
+    SCALLOP_USDC_REWARDS_POOL:
+      "0xf4268cc9b9413b9bfe09e8966b8de650494c9e5784bf0930759cfef4904daff8",
+
+    SCALLOP_USDT_SPOOL:
+      "0xcb328f7ffa7f9342ed85af3fdb2f22919e1a06dfb2f713c04c73543870d7548f",
+
+    SCALLOP_USDT_REWARDS_POOL:
+      "0x2c9f934d67a5baa586ceec2cc24163a2f049a6af3d5ba36b84d8ac40f25c4080",
+
+    //Hop Contants
+
+    HOP_QUERY_WALLET:
+      "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e", // used only for querying Hop for quote.
+
+    HOP_FEE_BPS: 0,
+
+    HOP_NETWORK: "mainnet",
+  },
+
+  production: {
+    // General Contants
+    MS_IN_A_DAY: 864_00_000,
+
+    HALF_MUL: 1000000000000000000,
+
+    HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
+
+    HOP_MAX_SLIPPAGE_BPS: 100,
+
+    DEFAULT_HOP_SLIPPAGE: 1,
+
+    DEFAULT_CETUS_SLIPPAGE: 1,
+
+    DEFAULT_SWAP_SLIPPAGE: 1,
+
+    SUI_NETWORK: "mainnet",
+
+    CLOCK_PACKAGE_ID: "0x6",
+
+    PRICE_ORACLE:
+      "0x1568865ed9a0b5ec414220e8f79b3d04c77acc82358f6e5ae4635687392ffbef",
+
+    ALPHA_XUSDC_COIN_TYPE: "",
+
+    ALPHA_XUSDT_COIN_TYPE: "",
+
+    // constants for Alpha Protocol
+
+    ALPHA_FIRST_PACKAGE_ID:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123",
+
+    ALPHA_PACKAGE_IDS: [
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123",
+      "0x7305ab61391388275514b3195554e1dd5b72aae1d4e6f1103b0600a848b0f36f",
+      "0x5818295b2823f6f1be62abb7326abeddea01ca51c088f5d45a1853116a26d65d",
+      "0x34454fd287c11c45c3c035083cdc84d7498d5a62541987098f8f47e443ac02fe",
+      "0xad579dde7a98ed389171ee7b648296e054c9af4158fa14fca487d961d4702380",
+      "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f",
+      "0x5a26561d7bfe9587d9f9b06194dfa3dc800baa5651705bfd28034d56a202d8e0",
+      "0x5cff7cf977811ef57dbd8e3c211c9e9336bd72c8c366ec381957238ebc60c132",
+      "0x961465e883920bf201f24c3b6b24c6ab5752795609fa4a66be563be8658aac44",
+      "0x771dc108bc4ed5266ae32f678f41031c02afe5e96754a8c8d65866eccfd29e30",
+    ],
+    ALPHA_MODULE_PACKAGE_IDS: [
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123",
+      "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f",
+    ],
+
+    ALPHA_LATEST_PACKAGE_ID:
+      "0x771dc108bc4ed5266ae32f678f41031c02afe5e96754a8c8d65866eccfd29e30",
+
+    ALPHA_DISTRIBUTOR:
+      "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
+
+    VERSION:
+      "0xf9c533b483c656d29aad9b2ee48ea418dde9504fb42c8294298bf523026bf043",
+
+    ALPHA_NAVI_BORROW_FACTOR: 0.95,
+
+    ALPHA_TOKEN_REWARD_SHARE: 0.45,
+
+    ALPHA_PROTOCOL_INFO_OBJECT_ID: "", // TODO
+
+    // Coin Types
+
+    ALPHA_COIN_TYPE:
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+
+    SUI_COIN_TYPE: "0x2::sui::SUI",
+
+    USDT_COIN_TYPE:
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+
+    USDC_COIN_TYPE:
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+
+    VSUI_COIN_TYPE:
+      "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT",
+
+    CETUS_COIN_TYPE:
+      "0x06864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS",
+
+    SCALLOP_COIN_TYPE:
+      "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA",
+
+    NAVX_COIN_TYPE:
+      "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
+
+    USDY_COIN_TYPE:
+      "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
+
+    HaSUI_COIN_TYPE:
+      "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
+
+    ALPHA_XSUI_COIN_TYPE:
+      "0x07cb3a546202773a06b0b18c9af9c76c8679a2a0fe8d653cecb7dfbf7933e019::xsui::XSUI",
+
+    WBTC_COIN_TYPE:
+      "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+
+    WETH_COIN_TYPE:
+      "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+
+    // Alpha POOL Id's
+
+    ALPHA_POOL:
+      "0x6ee8f60226edf48772f81e5986994745dae249c2605a5b12de6602ef1b05b0c1",
+
+    USDC_USDT_POOL:
+      "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5",
+
+    ALPHA_SUI_POOL:
+      "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37",
+
+    HaSUI_SUI_POOL:
+      "0xb75f427854fef827233ae838d1c23eefd420a540d8fa83fb40f77421dafb84d4",
+
+    USDY_USDC_POOL:
+      "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437",
+
+    ALPHA_USDC_POOL: "",
+
+    ALPHA_USDT_POOL: "",
+
+    USDC_SUI_POOL:
+      "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab",
+
+    WETH_USDC_POOL:
+      "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6",
+
+    USDC_WBTC_POOL:
+      "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a",
+
+    // CETUS Pool Id's
+
+    USDC_SUI_CETUS_POOL_ID:
+      "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630",
+
+    CETUS_SUI_CETUS_POOL_ID:
+      "0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded",
+
+    USDT_USDC_CETUS_POOL_ID:
+      "0xc8d7a1503dc2f9f5b05449a87d8733593e2f0f3e7bffd90541252782e4d2ca20",
+
+    ALPHA_SUI_CETUS_POOL_ID:
+      "0xda7347c3192a27ddac32e659c9d9cbed6f8c9d1344e605c71c8886d7b787d720",
+
+    USDY_USDC_CETUS_POOL_ID:
+      "0x0e809689d04d87f4bd4e660cd1b84bf5448c5a7997e3d22fc480e7e5e0b3f58d",
+
+    HaSUI_SUI_CETUS_POOL_ID:
+      "0x871d8a227114f375170f149f7e9d45be822dd003eba225e83c05ac80828596bc",
+
+    USDC_WBTC_CETUS_POOL_ID:
+      "0xaa57c66ba6ee8f2219376659f727f2b13d49ead66435aa99f57bb008a64a8042",
+
+    WETH_USDC_CETUS_POOL_ID:
+      "0x5b0b24c27ccf6d0e98f3a8704d2e577de83fa574d3a9060eb8945eeb82b3e2df",
+
+    WETH_SUI_CETUS_POOL_ID:
+      "0xc51752c87e7363dec32bb429cabcb7774aaabb45fa5d2c17edfbb59bd6d1deb0",
+
+    WBTC_SUI_CETUS_POOL_ID:
+      "0xe0c526aa27d1729931d0051a318d795ad0299998898e4287d9da1bf095b49658",
+
+    //Cetus Info Id's
+
+    CETUS_REWARDER_GLOBAL_VAULT_ID:
+      "0xce7bceef26d3ad1f6d9b6f13a953f053e6ed3ca77907516481ce99ae8e588f2b",
+
+    CETUS_GLOBAL_CONFIG_ID:
+      "0xdaa46292632c3c4d8f31f23ea0f9b36a28ff3677e9684980e4438403a67a3d8f",
+
+    // Cetus Investor Id's
+
+    ALPHA_CETUS_INVESTOR: "",
+
+    USDT_USDC_CETUS_INVESTOR:
+      "0x87a76889bf4ed211276b16eb482bf6df8d4e27749ebecd13017d19a63f75a6d5",
+
+    ALPHA_SUI_CETUS_INVESTOR:
+      "0x46d901d5e1dba34103038bd2ba789b775861ea0bf4d6566afd5029cf466a3d88",
+
+    HaSUI_SUI_CETUS_INVESTOR:
+      "0x0805991383c8a5e1bbb1c2b8d824d205fdb66509a2c408f505bc16cbbdb909ab",
+
+    USDY_USDC_CETUS_INVESTOR:
+      "0x1b923520f19660d4eb013242c6d03c84fdea034b8f784cfd71173ef72ece50e1",
+
+    ALPHA_USDC_CETUS_INVESTOR: "",
+
+    ALPHA_USDT_CETUS_INVESTOR: "",
+
+    USDC_SUI_CETUS_INVESTOR:
+      "0xb6ca8aba0fb26ed264a3ae3d9c1461ac7c96cdcbeabb01e71086e9a8340b9c55",
+
+    USDC_WBTC_CETUS_INVESTOR:
+      "0x9ae0e56aa0ebc27f9d8a17b5a9118d368ba262118d878977b6194a10a671bbbc",
+
+    WETH_USDC_CETUS_INVESTOR:
+      "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43",
+
+    // Receipt Types
+
+    ALPHA_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::Receipt",
+
+    ALPHA_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
+    USDT_USDC_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+
+    USDY_USDC_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+
+    HaSUI_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
+    USDC_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
+    USDC_WBTC_POOL_RECEIPT:
+      "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f::alphafi_cetus_pool_base_a::Receipt",
+
+    WETH_USDC_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+
+    // Receipt Names
+
+    ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
+
+    ALPHA_SUI_POOL_RECEIPT_NAME: "AlphaFi ALPHA-SUI Receipt",
+
+    USDT_USDC_POOL_RECEIPT_NAME: "AlphaFi USDT-USDC Receipt",
+
+    USDY_USDC_POOL_RECEIPT_NAME: "AlphaFi USDY-USDC Receipt",
+
+    HaSUI_SUI_POOL_RECEIPT_NAME: "AlphaFi haSUI-SUI Receipt",
+
+    USDC_SUI_POOL_RECEIPT_NAME: "AlphaFi USDC-SUI Receipt",
+
+    USDC_WBTC_POOL_RECEIPT_NAME: "AlphaFi WBTC-USDC Receipt",
+
+    WETH_USDC_POOL_RECEIPT_NAME: "AlphaFi WETH-USDC Receipt",
+
+    // Wallets
+
+    AIRDROP_WALLET_ADDRESS:
+      "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a",
+
+    // Constants for Navi Protocol",
+
+    NAVI_STORAGE:
+      "0xbb4e2f4b6205c2e2a2db47aeb4f830796ec7c005f88537ee775986639bc442fe",
+
+    NAVI_SUI_POOL:
+      "0x96df0fce3c471489f4debaaa762cf960b3d97820bd1f3f025ff8190730e958c5",
+
+    NAVI_VSUI_BORROW_POOL:
+      "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
+
+    NAVI_USDC_POOL: "",
+
+    NAVI_USDC_BORROW_POOL: "",
+
+    NAVI_USDT_POOL: "",
+
+    NAVI_USDT_BORROW_POOL: "",
+
+    NAVI_INCENTIVE_V1:
+      "0xaaf735bf83ff564e1b219a0d644de894ef5bdc4b2250b126b2a46dd002331821",
+
+    NAVI_INCENTIVE_V2:
+      "0xf87a8acb8b81d14307894d12595541a73f19933f88e1326d5be349c7a6f7559c",
+
+    NAVI_FUNDS_POOL:
+      "0xe2b5ada45273676e0da8ae10f8fe079a7cec3d0f59187d3d20b1549c275b07ea",
+
+    // constants for Scallop Protocol
+
+    SCALLOP_VERSION:
+      "0x07871c4b3c847a0f674510d4978d5cf6f960452795e8ff6f189fd2088a3f6ac7",
+
+    SCALLOP_MARKET:
+      "0xa757975255146dc9686aa823b7838b507f315d704f428cbadad2f4ea061939d9",
+
+    SCALLOP_SUI_SPOOL:
+      "0x69ce8e537e750a95381e6040794afa5ab1758353a1a2e1de7760391b01f91670",
+
+    SCALLOP_SUI_REWARDS_POOL:
+      "0xbca914adce058ad0902c7f3cfcd698392a475f00dcfdc3f76001d0370b98777a",
+
+    SCALLOP_USDC_SPOOL:
+      "0x4ace6648ddc64e646ba47a957c562c32c9599b3bba8f5ac1aadb2ae23a2f8ca0",
+
+    SCALLOP_USDC_REWARDS_POOL:
+      "0xf4268cc9b9413b9bfe09e8966b8de650494c9e5784bf0930759cfef4904daff8",
+
+    SCALLOP_USDT_SPOOL:
+      "0xcb328f7ffa7f9342ed85af3fdb2f22919e1a06dfb2f713c04c73543870d7548f",
+
+    SCALLOP_USDT_REWARDS_POOL:
+      "0x2c9f934d67a5baa586ceec2cc24163a2f049a6af3d5ba36b84d8ac40f25c4080",
+
+    //Hop Contants
+
+    HOP_QUERY_WALLET:
+      "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e", // used only for querying Hop for quote.
+
+    HOP_FEE_BPS: 0,
+
+    HOP_NETWORK: "mainnet",
+  },
+};
