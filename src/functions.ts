@@ -46,6 +46,7 @@ export async function getReceipts(
     cachedPromise = (async (): Promise<Receipt[]> => {
       // const first_package = conf[CONF_ENV].ALPHA_FIRST_PACKAGE_ID;
       let currentCursor: string | null | undefined = null;
+      /* eslint-disable-next-line no-constant-condition */
       while (true) {
         const paginatedObjects: PaginatedObjectsResponse =
           await options.suiClient.getOwnedObjects({
