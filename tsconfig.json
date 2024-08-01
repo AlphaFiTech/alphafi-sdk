@@ -9,8 +9,12 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "./dist",
-    "types": ["jest", "node"]
+    "types": ["jest"],
+    "sourceMap": true,
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "moduleResolution": "node"
   },
-  "include": ["src", "__tests__"],
+  "include": ["src", "__tests_"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
