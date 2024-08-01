@@ -1,2 +1,7 @@
 export { getVaults } from "./getVaults";
-export { getVaultBalance } from "./getVaultBalances";
+export {
+  getAlphaVaultBalance,
+  getSingleAssetVaultBalance,
+  getDoubleAssetVaultBalance,
+} from "./getVaultBalances";
+export { AlphaFiVault } from "./common/types";

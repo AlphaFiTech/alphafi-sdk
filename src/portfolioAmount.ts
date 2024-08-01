@@ -1,7 +1,7 @@
 import { SuiClient } from "../node_modules/@mysten/sui/dist/cjs/client/index";
 import Decimal from "../node_modules/decimal.js/decimal";
-import { coins } from "./common/coins";
-import { poolMap, poolPairMap } from "./common/maps";
+import { coins, poolTokenMap } from "./common/coins";
+import { poolInfo, poolPairMap } from "./common/maps";
 import { PythPriceIdPair } from "./common/pyth";
 import {
   AlphaPoolType,
@@ -87,7 +87,6 @@ const portfolioAmountCache = new SimpleCache<[number, number]>();
 const portfolioAmountPromiseCache = new SimpleCache<
   Promise<[number, number]>
 >();
-
 export async function getPortfolioAmount(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
@@ -112,7 +111,7 @@ export async function getPortfolioAmount(
       const receipts = await getReceipts(poolName, options);
       let totalXTokens = new Decimal(0);
       if (receipts) {
-        receipts.forEach((receipt: any) => {
+        receipts.forEach((receipt) => {
           const xTokens = receipt.content.fields.xTokenBalance;
           totalXTokens = totalXTokens.add(xTokens);
         });
@@ -161,7 +160,8 @@ export async function getPortfolioAmountInUSD(
     poolName === "USDY-USDC" ||
     poolName === "USDC-SUI" ||
     poolName === "WETH-USDC" ||
-    poolName === "USDC-WBTC"
+    poolName === "USDC-WBTC" ||
+    poolName === "NAVX-SUI"
   ) {
     const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
     if (amounts) {
@@ -194,6 +194,111 @@ export async function getPortfolioAmountInUSD(
   }
 }
 
+const singleAssetPortfolioAmountCache = new SimpleCache<number>();
+const singleAssetPortfolioAmountPromiseCache = new SimpleCache<
+  Promise<number>
+>();
+export async function getSingleAssetPortfolioAmount(
+  poolName: PoolName,
+  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
+  ignoreCache: boolean = false,
+) {
+  let portfolioAmount: number = 0;
+  const portfolioAmountCacheKey = `getPortfolioAmount:${poolName}-${options.address}}`;
+  if (ignoreCache) {
+    singleAssetPortfolioAmountCache.delete(portfolioAmountCacheKey);
+    singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey);
+  }
+  const cachedResponse = singleAssetPortfolioAmountCache.get(
+    portfolioAmountCacheKey,
+  );
+
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
+  let cachedPromise = singleAssetPortfolioAmountPromiseCache.get(
+    portfolioAmountCacheKey,
+  );
+
+  if (!cachedPromise) {
+    cachedPromise = (async () => {
+      const receipts = await getReceipts(poolName, options, ignoreCache);
+      let totalXTokens = new Decimal(0);
+      if (receipts) {
+        receipts.forEach((receipt) => {
+          const xTokens = receipt.content.fields.xTokenBalance;
+          totalXTokens = totalXTokens.add(xTokens);
+        });
+      }
+      if (totalXTokens.gt(0)) {
+        const poolExchangeRate = await getPoolExchangeRate(
+          poolName,
+          options,
+          ignoreCache,
+        );
+        if (poolExchangeRate) {
+          let tokens = totalXTokens.mul(poolExchangeRate);
+          tokens = tokens.div(
+            Math.pow(10, 9 - coins[poolTokenMap[poolName].coinName].expo),
+          );
+          portfolioAmount = tokens.toNumber();
+        } else {
+          console.error(
+            `Could not get poolExchangeRate for poolName: ${poolName}`,
+          );
+        }
+      }
+
+      singleAssetPortfolioAmountCache.set(
+        portfolioAmountCacheKey,
+        portfolioAmount,
+      );
+      singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
+      return portfolioAmount;
+    })().catch((error) => {
+      singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
+      throw error;
+    });
+
+    singleAssetPortfolioAmountPromiseCache.set(
+      portfolioAmountCacheKey,
+      cachedPromise,
+    );
+  }
+
+  return cachedPromise;
+}
+
+export async function getSingleAssetPortfolioAmountInUSD(
+  poolName: PoolName,
+  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
+  ignoreCache: boolean = false,
+): Promise<string | undefined> {
+  const amounts = await getSingleAssetPortfolioAmount(
+    poolName,
+    options,
+    ignoreCache,
+  );
+  if (amounts) {
+    const amount = new Decimal(amounts).div(
+      new Decimal(Math.pow(10, coins[poolTokenMap[poolName].coinName].expo)),
+    );
+    const priceOfCoin = await getLatestPrice(
+      `${poolTokenMap[poolName].coinName}/USD` as PythPriceIdPair,
+    );
+    if (priceOfCoin) {
+      const amountInUSD = amount.mul(priceOfCoin);
+      return amountInUSD.toString();
+    }
+  } else {
+    console.error(
+      `getPortfolioAmountInUSD is not implemented for poolName: ${poolName}`,
+    );
+  }
+  return "0";
+}
+
 const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
 const poolPromiseCache = new SimpleCache<
   Promise<PoolType | AlphaPoolType | undefined>
@@ -206,7 +311,7 @@ export async function getPool(
   },
   ignoreCache: boolean = false,
 ): Promise<PoolType | AlphaPoolType | undefined> {
-  const cacheKey = `pool_${poolMap[poolName]}`;
+  const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].poolId}`;
 
   if (ignoreCache) {
     poolCache.delete(cacheKey);
@@ -229,7 +334,7 @@ export async function getPool(
   poolPromise = (async () => {
     try {
       const o = await options.suiClient.getObject({
-        id: poolMap[poolName],
+        id: poolInfo[poolName].poolId,
         options: {
           showContent: true,
         },

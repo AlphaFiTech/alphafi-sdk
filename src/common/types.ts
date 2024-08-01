@@ -415,3 +415,12 @@ export type CreatePoolOptions = {
   amount: number;
   isAmountA: boolean;
 };
+
+export type AlphaFiVault = {
+  poolId: string | null;
+  poolName: string | null;
+  receiptName: string | null;
+  receiptType: string | null;
+  coinTypeA: string | null;
+  coinTypeB: string | null;
+};
