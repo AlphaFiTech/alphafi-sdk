@@ -424,3 +424,23 @@ export type AlphaFiVault = {
   coinTypeA: string | null;
   coinTypeB: string | null;
 };
+
+export type AlphaVaultBalance = {
+  lockedAlphaCoins: string | null;
+  lockedAlphaCoinsInUSD: string | null;
+  unlockedAlphaCoins: string | null;
+  unlockedAlphaCoinsInUSD: string | null;
+  totalAlphaCoins: string | null;
+  totalAlphaCoinsInUSD: string | null;
+};
+
+export type DoubleAssetVaultBalance = {
+  coinA: string | null;
+  coinB: string | null;
+  valueInUSD: string | null;
+};
+
+export type SingleAssetVaultBalance = {
+  coin: string | null;
+  valueInUSD: string | null;
+};

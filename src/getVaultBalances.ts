@@ -2,16 +2,24 @@ import {
   getFullnodeUrl,
   SuiClient,
 } from "../node_modules/@mysten/sui/dist/cjs/client/index";
-import { PoolName } from "./common/types";
+import {
+  AlphaVaultBalance,
+  DoubleAssetVaultBalance,
+  PoolName,
+  SingleAssetVaultBalance,
+} from "./common/types";
 import {
   getAlphaPortfolioAmount,
+  getAlphaPortfolioAmountInUSD,
   getPortfolioAmount,
+  getPortfolioAmountInUSD,
   getSingleAssetPortfolioAmount,
+  getSingleAssetPortfolioAmountInUSD,
 } from "./portfolioAmount";
 
 export async function getAlphaVaultBalance(
   address: string,
-): Promise<[string, string, string] | undefined> {
+): Promise<AlphaVaultBalance | undefined> {
   const suiClient = new SuiClient({
     url: getFullnodeUrl("mainnet"),
   });
@@ -21,17 +29,44 @@ export async function getAlphaVaultBalance(
       address,
       isLocked: true,
     });
+    const lockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
+      "ALPHA",
+      { suiClient, address, isLocked: true },
+    );
     const unlockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
       suiClient,
       address,
       isLocked: false,
     });
+    const unlockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
+      "ALPHA",
+      { suiClient, address, isLocked: false },
+    );
     const portfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
       suiClient,
       address,
     });
-    if (lockedPortfolioAmount && unlockedPortfolioAmount && portfolioAmount) {
-      return [lockedPortfolioAmount, unlockedPortfolioAmount, portfolioAmount];
+    const portfolioAmountInUSD = await getAlphaPortfolioAmountInUSD("ALPHA", {
+      suiClient,
+      address,
+    });
+    if (
+      lockedPortfolioAmount &&
+      lockedPortfolioAmountInUSD &&
+      unlockedPortfolioAmount &&
+      unlockedPortfolioAmountInUSD &&
+      portfolioAmount &&
+      portfolioAmountInUSD
+    ) {
+      const res: AlphaVaultBalance = {
+        lockedAlphaCoins: lockedPortfolioAmount,
+        lockedAlphaCoinsInUSD: lockedPortfolioAmountInUSD,
+        unlockedAlphaCoins: unlockedPortfolioAmount,
+        unlockedAlphaCoinsInUSD: unlockedPortfolioAmountInUSD,
+        totalAlphaCoins: portfolioAmount,
+        totalAlphaCoinsInUSD: portfolioAmountInUSD,
+      };
+      return res;
     }
   }
   return undefined;
@@ -40,7 +75,7 @@ export async function getAlphaVaultBalance(
 export async function getDoubleAssetVaultBalance(
   address: string,
   poolName: PoolName,
-): Promise<[string, string] | undefined> {
+): Promise<DoubleAssetVaultBalance | undefined> {
   const suiClient = new SuiClient({
     url: getFullnodeUrl("mainnet"),
   });
@@ -49,8 +84,17 @@ export async function getDoubleAssetVaultBalance(
       suiClient,
       address,
     });
-    if (portfolioAmount) {
-      return [portfolioAmount[0].toString(), portfolioAmount[1].toString()];
+    const portfolioAmountInUSD = await getPortfolioAmountInUSD(
+      poolName as PoolName,
+      { suiClient, address },
+    );
+    if (portfolioAmount && portfolioAmountInUSD) {
+      const res: DoubleAssetVaultBalance = {
+        coinA: portfolioAmount[0].toString(),
+        coinB: portfolioAmount[1].toString(),
+        valueInUSD: portfolioAmountInUSD,
+      };
+      return res;
     }
   }
 }
@@ -58,7 +102,7 @@ export async function getDoubleAssetVaultBalance(
 export async function getSingleAssetVaultBalance(
   address: string,
   poolName: PoolName,
-): Promise<string | undefined> {
+): Promise<SingleAssetVaultBalance | undefined> {
   const suiClient = new SuiClient({
     url: getFullnodeUrl("mainnet"),
   });
@@ -69,8 +113,19 @@ export async function getSingleAssetVaultBalance(
       address,
     },
   );
-  if (portfolioAmount) {
-    return portfolioAmount.toString();
+  const portfolioAmountInUSD = await getSingleAssetPortfolioAmountInUSD(
+    poolName as PoolName,
+    {
+      suiClient,
+      address,
+    },
+  );
+  if (portfolioAmount && portfolioAmountInUSD) {
+    const res: SingleAssetVaultBalance = {
+      coin: portfolioAmount.toString(),
+      valueInUSD: portfolioAmountInUSD,
+    };
+    return res;
   }
   return undefined;
 }

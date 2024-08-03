@@ -4,4 +4,9 @@ export {
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
 } from "./getVaultBalances";
-export { AlphaFiVault } from "./common/types";
+export {
+  AlphaFiVault,
+  AlphaVaultBalance,
+  DoubleAssetVaultBalance,
+  SingleAssetVaultBalance,
+} from "./common/types";
