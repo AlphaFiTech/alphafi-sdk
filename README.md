@@ -1,4 +1,4 @@
-# ALPHAFI TypeScript SDK
+# AlphaFi TypeScript SDK
 
 ## Installation
 
