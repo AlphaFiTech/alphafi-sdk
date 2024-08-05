@@ -34,11 +34,12 @@ export const conf = {
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
 
     ALPHA_LATEST_PACKAGE_ID:
-      "0x17c23e2bc45d4b4b3e398902246494e9e44bc6d72d8a68f8bf1c61a3f71280ad",
+      "0x0e2db4c7ef008f89a6c747d3cf03b522d04ee09f2e8ef49bc94018c7a4564a1a",
 
     ALPHA_MODULE_PACKAGE_IDS: [
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
       "0xd125a4fd587ae87cd0290df876601b352842aaeeb4cf813a6fdc7d62f2b5b699",
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1",
     ],
 
     ALPHA_DISTRIBUTOR:
@@ -114,6 +115,20 @@ export const conf = {
     ALPHA_USDT_POOL: "",
     USDC_SUI_POOL: "",
     WETH_USDC_POOL: "",
+    NAVX_SUI_POOL:
+      "0x9dc8aefce176a265e14d71f64e960ace3d5da2ded47141cf652d8172551463b1",
+
+    // Alphafi-Navi Pools
+
+    ALPHAFI_NAVI_SUI_POOL:
+      "0xd754696e2a7bb50e1ebdf2b1db45e525a99aab1c7640ca8126f2264bc0a4f753",
+    ALPHAFI_NAVI_VSUI_POOL:
+      "0x43c16f8c8c6182c8712c83e31df22dcfaf3f2c644584e2a6cc3f7244465fa04e",
+    ALPHAFI_NAVI_WETH_POOL:
+      "0x990d3af75f1ebcc9a05c34eb6b115eaeb61e9f72eb9955fcc83dbf1e9c91bff7",
+    ALPHAFI_NAVI_USDT_POOL:
+      "0xf1a10734b9acc82ab5ea8d7b35f1ffa053a43b0ca05603dc1f515c5d5e707926",
+    ALPHAFI_NAVI_USDC_POOL: "",
 
     // CETUS Pool Id's
 
@@ -140,6 +155,10 @@ export const conf = {
 
     WETH_USDC_CETUS_POOL_ID:
       "0x5b0b24c27ccf6d0e98f3a8704d2e577de83fa574d3a9060eb8945eeb82b3e2df",
+    VSUI_SUI_CETUS_POOL_ID:
+      "0x6c545e78638c8c1db7a48b282bb8ca79da107993fcb185f75cedc1f5adb2f535",
+    NAVX_SUI_CETUS_POOL_ID:
+      "0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703",
 
     //Cetus Info Id's
 
@@ -172,6 +191,24 @@ export const conf = {
     ALPHA_USDC_CETUS_INVESTOR: "",
 
     WETH_USDC_CETUS_INVESTOR: "",
+    NAVX_SUI_CETUS_INVESTOR:
+      "0x7dd0aa1117683dae31221704237749944d983639452600b6e486a8d3c14c0e6a",
+
+    // Navi Investor Ids
+
+    NAVI_SUI_INVESTOR:
+      "0x1a19c5c570ea00695abbb3cdae92caa8b4c4780bf8bf63705cd90c582740570a",
+
+    NAVI_VSUI_INVESTOR:
+      "0xa02f11c802bc0e230b72479a308b0b8da948ee00fc7e18c72222a0291cc47b30",
+
+    NAVI_WETH_INVESTOR:
+      "0xb246f0afffd1d2c13dac4af3c0f328f198f01a49a7fb326485c22a3e8371cba8",
+
+    NAVI_USDT_INVESTOR:
+      "0x77970e1f98160c4e72f57603e1525179d060a8a30baa1fe0fdae2c6b30173d5a",
+
+    NAVI_USDC_INVESTOR: "",
 
     // Receipt Types
 
@@ -192,9 +229,29 @@ export const conf = {
 
     USDC_WBTC_POOL_RECEIPT:
       "0xd125a4fd587ae87cd0290df876601b352842aaeeb4cf813a6fdc7d62f2b5b699::alphafi_cetus_pool_base_a::Receipt",
-    USDC_SUI_POOL_RECEIPT: "",
+    USDC_SUI_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
 
-    WETH_USDC_POOL_RECEIPT: "",
+    WETH_USDC_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_pool::Receipt",
+
+    NAVI_SUI_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
+    NAVI_VSUI_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
+    NAVI_WETH_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
+    NAVI_USDT_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
+    NAVI_USDC_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
+    NAVX_SUI_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
 
     // Receipt Names
 
@@ -214,6 +271,18 @@ export const conf = {
 
     WETH_USDC_POOL_RECEIPT_NAME: "Betafi-WETH-USDC-receipt",
 
+    NAVI_SUI_POOL_RECEIPT_NAME: "Betafi-Navi-SUI-receipt",
+
+    NAVI_VSUI_POOL_RECEIPT_NAME: "Betafi-Navi-VSUI-receipt",
+
+    NAVI_WETH_POOL_RECEIPT_NAME: "Betafi-Navi-WETH-receipt",
+
+    NAVI_USDT_POOL_RECEIPT_NAME: "Betafi-Navi-USDT-receipt",
+
+    NAVI_USDC_POOL_RECEIPT_NAME: "Betafi-Navi-USDC-receipt",
+
+    NAVX_SUI_POOL_RECEIPT_NAME: "Betafi-Navx-Sui-receipt",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:
@@ -230,11 +299,19 @@ export const conf = {
     NAVI_VSUI_BORROW_POOL:
       "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
 
-    NAVI_USDC_POOL: "",
+    NAVI_VSUI_POOL:
+      "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
+
+    NAVI_WETH_POOL:
+      "0x71b9f6e822c48ce827bceadce82201d6a7559f7b0350ed1daa1dc2ba3ac41b56",
+
+    NAVI_USDC_POOL:
+      "0xa02a98f9c88db51c6f5efaaf2261c81f34dd56d86073387e0ef1805ca22e39c8",
 
     NAVI_USDC_BORROW_POOL: "",
 
-    NAVI_USDT_POOL: "",
+    NAVI_USDT_POOL:
+      "0x0e060c3b5b8de00fb50511b7a45188c8e34b6995c01f69d98ea5a466fe10d103",
 
     NAVI_USDT_BORROW_POOL: "",
 
@@ -244,8 +321,11 @@ export const conf = {
     NAVI_INCENTIVE_V2:
       "0xf87a8acb8b81d14307894d12595541a73f19933f88e1326d5be349c7a6f7559c",
 
-    NAVI_FUNDS_POOL:
+    NAVI_VSUI_FUNDS_POOL:
       "0xe2b5ada45273676e0da8ae10f8fe079a7cec3d0f59187d3d20b1549c275b07ea",
+
+    NAVI_NAVX_FUNDS_POOL:
+      "0x9dae0cf104a193217904f88a48ce2cf0221e8cd9073878edd05101d6b771fa09",
 
     // constants for Scallop Protocol
 
@@ -326,14 +406,17 @@ export const conf = {
       "0x5cff7cf977811ef57dbd8e3c211c9e9336bd72c8c366ec381957238ebc60c132",
       "0x961465e883920bf201f24c3b6b24c6ab5752795609fa4a66be563be8658aac44",
       "0x771dc108bc4ed5266ae32f678f41031c02afe5e96754a8c8d65866eccfd29e30",
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3",
+      "0x7666ad8f8b0201c0a33cc5b3444167c9bd4a029393e3807adc2f82df016d5cea",
     ],
     ALPHA_MODULE_PACKAGE_IDS: [
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123",
       "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f",
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3",
     ],
 
     ALPHA_LATEST_PACKAGE_ID:
-      "0x771dc108bc4ed5266ae32f678f41031c02afe5e96754a8c8d65866eccfd29e30",
+      "0x7666ad8f8b0201c0a33cc5b3444167c9bd4a029393e3807adc2f82df016d5cea",
 
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
@@ -417,6 +500,21 @@ export const conf = {
     USDC_WBTC_POOL:
       "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a",
 
+    NAVX_SUI_POOL: "",
+
+    // Alphafi-Navi Pools
+
+    ALPHAFI_NAVI_SUI_POOL:
+      "0x643f84e0a33b19e2b511be46232610c6eb38e772931f582f019b8bbfb893ddb3",
+    ALPHAFI_NAVI_VSUI_POOL:
+      "0x0d9598006d37077b4935400f6525d7f1070784e2d6f04765d76ae0a4880f7d0a",
+    ALPHAFI_NAVI_WETH_POOL:
+      "0xe4eef7d4d8cafa3ef90ea486ff7d1eec347718375e63f1f778005ae646439aad",
+    ALPHAFI_NAVI_USDT_POOL:
+      "0xc696ca5b8f21a1f8fcd62cff16bbe5a396a4bed6f67909cfec8269eb16e60757",
+    ALPHAFI_NAVI_USDC_POOL:
+      "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae",
+
     // CETUS Pool Id's
 
     USDC_SUI_CETUS_POOL_ID:
@@ -449,6 +547,13 @@ export const conf = {
     WBTC_SUI_CETUS_POOL_ID:
       "0xe0c526aa27d1729931d0051a318d795ad0299998898e4287d9da1bf095b49658",
 
+    VSUI_SUI_CETUS_POOL_ID:
+      "0x6c545e78638c8c1db7a48b282bb8ca79da107993fcb185f75cedc1f5adb2f535",
+    NAVX_SUI_CETUS_POOL_ID:
+      "0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703",
+
+    USDC_CETUS_CETUS_POOL_ID:
+      "0x238f7e4648e62751de29c982cbf639b4225547c31db7bd866982d7d56fc2c7a8",
     //Cetus Info Id's
 
     CETUS_REWARDER_GLOBAL_VAULT_ID:
@@ -486,6 +591,25 @@ export const conf = {
     WETH_USDC_CETUS_INVESTOR:
       "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43",
 
+    NAVX_SUI_CETUS_INVESTOR: "",
+
+    // Navi Investor Ids
+
+    NAVI_SUI_INVESTOR:
+      "0x0b4309b0cb8a75747635ae65a7bf3e7d555e7248c17cf8232a40240a415cf78f",
+
+    NAVI_VSUI_INVESTOR:
+      "0x5843b3db9f1bc9ee39dd4950507f5466f24f1b110b8c6b1d7aa8502ce8ca4ac4",
+
+    NAVI_WETH_INVESTOR:
+      "0xaef988b8bcd85f319817579cfeaf94b13c2113d4b670f9ed66326d97a3f9d76f",
+
+    NAVI_USDT_INVESTOR:
+      "0xc3b2ba8d15fe77bada328ede3219aa8b746832932f7372f974313c841bb6693f",
+
+    NAVI_USDC_INVESTOR:
+      "0xdf980cacf2ef2f4411f793ee9ee9266af78324b228323ede2ce73f9cf0c301cc",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -512,6 +636,24 @@ export const conf = {
     WETH_USDC_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
 
+    NAVI_SUI_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
+    NAVI_VSUI_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
+    NAVI_WETH_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
+    NAVI_USDT_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
+    NAVI_USDC_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
+    NAVX_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
     // Receipt Names
 
     ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
@@ -530,6 +672,18 @@ export const conf = {
 
     WETH_USDC_POOL_RECEIPT_NAME: "AlphaFi WETH-USDC Receipt",
 
+    NAVI_SUI_POOL_RECEIPT_NAME: "AlphaFi-Navi SUI Receipt",
+
+    NAVI_VSUI_POOL_RECEIPT_NAME: "AlphaFi-Navi VSUI Receipt",
+
+    NAVI_WETH_POOL_RECEIPT_NAME: "AlphaFi-Navi WETH Receipt",
+
+    NAVI_USDT_POOL_RECEIPT_NAME: "AlphaFi-Navi USDT Receipt",
+
+    NAVI_USDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC Receipt",
+
+    NAVX_SUI_POOL_RECEIPT_NAME: "AlphaFi NAVX-SUI Receipt",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:
@@ -546,11 +700,19 @@ export const conf = {
     NAVI_VSUI_BORROW_POOL:
       "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
 
-    NAVI_USDC_POOL: "",
+    NAVI_VSUI_POOL:
+      "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
+
+    NAVI_WETH_POOL:
+      "0x71b9f6e822c48ce827bceadce82201d6a7559f7b0350ed1daa1dc2ba3ac41b56",
+
+    NAVI_USDC_POOL:
+      "0xa02a98f9c88db51c6f5efaaf2261c81f34dd56d86073387e0ef1805ca22e39c8",
 
     NAVI_USDC_BORROW_POOL: "",
 
-    NAVI_USDT_POOL: "",
+    NAVI_USDT_POOL:
+      "0x0e060c3b5b8de00fb50511b7a45188c8e34b6995c01f69d98ea5a466fe10d103",
 
     NAVI_USDT_BORROW_POOL: "",
 
@@ -560,8 +722,11 @@ export const conf = {
     NAVI_INCENTIVE_V2:
       "0xf87a8acb8b81d14307894d12595541a73f19933f88e1326d5be349c7a6f7559c",
 
-    NAVI_FUNDS_POOL:
+    NAVI_VSUI_FUNDS_POOL:
       "0xe2b5ada45273676e0da8ae10f8fe079a7cec3d0f59187d3d20b1549c275b07ea",
+
+    NAVI_NAVX_FUNDS_POOL:
+      "0x9dae0cf104a193217904f88a48ce2cf0221e8cd9073878edd05101d6b771fa09",
 
     // constants for Scallop Protocol
 

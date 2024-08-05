@@ -1,4 +1,5 @@
 import { conf, CONF_ENV } from "./constants";
+import { PoolReceipt } from "./types";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
@@ -54,4 +55,128 @@ export const poolPairMap: {
   "USDC-SUI": { pool1: "USDC", pool2: "SUI" },
   "WETH-USDC": { pool1: "WETH", pool2: "USDC" },
   "USDC-WBTC": { pool1: "USDC", pool2: "WBTC" },
+};
+
+export const poolInfo: {
+  [key: string]: {
+    parentProtocolName: string;
+    parentPoolId: string;
+    poolId: string;
+    investorId: string;
+    receiptName: string;
+    receiptType: PoolReceipt;
+  };
+} = {
+  "NAVI-SUI": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_SUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_SUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_SUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT,
+  },
+  "NAVI-VSUI": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_VSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_VSUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_VSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT,
+  },
+  "NAVI-WETH": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_WETH_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_WETH_POOL,
+    investorId: conf[CONF_ENV].NAVI_WETH_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT,
+  },
+  "NAVI-USDT": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_USDT_POOL,
+    investorId: conf[CONF_ENV].NAVI_USDT_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT,
+  },
+  "NAVI-USDC": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_USDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
+  },
+  ALPHA: {
+    parentProtocolName: "ALPHAFI",
+    parentPoolId: conf[CONF_ENV].ALPHA_POOL,
+    poolId: conf[CONF_ENV].ALPHA_POOL,
+    investorId: conf[CONF_ENV].ALPHA_POOL,
+    receiptName: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
+  },
+  "ALPHA-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].ALPHA_SUI_POOL,
+    investorId: conf[CONF_ENV].ALPHA_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT,
+  },
+  "HASUI-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].HaSUI_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].HaSUI_SUI_POOL,
+    investorId: conf[CONF_ENV].HaSUI_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].HaSUI_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].HaSUI_SUI_POOL_RECEIPT,
+  },
+  "USDT-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDT_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_USDT_POOL,
+    investorId: conf[CONF_ENV].USDT_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT,
+  },
+  "USDY-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDY_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDY_USDC_POOL,
+    investorId: conf[CONF_ENV].USDY_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT,
+  },
+  "USDC-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_SUI_POOL,
+    investorId: conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
+  },
+  "WETH-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].WETH_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WETH_USDC_POOL,
+    investorId: conf[CONF_ENV].WETH_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT,
+  },
+  "USDC-WBTC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_WBTC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_WBTC_POOL,
+    investorId: conf[CONF_ENV].USDC_WBTC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT,
+  },
+  "NAVX-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].NAVX_SUI_POOL,
+    investorId: conf[CONF_ENV].NAVX_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
+  },
 };

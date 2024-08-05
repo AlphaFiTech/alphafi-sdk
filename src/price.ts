@@ -1,6 +1,5 @@
 import BN from "bn.js";
 import { coins } from "./common/coins";
-// import CetusClmmSDK from "../node_modules/@cetusprotocol/cetus-sui-clmm-sdk/dist/index";
 import CetusClmmSDK, {
   SdkOptions,
   Pool,
@@ -11,7 +10,12 @@ import CetusClmmSDK, {
   TickMath,
   d,
 } from "../node_modules/@cetusprotocol/cetus-sui-clmm-sdk/dist/index";
-import { CetusSwapOptions, Coin, CreatePoolOptions } from "./common/types";
+import {
+  CetusSwapOptions,
+  Coin,
+  CreatePoolOptions,
+  SimpleCache,
+} from "./common/types";
 import { Transaction } from "../node_modules/@mysten/sui/dist/cjs/transactions/index";
 import { cetusMainnetSDKOptions } from "./common/cetus_mainnet_config";
 import axios from "../node_modules/axios/index";
@@ -72,20 +76,52 @@ async function fetchPriceFromAlphaAPI(
   }
 }
 
-export async function getAlphaPrice(): Promise<number | undefined> {
-  const cetusGateway = new CetusGateway(cetusMainnetSDKOptions);
-  const swapOption: CetusSwapOptions = {
-    pair: { coinA: coins.ALPHA, coinB: coins.SUI },
-    senderAddress:
-      "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
-    slippage: 1,
-    inAmount: new BN(1_000_000_000),
-  };
-  const res = await cetusGateway.getPrice(swapOption);
-  const latestSuiPrice = await getLatestPrice("SUI/USD");
-  if (latestSuiPrice) {
-    return res.estimatedAmountOut.toNumber() * Number(latestSuiPrice) * 1e-9;
+const alphaPricePromiseCache = new SimpleCache<Promise<number>>(60000);
+const alphaPriceCache = new SimpleCache<number>(60000);
+
+export async function getAlphaPrice(
+  ignoreCache: boolean = false,
+): Promise<number | undefined> {
+  const cacheKey = `getAlphaPrice`;
+  if (ignoreCache) {
+    alphaPriceCache.delete(cacheKey);
+    alphaPricePromiseCache.delete(cacheKey);
   }
+  const cachedResponse = alphaPriceCache.get(cacheKey);
+
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  let alphaPrice = 0;
+  let cachedPromise = alphaPricePromiseCache.get(cacheKey);
+  if (!cachedPromise) {
+    cachedPromise = (async (): Promise<number> => {
+      const cetusGateway = new CetusGateway(cetusMainnetSDKOptions);
+      const swapOption: CetusSwapOptions = {
+        pair: { coinA: coins.ALPHA, coinB: coins.SUI },
+        senderAddress:
+          "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
+        slippage: 1,
+        inAmount: new BN(1_000_000_000),
+      };
+      const res = await cetusGateway.getPrice(swapOption);
+      const latestSuiPrice = await getLatestPrice("SUI/USD");
+      if (latestSuiPrice) {
+        alphaPrice =
+          res.estimatedAmountOut.toNumber() * Number(latestSuiPrice) * 1e-9;
+        alphaPriceCache.set(cacheKey, alphaPrice);
+        alphaPricePromiseCache.delete(cacheKey); // Remove the promise from cache
+      }
+      return alphaPrice;
+    })().catch((error) => {
+      alphaPricePromiseCache.delete(cacheKey); // Remove the promise from cache
+      throw error;
+    });
+
+    alphaPricePromiseCache.set(cacheKey, cachedPromise);
+  }
+
+  return cachedPromise;
 }
 
 export async function getUSDYPrice(): Promise<number | undefined> {

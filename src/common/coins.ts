@@ -114,3 +114,13 @@ export const coins: { [key in CoinName]: Coin } = {
     expo: 6,
   },
 };
+
+export const poolTokenMap: {
+  [key in string]: { coinName: CoinName; coinType: CoinType };
+} = {
+  "NAVI-SUI": { coinName: "SUI", coinType: coins["SUI"].type },
+  "NAVI-VSUI": { coinName: "VSUI", coinType: coins["VSUI"].type },
+  "NAVI-WETH": { coinName: "WETH", coinType: coins["WETH"].type },
+  "NAVI-USDT": { coinName: "USDT", coinType: coins["USDT"].type },
+  "NAVI-USDC": { coinName: "USDC", coinType: coins["USDC"].type },
+};

@@ -1,32 +1,64 @@
-import { poolMap } from "./common/maps";
-import { Receipt } from "./common/types";
+import { poolInfo } from "./common/maps";
 import {
   getFullnodeUrl,
   SuiClient,
 } from "../node_modules/@mysten/sui/dist/cjs/client/index";
 import { getReceipts } from "./functions";
+import { AlphaFiVault } from "./common/types";
+import { getPool } from "./portfolioAmount";
+
+function extractCoinTypes(input: string): {
+  coinTypeA: string | null;
+  coinTypeB: string | null;
+} {
+  let regex = /Pool<([^,>]+),\s*([^>]+)>/;
+  let match = input.match(regex);
+  if (!match) {
+    regex = /Pool<([^,>]+)>/;
+    match = input.match(regex);
+    if (!match) {
+      return { coinTypeA: null, coinTypeB: null };
+    }
+  }
+  const coinTypeA = match[1] || null;
+  const coinTypeB = match[2] || null;
+  return { coinTypeA, coinTypeB };
+}
 
 export async function getVaults(
   address: string,
-): Promise<string[] | undefined> {
+): Promise<AlphaFiVault[] | undefined> {
   const vaultsArr = [];
   const suiClient = new SuiClient({
     url: getFullnodeUrl("mainnet"),
   });
   if (address) {
-    const poolArr = Object.keys(poolMap);
-
-    const receipts: Receipt[] = [];
-    for (const pool of poolArr) {
+    for (const pool of Object.keys(poolInfo)) {
       const receipt = await getReceipts(pool, { address, suiClient });
-      if (receipt.length > 0) receipts.push(receipt[0]);
-    }
-    for (const receipt of receipts) {
-      const name = receipt.content.fields.name;
-      const res = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
-      vaultsArr.push(res);
+      const poolObject = await getPool(pool, { suiClient });
+      if (receipt.length > 0 && poolObject) {
+        const name = receipt[0].content.fields.name;
+        const res: AlphaFiVault = {
+          poolId: poolInfo[pool].poolId,
+          poolName: null,
+          receiptName: name,
+          receiptType: receipt[0].content.type,
+          coinTypeA: extractCoinTypes(poolObject.content.type).coinTypeA,
+          coinTypeB: extractCoinTypes(poolObject.content.type).coinTypeB,
+        };
+        if (poolInfo[pool].parentProtocolName === "NAVI") {
+          res.poolName = name.replace(/^AlphaFi-NAVI /, "").replace(/ Receipt$/, "");
+        } else if (poolInfo[pool].parentProtocolName === "ALPHAFI") {
+          res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
+        } else {
+          res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
+        }
+        vaultsArr.push(res);
+      }
     }
     return vaultsArr;
   }
   return undefined;
 }
+
+console.log(await getVaults("0x5560f3edb5ed527c6a2c3db6c9042dd4bd9e2a41e1ae38e297306800bcf7365c"));

@@ -1,3 +1,12 @@
 export { getVaults } from "./getVaults";
-export { getVaultBalance } from "./getVaultBalances";
-export { PoolName } from "./common/types";
+export {
+  getAlphaVaultBalance,
+  getSingleAssetVaultBalance,
+  getDoubleAssetVaultBalance,
+} from "./getVaultBalances";
+export {
+  AlphaFiVault,
+  AlphaVaultBalance,
+  DoubleAssetVaultBalance,
+  SingleAssetVaultBalance,
+} from "./common/types";

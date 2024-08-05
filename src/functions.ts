@@ -8,8 +8,7 @@ import {
   SuiClient,
 } from "../node_modules/@mysten/sui/dist/cjs/client/index";
 import Decimal from "../node_modules/decimal.js/decimal";
-import { conf, CONF_ENV } from "./common/constants";
-import { cetusInvestorMap, cetusPoolMap, receiptNameMap } from "./common/maps";
+import { cetusPoolMap, poolInfo } from "./common/maps";
 import {
   CetusInvestor,
   CetusPoolType,
@@ -20,31 +19,32 @@ import {
 } from "./common/types";
 import { getPool } from "./portfolioAmount";
 
+const receiptsCache = new SimpleCache<Receipt[]>();
+const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
 export async function getReceipts(
   poolName: string,
   options: {
     address: string;
     suiClient: SuiClient;
   },
+  ignoreCache: boolean = false,
 ): Promise<Receipt[]> {
-  const nfts: Receipt[] = [];
-  let module;
-  if (poolName === "ALPHA") {
-    module = "alphapool";
-  } else if (
-    poolName === "ALPHA-SUI" ||
-    poolName === "HASUI-SUI" ||
-    poolName === "USDC-SUI"
-  ) {
-    module = "alphafi_cetus_sui_pool";
-  } else if (poolName == "USDC-WBTC") {
-    module = "alphafi_cetus_pool_base_a";
-  } else {
-    module = "alphafi_cetus_pool";
+  const receiptsCacheKey = `getReceipts-${poolName}-${options.address}`;
+  if (ignoreCache) {
+    receiptsCache.delete(receiptsCacheKey);
+    receiptsPromiseCache.delete(receiptsCacheKey);
   }
-  try {
-    // const first_package = conf[CONF_ENV].ALPHA_FIRST_PACKAGE_ID;
-    for (const packageID of conf[CONF_ENV].ALPHA_MODULE_PACKAGE_IDS) {
+  const cachedResponse = receiptsCache.get(receiptsCacheKey);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
+  const nfts: Receipt[] = [];
+
+  let cachedPromise = receiptsPromiseCache.get(receiptsCacheKey);
+  if (!cachedPromise) {
+    cachedPromise = (async (): Promise<Receipt[]> => {
+      // const first_package = conf[CONF_ENV].ALPHA_FIRST_PACKAGE_ID;
       let currentCursor: string | null | undefined = null;
       /* eslint-disable-next-line no-constant-condition */
       while (true) {
@@ -54,20 +54,19 @@ export async function getReceipts(
             cursor: currentCursor,
             filter: {
               // StructType: `${first_package}::${module}::Receipt`,
-              StructType: `${packageID}::${module}::Receipt`,
+              StructType: poolInfo[poolName].receiptType,
             },
             options: {
               showType: true,
               showContent: true,
             },
           });
-
         // Traverse the current page data and push to coins array
 
         paginatedObjects.data.forEach((obj) => {
           const o = obj.data as Receipt;
           if (o) {
-            if (receiptNameMap[poolName] === o.content.fields.name) {
+            if (poolInfo[poolName].receiptName === o.content.fields.name) {
               nfts.push(o);
             }
           }
@@ -82,18 +81,41 @@ export async function getReceipts(
           break;
         }
       }
-    }
-  } catch (err) {
-    console.log("getReceipts not working for pool-", poolName);
+      receiptsCache.set(receiptsCacheKey, nfts);
+      receiptsPromiseCache.delete(receiptsCacheKey);
+      return nfts;
+    })().catch((error) => {
+      // TODO: Jugaad
+      if (poolInfo[poolName].parentProtocolName === "NAVI") {
+        return nfts;
+      } else {
+        receiptsPromiseCache.delete(receiptsCacheKey); // Remove the promise from cache
+        throw error;
+      }
+    });
+    // const data = await cachedPromise;
+    // console.log("received cached data", data);
+    receiptsPromiseCache.set(receiptsCacheKey, cachedPromise);
   }
-
-  return nfts;
+  return cachedPromise;
 }
+
+const poolExchangeRateCache = new SimpleCache<Decimal>();
 
 export async function getPoolExchangeRate(
   poolName: PoolName,
   options: { suiClient: SuiClient },
+  ignoreCache: boolean = false,
 ): Promise<Decimal | undefined> {
+  const poolExchangeRateCacheKey = `getPoolExchangeRate-${poolName}`;
+  if (ignoreCache) {
+    poolExchangeRateCache.delete(poolExchangeRateCacheKey);
+  }
+  const cachedResponse = poolExchangeRateCache.get(poolExchangeRateCacheKey);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
   let pool = undefined;
   try {
     if (poolName === "ALPHA") {
@@ -122,8 +144,11 @@ export async function getPoolExchangeRate(
         console.error("Division by zero error: tokensInvested is zero.");
         return undefined;
       }
+      const poolExchangeRate = tokensInvested.div(xTokenSupply);
 
-      return tokensInvested.div(xTokenSupply);
+      poolExchangeRateCache.set(poolExchangeRateCacheKey, poolExchangeRate);
+
+      return poolExchangeRate;
     }
   } catch (e) {
     console.log(`getPoolExchangeRate failed for poolName: ${poolName}`);
@@ -237,7 +262,7 @@ export async function getCetusInvestor(
   },
   ignoreCache: boolean = false,
 ): Promise<CetusInvestor | undefined> {
-  const cacheKey = `investor_${cetusInvestorMap[poolName.toUpperCase()]}`;
+  const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
   if (ignoreCache) {
     cetusInvestorCache.delete(cacheKey);
     cetusInvestorPromiseCache.delete(cacheKey);
@@ -258,7 +283,7 @@ export async function getCetusInvestor(
   cetusInvestorPromise = (async () => {
     try {
       const o = await options.suiClient.getObject({
-        id: cetusInvestorMap[poolName.toUpperCase()],
+        id: poolInfo[poolName.toUpperCase()].investorId,
         options: {
           showContent: true,
         },

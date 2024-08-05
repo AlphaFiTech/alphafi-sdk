@@ -1,4 +1,5 @@
 import BN from "bn.js";
+import { conf, CONF_ENV } from "./constants";
 
 export type PoolName =
   | "ALPHA"
@@ -8,7 +9,13 @@ export type PoolName =
   | "USDT-USDC"
   | "USDC-SUI"
   | "USDC-WBTC"
-  | "WETH-USDC";
+  | "WETH-USDC"
+  | "NAVI-SUI"
+  | "NAVI-VSUI"
+  | "NAVX-SUI"
+  | "NAVI-WETH"
+  | "NAVI-USDT"
+  | "NAVI-USDC";
 
 export type CoinName =
   | "ALPHA"
@@ -78,6 +85,36 @@ export type CoinType =
   | "0x5d1f47ea69bb0de31c313d7acf89b890dbb8991ea8e03c6c355171f84bb1ba4a::turbos::TURBOS"
   | "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI"
   | "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY";
+
+const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
+const USDY_USDC_POOL_RECEIPT = conf[CONF_ENV].USDY_USDC_POOL_RECEIPT;
+const USDT_USDC_POOL_RECEIPT = conf[CONF_ENV].USDT_USDC_POOL_RECEIPT;
+const ALPHA_POOL_RECEIPT = conf[CONF_ENV].ALPHA_POOL_RECEIPT;
+const HaSUI_SUI_POOL_RECEIPT = conf[CONF_ENV].HaSUI_SUI_POOL_RECEIPT;
+const USDC_SUI_POOL_RECEIPT = conf[CONF_ENV].USDC_SUI_POOL_RECEIPT;
+const USDC_WBTC_POOL_RECEIPT = conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT;
+const WETH_USDC_POOL_RECEIPT = conf[CONF_ENV].WETH_USDC_POOL_RECEIPT;
+const NAVI_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT;
+const NAVI_VSUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT;
+const NAVX_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT;
+const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
+const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
+const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
+export type PoolReceipt =
+  | typeof ALPHA_SUI_POOL_RECEIPT
+  | typeof USDY_USDC_POOL_RECEIPT
+  | typeof USDT_USDC_POOL_RECEIPT
+  | typeof ALPHA_POOL_RECEIPT
+  | typeof HaSUI_SUI_POOL_RECEIPT
+  | typeof USDC_SUI_POOL_RECEIPT
+  | typeof USDC_WBTC_POOL_RECEIPT
+  | typeof WETH_USDC_POOL_RECEIPT
+  | typeof NAVI_SUI_POOL_RECEIPT
+  | typeof NAVI_VSUI_POOL_RECEIPT
+  | typeof NAVX_SUI_POOL_RECEIPT
+  | typeof NAVI_WETH_POOL_RECEIPT
+  | typeof NAVI_USDT_POOL_RECEIPT
+  | typeof NAVI_USDC_POOL_RECEIPT;
 
 export type CoinAmounts = {
   coinA: BN;
@@ -377,4 +414,33 @@ export type CreatePoolOptions = {
   coinNameB: CoinName;
   amount: number;
   isAmountA: boolean;
+};
+
+export type AlphaFiVault = {
+  poolId: string | null;
+  poolName: string | null;
+  receiptName: string | null;
+  receiptType: string | null;
+  coinTypeA: string | null;
+  coinTypeB: string | null;
+};
+
+export type AlphaVaultBalance = {
+  lockedAlphaCoins: string | null;
+  lockedAlphaCoinsInUSD: string | null;
+  unlockedAlphaCoins: string | null;
+  unlockedAlphaCoinsInUSD: string | null;
+  totalAlphaCoins: string | null;
+  totalAlphaCoinsInUSD: string | null;
+};
+
+export type DoubleAssetVaultBalance = {
+  coinA: string | null;
+  coinB: string | null;
+  valueInUSD: string | null;
+};
+
+export type SingleAssetVaultBalance = {
+  coin: string | null;
+  valueInUSD: string | null;
 };
