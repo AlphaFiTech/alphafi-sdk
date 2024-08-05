@@ -1,13 +1,3 @@
-<!-- # @alphafi/alphafi-sdk
-
-## `getVaults`
-
-## `getAlphaVaultBalance`
-
-## `getSingleAssetVaultBalance`
-
-## `getDoubleAssetVaultBalance` -->
-
 # ALPHAFI TypeScript SDK
 
 ## Installation
