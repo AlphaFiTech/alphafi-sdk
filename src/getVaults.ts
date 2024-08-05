@@ -61,3 +61,23 @@ export async function getVaults(
   }
   return undefined;
 }
+
+export async function getSingleAssetVaults(
+  address: string,
+): Promise<AlphaFiVault[] | undefined> {
+  let vaultsArr = await getVaults(address);
+  if (vaultsArr) {
+    vaultsArr = vaultsArr.filter((vault) => vault.coinTypeB === null);
+    return vaultsArr;
+  }
+}
+
+export async function getDoubleAssetVaults(
+  address: string,
+): Promise<AlphaFiVault[] | undefined> {
+  let vaultsArr = await getVaults(address);
+  if (vaultsArr) {
+    vaultsArr = vaultsArr.filter((vault) => vault.coinTypeB !== null);
+    return vaultsArr;
+  }
+}
