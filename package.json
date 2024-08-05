@@ -1,7 +1,7 @@
 {
   "name": "alphafi-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "AlphaFi SDK",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run prettier && npm run lint && tsc && webpack --config webpack.config.js",
@@ -9,8 +9,12 @@
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "sui",
+    "blockchain",
+    "defi"
+  ],
+  "author": "AlphaFi Package Maintenance Team",
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.25.3",
