@@ -82,7 +82,7 @@ export const conf = {
     USDY_COIN_TYPE:
       "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
 
-    HaSUI_COIN_TYPE:
+    HASUI_COIN_TYPE:
       "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
 
     ALPHA_XSUI_COIN_TYPE:
@@ -90,8 +90,12 @@ export const conf = {
 
     WBTC_COIN_TYPE:
       "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+
     WETH_COIN_TYPE:
       "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+
+    BUCK_COIN_TYPE:
+      "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK ",
 
     // Alpha POOL Id's
 
@@ -104,7 +108,7 @@ export const conf = {
     ALPHA_SUI_POOL:
       "0x438459191401d90c5e1da4d9f5f4b5fcca9abee0ef870588437632294f1160c5",
 
-    HaSUI_SUI_POOL:
+    HASUI_SUI_POOL:
       "0xab1ac9c8c9cedf59671f286a208861b717b91b9553176b65d63ba9cdcfd335ec",
 
     USDY_USDC_POOL:
@@ -129,6 +133,7 @@ export const conf = {
     ALPHAFI_NAVI_USDT_POOL:
       "0xf1a10734b9acc82ab5ea8d7b35f1ffa053a43b0ca05603dc1f515c5d5e707926",
     ALPHAFI_NAVI_USDC_POOL: "",
+    ALPHAFI_NAVI_HASUI_POOL: "",
 
     // CETUS Pool Id's
 
@@ -147,7 +152,7 @@ export const conf = {
     USDY_USDC_CETUS_POOL_ID:
       "0x0e809689d04d87f4bd4e660cd1b84bf5448c5a7997e3d22fc480e7e5e0b3f58d",
 
-    HaSUI_SUI_CETUS_POOL_ID:
+    HASUI_SUI_CETUS_POOL_ID:
       "0x871d8a227114f375170f149f7e9d45be822dd003eba225e83c05ac80828596bc",
 
     USDC_WBTC_CETUS_POOL_ID:
@@ -159,6 +164,9 @@ export const conf = {
       "0x6c545e78638c8c1db7a48b282bb8ca79da107993fcb185f75cedc1f5adb2f535",
     NAVX_SUI_CETUS_POOL_ID:
       "0x0254747f5ca059a1972cd7f6016485d51392a3fde608107b93bbaebea550f703",
+
+    USDC_CETUS_CETUS_POOL_ID:
+      "0x238f7e4648e62751de29c982cbf639b4225547c31db7bd866982d7d56fc2c7a8",
 
     //Cetus Info Id's
 
@@ -178,7 +186,7 @@ export const conf = {
     ALPHA_SUI_CETUS_INVESTOR:
       "0xd92fb59b0173c5429658c73534fb567ae51863f1a9f6c63b1fb5b8c07dec5a9f",
 
-    HaSUI_SUI_CETUS_INVESTOR:
+    HASUI_SUI_CETUS_INVESTOR:
       "0xf649267641724f85734543b2f60aeb157e8a046ac773fc97c22d2638124c9efc",
 
     USDY_USDC_CETUS_INVESTOR:
@@ -210,6 +218,8 @@ export const conf = {
 
     NAVI_USDC_INVESTOR: "",
 
+    NAVI_HASUI_INVESTOR: "",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -224,7 +234,7 @@ export const conf = {
     USDY_USDC_POOL_RECEIPT:
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_pool::Receipt",
 
-    HaSUI_SUI_POOL_RECEIPT:
+    HASUI_SUI_POOL_RECEIPT:
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
 
     USDC_WBTC_POOL_RECEIPT:
@@ -250,6 +260,9 @@ export const conf = {
     NAVI_USDC_POOL_RECEIPT:
       "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
 
+    NAVI_HASUI_POOL_RECEIPT:
+      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+
     NAVX_SUI_POOL_RECEIPT:
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
 
@@ -263,7 +276,7 @@ export const conf = {
 
     USDY_USDC_POOL_RECEIPT_NAME: "Betafi-USDY-USDC-receipt",
 
-    HaSUI_SUI_POOL_RECEIPT_NAME: "Betafi-HASUI-SUI-receipt",
+    HASUI_SUI_POOL_RECEIPT_NAME: "Betafi-HASUI-SUI-receipt",
 
     USDC_SUI_POOL_RECEIPT_NAME: "Betafi-USDC-SUI-receipt",
 
@@ -280,6 +293,8 @@ export const conf = {
     NAVI_USDT_POOL_RECEIPT_NAME: "Betafi-Navi-USDT-receipt",
 
     NAVI_USDC_POOL_RECEIPT_NAME: "Betafi-Navi-USDC-receipt",
+
+    NAVI_HASUI_POOL_RECEIPT_NAME: "Betafi-Navi-HASUI-receipt",
 
     NAVX_SUI_POOL_RECEIPT_NAME: "Betafi-Navx-Sui-receipt",
 
@@ -307,6 +322,8 @@ export const conf = {
 
     NAVI_USDC_POOL:
       "0xa02a98f9c88db51c6f5efaaf2261c81f34dd56d86073387e0ef1805ca22e39c8",
+
+    NAVI_HASUI_POOL: "",
 
     NAVI_USDC_BORROW_POOL: "",
 
@@ -458,7 +475,7 @@ export const conf = {
     USDY_COIN_TYPE:
       "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
 
-    HaSUI_COIN_TYPE:
+    HASUI_COIN_TYPE:
       "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
 
     ALPHA_XSUI_COIN_TYPE:
@@ -469,6 +486,9 @@ export const conf = {
 
     WETH_COIN_TYPE:
       "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+
+    BUCK_COIN_TYPE:
+      "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
 
     // Alpha POOL Id's
 
@@ -481,7 +501,7 @@ export const conf = {
     ALPHA_SUI_POOL:
       "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37",
 
-    HaSUI_SUI_POOL:
+    HASUI_SUI_POOL:
       "0xb75f427854fef827233ae838d1c23eefd420a540d8fa83fb40f77421dafb84d4",
 
     USDY_USDC_POOL:
@@ -500,7 +520,12 @@ export const conf = {
     USDC_WBTC_POOL:
       "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a",
 
-    NAVX_SUI_POOL: "",
+    NAVX_SUI_POOL:
+      "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0",
+
+    BUCK_USDC_POOL: "",
+
+    CETUS_SUI_POOL: "",
 
     // Alphafi-Navi Pools
 
@@ -514,6 +539,7 @@ export const conf = {
       "0xc696ca5b8f21a1f8fcd62cff16bbe5a396a4bed6f67909cfec8269eb16e60757",
     ALPHAFI_NAVI_USDC_POOL:
       "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae",
+    ALPHAFI_NAVI_HASUI_POOL: "",
 
     // CETUS Pool Id's
 
@@ -532,7 +558,7 @@ export const conf = {
     USDY_USDC_CETUS_POOL_ID:
       "0x0e809689d04d87f4bd4e660cd1b84bf5448c5a7997e3d22fc480e7e5e0b3f58d",
 
-    HaSUI_SUI_CETUS_POOL_ID:
+    HASUI_SUI_CETUS_POOL_ID:
       "0x871d8a227114f375170f149f7e9d45be822dd003eba225e83c05ac80828596bc",
 
     USDC_WBTC_CETUS_POOL_ID:
@@ -554,6 +580,10 @@ export const conf = {
 
     USDC_CETUS_CETUS_POOL_ID:
       "0x238f7e4648e62751de29c982cbf639b4225547c31db7bd866982d7d56fc2c7a8",
+
+    BUCK_USDC_CETUS_POOL_ID:
+      "0x81fe26939ed676dd766358a60445341a06cea407ca6f3671ef30f162c84126d5",
+
     //Cetus Info Id's
 
     CETUS_REWARDER_GLOBAL_VAULT_ID:
@@ -572,7 +602,7 @@ export const conf = {
     ALPHA_SUI_CETUS_INVESTOR:
       "0x46d901d5e1dba34103038bd2ba789b775861ea0bf4d6566afd5029cf466a3d88",
 
-    HaSUI_SUI_CETUS_INVESTOR:
+    HASUI_SUI_CETUS_INVESTOR:
       "0x0805991383c8a5e1bbb1c2b8d824d205fdb66509a2c408f505bc16cbbdb909ab",
 
     USDY_USDC_CETUS_INVESTOR:
@@ -591,7 +621,12 @@ export const conf = {
     WETH_USDC_CETUS_INVESTOR:
       "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43",
 
-    NAVX_SUI_CETUS_INVESTOR: "",
+    NAVX_SUI_CETUS_INVESTOR:
+      "0xdd9018247d579bd7adfdbced4ed39c28821c6019461d37dbdf32f0d409959b1c",
+
+    BUCK_USDC_CETUS_INVESTOR: "",
+
+    CETUS_SUI_CETUS_INVESTOR: "",
 
     // Navi Investor Ids
 
@@ -610,6 +645,8 @@ export const conf = {
     NAVI_USDC_INVESTOR:
       "0xdf980cacf2ef2f4411f793ee9ee9266af78324b228323ede2ce73f9cf0c301cc",
 
+    NAVI_HASUI_INVESTOR: "",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -624,7 +661,7 @@ export const conf = {
     USDY_USDC_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
 
-    HaSUI_SUI_POOL_RECEIPT:
+    HASUI_SUI_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
 
     USDC_SUI_POOL_RECEIPT:
@@ -635,6 +672,15 @@ export const conf = {
 
     WETH_USDC_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+
+    NAVX_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
+    BUCK_USDC_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+
+    CETUS_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
 
     NAVI_SUI_POOL_RECEIPT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
@@ -651,8 +697,8 @@ export const conf = {
     NAVI_USDC_POOL_RECEIPT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
 
-    NAVX_SUI_POOL_RECEIPT:
-      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+    NAVI_HASUI_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
 
     // Receipt Names
 
@@ -664,13 +710,19 @@ export const conf = {
 
     USDY_USDC_POOL_RECEIPT_NAME: "AlphaFi USDY-USDC Receipt",
 
-    HaSUI_SUI_POOL_RECEIPT_NAME: "AlphaFi haSUI-SUI Receipt",
+    HASUI_SUI_POOL_RECEIPT_NAME: "AlphaFi haSUI-SUI Receipt",
 
     USDC_SUI_POOL_RECEIPT_NAME: "AlphaFi USDC-SUI Receipt",
 
     USDC_WBTC_POOL_RECEIPT_NAME: "AlphaFi WBTC-USDC Receipt",
 
     WETH_USDC_POOL_RECEIPT_NAME: "AlphaFi WETH-USDC Receipt",
+
+    NAVX_SUI_POOL_RECEIPT_NAME: "AlphaFi NAVX-SUI Receipt",
+
+    BUCK_USDC_POOL_RECEIPT_NAME: "AlphaFi BUCK-USDC Receipt",
+
+    CETUS_SUI_POOL_RECEIPT_NAME: "AlphaFi CETUS-SUI Receipt",
 
     NAVI_SUI_POOL_RECEIPT_NAME: "AlphaFi-Navi SUI Receipt",
 
@@ -682,7 +734,7 @@ export const conf = {
 
     NAVI_USDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC Receipt",
 
-    NAVX_SUI_POOL_RECEIPT_NAME: "AlphaFi NAVX-SUI Receipt",
+    NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
     // Wallets
 
@@ -713,6 +765,8 @@ export const conf = {
 
     NAVI_USDT_POOL:
       "0x0e060c3b5b8de00fb50511b7a45188c8e34b6995c01f69d98ea5a466fe10d103",
+
+    NAVI_HASUI_POOL: "",
 
     NAVI_USDT_BORROW_POOL: "",
 
