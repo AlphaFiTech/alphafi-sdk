@@ -1,7 +1,4 @@
-import {
-  getFullnodeUrl,
-  SuiClient,
-} from "../node_modules/@mysten/sui/dist/cjs/client/index";
+import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import {
   AlphaVaultBalance,
   DoubleAssetVaultBalance,

@@ -1,13 +1,7 @@
 import BN from "bn.js";
-import {
-  ClmmPoolUtil,
-  TickMath,
-} from "../node_modules/@cetusprotocol/cetus-sui-clmm-sdk/dist/index";
-import {
-  PaginatedObjectsResponse,
-  SuiClient,
-} from "../node_modules/@mysten/sui/dist/cjs/client/index";
-import Decimal from "../node_modules/decimal.js/decimal";
+import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import { PaginatedObjectsResponse, SuiClient } from "@mysten/sui/client";
+import Decimal from "decimal.js";
 import { cetusPoolMap, poolInfo } from "./common/maps";
 import {
   CetusInvestor,

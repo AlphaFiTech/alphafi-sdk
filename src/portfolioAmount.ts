@@ -1,5 +1,5 @@
-import { SuiClient } from "../node_modules/@mysten/sui/dist/cjs/client/index";
-import Decimal from "../node_modules/decimal.js/decimal";
+import { SuiClient } from "@mysten/sui/client";
+import Decimal from "decimal.js";
 import { coins, poolTokenMap } from "./common/coins";
 import { poolInfo, poolPairMap } from "./common/maps";
 import { PythPriceIdPair } from "./common/pyth";

@@ -1,8 +1,5 @@
 import { poolInfo } from "./common/maps";
-import {
-  getFullnodeUrl,
-  SuiClient,
-} from "../node_modules/@mysten/sui/dist/cjs/client/index";
+import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import { getReceipts } from "./functions";
 import { AlphaFiVault } from "./common/types";
 import { getPool } from "./portfolioAmount";

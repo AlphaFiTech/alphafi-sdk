@@ -9,16 +9,16 @@ import CetusClmmSDK, {
   ClmmPoolUtil,
   TickMath,
   d,
-} from "../node_modules/@cetusprotocol/cetus-sui-clmm-sdk/dist/index";
+} from "@cetusprotocol/cetus-sui-clmm-sdk";
 import {
   CetusSwapOptions,
   Coin,
   CreatePoolOptions,
   SimpleCache,
 } from "./common/types";
-import { Transaction } from "../node_modules/@mysten/sui/dist/cjs/transactions/index";
+import { Transaction } from "@mysten/sui/transactions";
 import { cetusMainnetSDKOptions } from "./common/cetus_mainnet_config";
-import axios from "../node_modules/axios/index";
+import axios from "axios";
 import { PythPriceIdPair } from "./common/pyth";
 
 export async function getLatestPrice(

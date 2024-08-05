@@ -1,6 +1,6 @@
 {
-  "name": "alphafi-sdk",
-  "version": "0.0.2",
+  "name": "@alphafi/alphafi-sdk",
+  "version": "0.0.1",
   "description": "AlphaFi SDK",
   "main": "dist/index.js",
   "scripts": {

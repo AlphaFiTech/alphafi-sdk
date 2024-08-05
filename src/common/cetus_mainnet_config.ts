@@ -1,5 +1,5 @@
-import { SdkOptions } from "../../node_modules/@cetusprotocol/cetus-sui-clmm-sdk/dist/index";
-import { getFullnodeUrl } from "../../node_modules/@mysten/sui/dist/cjs/client/index";
+import { SdkOptions } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import { getFullnodeUrl } from "@mysten/sui/client";
 
 export const cetusMainnetSDKOptions: SdkOptions = {
   fullRpcUrl: getFullnodeUrl("mainnet"),
