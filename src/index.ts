@@ -9,4 +9,5 @@ export {
   AlphaVaultBalance,
   DoubleAssetVaultBalance,
   SingleAssetVaultBalance,
+  PoolName,
 } from "./common/types";

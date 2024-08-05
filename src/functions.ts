@@ -77,7 +77,6 @@ export async function getReceipts(
           currentCursor = paginatedObjects.nextCursor;
         } else {
           // No more pages available
-          // console.log("No more receipts available.");
           break;
         }
       }
@@ -93,8 +92,6 @@ export async function getReceipts(
         throw error;
       }
     });
-    // const data = await cachedPromise;
-    // console.log("received cached data", data);
     receiptsPromiseCache.set(receiptsCacheKey, cachedPromise);
   }
   return cachedPromise;
@@ -151,7 +148,7 @@ export async function getPoolExchangeRate(
       return poolExchangeRate;
     }
   } catch (e) {
-    console.log(`getPoolExchangeRate failed for poolName: ${poolName}`);
+    console.error(`getPoolExchangeRate failed for poolName: ${poolName}`);
   }
 
   return undefined;

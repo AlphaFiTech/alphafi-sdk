@@ -24,10 +24,10 @@ module.exports = {
     extensions: [".ts", ".js"],
   },
   output: {
-    filename: "[name].bundle.js",
+    filename: "index.js",
     path: path.resolve(__dirname, "dist"),
     library: {
-      name: "MyLibrary", // Replace with your library name
+      name: "AlphaFiSDK", // Replace with your library name
       type: "umd",
     },
     globalObject: "this",

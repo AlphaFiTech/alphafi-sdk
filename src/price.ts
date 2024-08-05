@@ -40,7 +40,7 @@ export async function getLatestPrice(
     try {
       price = await fetchPriceFromAlphaAPI(pair);
       if (!price) {
-        console.log(`Failed to get price for pair ${pair}`);
+        console.error(`Failed to get price for pair ${pair}`);
       }
     } catch (error) {
       console.error(`Error in getPrice for pair ${pair}:`, error);
@@ -255,9 +255,6 @@ export class CetusGateway {
       matchedPools.push(...filteredPools);
     });
 
-    console.log(matchedPools);
-    console.log(`Matched pools for specified pairs: ${matchedPools.length}`);
-    console.log(`Total pools: ${allPools.length}`);
     return matchedPools;
   }
 
@@ -340,12 +337,6 @@ export class CetusGateway {
   async createPoolTransactionBlock(
     options: CreatePoolOptions,
   ): Promise<Transaction> {
-    console.log(
-      d(options.initializePrice),
-      coins[options.coinNameA].expo,
-      coins[options.coinNameB].expo,
-    );
-
     const initializeSqrtPrice = TickMath.priceToSqrtPriceX64(
       d(options.initializePrice),
       coins[options.coinNameA].expo,
@@ -386,19 +377,6 @@ export class CetusGateway {
     const amount_b = options.isAmountA
       ? liquidityInput.tokenMaxB.toNumber()
       : options.amount;
-
-    console.log({
-      coinTypeA: coins[options.coinNameA].type,
-      coinTypeB: coins[options.coinNameB].type,
-      tick_spacing: options.tickSpacing,
-      initialize_sqrt_price: `${initializeSqrtPrice}`,
-      uri: options.imageUrl,
-      amount_a: amount_a,
-      amount_b: amount_b,
-      fix_amount_a: options.isAmountA,
-      tick_lower: lowerTick,
-      tick_upper: upperTick,
-    });
 
     // build creatPoolPayload Payload
     const txb = this.cetusSDK.Pool.creatPoolTransactionPayload({
