@@ -47,7 +47,9 @@ export async function getVaults(
           coinTypeB: extractCoinTypes(poolObject.content.type).coinTypeB,
         };
         if (poolInfo[pool].parentProtocolName === "NAVI") {
-          res.poolName = name.replace(/^AlphaFi-NAVI /, "").replace(/ Receipt$/, "");
+          res.poolName = name
+            .replace(/^AlphaFi-NAVI /, "")
+            .replace(/ Receipt$/, "");
         } else if (poolInfo[pool].parentProtocolName === "ALPHAFI") {
           res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
         } else {
@@ -60,5 +62,3 @@ export async function getVaults(
   }
   return undefined;
 }
-
-console.log(await getVaults("0x5560f3edb5ed527c6a2c3db6c9042dd4bd9e2a41e1ae38e297306800bcf7365c"));
