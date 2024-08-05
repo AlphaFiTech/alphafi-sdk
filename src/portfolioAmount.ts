@@ -132,6 +132,8 @@ export async function getPortfolioAmount(
             `Could not get poolExchangeRate for poolName: ${poolName}`,
           );
         }
+      } else {
+        portfolioAmount = [0, 0];
       }
 
       portfolioAmountCache.set(portfolioAmountCacheKey, portfolioAmount);
@@ -164,7 +166,7 @@ export async function getPortfolioAmountInUSD(
     poolName === "NAVX-SUI"
   ) {
     const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
-    if (amounts) {
+    if (amounts !== undefined) {
       const ten = new Decimal(10);
       const pool1 = poolPairMap[poolName].pool1 as CoinName;
       const pool2 = poolPairMap[poolName].pool2 as CoinName;
@@ -248,6 +250,8 @@ export async function getSingleAssetPortfolioAmount(
             `Could not get poolExchangeRate for poolName: ${poolName}`,
           );
         }
+      } else {
+        portfolioAmount = 0;
       }
 
       singleAssetPortfolioAmountCache.set(
@@ -280,7 +284,7 @@ export async function getSingleAssetPortfolioAmountInUSD(
     options,
     ignoreCache,
   );
-  if (amounts) {
+  if (amounts !== undefined) {
     const amount = new Decimal(amounts).div(
       new Decimal(Math.pow(10, coins[poolTokenMap[poolName].coinName].expo)),
     );

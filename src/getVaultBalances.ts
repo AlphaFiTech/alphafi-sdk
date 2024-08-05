@@ -48,12 +48,12 @@ export async function getAlphaVaultBalance(
       address,
     });
     if (
-      lockedPortfolioAmount &&
-      lockedPortfolioAmountInUSD &&
-      unlockedPortfolioAmount &&
-      unlockedPortfolioAmountInUSD &&
-      portfolioAmount &&
-      portfolioAmountInUSD
+      lockedPortfolioAmount !== undefined &&
+      lockedPortfolioAmountInUSD !== undefined &&
+      unlockedPortfolioAmount !== undefined &&
+      unlockedPortfolioAmountInUSD !== undefined &&
+      portfolioAmount !== undefined &&
+      portfolioAmountInUSD !== undefined
     ) {
       const res: AlphaVaultBalance = {
         lockedAlphaCoins: lockedPortfolioAmount,
@@ -85,7 +85,7 @@ export async function getDoubleAssetVaultBalance(
       poolName as PoolName,
       { suiClient, address },
     );
-    if (portfolioAmount && portfolioAmountInUSD) {
+    if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
       const res: DoubleAssetVaultBalance = {
         coinA: portfolioAmount[0].toString(),
         coinB: portfolioAmount[1].toString(),
@@ -117,7 +117,7 @@ export async function getSingleAssetVaultBalance(
       address,
     },
   );
-  if (portfolioAmount && portfolioAmountInUSD) {
+  if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
     const res: SingleAssetVaultBalance = {
       coin: portfolioAmount.toString(),
       valueInUSD: portfolioAmountInUSD,
