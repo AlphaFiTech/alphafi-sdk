@@ -196,5 +196,5 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVX_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
-  }
+  },
 };

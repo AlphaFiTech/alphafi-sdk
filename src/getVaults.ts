@@ -47,6 +47,8 @@ export async function getVaults(
           res.poolName = name
             .replace(/^AlphaFi-NAVI /, "")
             .replace(/ Receipt$/, "");
+
+          res.poolName = "NAVI-" + res.poolName;
         } else if (poolInfo[pool].parentProtocolName === "ALPHAFI") {
           res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
         } else {
