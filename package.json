@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "AlphaFi SDK",
   "main": "dist/index.js",
   "scripts": {
@@ -47,5 +47,8 @@
     "bn.js": "^5.2.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.16.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
