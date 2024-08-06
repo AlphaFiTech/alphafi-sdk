@@ -14,7 +14,7 @@
     "blockchain",
     "defi"
   ],
-  "author": "AlphaFi Package Maintenance Team",
+  "author": "AlphaFi Team <hello@alphafi.xyz> (https://alphafi.xyz/)",
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.25.3",
