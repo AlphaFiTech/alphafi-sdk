@@ -444,3 +444,56 @@ export type SingleAssetVaultBalance = {
   coin: string | null;
   valueInUSD: string | null;
 };
+
+export type LpBreakdownType = {
+  coinA: string | null;
+  coinAInUsd: string | null;
+  coinB: string | null;
+  coinBInUsd: string | null;
+  liquidity: string | null;
+};
+
+export type RebalanceHistoryType = {
+  timestamp: string;
+  lower_tick: number;
+  upper_tick: number;
+  after_sqrt_price: string;
+};
+
+export type TransactionBlockType = {
+  digest: string;
+  transaction: {
+    data: {
+      messageVersion: string;
+      transaction: {
+        kind: string;
+        inputs: {
+          type: string;
+          valueType: string;
+          value: number;
+          objectId: string | undefined;
+        }[];
+        transactions: {
+          MoveCall: {
+            package: string;
+            module: string;
+            function: string;
+            type_arguments: string[];
+            arguments: string[];
+          };
+        }[];
+      };
+      sender: string;
+      gasData: {};
+    };
+    txSignatures: string[];
+  };
+  events: {
+    type: string;
+    parsedJson: {
+      after_sqrt_price: string;
+    };
+  }[];
+  timestampMs: string;
+  checkpoint: string;
+};
