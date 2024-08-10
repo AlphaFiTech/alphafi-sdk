@@ -13,12 +13,14 @@ import { getLatestPrice } from "./price";
 import { PythPriceIdPair } from "./common/pyth";
 import { conf, CONF_ENV } from "./common/constants";
 import { coins } from "./common/coins";
+import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import BN from "bn.js";
 
 export async function alphaLpBreakdown(
   poolName: PoolName,
   options: {
     suiClient: SuiClient;
-  }
+  },
 ): Promise<LpBreakdownType | undefined> {
   const pool = await getPool(poolName, options);
   if (pool) {
@@ -26,17 +28,17 @@ export async function alphaLpBreakdown(
     const amounts = await getCoinAmountsFromLiquidity(
       poolName,
       Number(liquidity),
-      options
+      options,
     );
 
     const pool1 = poolPairMap[poolName].pool1;
     const pool2 = poolPairMap[poolName].pool2;
 
     const priceOfCoin0 = await getLatestPrice(
-      `${pool1}/USD` as PythPriceIdPair
+      `${pool1}/USD` as PythPriceIdPair,
     );
     const priceOfCoin1 = await getLatestPrice(
-      `${pool2}/USD` as PythPriceIdPair
+      `${pool2}/USD` as PythPriceIdPair,
     );
     const coinAInUsd = amounts[0] * Number(priceOfCoin0);
     const coinBInUsd = amounts[1] * Number(priceOfCoin1);
@@ -56,7 +58,7 @@ export async function cetusLpBreakdown(
   poolName: PoolName,
   options: {
     suiClient: SuiClient;
-  }
+  },
 ): Promise<LpBreakdownType | undefined> {
   const pool = await getCetusPool(poolName, options);
   if (pool) {
@@ -67,10 +69,10 @@ export async function cetusLpBreakdown(
     const pool2 = poolPairMap[poolName].pool2;
 
     const priceOfCoin0 = await getLatestPrice(
-      `${pool1}/USD` as PythPriceIdPair
+      `${pool1}/USD` as PythPriceIdPair,
     );
     const priceOfCoin1 = await getLatestPrice(
-      `${pool2}/USD` as PythPriceIdPair
+      `${pool2}/USD` as PythPriceIdPair,
     );
     const coinAInUsd = Number(amounts[0]) * Number(priceOfCoin0);
     const coinBInUsd = Number(amounts[1]) * Number(priceOfCoin1);
@@ -91,7 +93,7 @@ export async function fetchRebalanceHistory(
   poolName: PoolName,
   options: {
     suiClient: SuiClient;
-  }
+  },
 ): Promise<RebalanceHistoryType[]> {
   const coin1Type = coins[poolPairMap[poolName].pool1 as CoinName].type;
   const coin2Type = coins[poolPairMap[poolName].pool2 as CoinName].type;
@@ -101,7 +103,8 @@ export async function fetchRebalanceHistory(
       : "alphafi_cetus_investor";
   const rebalanceArr: RebalanceHistoryType[] = [];
   let currentCursor: string | null | undefined = null;
-  while (true) {
+  let flag = true;
+  while (flag) {
     const paginatedObjects: PaginatedTransactionResponse =
       await options.suiClient.queryTransactionBlocks({
         cursor: currentCursor,
@@ -126,18 +129,23 @@ export async function fetchRebalanceHistory(
         const events = o.events;
         events.reverse();
         let after_sqrt_price: string = "";
-        for (let event of events) {
+        for (const event of events) {
           if (event.type.includes(`::pool::SwapEvent`)) {
             after_sqrt_price = event.parsedJson.after_sqrt_price;
             break;
           }
         }
+        const after_price = TickMath.sqrtPriceX64ToPrice(
+          new BN(after_sqrt_price),
+          coins[poolPairMap[poolName].pool1 as CoinName].expo,
+          coins[poolPairMap[poolName].pool2 as CoinName].expo,
+        );
         const inputs = o.transaction.data.transaction.inputs;
         const rebalanceObj: RebalanceHistoryType = {
           timestamp: o.timestampMs,
           lower_tick: inputs[8].value,
           upper_tick: inputs[9].value,
-          after_sqrt_price: after_sqrt_price,
+          after_price: after_price.toString(),
         };
         rebalanceArr.push(rebalanceObj);
       }
@@ -146,7 +154,7 @@ export async function fetchRebalanceHistory(
     if (paginatedObjects.hasNextPage && paginatedObjects.nextCursor) {
       currentCursor = paginatedObjects.nextCursor;
     } else {
-      break;
+      flag = false;
     }
   }
   return rebalanceArr;
@@ -156,16 +164,16 @@ export async function lastAutocompoundTime(
   poolName: PoolName,
   options: {
     suiClient: SuiClient;
-  }
+  },
 ): Promise<string | null | undefined> {
   const { suiClient } = options;
   const investorId = poolInfo[poolName].investorId;
-  let ok = await suiClient.queryTransactionBlocks({
+  const ok = await suiClient.queryTransactionBlocks({
     filter: {
       InputObject: investorId,
     },
   });
-  let tb = await suiClient.getTransactionBlock({
+  const tb = await suiClient.getTransactionBlock({
     digest: ok.data[0].digest,
     options: { showEvents: true },
   });

@@ -457,7 +457,7 @@ export type RebalanceHistoryType = {
   timestamp: string;
   lower_tick: number;
   upper_tick: number;
-  after_sqrt_price: string;
+  after_price: string;
 };
 
 export type TransactionBlockType = {
@@ -484,7 +484,6 @@ export type TransactionBlockType = {
         }[];
       };
       sender: string;
-      gasData: {};
     };
     txSignatures: string[];
   };
