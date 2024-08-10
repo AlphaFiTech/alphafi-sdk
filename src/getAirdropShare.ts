@@ -9,7 +9,7 @@ export async function getAirdropShare(
   address: string,
   options: {
     suiClient: SuiClient;
-  }
+  },
 ): Promise<string | undefined> {
   const airdropReserve = await fetchAirdropReserves();
 

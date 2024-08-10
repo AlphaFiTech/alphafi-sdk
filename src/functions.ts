@@ -26,7 +26,7 @@ export async function getReceipts(
     address: string;
     suiClient: SuiClient;
   },
-  ignoreCache: boolean = false
+  ignoreCache: boolean = false,
 ): Promise<Receipt[]> {
   const receiptsCacheKey = `getReceipts-${poolName}-${options.address}`;
   if (ignoreCache) {
@@ -101,7 +101,7 @@ const poolExchangeRateCache = new SimpleCache<Decimal>();
 export async function getPoolExchangeRate(
   poolName: PoolName,
   options: { suiClient: SuiClient },
-  ignoreCache: boolean = false
+  ignoreCache: boolean = false,
 ): Promise<Decimal | undefined> {
   const poolExchangeRateCacheKey = `getPoolExchangeRate-${poolName}`;
   if (ignoreCache) {
@@ -156,7 +156,7 @@ export async function getPoolExchangeRate(
 export async function getCoinAmountsFromLiquidity(
   poolName: PoolName,
   liquidity: number,
-  options: { suiClient: SuiClient }
+  options: { suiClient: SuiClient },
 ): Promise<[number, number]> {
   const cetus_pool = await getCetusPool(poolName, options);
   const cetusInvestor = await getCetusInvestor(poolName, options);
@@ -179,7 +179,7 @@ export async function getCoinAmountsFromLiquidity(
       new BN(cetus_pool.content.fields.current_sqrt_price),
       TickMath.tickIndexToSqrtPriceX64(lower_tick),
       TickMath.tickIndexToSqrtPriceX64(upper_tick),
-      true
+      true,
     );
 
     return [coin_amounts.coinA.toNumber(), coin_amounts.coinB.toNumber()];
@@ -198,7 +198,7 @@ export async function getCetusPool(
   options: {
     suiClient: SuiClient;
   },
-  ignoreCache: boolean = false
+  ignoreCache: boolean = false,
 ): Promise<CetusPoolType | undefined> {
   const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
   if (ignoreCache) {
@@ -256,7 +256,7 @@ export async function getCetusInvestor(
   options: {
     suiClient: SuiClient;
   },
-  ignoreCache: boolean = false
+  ignoreCache: boolean = false,
 ): Promise<CetusInvestor | undefined> {
   const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
   if (ignoreCache) {
@@ -321,7 +321,7 @@ export async function getDistributor(
   options: {
     suiClient: SuiClient;
   },
-  ignoreCache: boolean = false
+  ignoreCache: boolean = false,
 ): Promise<Distributor | undefined> {
   const cacheKey = `distributor_${conf[CONF_ENV].ALPHA_DISTRIBUTOR}`;
   if (ignoreCache) {

@@ -18,7 +18,12 @@ export {
 
 export { getAirdropShare } from "./getAirdropShare";
 
-export * from "./vaultFunctions";
+export {
+  alphaLpBreakdown,
+  cetusLpBreakdown,
+  fetchRebalanceHistory,
+  lastAutocompoundTime,
+} from "./vaultFunctions";
 
 export {
   AlphaFiVault,
