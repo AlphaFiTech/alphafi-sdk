@@ -12,6 +12,11 @@ import {
   SimpleCache,
 } from "./common/types";
 import { getPool } from "./portfolioAmount";
+import { getLatestPrice } from "./price";
+import { conf, CONF_ENV } from "./common/constants";
+import { Distributor } from "./common/alphaTypes";
+
+export const launchTimestamp = 1719519457000;
 
 const receiptsCache = new SimpleCache<Receipt[]>();
 const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
@@ -296,4 +301,69 @@ export async function getCetusInvestor(
   // Cache the promise
   cetusInvestorPromiseCache.set(cacheKey, cetusInvestorPromise);
   return cetusInvestorPromise;
+}
+
+export const fetchAirdropReserves = async () => {
+  //airdrop reserves calculation
+  const presentTimestamp = new Date().getTime();
+  const time_elapsed_in_days = (presentTimestamp - launchTimestamp) / 86400000;
+  const alpha_price: any = await getLatestPrice("ALPHA/USD");
+  const airdrop_reserves_in_usd = 2500 * time_elapsed_in_days * alpha_price;
+  return airdrop_reserves_in_usd;
+};
+
+const distributorCache = new SimpleCache<Distributor>();
+const distributorPromiseCache = new SimpleCache<
+  Promise<Distributor | undefined>
+>();
+
+export async function getDistributor(
+  options: {
+    suiClient: SuiClient;
+  },
+  ignoreCache: boolean = false,
+): Promise<Distributor | undefined> {
+  const cacheKey = `distributor_${conf[CONF_ENV].ALPHA_DISTRIBUTOR}`;
+  if (ignoreCache) {
+    distributorCache.delete(cacheKey);
+    distributorPromiseCache.delete(cacheKey);
+  }
+  // Check if the distributor is already in the cache
+  const cachedDistributor = distributorCache.get(cacheKey);
+  if (cachedDistributor) {
+    return cachedDistributor;
+  }
+
+  // Check if there is already a promise in the cache
+  let distributorPromise = distributorPromiseCache.get(cacheKey);
+  if (distributorPromise) {
+    return distributorPromise;
+  }
+
+  // If not, create a new promise and cache it
+  distributorPromise = (async () => {
+    try {
+      const o = await options.suiClient.getObject({
+        id: conf[CONF_ENV].ALPHA_DISTRIBUTOR,
+        options: {
+          showContent: true,
+        },
+      });
+      const distributor = o.data as Distributor;
+
+      // Cache the distributor object
+      distributorCache.set(cacheKey, distributor);
+      return distributor;
+    } catch (e) {
+      console.error(`getDistributor failed`);
+      return undefined;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      distributorPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  distributorPromiseCache.set(cacheKey, distributorPromise);
+  return distributorPromise;
 }
