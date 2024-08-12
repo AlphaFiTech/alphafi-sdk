@@ -1,5 +1,5 @@
 import { conf, CONF_ENV } from "./constants";
-import { PoolReceipt } from "./types";
+import { CoinName, PoolName, PoolReceipt } from "./types";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
@@ -60,19 +60,38 @@ export const receiptNameMap: { [key in string]: string } = {
   "NAVI-HASUI": conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT_NAME,
 };
 
-export const poolPairMap: {
-  [key in string]: { pool1: string; pool2: string };
-} = {
-  "USDT-USDC": { pool1: "USDT", pool2: "USDC" },
-  "ALPHA-SUI": { pool1: "ALPHA", pool2: "SUI" },
-  "HASUI-SUI": { pool1: "HASUI", pool2: "SUI" },
-  "USDY-USDC": { pool1: "USDY", pool2: "USDC" },
-  "USDC-SUI": { pool1: "USDC", pool2: "SUI" },
-  "WETH-USDC": { pool1: "WETH", pool2: "USDC" },
-  "USDC-WBTC": { pool1: "USDC", pool2: "WBTC" },
-  "NAVX-SUI": { pool1: "NAVX", pool2: "SUI" },
-  "BUCK-USDC": { pool1: "BUCK", pool2: "USDC" },
-  "CETUS-SUI": { pool1: "CETUS", pool2: "SUI" },
+export const poolCoinPairMap: Record<
+  Exclude<
+    PoolName,
+    "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT" | "ALPHA"
+  >,
+  { coinA: CoinName; coinB: CoinName }
+> = {
+  "USDT-USDC": { coinA: "USDT", coinB: "USDC" },
+  "ALPHA-SUI": { coinA: "ALPHA", coinB: "SUI" },
+  "HASUI-SUI": { coinA: "HASUI", coinB: "SUI" },
+  "USDY-USDC": { coinA: "USDY", coinB: "USDC" },
+  "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
+  "WETH-USDC": { coinA: "WETH", coinB: "USDC" },
+  "USDC-WBTC": { coinA: "USDC", coinB: "WBTC" },
+  "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
+  "BUCK-USDC": { coinA: "BUCK", coinB: "USDC" },
+  "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
+};
+
+export const poolCoinMap: Record<
+  Extract<
+    PoolName,
+    "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT" | "ALPHA"
+  >,
+  CoinName
+> = {
+  ALPHA: "ALPHA",
+  "NAVI-VSUI": "VSUI",
+  "NAVI-SUI": "SUI",
+  "NAVI-WETH": "WETH",
+  "NAVI-USDC": "USDC",
+  "NAVI-USDT": "USDT",
 };
 
 export const poolInfo: {

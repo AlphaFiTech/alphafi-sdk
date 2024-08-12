@@ -8,7 +8,7 @@ import {
 } from "./common/types";
 import { getPool } from "./portfolioAmount";
 import { getCetusPool, getCoinAmountsFromLiquidity } from "./functions";
-import { poolInfo, poolPairMap } from "./common/maps";
+import { poolInfo, poolCoinPairMap } from "./common/maps";
 import { getLatestPrice } from "./price";
 import { PythPriceIdPair } from "./common/pyth";
 import { conf, CONF_ENV } from "./common/constants";
@@ -31,8 +31,10 @@ export async function alphaLpBreakdown(
       options,
     );
 
-    const pool1 = poolPairMap[poolName].pool1;
-    const pool2 = poolPairMap[poolName].pool2;
+    const pool1 =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA;
+    const pool2 =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB;
 
     const priceOfCoin0 = await getLatestPrice(
       `${pool1}/USD` as PythPriceIdPair,
@@ -65,8 +67,10 @@ export async function cetusLpBreakdown(
     const liquidity = pool.content.fields.liquidity;
     const amounts = [pool.content.fields.coin_a, pool.content.fields.coin_b];
 
-    const pool1 = poolPairMap[poolName].pool1;
-    const pool2 = poolPairMap[poolName].pool2;
+    const pool1 =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA;
+    const pool2 =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB;
 
     const priceOfCoin0 = await getLatestPrice(
       `${pool1}/USD` as PythPriceIdPair,
@@ -95,10 +99,18 @@ export async function fetchRebalanceHistory(
     suiClient: SuiClient;
   },
 ): Promise<RebalanceHistoryType[]> {
-  const coin1Type = coins[poolPairMap[poolName].pool1 as CoinName].type;
-  const coin2Type = coins[poolPairMap[poolName].pool2 as CoinName].type;
+  const coin1Type =
+    coins[
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap]
+        .coinA as CoinName
+    ].type;
+  const coin2Type =
+    coins[
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap]
+        .coinB as CoinName
+    ].type;
   const module =
-    poolPairMap[poolName].pool2 === "SUI"
+    poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB === "SUI"
       ? "alphafi_cetus_sui_investor"
       : "alphafi_cetus_investor";
   const rebalanceArr: RebalanceHistoryType[] = [];
@@ -137,8 +149,10 @@ export async function fetchRebalanceHistory(
         }
         const after_price = TickMath.sqrtPriceX64ToPrice(
           new BN(after_sqrt_price),
-          coins[poolPairMap[poolName].pool1 as CoinName].expo,
-          coins[poolPairMap[poolName].pool2 as CoinName].expo,
+          coins[poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA]
+            .expo,
+          coins[poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB]
+            .expo,
         );
         const inputs = o.transaction.data.transaction.inputs;
         const rebalanceObj: RebalanceHistoryType = {

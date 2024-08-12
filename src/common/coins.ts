@@ -113,14 +113,10 @@ export const coins: { [key in CoinName]: Coin } = {
     icon: "https://coinmeta.polymedia.app/img/coins/0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb-usdy-USDY.svg",
     expo: 6,
   },
-};
-
-export const poolTokenMap: {
-  [key in string]: { coinName: CoinName; coinType: CoinType };
-} = {
-  "NAVI-SUI": { coinName: "SUI", coinType: coins["SUI"].type },
-  "NAVI-VSUI": { coinName: "VSUI", coinType: coins["VSUI"].type },
-  "NAVI-WETH": { coinName: "WETH", coinType: coins["WETH"].type },
-  "NAVI-USDT": { coinName: "USDT", coinType: coins["USDT"].type },
-  "NAVI-USDC": { coinName: "USDC", coinType: coins["USDC"].type },
+  BUCK: {
+    name: "BUCK",
+    type: "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
+    icon: "https://imagedelivery.net/cBNDGgkrsEA-b_ixIp9SkQ/buck.svg/public",
+    expo: 9,
+  },
 };

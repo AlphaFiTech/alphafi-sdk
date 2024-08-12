@@ -21,7 +21,7 @@ export const launchTimestamp = 1719519457000;
 const receiptsCache = new SimpleCache<Receipt[]>();
 const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
 export async function getReceipts(
-  poolName: string,
+  poolName: PoolName,
   options: {
     address: string;
     suiClient: SuiClient;

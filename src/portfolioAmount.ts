@@ -1,7 +1,7 @@
 import { SuiClient } from "@mysten/sui/client";
 import Decimal from "decimal.js";
-import { coins, poolTokenMap } from "./common/coins";
-import { poolInfo, poolPairMap } from "./common/maps";
+import { coins } from "./common/coins";
+import { poolInfo, poolCoinPairMap, poolCoinMap } from "./common/maps";
 import { PythPriceIdPair } from "./common/pyth";
 import {
   AlphaPoolType,
@@ -168,8 +168,8 @@ export async function getPortfolioAmountInUSD(
     const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
     if (amounts !== undefined) {
       const ten = new Decimal(10);
-      const pool1 = poolPairMap[poolName].pool1 as CoinName;
-      const pool2 = poolPairMap[poolName].pool2 as CoinName;
+      const pool1 = poolCoinPairMap[poolName].coinA as CoinName;
+      const pool2 = poolCoinPairMap[poolName].coinB as CoinName;
       const amount0 = new Decimal(amounts[0]).div(
         ten.pow(coins[pool1 as CoinName].expo),
       );
@@ -241,9 +241,8 @@ export async function getSingleAssetPortfolioAmount(
         );
         if (poolExchangeRate) {
           let tokens = totalXTokens.mul(poolExchangeRate);
-          tokens = tokens.div(
-            Math.pow(10, 9 - coins[poolTokenMap[poolName].coinName].expo),
-          );
+          const coinName = poolCoinMap[poolName as keyof typeof poolCoinMap];
+          tokens = tokens.div(Math.pow(10, 9 - coins[coinName].expo));
           portfolioAmount = tokens.toNumber();
         } else {
           console.error(
@@ -285,11 +284,12 @@ export async function getSingleAssetPortfolioAmountInUSD(
     ignoreCache,
   );
   if (amounts !== undefined) {
+    const coinName = poolCoinMap[poolName as keyof typeof poolCoinMap];
     const amount = new Decimal(amounts).div(
-      new Decimal(Math.pow(10, coins[poolTokenMap[poolName].coinName].expo)),
+      new Decimal(Math.pow(10, coins[coinName].expo)),
     );
     const priceOfCoin = await getLatestPrice(
-      `${poolTokenMap[poolName].coinName}/USD` as PythPriceIdPair,
+      `${coinName}/USD` as PythPriceIdPair,
     );
     if (priceOfCoin) {
       const amountInUSD = amount.mul(priceOfCoin);
@@ -304,17 +304,15 @@ export async function getSingleAssetPortfolioAmountInUSD(
 }
 
 const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
-const poolPromiseCache = new SimpleCache<
-  Promise<PoolType | AlphaPoolType | undefined>
->();
+const poolPromiseCache = new SimpleCache<Promise<PoolType | AlphaPoolType>>();
 
 export async function getPool(
-  poolName: string,
+  poolName: PoolName,
   options: {
     suiClient: SuiClient;
   },
   ignoreCache: boolean = false,
-): Promise<PoolType | AlphaPoolType | undefined> {
+): Promise<PoolType | AlphaPoolType> {
   const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].poolId}`;
 
   if (ignoreCache) {
@@ -351,8 +349,7 @@ export async function getPool(
       poolCache.set(cacheKey, poolData);
       return poolData;
     } catch (e) {
-      console.error(`Error in getPool; poolName => ${poolName}`);
-      return undefined;
+      throw new Error(`Error in getPool; poolName => ${poolName}`);
     } finally {
       // Remove the promise from the cache after it resolves
       poolPromiseCache.delete(cacheKey);

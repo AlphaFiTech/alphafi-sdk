@@ -15,7 +15,9 @@ export type PoolName =
   | "NAVX-SUI"
   | "NAVI-WETH"
   | "NAVI-USDT"
-  | "NAVI-USDC";
+  | "NAVI-USDC"
+  | "BUCK-USDC"
+  | "CETUS-SUI";
 
 export type CoinName =
   | "ALPHA"
@@ -35,7 +37,8 @@ export type CoinName =
   | "CELO"
   | "TURBOS"
   | "HASUI"
-  | "USDY";
+  | "USDY"
+  | "BUCK";
 
 export interface Coin {
   name: CoinName;
@@ -64,7 +67,8 @@ export type Icon =
   | "https://coinmeta.polymedia.app/img/coins/0x5d1f47ea69bb0de31c313d7acf89b890dbb8991ea8e03c6c355171f84bb1ba4a-turbos-TURBOS.svg"
   | "https://7taj6jfau6n3dri7agspzfnva7qbj5sizz5xc3lb56nmxpsyoiba.arweave.net/_MCfJKCnm7HFHwGk_JW1B-AU9kjOe3FtYe-ay75YcgI"
   | "https://coinmeta.polymedia.app/img/coins/0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d-hasui-HASUI.svg"
-  | "https://coinmeta.polymedia.app/img/coins/0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb-usdy-USDY.svg";
+  | "https://coinmeta.polymedia.app/img/coins/0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb-usdy-USDY.svg"
+  | "https://imagedelivery.net/cBNDGgkrsEA-b_ixIp9SkQ/buck.svg/public";
 
 export type CoinType =
   | "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA"
@@ -84,7 +88,8 @@ export type CoinType =
   | "0x6864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS"
   | "0x5d1f47ea69bb0de31c313d7acf89b890dbb8991ea8e03c6c355171f84bb1ba4a::turbos::TURBOS"
   | "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI"
-  | "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY";
+  | "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
+  | "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_USDC_POOL_RECEIPT = conf[CONF_ENV].USDY_USDC_POOL_RECEIPT;
@@ -416,14 +421,25 @@ export type CreatePoolOptions = {
   isAmountA: boolean;
 };
 
-export type AlphaFiVault = {
-  poolId: string | null;
-  poolName: PoolName | null;
-  receiptName: string | null;
-  receiptType: string | null;
-  coinTypeA: string | null;
-  coinTypeB: string | null;
+export type AlphaFiSingleAssetVault = {
+  poolId: string;
+  poolName: PoolName;
+  receiptName: string;
+  receiptType: string;
+  coinType: CoinName;
 };
+
+export type AlphaFiDoubleAssetVault = {
+  poolId: string;
+  poolName: PoolName;
+  receiptName: string;
+  receiptType: string;
+  coinTypeA: CoinName;
+  coinTypeB: CoinName;
+};
+
+// Union type for both single and double asset vaults
+export type AlphaFiVault = AlphaFiSingleAssetVault | AlphaFiDoubleAssetVault;
 
 export type AlphaVaultBalance = {
   lockedAlphaCoins: string | null;
