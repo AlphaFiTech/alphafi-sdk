@@ -418,7 +418,7 @@ export type CreatePoolOptions = {
 
 export type AlphaFiVault = {
   poolId: string | null;
-  poolName: string | null;
+  poolName: PoolName | null;
   receiptName: string | null;
   receiptType: string | null;
   coinTypeA: string | null;

@@ -1,7 +1,7 @@
 import { poolInfo } from "./common/maps";
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import { getReceipts } from "./functions";
-import { AlphaFiVault } from "./common/types";
+import { AlphaFiVault, PoolName } from "./common/types";
 import { getPool } from "./portfolioAmount";
 
 function extractCoinTypes(input: string): {
@@ -37,23 +37,12 @@ export async function getVaults(
         const name = receipt[0].content.fields.name;
         const res: AlphaFiVault = {
           poolId: poolInfo[pool].poolId,
-          poolName: null,
+          poolName: pool as PoolName,
           receiptName: name,
           receiptType: receipt[0].content.type,
           coinTypeA: extractCoinTypes(poolObject.content.type).coinTypeA,
           coinTypeB: extractCoinTypes(poolObject.content.type).coinTypeB,
         };
-        if (poolInfo[pool].parentProtocolName === "NAVI") {
-          res.poolName = name
-            .replace(/^AlphaFi-NAVI /, "")
-            .replace(/ Receipt$/, "");
-
-          res.poolName = "NAVI-" + res.poolName;
-        } else if (poolInfo[pool].parentProtocolName === "ALPHAFI") {
-          res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
-        } else {
-          res.poolName = name.replace(/^AlphaFi /, "").replace(/ Receipt$/, "");
-        }
         vaultsArr.push(res);
       }
     }
