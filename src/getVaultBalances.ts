@@ -1,135 +1,49 @@
-import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import {
   AlphaVaultBalance,
   DoubleAssetVaultBalance,
-  PoolName,
   SingleAssetVaultBalance,
+  PoolName,
 } from "./common/types";
-import {
-  getAlphaPortfolioAmount,
-  getAlphaPortfolioAmountInUSD,
-  getPortfolioAmount,
-  getPortfolioAmountInUSD,
-  getSingleAssetPortfolioAmount,
-  getSingleAssetPortfolioAmountInUSD,
-} from "./portfolioAmount";
-import { poolInfo } from "./common/maps";
 
 export async function getAlphaVaultBalance(
   address: string,
-): Promise<AlphaVaultBalance | undefined> {
-  const suiClient = new SuiClient({
-    url: getFullnodeUrl("mainnet"),
-  });
-  if (address) {
-    const lockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-      isLocked: true,
-    });
-    const lockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
-      "ALPHA",
-      { suiClient, address, isLocked: true },
-    );
-    const unlockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-      isLocked: false,
-    });
-    const unlockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
-      "ALPHA",
-      { suiClient, address, isLocked: false },
-    );
-    const portfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-    });
-    const portfolioAmountInUSD = await getAlphaPortfolioAmountInUSD("ALPHA", {
-      suiClient,
-      address,
-    });
-    if (
-      lockedPortfolioAmount !== undefined &&
-      lockedPortfolioAmountInUSD !== undefined &&
-      unlockedPortfolioAmount !== undefined &&
-      unlockedPortfolioAmountInUSD !== undefined &&
-      portfolioAmount !== undefined &&
-      portfolioAmountInUSD !== undefined
-    ) {
-      const res: AlphaVaultBalance = {
-        lockedAlphaCoins: lockedPortfolioAmount,
-        lockedAlphaCoinsInUSD: lockedPortfolioAmountInUSD,
-        unlockedAlphaCoins: unlockedPortfolioAmount,
-        unlockedAlphaCoinsInUSD: unlockedPortfolioAmountInUSD,
-        totalAlphaCoins: portfolioAmount,
-        totalAlphaCoinsInUSD: portfolioAmountInUSD,
-      };
-      return res;
-    }
-  }
-  return undefined;
+): Promise<AlphaVaultBalance> {
+  const balance: AlphaVaultBalance = {
+    lockedAlphaCoins: null,
+    lockedAlphaCoinsInUSD: null,
+    unlockedAlphaCoins: null,
+    unlockedAlphaCoinsInUSD: null,
+    totalAlphaCoins: null,
+    totalAlphaCoinsInUSD: null,
+  };
+
+  console.log(address);
+
+  return balance;
 }
 
 export async function getDoubleAssetVaultBalance(
   address: string,
   poolName: PoolName,
-): Promise<DoubleAssetVaultBalance | undefined> {
-  const suiClient = new SuiClient({
-    url: getFullnodeUrl("mainnet"),
-  });
-  if (address && poolName) {
-    if (poolInfo[poolName].parentProtocolName === "CETUS") {
-      const portfolioAmount = await getPortfolioAmount(poolName, {
-        suiClient,
-        address,
-      });
-      const portfolioAmountInUSD = await getPortfolioAmountInUSD(poolName, {
-        suiClient,
-        address,
-      });
-      if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
-        const res: DoubleAssetVaultBalance = {
-          coinA: portfolioAmount[0].toString(),
-          coinB: portfolioAmount[1].toString(),
-          valueInUSD: portfolioAmountInUSD,
-        };
-        return res;
-      }
-    }
-  }
+): Promise<DoubleAssetVaultBalance> {
+  const balance: DoubleAssetVaultBalance = {
+    coinA: null,
+    coinB: null,
+    valueInUSD: null,
+  };
+
+  console.log(address, poolName);
+
+  return balance;
 }
 
 export async function getSingleAssetVaultBalance(
   address: string,
   poolName: PoolName,
-): Promise<SingleAssetVaultBalance | undefined> {
-  const suiClient = new SuiClient({
-    url: getFullnodeUrl("mainnet"),
-  });
+): Promise<SingleAssetVaultBalance> {
+  const balance: SingleAssetVaultBalance = { coin: null, valueInUSD: null };
 
-  if (address && poolName) {
-    if (
-      poolInfo[poolName].parentProtocolName === "ALPHAFI" ||
-      poolInfo[poolName].parentProtocolName === "NAVI"
-    ) {
-      const portfolioAmount = await getSingleAssetPortfolioAmount(poolName, {
-        suiClient,
-        address,
-      });
-      const portfolioAmountInUSD = await getSingleAssetPortfolioAmountInUSD(
-        poolName,
-        {
-          suiClient,
-          address,
-        },
-      );
-      if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
-        const res: SingleAssetVaultBalance = {
-          coin: portfolioAmount.toString(),
-          valueInUSD: portfolioAmountInUSD,
-        };
-        return res;
-      }
-    }
-  }
+  console.log(address, poolName);
+
+  return balance;
 }
