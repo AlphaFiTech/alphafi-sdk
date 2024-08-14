@@ -32,9 +32,6 @@ module.exports = {
     },
     globalObject: "this",
   },
-  optimization: {
-    splitChunks: false, // Disable splitChunks unless necessary
-  },
   devtool: "source-map",
   performance: {
     hints: "warning",

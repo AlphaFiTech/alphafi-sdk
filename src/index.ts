@@ -32,3 +32,8 @@ export {
   SingleAssetVaultBalance,
   PoolName,
 } from "./common/types";
+
+// src/index.ts
+export * from "./graphql/fetchData";
+export * from "./graphql/parseData";
+export * from "./graphql/executeMutations";

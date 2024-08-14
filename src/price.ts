@@ -18,7 +18,6 @@ import {
 } from "./common/types";
 import { Transaction } from "@mysten/sui/transactions";
 import { cetusMainnetSDKOptions } from "./common/cetus_mainnet_config";
-import axios from "axios";
 import { PythPriceIdPair } from "./common/pyth";
 
 export async function getLatestPrice(
@@ -58,14 +57,21 @@ async function fetchPriceFromAlphaAPI(
   pair: string,
 ): Promise<string | undefined> {
   let pythPricePair: PythPricePair | undefined = undefined;
-  const cachedPromise = axios
-    .get<PythPricePair>(`https://api.alphafi.xyz/alpha/fetchPrice?pair=${pair}`)
+  const cachedPromise = fetch(
+    `https://api.alphafi.xyz/alpha/fetchPrice?pair=${pair}`,
+  )
     .then((response) => {
-      const data = response.data;
-      return data;
+      if (!response.ok) {
+        // Handle HTTP errors
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json(); // Parse the JSON data from the response
+    })
+    .then((data) => {
+      return data; // Return the parsed data
     })
     .catch((error) => {
-      throw error;
+      throw error; // Handle any errors that occurred during the fetch or parsing
     });
   pythPricePair = await cachedPromise;
 
