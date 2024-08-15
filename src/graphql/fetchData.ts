@@ -10,6 +10,7 @@ import {
   GET_PROTOCOL_DATA,
   GET_PORTFOLIO_DATA,
   GET_CHAIN_IDENTIFIER,
+  GET_USER_VAULTS,
 } from "./queries";
 
 export async function fetchUserWalletData(address: string) {
@@ -40,6 +41,16 @@ export async function fetchChainIdentifier() {
     query: GET_CHAIN_IDENTIFIER,
   });
   return data.chainIdentifier;
+}
+
+export async function fetchUserVaults(walletAddress: string) {
+  const { data } = await client.query({
+    query: GET_USER_VAULTS,
+    variables: {
+      address: walletAddress,
+    },
+  });
+  return data.owner;
 }
 
 // Add more functions for other data fetching requirements

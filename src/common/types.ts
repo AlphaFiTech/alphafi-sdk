@@ -1,6 +1,8 @@
 import BN from "bn.js";
 import { conf, CONF_ENV } from "./constants";
 
+export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI";
+
 export type PoolName =
   | "ALPHA"
   | "HASUI-SUI"

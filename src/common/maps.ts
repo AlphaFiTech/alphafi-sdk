@@ -1,5 +1,5 @@
 import { conf, CONF_ENV } from "./constants";
-import { CoinName, PoolName, PoolReceipt } from "./types";
+import { CoinName, ParentProtocolName, PoolName, PoolReceipt } from "./types";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
@@ -96,7 +96,7 @@ export const poolCoinMap: Record<
 
 export const poolInfo: {
   [key: string]: {
-    parentProtocolName: string;
+    parentProtocolName: ParentProtocolName;
     parentPoolId: string;
     poolId: string;
     investorId: string;
@@ -216,4 +216,23 @@ export const poolInfo: {
     receiptName: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
   },
+};
+
+export const poolIdPoolNameMap: {
+  [key: string]: PoolName;
+} = {
+  [conf[CONF_ENV].ALPHAFI_NAVI_SUI_POOL]: "NAVI-SUI",
+  [conf[CONF_ENV].ALPHAFI_NAVI_VSUI_POOL]: "NAVI-VSUI",
+  [conf[CONF_ENV].ALPHAFI_NAVI_WETH_POOL]: "NAVI-WETH",
+  [conf[CONF_ENV].ALPHAFI_NAVI_USDT_POOL]: "NAVI-USDT",
+  [conf[CONF_ENV].ALPHAFI_NAVI_USDC_POOL]: "NAVI-USDC",
+  [conf[CONF_ENV].ALPHA_POOL]: "ALPHA",
+  [conf[CONF_ENV].ALPHA_SUI_POOL]: "ALPHA-SUI",
+  [conf[CONF_ENV].HASUI_SUI_POOL]: "HASUI-SUI",
+  [conf[CONF_ENV].USDC_USDT_POOL]: "USDT-USDC",
+  [conf[CONF_ENV].USDY_USDC_POOL]: "USDY-USDC",
+  [conf[CONF_ENV].USDC_SUI_POOL]: "USDC-SUI",
+  [conf[CONF_ENV].WETH_USDC_POOL]: "WETH-USDC",
+  [conf[CONF_ENV].USDC_WBTC_POOL]: "USDC-WBTC",
+  [conf[CONF_ENV].NAVX_SUI_POOL]: "NAVX-SUI",
 };
