@@ -8,6 +8,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.graphql$/,
+        exclude: /node_modules/,
+        loader: "graphql-tag/loader",
+      },
+      {
         test: /\.ts$/,
         use: "ts-loader",
         exclude: /node_modules/,
@@ -21,7 +26,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".graphql"],
   },
   output: {
     filename: "index.js",

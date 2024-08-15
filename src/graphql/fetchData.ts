@@ -11,6 +11,7 @@ import {
   GET_PORTFOLIO_DATA,
   GET_CHAIN_IDENTIFIER,
   GET_USER_VAULTS,
+  GET_USER_VAULT_BALANCES,
 } from "./queries";
 
 export async function fetchUserWalletData(address: string) {
@@ -46,6 +47,16 @@ export async function fetchChainIdentifier() {
 export async function fetchUserVaults(walletAddress: string) {
   const { data } = await client.query({
     query: GET_USER_VAULTS,
+    variables: {
+      address: walletAddress,
+    },
+  });
+  return data.owner;
+}
+
+export async function fetchUserVaultBalances(walletAddress: string) {
+  const { data } = await client.query({
+    query: GET_USER_VAULT_BALANCES,
     variables: {
       address: walletAddress,
     },
