@@ -12,6 +12,7 @@ import {
   GET_CHAIN_IDENTIFIER,
   GET_USER_VAULTS,
   GET_USER_VAULT_BALANCES,
+  GET_POOLS,
 } from "./queries";
 
 export async function fetchUserWalletData(address: string) {
@@ -61,7 +62,14 @@ export async function fetchUserVaultBalances(walletAddress: string) {
       address: walletAddress,
     },
   });
-  return data.owner;
+  return data;
+}
+
+export async function fetchPools() {
+  const { data } = await client.query({
+    query: GET_POOLS,
+  });
+  return data;
 }
 
 // Add more functions for other data fetching requirements

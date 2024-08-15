@@ -7,6 +7,7 @@
 import { gql } from "@apollo/client";
 import userVaults from "./queries/userVaults.graphql";
 import userVaultBalances from "./queries/userVaultBalances.graphql";
+import pools from "./queries/pools.graphql";
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`
@@ -55,6 +56,10 @@ export const GET_USER_VAULTS = gql`
 
 export const GET_USER_VAULT_BALANCES = gql`
   ${userVaultBalances}
+`;
+
+export const GET_POOLS = gql`
+  ${pools}
 `;
 
 // Add more queries as needed for other data fetching requirements.

@@ -202,7 +202,17 @@ export type CetusPoolType = {
   };
 };
 
+export type AlphaReceipt = {
+  lockedBalance: string;
+  unlockedBalance: string;
+  balance: string;
+};
+
 export type Receipt = {
+  balance: string;
+};
+
+export type Receipt1 = {
   objectId: string;
   version: string;
   digest: string;
