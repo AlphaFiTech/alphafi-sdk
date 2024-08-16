@@ -11,7 +11,7 @@ npm i @alphafi/alphafi-sdk
 Call this to get all Vaults that a particular user has deposited in.
 
 ```typescript
-import { getVaults, AlphaFiVault } from "alphafi-sdk";
+import { getVaults, AlphaFiVault } from "@alphafi/alphafi-sdk";
 
 const vaults: AlphaFiVault[] | undefined = await getVaults(address);
 ```
@@ -21,7 +21,7 @@ const vaults: AlphaFiVault[] | undefined = await getVaults(address);
 Call this to get all Single Asset Vaults that a particular user has deposited in.
 
 ```typescript
-import { getSingleAssetVaults, AlphaFiVault } from "alphafi-sdk";
+import { getSingleAssetVaults, AlphaFiVault } from "@alphafi/alphafi-sdk";
 
 const vaults: AlphaFiVault[] | undefined = await getSingleAssetVaults(address);
 ```
@@ -31,7 +31,7 @@ const vaults: AlphaFiVault[] | undefined = await getSingleAssetVaults(address);
 Call this to get all Double Asset Vaults that a particular user has deposited in.
 
 ```typescript
-import { getDoubleAssetVaults, AlphaFiVault } from "alphafi-sdk";
+import { getDoubleAssetVaults, AlphaFiVault } from "@alphafi/alphafi-sdk";
 
 const vaults: AlphaFiVault[] | undefined = await getDoubleAssetVaults(address);
 ```
@@ -41,7 +41,7 @@ const vaults: AlphaFiVault[] | undefined = await getDoubleAssetVaults(address);
 Call this to get user balance in Alpha Vault.
 
 ```typescript
-import { getAlphaVaultBalance, AlphaVaultBalance } from "alphafi-sdk";
+import { getAlphaVaultBalance, AlphaVaultBalance } from "@alphafi/alphafi-sdk";
 
 const balance: AlphaVaultBalance | undefined = await getAlphaVaultBalance(address);
 ```
@@ -51,7 +51,7 @@ const balance: AlphaVaultBalance | undefined = await getAlphaVaultBalance(addres
 Call this to get user balance in Single Asset Vaults.
 
 ```typescript
-import { getSingleAssetVaultBalance, SingleAssetVaultBalance } from "alphafi-sdk";
+import { getSingleAssetVaultBalance, SingleAssetVaultBalance } from "@alphafi/alphafi-sdk";
 
 const balance: SingleAssetVaultBalance | undefined = await getSingleAssetVaultBalance(address, poolName);
 ```
@@ -61,7 +61,7 @@ const balance: SingleAssetVaultBalance | undefined = await getSingleAssetVaultBa
 Call this to get user balance in Double Asset Vaults.
 
 ```typescript
-import { getDoubleAssetVaultBalance, DoubleAssetVaultBalance } from "alphafi-sdk";
+import { getDoubleAssetVaultBalance, DoubleAssetVaultBalance } from "@alphafi/alphafi-sdk";
 
 const balance: DoubleAssetVaultBalance | undefined = await getDoubleAssetVaultBalance(address, poolName);
 ```
@@ -71,7 +71,7 @@ const balance: DoubleAssetVaultBalance | undefined = await getDoubleAssetVaultBa
 Call this to get all Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllVaults } from "alphafi-sdk";
+import { getAllVaults } from "@alphafi/alphafi-sdk";
 
 const vaults: string[] = await getAllVaults();
 ```
@@ -81,7 +81,7 @@ const vaults: string[] = await getAllVaults();
 Call this to get all Single Asset Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllSingleAssetVaults } from "alphafi-sdk";
+import { getAllSingleAssetVaults } from "@alphafi/alphafi-sdk";
 
 const vaults: string[] = await getAllSingleAssetVaults();
 ```
@@ -91,7 +91,7 @@ const vaults: string[] = await getAllSingleAssetVaults();
 Call this to get all Double Asset Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllDoubleAssetVaults } from "alphafi-sdk";
+import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 
 const vaults: string[] = await getAllDoubleAssetVaults();
 ```
