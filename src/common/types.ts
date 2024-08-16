@@ -426,7 +426,8 @@ export type AlphaFiSingleAssetVault = {
   poolName: PoolName;
   receiptName: string;
   receiptType: string;
-  coinType: CoinName;
+  coinType: CoinType;
+  coinName: CoinName;
 };
 
 export type AlphaFiDoubleAssetVault = {
@@ -434,8 +435,10 @@ export type AlphaFiDoubleAssetVault = {
   poolName: PoolName;
   receiptName: string;
   receiptType: string;
-  coinTypeA: CoinName;
-  coinTypeB: CoinName;
+  coinTypeA: CoinType;
+  coinTypeB: CoinType;
+  coinNameA: CoinName;
+  coinNameB: CoinName;
 };
 
 // Union type for both single and double asset vaults

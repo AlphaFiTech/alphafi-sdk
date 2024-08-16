@@ -1,4 +1,9 @@
-import { poolInfo, poolCoinPairMap, poolCoinMap } from "./common/maps";
+import {
+  poolInfo,
+  poolCoinPairMap,
+  poolCoinMap,
+  coinNameTypeMap,
+} from "./common/maps";
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import { getReceipts } from "./functions";
 import {
@@ -37,7 +42,9 @@ export async function getVaults(
             poolName: pool as PoolName,
             receiptName: name,
             receiptType: receipt[0].content.type,
-            coinType: poolCoinMap[pool as keyof typeof poolCoinMap],
+            coinName: poolCoinMap[pool as keyof typeof poolCoinMap],
+            coinType:
+              coinNameTypeMap[poolCoinMap[pool as keyof typeof poolCoinMap]],
           };
         } else if (poolInfo[pool].parentProtocolName === "CETUS") {
           vault = {
@@ -46,8 +53,16 @@ export async function getVaults(
             receiptName: name,
             receiptType: receipt[0].content.type,
             coinTypeA:
-              poolCoinPairMap[pool as keyof typeof poolCoinPairMap].coinA,
+              coinNameTypeMap[
+                poolCoinPairMap[pool as keyof typeof poolCoinPairMap].coinA
+              ],
             coinTypeB:
+              coinNameTypeMap[
+                poolCoinPairMap[pool as keyof typeof poolCoinPairMap].coinB
+              ],
+            coinNameA:
+              poolCoinPairMap[pool as keyof typeof poolCoinPairMap].coinA,
+            coinNameB:
               poolCoinPairMap[pool as keyof typeof poolCoinPairMap].coinB,
           };
         }
