@@ -45,20 +45,19 @@ export async function getSingleAssetVaultBalance(
 }
 
 async function buildAlphaVaultBalance(address: string, vaultsData: any) {
-  const receipt = await buildReceipt(
+  const receipt = (await buildReceipt(
     address,
     vaultsData.owner.alphaObjects.nodes,
     "ALPHA",
-  );
+  )) as AlphaReceipt;
   if (receipt) {
     // TODO: fill data
-    console.log("receipt", "ALPHA", receipt);
     const balance: AlphaVaultBalance = {
-      lockedAlphaCoins: null,
+      lockedAlphaCoins: receipt.lockedBalance,
       lockedAlphaCoinsInUSD: null,
-      unlockedAlphaCoins: null,
+      unlockedAlphaCoins: receipt.unlockedBalance,
       unlockedAlphaCoinsInUSD: null,
-      totalAlphaCoins: null,
+      totalAlphaCoins: receipt.balance,
       totalAlphaCoinsInUSD: null,
     };
     return balance;
@@ -88,7 +87,6 @@ async function buildDoubleAssetVaultBalance(
   const receipt = await buildReceipt(address, allObjects, poolName);
   if (receipt) {
     // TODO: fill data
-    console.log("receipt", poolName, receipt);
     const balance: DoubleAssetVaultBalance = {
       coinA: null,
       coinB: null,
@@ -115,12 +113,15 @@ async function buildSingleAssetVaultBalance(
     ...vaultsData.owner.naviObjects.nodes,
   ];
 
-  const receipt = await buildReceipt(address, allObjects, poolName);
+  const receipt = (await buildReceipt(
+    address,
+    allObjects,
+    poolName,
+  )) as Receipt;
   if (receipt) {
     // TODO: fill data
-    console.log("receipt", poolName, receipt);
     const balance: SingleAssetVaultBalance = {
-      coin: null,
+      coin: receipt.balance,
       valueInUSD: null,
     };
     return balance;
@@ -133,7 +134,7 @@ async function buildReceipt(
   address: string,
   allObjects: any[],
   poolName: PoolName,
-) {
+): Promise<AlphaReceipt | Receipt | undefined> {
   const receiptArr = allObjects.map((o) => {
     const poolNameFromQuery: PoolName =
       poolIdPoolNameMap[o.contents.json.pool_id];

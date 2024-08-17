@@ -1,5 +1,11 @@
 import { conf, CONF_ENV } from "./constants";
-import { CoinName, ParentProtocolName, PoolName, PoolReceipt } from "./types";
+import {
+  CoinName,
+  CoinType,
+  ParentProtocolName,
+  PoolName,
+  PoolReceipt,
+} from "./types";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,

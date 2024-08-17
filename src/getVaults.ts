@@ -3,6 +3,7 @@ import {
   poolInfo,
   poolCoinMap,
   poolCoinPairMap,
+  coinNameTypeMap,
 } from "./common/maps";
 import {
   AlphaFiSingleAssetVault,
@@ -87,7 +88,9 @@ async function buildVaultsArray(allObjects: any[]) {
         poolName: poolName,
         receiptName: pool.receiptName,
         receiptType: pool.receiptType,
-        coinType: poolCoinMap[poolName as keyof typeof poolCoinMap],
+        coinName: poolCoinMap[poolName as keyof typeof poolCoinMap],
+        coinType:
+          coinNameTypeMap[poolCoinMap[poolName as keyof typeof poolCoinMap]],
       };
       return vault;
     } else if (pool.parentProtocolName === "CETUS") {
@@ -97,8 +100,16 @@ async function buildVaultsArray(allObjects: any[]) {
         receiptName: pool.receiptName,
         receiptType: pool.receiptType,
         coinTypeA:
-          poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA,
+          coinNameTypeMap[
+            poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA
+          ],
         coinTypeB:
+          coinNameTypeMap[
+            poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB
+          ],
+        coinNameA:
+          poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA,
+        coinNameB:
           poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB,
       };
       return vault;
