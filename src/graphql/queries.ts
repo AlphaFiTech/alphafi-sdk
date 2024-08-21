@@ -4,7 +4,7 @@
 /* data, protocol data, and portfolio data.
  */
 
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client/core";
 import userVaults from "./queries/userVaults.graphql";
 import userVaultBalances from "./queries/userVaultBalances.graphql";
 import pools from "./queries/pools.graphql";

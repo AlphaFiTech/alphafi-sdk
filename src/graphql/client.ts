@@ -3,7 +3,7 @@
 /* This file will contain the setup for the Apollo Client:
  */
 
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client/core";
 
 const client = new ApolloClient({
   link: new HttpLink({
