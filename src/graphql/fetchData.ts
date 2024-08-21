@@ -13,6 +13,8 @@ import {
   GET_USER_VAULTS,
   GET_USER_VAULT_BALANCES,
   GET_POOLS,
+  GET_INVESTORS,
+  GET_CETUS_POOLS,
 } from "./queries";
 
 export async function fetchUserWalletData(address: string) {
@@ -56,18 +58,42 @@ export async function fetchUserVaults(walletAddress: string) {
 }
 
 export async function fetchUserVaultBalances(walletAddress: string) {
-  const { data } = await client.query({
+  const { data: poolsData } = await client.query({
+    query: GET_POOLS,
+  });
+  const { data: cetusPoolsData } = await client.query({
+    query: GET_CETUS_POOLS,
+  });
+  const { data: investorsData } = await client.query({
+    query: GET_INVESTORS,
+  });
+  const { data: userVaultBalancesData } = await client.query({
     query: GET_USER_VAULT_BALANCES,
     variables: {
       address: walletAddress,
     },
   });
+
+  const data = {
+    ...poolsData,
+    ...cetusPoolsData,
+    ...investorsData,
+    ...userVaultBalancesData,
+  };
+
   return data;
 }
 
 export async function fetchPools() {
   const { data } = await client.query({
     query: GET_POOLS,
+  });
+  return data;
+}
+
+export async function fetchCetusPools() {
+  const { data } = await client.query({
+    query: GET_CETUS_POOLS,
   });
   return data;
 }

@@ -1,4 +1,10 @@
-import { poolIdPoolNameMap, poolInfo } from "./common/maps";
+import {
+  poolIdPoolNameMap,
+  poolIdQueryPoolMap,
+  poolIdQueryInvestorMap,
+  poolInfo,
+  poolIdQueryCetusPoolMap,
+} from "./common/maps";
 import {
   AlphaVaultBalance,
   DoubleAssetVaultBalance,
@@ -7,9 +13,17 @@ import {
   Receipt,
   AlphaReceipt,
 } from "./common/types";
-
+import Decimal from "decimal.js";
 import { fetchUserVaultBalances } from "./graphql/fetchData";
 
+/**
+ * Get the Alpha balance for a given address. AlphaVaultBalance
+ * contains, locked, unlocked and total Alpha balance.
+ *
+ * @param address - Sui format account address
+ *
+ * @return AlphaVaultBalance
+ */
 export async function getAlphaVaultBalance(
   address: string,
 ): Promise<AlphaVaultBalance> {
@@ -18,6 +32,17 @@ export async function getAlphaVaultBalance(
   return balance;
 }
 
+/**
+ * Get the liquidity pool balance for a given address and
+   pool. DoubleAssetVaultBalance contains amounts for coinA * and
+   coinB.
+ *
+ * @param address - Sui format account address
+ *
+ * @param poolName - AlphaFi PoolName
+ *
+ * @return DoubleAssetVaultBalance
+ */
 export async function getDoubleAssetVaultBalance(
   address: string,
   poolName: PoolName,
@@ -31,6 +56,16 @@ export async function getDoubleAssetVaultBalance(
   return balance;
 }
 
+/**
+ * Get the vault balance for a given address and
+   pool. SingleAssetVaultBalance contains amount of coin.
+ *
+ * @param address - Sui format account address
+ *
+ * @param poolName - AlphaFi PoolName
+ *
+ * @return SingleAssetVaultBalance
+ */
 export async function getSingleAssetVaultBalance(
   address: string,
   poolName: PoolName,
@@ -47,7 +82,8 @@ export async function getSingleAssetVaultBalance(
 async function buildAlphaVaultBalance(address: string, vaultsData: any) {
   const receipt = (await buildReceipt(
     address,
-    vaultsData.owner.alphaObjects.nodes,
+    vaultsData,
+    vaultsData.owner.alphaPoolReceipts.nodes,
     "ALPHA",
   )) as AlphaReceipt;
   if (receipt) {
@@ -79,26 +115,31 @@ async function buildDoubleAssetVaultBalance(
   poolName: PoolName,
 ) {
   const allObjects = [
-    ...vaultsData.owner.alphaSuiObjects.nodes,
-    ...vaultsData.owner.usdtUsdcObjects.nodes,
-    ...vaultsData.owner.usdcWbtcObjects.nodes,
+    ...vaultsData.owner.cetusSuiPoolReceipts.nodes,
+    ...vaultsData.owner.cetusPoolReceipts.nodes,
+    ...vaultsData.owner.cetusPoolBaseAReceipts.nodes,
   ];
 
-  const receipt = await buildReceipt(address, allObjects, poolName);
+  const receipt = await buildReceipt(address, vaultsData, allObjects, poolName);
   if (receipt) {
     // TODO: fill data
+    const amounts = await getCoinAmountsFromLiquidity(
+      poolName,
+      vaultsData,
+      Number(receipt.balance),
+    );
     const balance: DoubleAssetVaultBalance = {
-      coinA: null,
-      coinB: null,
+      coinA: amounts[0].toString(),
+      coinB: amounts[1].toString(),
       valueInUSD: null,
     };
     return balance;
   } else {
     return {
-      coinA: null,
-      coinB: null,
-      valueInUSD: null,
-    };
+      coinA: "0",
+      coinB: "0",
+      valueInUSD: "0",
+    } as DoubleAssetVaultBalance;
   }
 }
 
@@ -109,12 +150,13 @@ async function buildSingleAssetVaultBalance(
 ) {
   // Combine all objects into a single array
   const allObjects = [
-    ...vaultsData.owner.alphaObjects.nodes,
-    ...vaultsData.owner.naviObjects.nodes,
+    ...vaultsData.owner.alphaPoolReceipts.nodes,
+    ...vaultsData.owner.naviPoolReceipts.nodes,
   ];
 
   const receipt = (await buildReceipt(
     address,
+    vaultsData,
     allObjects,
     poolName,
   )) as Receipt;
@@ -126,12 +168,13 @@ async function buildSingleAssetVaultBalance(
     };
     return balance;
   } else {
-    return { coin: null, valueInUSD: null };
+    return { coin: "0", valueInUSD: "0" } as SingleAssetVaultBalance;
   }
 }
 
 async function buildReceipt(
   address: string,
+  vaultsData: any,
   allObjects: any[],
   poolName: PoolName,
 ): Promise<AlphaReceipt | Receipt | undefined> {
@@ -156,8 +199,18 @@ async function buildReceipt(
         pool.parentProtocolName === "CETUS" ||
         pool.parentProtocolName === "NAVI"
       ) {
+        const poolFromQuery =
+          vaultsData[poolIdQueryPoolMap[o.contents.json.pool_id]].asMoveObject
+            .contents.json;
+
+        const xTokenBalance = new Decimal(o.contents.json.xTokenBalance);
+        const xTokenSupply = new Decimal(poolFromQuery.xTokenSupply);
+        const tokensInvested = new Decimal(poolFromQuery.tokensInvested);
+        const userLiquidity = xTokenBalance
+          .div(xTokenSupply)
+          .mul(tokensInvested);
         const receipt: Receipt = {
-          balance: o.contents.json.xTokenBalance,
+          balance: userLiquidity.toString(),
         };
         return receipt;
       }
@@ -168,4 +221,65 @@ async function buildReceipt(
     if (r) return true;
   });
   return receipt;
+}
+
+async function getCoinAmountsFromLiquidity(
+  poolName: PoolName,
+  vaultsData: any,
+  liquidity: number,
+): Promise<[number, number]> {
+  const { ClmmPoolUtil, TickMath } = await import(
+    "@cetusprotocol/cetus-sui-clmm-sdk"
+  );
+
+  // const { getTokenAmountsFromLiquidity } = await import(
+  //   "./utils/clmm/tokenAmountFromLiquidity"
+  // );
+  // const { default: BigNumber } = await import("bignumber.js");
+  const { default: BN } = await import("bn.js");
+
+  let [coinA, coinB] = [new BN(0), new BN(0)];
+  const investorFromQuery =
+    vaultsData[poolIdQueryInvestorMap[poolInfo[poolName].poolId]];
+  let lower_tick = parseInt(
+    investorFromQuery.asMoveObject.contents.json.lower_tick,
+  );
+  let upper_tick = parseInt(
+    investorFromQuery.asMoveObject.contents.json.upper_tick,
+  );
+  const cetusPoolFromQuery =
+    vaultsData[poolIdQueryCetusPoolMap[poolInfo[poolName].poolId]].asMoveObject
+      .contents.json;
+
+  if (Math.abs(lower_tick - Math.pow(2, 32)) < lower_tick) {
+    lower_tick = lower_tick - Math.pow(2, 32);
+  }
+  if (Math.abs(upper_tick - Math.pow(2, 32)) < upper_tick) {
+    upper_tick = upper_tick - Math.pow(2, 32);
+  }
+
+  const curSqrtPrice = new BN(cetusPoolFromQuery.current_sqrt_price);
+  const upperSqrtPrice = TickMath.tickIndexToSqrtPriceX64(upper_tick);
+  const lowerSqrtPrice = TickMath.tickIndexToSqrtPriceX64(lower_tick);
+
+  ({ coinA, coinB } = ClmmPoolUtil.getCoinAmountFromLiquidity(
+    new BN(liquidity),
+    curSqrtPrice,
+    lowerSqrtPrice,
+    upperSqrtPrice,
+    false,
+  ));
+
+  // const { tokenAmountA, tokenAmountB } = getTokenAmountsFromLiquidity(
+  //   new BigNumber(liquidity),
+  //   Number(cetusPoolFromQuery.current_sqrt_price),
+  //   lower_tick,
+  //   upper_tick,
+  //   false,
+  // );
+
+  // coinA = new BN(tokenAmountA.toNumber());
+  // coinB = new BN(tokenAmountB.toNumber());
+
+  return [coinA.toNumber(), coinB.toNumber()];
 }

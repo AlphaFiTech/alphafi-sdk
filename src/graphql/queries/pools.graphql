@@ -17,6 +17,12 @@ query GetPools {
   wethUsdcPool: object(address: "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6") {
     ...PoolFields
   }
+  wbtcUsdcPool: object(address: "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a") {
+    ...PoolFields
+  }
+  navxSuiPool: object(address: "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0") {
+    ...PoolFields
+  }
   usdtPool: object(address: "0xc696ca5b8f21a1f8fcd62cff16bbe5a396a4bed6f67909cfec8269eb16e60757") {
     ...PoolFields
   }

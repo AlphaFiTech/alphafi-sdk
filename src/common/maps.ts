@@ -268,3 +268,54 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
   USDY: "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
   BUCK: "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
 };
+
+export const poolIdQueryPoolMap: { [key: string]: string } = {
+  "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
+    "alphaSuiPool",
+  "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
+    "usdcUsdtPool",
+  "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
+    "usdyUsdcPool",
+  "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
+    "suiUsdcPool",
+  "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
+    "wethUsdcPool",
+  "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
+    "wbtcUsdcPool",
+  "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
+    "navxSuiPool",
+};
+
+export const poolIdQueryCetusPoolMap: { [key: string]: string } = {
+  "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
+    "alphaSuiCetusPool",
+  "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
+    "usdcUsdtCetusPool",
+  "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
+    "usdyUsdcCetusPool",
+  "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
+    "suiUsdcCetusPool",
+  "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
+    "wethUsdcCetusPool",
+  "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
+    "wbtcUsdcCetusPool",
+  "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
+    "navxSuiCetusPool",
+};
+
+export const poolIdQueryInvestorMap: { [key: string]: string } = {
+  "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
+    "alphaSuiInvestor",
+  "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
+    "usdcUsdtInvestor",
+  "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
+    "usdyUsdcInvestor",
+  "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
+    "suiUsdcInvestor",
+  "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
+    "wethUsdcInvestor",
+  "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
+    "wbtcUsdcInvestor",
+  "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
+    "navxSuiInvestor",
+};
