@@ -270,6 +270,10 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
 };
 
 export const poolIdQueryPoolMap: { [key: string]: string } = {
+  // alpha pool
+  "0x6ee8f60226edf48772f81e5986994745dae249c2605a5b12de6602ef1b05b0c1":
+    "alphaPool",
+  // cetus pools
   "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
     "alphaSuiPool",
   "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
@@ -284,6 +288,17 @@ export const poolIdQueryPoolMap: { [key: string]: string } = {
     "wbtcUsdcPool",
   "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
     "navxSuiPool",
+  // navi pools
+  "0x643f84e0a33b19e2b511be46232610c6eb38e772931f582f019b8bbfb893ddb3":
+    "suiPool",
+  "0x0d9598006d37077b4935400f6525d7f1070784e2d6f04765d76ae0a4880f7d0a":
+    "vsuiPool",
+  "0xe4eef7d4d8cafa3ef90ea486ff7d1eec347718375e63f1f778005ae646439aad":
+    "wethPool",
+  "0xc696ca5b8f21a1f8fcd62cff16bbe5a396a4bed6f67909cfec8269eb16e60757":
+    "usdtPool",
+  "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae":
+    "usdcPool",
 };
 
 export const poolIdQueryCetusPoolMap: { [key: string]: string } = {

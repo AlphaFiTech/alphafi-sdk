@@ -4,6 +4,8 @@ import {
   poolIdQueryInvestorMap,
   poolInfo,
   poolIdQueryCetusPoolMap,
+  poolCoinPairMap,
+  poolCoinMap,
 } from "./common/maps";
 import {
   AlphaVaultBalance,
@@ -12,9 +14,13 @@ import {
   PoolName,
   Receipt,
   AlphaReceipt,
+  CoinName,
 } from "./common/types";
 import Decimal from "decimal.js";
 import { fetchUserVaultBalances } from "./graphql/fetchData";
+import { getLatestPrice, getLatestPrices } from "./utils/prices";
+import { PythPriceIdPair } from "./common/pyth";
+import { coins } from "./common/coins";
 
 /**
  * Get the Alpha balance for a given address. AlphaVaultBalance
@@ -79,7 +85,10 @@ export async function getSingleAssetVaultBalance(
   return balance;
 }
 
-async function buildAlphaVaultBalance(address: string, vaultsData: any) {
+async function buildAlphaVaultBalance(
+  address: string,
+  vaultsData: any,
+): Promise<AlphaVaultBalance> {
   const receipt = (await buildReceipt(
     address,
     vaultsData,
@@ -87,24 +96,29 @@ async function buildAlphaVaultBalance(address: string, vaultsData: any) {
     "ALPHA",
   )) as AlphaReceipt;
   if (receipt) {
-    // TODO: fill data
     const balance: AlphaVaultBalance = {
       lockedAlphaCoins: receipt.lockedBalance,
-      lockedAlphaCoinsInUSD: null,
+      lockedAlphaCoinsInUSD: await coinAmountInUsd(
+        receipt.lockedBalance,
+        "ALPHA",
+      ),
       unlockedAlphaCoins: receipt.unlockedBalance,
-      unlockedAlphaCoinsInUSD: null,
+      unlockedAlphaCoinsInUSD: await coinAmountInUsd(
+        receipt.unlockedBalance,
+        "ALPHA",
+      ),
       totalAlphaCoins: receipt.balance,
-      totalAlphaCoinsInUSD: null,
+      totalAlphaCoinsInUSD: await coinAmountInUsd(receipt.balance, "ALPHA"),
     };
     return balance;
   } else {
     return {
-      lockedAlphaCoins: null,
-      lockedAlphaCoinsInUSD: null,
-      unlockedAlphaCoins: null,
-      unlockedAlphaCoinsInUSD: null,
-      totalAlphaCoins: null,
-      totalAlphaCoinsInUSD: null,
+      lockedAlphaCoins: "0",
+      lockedAlphaCoinsInUSD: "0",
+      unlockedAlphaCoins: "0",
+      unlockedAlphaCoinsInUSD: "0",
+      totalAlphaCoins: "0",
+      totalAlphaCoinsInUSD: "0",
     };
   }
 }
@@ -113,7 +127,7 @@ async function buildDoubleAssetVaultBalance(
   address: string,
   vaultsData: any,
   poolName: PoolName,
-) {
+): Promise<DoubleAssetVaultBalance> {
   const allObjects = [
     ...vaultsData.owner.cetusSuiPoolReceipts.nodes,
     ...vaultsData.owner.cetusPoolReceipts.nodes,
@@ -122,16 +136,26 @@ async function buildDoubleAssetVaultBalance(
 
   const receipt = await buildReceipt(address, vaultsData, allObjects, poolName);
   if (receipt) {
-    // TODO: fill data
+    const coinAType =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA;
+    const coinBType =
+      poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB;
     const amounts = await getCoinAmountsFromLiquidity(
       poolName,
       vaultsData,
       Number(receipt.balance),
     );
+    const amountsInUsd = await coinAmountsInUsd(
+      amounts.map((x) => x.toString()),
+      [coinAType, coinBType],
+    );
     const balance: DoubleAssetVaultBalance = {
       coinA: amounts[0].toString(),
       coinB: amounts[1].toString(),
-      valueInUSD: null,
+      valueInUSD: amountsInUsd.reduce(
+        (acc, curr) => (Number(acc) + Number(curr)).toString(),
+        "0",
+      ),
     };
     return balance;
   } else {
@@ -147,24 +171,19 @@ async function buildSingleAssetVaultBalance(
   address: string,
   vaultsData: any,
   poolName: PoolName,
-) {
+): Promise<SingleAssetVaultBalance> {
   // Combine all objects into a single array
   const allObjects = [
     ...vaultsData.owner.alphaPoolReceipts.nodes,
     ...vaultsData.owner.naviPoolReceipts.nodes,
   ];
 
-  const receipt = (await buildReceipt(
-    address,
-    vaultsData,
-    allObjects,
-    poolName,
-  )) as Receipt;
+  const receipt = await buildReceipt(address, vaultsData, allObjects, poolName);
   if (receipt) {
-    // TODO: fill data
+    const coinType = poolCoinMap[poolName as keyof typeof poolCoinMap];
     const balance: SingleAssetVaultBalance = {
       coin: receipt.balance,
-      valueInUSD: null,
+      valueInUSD: await coinAmountInUsd(receipt.balance, coinType),
     };
     return balance;
   } else {
@@ -183,32 +202,34 @@ async function buildReceipt(
       poolIdPoolNameMap[o.contents.json.pool_id];
     const addressFromQuery = o.contents.json.owner;
     const pool = poolInfo[poolName];
+    const poolFromQuery =
+      vaultsData[poolIdQueryPoolMap[o.contents.json.pool_id]].asMoveObject
+        .contents.json;
+    const xTokenBalance = new Decimal(o.contents.json.xTokenBalance);
+    const xTokenSupply = new Decimal(poolFromQuery.xTokenSupply);
+    const tokensInvested = new Decimal(poolFromQuery.tokensInvested);
+    const userLiquidity = xTokenBalance.div(xTokenSupply).mul(tokensInvested);
+
     // match both poolName and owner address
     if (poolName === poolNameFromQuery && address === addressFromQuery) {
       if (pool.parentProtocolName === "ALPHAFI") {
+        const unlockedXTokenBalance = new Decimal(
+          o.contents.json.unlocked_xtokens,
+        );
+        const unlockedUserLiquidity = unlockedXTokenBalance
+          .div(xTokenSupply)
+          .mul(tokensInvested);
+
         const receipt: AlphaReceipt = {
-          lockedBalance: (
-            BigInt(o.contents.json.xTokenBalance) -
-            BigInt(o.contents.json.unlocked_xtokens)
-          ).toString(),
-          unlockedBalance: o.contents.json.unlocked_xtokens,
-          balance: o.contents.json.xTokenBalance,
+          lockedBalance: userLiquidity.minus(unlockedUserLiquidity).toString(),
+          unlockedBalance: unlockedUserLiquidity.toString(),
+          balance: userLiquidity.toString(),
         };
         return receipt;
       } else if (
         pool.parentProtocolName === "CETUS" ||
         pool.parentProtocolName === "NAVI"
       ) {
-        const poolFromQuery =
-          vaultsData[poolIdQueryPoolMap[o.contents.json.pool_id]].asMoveObject
-            .contents.json;
-
-        const xTokenBalance = new Decimal(o.contents.json.xTokenBalance);
-        const xTokenSupply = new Decimal(poolFromQuery.xTokenSupply);
-        const tokensInvested = new Decimal(poolFromQuery.tokensInvested);
-        const userLiquidity = xTokenBalance
-          .div(xTokenSupply)
-          .mul(tokensInvested);
         const receipt: Receipt = {
           balance: userLiquidity.toString(),
         };
@@ -282,4 +303,38 @@ async function getCoinAmountsFromLiquidity(
   // coinB = new BN(tokenAmountB.toNumber());
 
   return [coinA.toNumber(), coinB.toNumber()];
+}
+
+async function coinAmountInUsd(
+  amount: string,
+  coinName: CoinName,
+): Promise<string> {
+  const coinPrice = await getLatestPrice(
+    (coinName + "/USD") as PythPriceIdPair,
+  );
+  const amountInUsd = (
+    (Number(amount) / Math.pow(10, coins[coinName].expo)) *
+    Number(coinPrice)
+  ).toString();
+  return amountInUsd;
+}
+
+async function coinAmountsInUsd(
+  amounts: string[],
+  coinNames: CoinName[],
+): Promise<string[]> {
+  const coinPrices = await getLatestPrices([
+    (coinNames[0] + "/USD") as PythPriceIdPair,
+    (coinNames[1] + "/USD") as PythPriceIdPair,
+  ]);
+
+  const amountsInUsd = amounts.map((x, i) => {
+    const amountInUsd = (
+      (Number(x) / Math.pow(10, coins[coinNames[i]].expo)) *
+      Number(coinPrices[i])
+    ).toString();
+    return amountInUsd;
+  });
+
+  return amountsInUsd;
 }

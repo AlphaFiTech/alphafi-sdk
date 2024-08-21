@@ -5,7 +5,7 @@ export const conf = {
     // General Contants
     MS_IN_A_DAY: 864_00_000,
 
-    HALF_MUL: 1000000000000000000,
+    HALF_MUL: 1000000000000000000n,
 
     HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
 
@@ -132,7 +132,8 @@ export const conf = {
       "0x990d3af75f1ebcc9a05c34eb6b115eaeb61e9f72eb9955fcc83dbf1e9c91bff7",
     ALPHAFI_NAVI_USDT_POOL:
       "0xf1a10734b9acc82ab5ea8d7b35f1ffa053a43b0ca05603dc1f515c5d5e707926",
-    ALPHAFI_NAVI_USDC_POOL: "",
+    ALPHAFI_NAVI_USDC_POOL:
+      "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae",
     ALPHAFI_NAVI_HASUI_POOL: "",
 
     // CETUS Pool Id's
@@ -216,7 +217,8 @@ export const conf = {
     NAVI_USDT_INVESTOR:
       "0x77970e1f98160c4e72f57603e1525179d060a8a30baa1fe0fdae2c6b30173d5a",
 
-    NAVI_USDC_INVESTOR: "",
+    NAVI_USDC_INVESTOR:
+      "0xdf980cacf2ef2f4411f793ee9ee9266af78324b228323ede2ce73f9cf0c301cc",
 
     NAVI_HASUI_INVESTOR: "",
 
@@ -384,7 +386,7 @@ export const conf = {
     // General Contants
     MS_IN_A_DAY: 864_00_000,
 
-    HALF_MUL: 1000000000000000000,
+    HALF_MUL: 1000000000000000000n,
 
     HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
 
