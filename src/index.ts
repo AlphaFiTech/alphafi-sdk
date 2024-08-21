@@ -25,13 +25,7 @@ export {
   lastAutocompoundTime,
 } from "./vaultFunctions";
 
-export {
-  AlphaFiVault,
-  AlphaVaultBalance,
-  DoubleAssetVaultBalance,
-  SingleAssetVaultBalance,
-  PoolName,
-} from "./common/types";
+export * from "./common/types";
 
 // src/index.ts
 export * from "./graphql/fetchData";
