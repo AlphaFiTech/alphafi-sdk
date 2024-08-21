@@ -14,14 +14,30 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        use: "ts-loader",
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env", "@babel/preset-typescript"],
+            },
+          },
+          "ts-loader",
+        ],
       },
       {
         test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre",
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+            },
+          },
+          "source-map-loader",
+        ],
+        enforce: "pre",
       },
     ],
   },
