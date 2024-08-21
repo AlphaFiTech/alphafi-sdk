@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "commonjs",
+    "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -11,6 +12,6 @@
     "declarationDir": "./dist",
     "types": ["jest", "node"]
   },
-  "include": ["src", "__tests__"],
+  "include": ["src"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npm run prettier && npm run lint && tsc -p tsconfig.build.json && webpack --config webpack.config.js",
+    "build": "npm run prettier && npm run lint && webpack",
+    "test": "jest",
     "lint": "eslint 'src/**/*.ts' --fix",
-    "prettier": "prettier --write 'src/**/*.ts'",
-    "test": "jest"
+    "prettier": "prettier --write 'src/**/*.ts'"
   },
   "keywords": [],
   "author": "",
