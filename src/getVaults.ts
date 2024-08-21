@@ -113,6 +113,8 @@ async function buildVaultsArray(allObjects: any[]) {
           poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB,
       };
       return vault;
+    } else {
+      return undefined;
     }
   });
   return vaultsArr;

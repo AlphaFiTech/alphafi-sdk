@@ -167,6 +167,8 @@ export async function getUSDYPrice(): Promise<number | undefined> {
   const latestUSDCPrice = await getLatestPrice("USDC/USD");
   if (latestUSDCPrice) {
     return res.estimatedAmountOut.toNumber() * Number(latestUSDCPrice) * 1e-6;
+  } else {
+    return undefined;
   }
 }
 
@@ -183,6 +185,8 @@ export async function getBUCKPrice(): Promise<number | undefined> {
   const latestUSDCPrice = await getLatestPrice("USDC/USD");
   if (latestUSDCPrice) {
     return res.estimatedAmountOut.toNumber() * Number(latestUSDCPrice) * 1e-6;
+  } else {
+    return undefined;
   }
 }
 
@@ -221,6 +225,8 @@ export class CetusGateway {
             pool.coinTypeB === pair.coinB.type ||
             pool.coinTypeB === pair.coinB.type
           );
+        } else {
+          return undefined;
         }
       });
       matchedPools.push(...filteredPools);

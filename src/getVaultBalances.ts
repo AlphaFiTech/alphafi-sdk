@@ -234,12 +234,20 @@ async function buildReceipt(
           balance: userLiquidity.toString(),
         };
         return receipt;
+      } else {
+        return undefined;
       }
+    } else {
+      return undefined;
     }
   });
   // get the first receipt because we support only one receipt from one pool
   const receipt = receiptArr.find((r) => {
-    if (r) return true;
+    if (r) {
+      return true;
+    } else {
+      return false;
+    }
   });
   return receipt;
 }
