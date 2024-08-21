@@ -1,4 +1,4 @@
-import { SuiClient } from "@mysten/sui/client";
+//import { SuiClient } from "@mysten/sui/client";
 import {
   LpBreakdownType,
   PoolName,
@@ -7,9 +7,6 @@ import {
 
 export async function alphaLpBreakdown(
   poolName: PoolName,
-  options: {
-    suiClient: SuiClient;
-  },
 ): Promise<LpBreakdownType> {
   const lp = {
     coinA: null,
@@ -19,15 +16,12 @@ export async function alphaLpBreakdown(
     liquidity: null,
   };
 
-  console.log(poolName, options);
+  console.log(poolName);
   return lp;
 }
 
 export async function cetusLpBreakdown(
   poolName: PoolName,
-  options: {
-    suiClient: SuiClient;
-  },
 ): Promise<LpBreakdownType> {
   const lp = {
     coinA: null,
@@ -37,27 +31,21 @@ export async function cetusLpBreakdown(
     liquidity: null,
   };
 
-  console.log(poolName, options);
+  console.log(poolName);
   return lp;
 }
 
 export async function fetchRebalanceHistory(
   poolName: PoolName,
-  options: {
-    suiClient: SuiClient;
-  },
 ): Promise<RebalanceHistoryType[]> {
   const rebalanceArr: RebalanceHistoryType[] = [];
-  console.log(poolName, options);
+  console.log(poolName);
   return rebalanceArr;
 }
 
 export async function lastAutocompoundTime(
   poolName: PoolName,
-  options: {
-    suiClient: SuiClient;
-  },
 ): Promise<string> {
-  console.log(poolName, options);
+  console.log(poolName);
   return "1234";
 }

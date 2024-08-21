@@ -1,13 +1,6 @@
-import { SuiClient } from "@mysten/sui/client";
-
-export async function getAirdropShare(
-  address: string,
-  options: {
-    suiClient: SuiClient;
-  },
-): Promise<string> {
+export async function getAirdropShare(address: string): Promise<string> {
   const airdropReserve = "123";
 
-  console.log(address, options);
+  console.log(address);
   return airdropReserve;
 }
