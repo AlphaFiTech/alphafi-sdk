@@ -7,8 +7,6 @@ export const conf = {
 
     HALF_MUL: 1000000000000000000n,
 
-    HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
-
     HOP_MAX_SLIPPAGE_BPS: 100,
 
     DEFAULT_HOP_SLIPPAGE: 1,
@@ -387,8 +385,6 @@ export const conf = {
     MS_IN_A_DAY: 864_00_000,
 
     HALF_MUL: 1000000000000000000n,
-
-    HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
 
     HOP_MAX_SLIPPAGE_BPS: 100,
 
