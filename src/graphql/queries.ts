@@ -10,6 +10,8 @@ import userVaultBalances from "./queries/userVaultBalances.graphql";
 import pools from "./queries/pools.graphql";
 import investors from "./queries/investors.graphql";
 import cetusPools from "./queries/cetusPools.graphql";
+import autoCompoundEvents from "./queries/autoCompoundEvents.graphql";
+import nftHolders from "./queries/nftHolders.graphql";
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`
@@ -72,10 +74,10 @@ export const GET_INVESTORS = gql`
   ${investors}
 `;
 
-// Add more queries as needed for other data fetching requirements.
-/* For fetching event data (e.g., TVL over time, real-time APY), you
-/* would add additional queries and functions similar to the ones
-/* we’ve already set up. These queries would be designed to fetch
-/* historical or real-time event data from the blockchain, which can
-/* then be used to generate charts.
- */
+export const GET_AUTOCOMPOUND_EVENTS = gql`
+  ${autoCompoundEvents}
+`;
+
+export const GET_NFT_HOLDERS = gql`
+  ${nftHolders}
+`;

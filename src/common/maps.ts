@@ -108,6 +108,7 @@ export const poolInfo: {
     investorId: string;
     receiptName: string;
     receiptType: PoolReceipt;
+    autoCompoundingEventType: string;
   };
 } = {
   "NAVI-SUI": {
@@ -117,6 +118,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_SUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -125,6 +128,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_VSUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -133,6 +138,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_WETH_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -141,6 +148,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_USDT_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
@@ -149,6 +158,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -157,6 +168,7 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_POOL,
     receiptName: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
+    autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",
@@ -165,6 +177,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "HASUI-SUI": {
     parentProtocolName: "CETUS",
@@ -173,6 +187,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].HASUI_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "USDT-USDC": {
     parentProtocolName: "CETUS",
@@ -181,6 +197,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDT_USDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "USDY-USDC": {
     parentProtocolName: "CETUS",
@@ -189,6 +207,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDY_USDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDY_USDC_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "USDC-SUI": {
     parentProtocolName: "CETUS",
@@ -197,6 +217,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "WETH-USDC": {
     parentProtocolName: "CETUS",
@@ -205,6 +227,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].WETH_USDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "USDC-WBTC": {
     parentProtocolName: "CETUS",
@@ -213,6 +237,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_WBTC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -221,6 +247,8 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVX_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
 };
 

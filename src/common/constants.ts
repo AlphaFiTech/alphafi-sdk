@@ -423,6 +423,7 @@ export const conf = {
       "0x771dc108bc4ed5266ae32f678f41031c02afe5e96754a8c8d65866eccfd29e30",
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3",
       "0x7666ad8f8b0201c0a33cc5b3444167c9bd4a029393e3807adc2f82df016d5cea",
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08",
     ],
     ALPHA_MODULE_PACKAGE_IDS: [
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123",
@@ -431,7 +432,7 @@ export const conf = {
     ],
 
     ALPHA_LATEST_PACKAGE_ID:
-      "0x7666ad8f8b0201c0a33cc5b3444167c9bd4a029393e3807adc2f82df016d5cea",
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08",
 
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
@@ -733,6 +734,57 @@ export const conf = {
     NAVI_USDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC Receipt",
 
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
+
+    // AutoCompoundingEvent
+    ALPHA_POOL_AUTO_COMPOUNDING_EVENT: "",
+
+    ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
+
+    USDY_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
+
+    HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool_base_a::AutoCompoundingEvent",
+
+    WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
+
+    NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    BUCK_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
+
+    CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
 
     // Wallets
 

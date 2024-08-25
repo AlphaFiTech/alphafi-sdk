@@ -46,6 +46,7 @@
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
-    "graphql": "^16.9.0"
+    "graphql": "^16.9.0",
+    "react": "^18.3.1"
   }
 }
