@@ -25,3 +25,35 @@ export async function getAprs(
   const aprMap = await calculateAprForPools(events);
   return aprMap;
 }
+
+export async function getApy(poolName: PoolName): Promise<number> {
+  const apy = convertAprToApy(await getApr(poolName));
+  return apy;
+}
+
+export async function getApys(
+  poolNames?: PoolName[],
+): Promise<Record<string, number>> {
+  const aprMap = await getAprs(poolNames);
+
+  // Convert each APR to APY
+  const apyMap: Record<string, number> = {};
+  for (const poolName in aprMap) {
+    if (aprMap.hasOwnProperty(poolName)) {
+      apyMap[poolName] = convertAprToApy(aprMap[poolName]);
+    }
+  }
+
+  return apyMap;
+}
+
+/**
+ * Converts APR to APY with compounding 6 times a day
+ * @param apr - The annual percentage rate (APR) as a decimal
+ * @returns The annual percentage yield (APY) as a decimal
+ */
+function convertAprToApy(apr: number): number {
+  const n = 6 * 365; // 6 times a day
+  const apy = 100 * (Math.pow(1 + apr / 100 / n, n) - 1);
+  return apy;
+}

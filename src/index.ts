@@ -25,7 +25,7 @@ export {
   lastAutocompoundTime,
 } from "./vaultFunctions";
 
-export { getApr, getAprs } from "./getAprs";
+export { getApr, getAprs, getApy, getApys } from "./getAprs";
 
 export * from "./common/types";
 
