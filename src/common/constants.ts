@@ -434,11 +434,28 @@ export const conf = {
     ALPHA_LATEST_PACKAGE_ID:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08",
 
+    ALPHA_2_FIRST_PACKAGE_ID:
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
+
+    ALPHA_2_LATEST_PACKAGE_ID:
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
+
+    ALPHA_2_MODULE_PACKAGE_IDS: [
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
+    ],
+
+    ALPHA_2_PACKAGE_IDS: [
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
+    ],
+
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
 
     VERSION:
       "0xf9c533b483c656d29aad9b2ee48ea418dde9504fb42c8294298bf523026bf043",
+
+    ALPHA_2_VERSION:
+      "0xb89716c470af0d16505ff5621e2111f73ac97247c093948660548c3548845aa8", // new package for looping strategy
 
     ALPHA_NAVI_BORROW_FACTOR: 0.95,
 
@@ -623,9 +640,11 @@ export const conf = {
     NAVX_SUI_CETUS_INVESTOR:
       "0xdd9018247d579bd7adfdbced4ed39c28821c6019461d37dbdf32f0d409959b1c",
 
-    BUCK_USDC_CETUS_INVESTOR: "",
+    BUCK_USDC_CETUS_INVESTOR:
+      "0x8051a9ce43f9c21e58331b1ba2b1925e4ae4c001b1400459236d86d5d3d2888b",
 
-    CETUS_SUI_CETUS_INVESTOR: "",
+    CETUS_SUI_CETUS_INVESTOR:
+      "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6",
 
     // Navi Investor Ids
 
@@ -679,7 +698,7 @@ export const conf = {
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
 
     CETUS_SUI_POOL_RECEIPT:
-      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
 
     NAVI_SUI_POOL_RECEIPT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
@@ -754,7 +773,7 @@ export const conf = {
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
 
     USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool_base_a::AutoCompoundingEvent",
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::AutoCompoundingEvent",
 
     WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
@@ -766,7 +785,7 @@ export const conf = {
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
 
     CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_investor::AutoCompoundingEvent",
 
     NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",

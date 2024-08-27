@@ -98,7 +98,10 @@ export async function fetchCetusPools() {
   return data;
 }
 
-export { fetchAutoCompoundEvents, EventNode } from "./fetchAutoCompoundEvents";
+export {
+  fetchAutoCompoundingEventsGql,
+  AutoCompoundingEventNode,
+} from "./fetchAutoCompoundingEventsGql";
 export { fetchNftHolders } from "./fetchNftHolders";
 
 // Add more functions for other data fetching requirements

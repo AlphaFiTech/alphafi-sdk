@@ -25,6 +25,8 @@ export {
   lastAutocompoundTime,
 } from "./vaultFunctions";
 
+export { getApr, getAprs } from "./getAprs";
+
 export * from "./common/types";
 
 // src/index.ts

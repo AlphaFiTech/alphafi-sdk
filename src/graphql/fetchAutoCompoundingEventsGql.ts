@@ -36,7 +36,7 @@ interface NaviAutoCompoundingEvent {
   total_amount: bigint;
 }
 
-export type EventNode =
+export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonAutoCompoundingEventAttributes)
   | (NaviAutoCompoundingEvent & CommonAutoCompoundingEventAttributes);
 
@@ -47,15 +47,15 @@ export type EventNode =
 //   };
 // }
 
-export async function fetchAutoCompoundEvents(
+export async function fetchAutoCompoundingEventsGql(
   eventType: string,
-): Promise<EventNode[]> {
-  const allEvents: EventNode[] = [];
+): Promise<AutoCompoundingEventNode[]> {
+  const allEvents: AutoCompoundingEventNode[] = [];
   let hasNextPage = true;
   let startCursor: EventId | null | undefined = null;
 
   const now = Date.now();
-  const twentyFourHoursAgo = now - 24 * 60 * 60 * 1000; // timestamp for 24 hours ago
+  const twentyFourHoursAgo = now - 7 * 24 * 60 * 60 * 1000; // timestamp for 24 hours ago
   while (hasNextPage) {
     const result: PaginatedEvents = await suiClient.queryEvents({
       cursor: startCursor,
@@ -76,7 +76,7 @@ export async function fetchAutoCompoundEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent;
-      const eventNode: EventNode = {
+      const eventNode: AutoCompoundingEventNode = {
         type: suiEvent.type,
         timestamp: Number(suiEvent.timestampMs),
         ...suiEventJson,

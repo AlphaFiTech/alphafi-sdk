@@ -161,6 +161,16 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
   },
+  "NAVI-HASUI": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_HASUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_HASUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
+  },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
     parentPoolId: conf[CONF_ENV].ALPHA_POOL,
@@ -250,7 +260,46 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT,
   },
+  "BUCK-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].BUCK_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].BUCK_USDC_POOL,
+    investorId: conf[CONF_ENV].BUCK_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].BUCK_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+  },
+  "CETUS-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].CETUS_SUI_POOL,
+    investorId: conf[CONF_ENV].CETUS_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  },
 };
+
+export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
+  const investorIdToPoolNameMap = new Map<string, PoolName>();
+
+  for (const poolName in poolInfo) {
+    if (poolInfo.hasOwnProperty(poolName)) {
+      const { investorId } = poolInfo[poolName];
+      if (
+        investorId !== undefined &&
+        investorId !== null &&
+        investorId !== ""
+      ) {
+        investorIdToPoolNameMap.set(investorId, poolName as PoolName);
+      }
+    }
+  }
+
+  return investorIdToPoolNameMap;
+}
 
 export const poolIdPoolNameMap: {
   [key: string]: PoolName;
