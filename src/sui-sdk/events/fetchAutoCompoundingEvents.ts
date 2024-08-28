@@ -61,7 +61,7 @@ async function calculateAprForInvestor(
   for (const event of events) {
     // console.log(event);
     const timeDiffDays =
-      (event.timestamp - initialTimestamp) / (1000 * 60 * 60 * 24 * 7);
+      (event.timestamp - initialTimestamp) / (1000 * 60 * 60 * 24);
 
     let growthRate = 0;
 
