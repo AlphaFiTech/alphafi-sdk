@@ -78,7 +78,7 @@ async function calculateAprForInvestor(
     //console.log(event);
     // Calculate the time difference from the previous event in days
     const timeDiffDays =
-      (event.timestamp - previousTimestamp) / (1000 * 60 * 60 * 24);
+      event.timestamp - previousTimestamp / (1000 * 60 * 60 * 24); // uncomment this to normalize
 
     // Calculate growth rate
     let growthRate = 0;
@@ -157,74 +157,8 @@ async function calculateAprForInvestor(
     apr = (Math.pow(1 + averageDailyGrowthRate, 365) - 1) * 100;
   }
 
-  return apr;
-}
-
-export async function calculateAprForInvestor1(
-  events: AutoCompoundingEventNode[],
-): Promise<number> {
-  // Sort events by timestamp to process them in order
-  events.sort((a, b) => a.timestamp - b.timestamp);
-
-  let totalGrowth = 0;
-  let weightedTimeDiff = 0;
-  const initialTimestamp = events[0].timestamp;
-
-  for (const event of events) {
-    // console.log(event);
-    const timeDiffDays =
-      (event.timestamp - initialTimestamp) / (1000 * 60 * 60 * 24);
-
-    let growthRate = 0;
-
-    if ("total_amount_a" in event && "total_amount_b" in event) {
-      // CetusAutoCompoundingEvent
-      const growthA = isNaN(
-        Number(event.compound_amount_a) / Number(event.total_amount_a),
-      )
-        ? 0
-        : Number(event.compound_amount_a) / Number(event.total_amount_a);
-
-      const growthB = isNaN(
-        Number(event.compound_amount_b) / Number(event.total_amount_b),
-      )
-        ? 0
-        : Number(event.compound_amount_b) / Number(event.total_amount_b);
-      growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
-      //console.log(`growthRate = ${growthRate} = ${growthA} + ${growthB} / 2`);
-    } else if ("total_amount" in event) {
-      // NaviAutoCompoundingEvent
-      growthRate = isNaN(
-        Number(event.compound_amount) / Number(event.total_amount),
-      )
-        ? 0
-        : Number(event.compound_amount) / Number(event.total_amount);
-      // console.log(`growthRate = ${growthRate}`);
-    }
-
-    totalGrowth += growthRate;
-    weightedTimeDiff += growthRate * timeDiffDays;
-    // console.log(
-    //   `totalGrowth = ${totalGrowth}, weightedTimeDiff = ${weightedTimeDiff}`,
-    // );
-  }
-
-  const averageGrowth = totalGrowth / events.length;
-  const totalTimeDiffDays = weightedTimeDiff / totalGrowth;
-
-  // Annualize the average growth to calculate APR
-  let apr = 0; // Default APR to 0
-
-  if (totalTimeDiffDays > 0) {
-    // Annualize the average growth to calculate APR
-    apr = (Math.pow(1 + averageGrowth, 365 / totalTimeDiffDays) - 1) * 100;
-  }
-
-  // let investorId = "";
-  // if (events.length > 0) investorId = events[0].investor_id;
-  // console.log(`APR (${investorId}): ${apr}`);
-
-  return apr;
+  // extrapolate to a year
+  return apr * 365;
 }
 
 async function calculateAprForInvestors(

@@ -27,7 +27,7 @@ export async function getAprs(
 }
 
 export async function getApy(poolName: PoolName): Promise<number> {
-  const apy = convertAprToApy((await getApr(poolName)) * 365);
+  const apy = convertAprToApy(await getApr(poolName));
   return apy;
 }
 
@@ -40,7 +40,7 @@ export async function getApys(
   const apyMap: Record<string, number> = {};
   for (const poolName in aprMap) {
     if (aprMap.hasOwnProperty(poolName)) {
-      apyMap[poolName] = convertAprToApy(aprMap[poolName] * 365);
+      apyMap[poolName] = convertAprToApy(aprMap[poolName]);
     }
   }
 
