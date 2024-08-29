@@ -78,7 +78,7 @@ async function calculateAprForInvestor(
     //console.log(event);
     // Calculate the time difference from the previous event in days
     const timeDiffDays =
-      event.timestamp - previousTimestamp / (1000 * 60 * 60 * 24); // uncomment this to normalize
+      (event.timestamp - previousTimestamp) / (1000 * 60 * 60 * 24); // uncomment this to normalize
 
     // Calculate growth rate
     let growthRate = 0;
