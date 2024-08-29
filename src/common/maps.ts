@@ -109,7 +109,7 @@ export const poolInfo: {
     receiptName: string;
     receiptType: PoolReceipt;
     autoCompoundingEventType: string;
-    rebalanceEventType: string | null;
+    rebalanceEventType: string | undefined;
   };
 } = {
   "NAVI-SUI": {
@@ -121,7 +121,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -132,7 +132,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -143,7 +143,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -154,7 +154,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
@@ -165,7 +165,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -176,7 +176,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -186,7 +186,7 @@ export const poolInfo: {
     receiptName: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: null,
+    rebalanceEventType: undefined,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",

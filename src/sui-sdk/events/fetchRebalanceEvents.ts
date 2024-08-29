@@ -2,15 +2,15 @@ import { getInvestorPoolMap, poolInfo } from "../../common/maps";
 import { PoolName } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
-  AutoCompoundingAndRebalanceEventNode,
-  FetchAutoCompoundingAndRebalanceEventsParams,
+  FetchRebalanceEventsParams,
   RebalanceEvent,
+  RebalanceEventNode,
   RebalanceHistoryType,
 } from "./types";
 
 export async function fetchRebalanceEvents(
-  params: FetchAutoCompoundingAndRebalanceEventsParams,
-): Promise<AutoCompoundingAndRebalanceEventNode[]> {
+  params: FetchRebalanceEventsParams,
+): Promise<RebalanceEventNode[]> {
   const eventTypesSet = new Set<string>();
   if (params.poolNames) {
     params.poolNames.forEach((poolName) => {
@@ -51,14 +51,14 @@ export async function fetchRebalanceEvents(
   const events = (await Promise.all(eventsPromises)).flat();
 
   const rebalanceEvents = events.map((e) => {
-    return e as AutoCompoundingAndRebalanceEventNode;
+    return e as RebalanceEventNode;
   });
 
   return rebalanceEvents;
 }
 
 export async function calculateRebalanceHistoryFromEvents(
-  events: AutoCompoundingAndRebalanceEventNode[],
+  events: RebalanceEventNode[],
 ): Promise<Record<PoolName, RebalanceHistoryType[]>> {
   const rebalanceHistoryMap: Record<string, RebalanceHistoryType[]> = {};
   const investorPoolNameMap = await getInvestorPoolMap();

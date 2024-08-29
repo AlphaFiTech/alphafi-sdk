@@ -1,13 +1,13 @@
 import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
-  AutoCompoundingAndRebalanceEventNode,
   CetusAutoCompoundingEvent,
   EventNode,
   FetchEventsParams,
   NaviAutoCompoundingEvent,
   RebalanceEvent,
 } from "./types";
+import { poolInfo } from "../../common/maps";
 
 export async function fetchEvents(
   params: FetchEventsParams,
@@ -78,14 +78,15 @@ export async function fetchEvents(
         | NaviAutoCompoundingEvent
         | RebalanceEvent;
 
-      let autoCompoundingEventNode: AutoCompoundingAndRebalanceEventNode;
+      let eventNode: EventNode;
 
       if (
+        isAutoCompoundingEvent(suiEvent.type) &&
         "compound_amount_a" in suiEventJson &&
         "compound_amount_b" in suiEventJson
       ) {
         // Handling CetusAutoCompoundingEvent
-        autoCompoundingEventNode = {
+        eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           compound_amount_a: BigInt(suiEventJson.compound_amount_a.toString()),
@@ -99,9 +100,12 @@ export async function fetchEvents(
           total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
           total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
         };
-      } else if ("compound_amount" in suiEventJson) {
+      } else if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "compound_amount" in suiEventJson
+      ) {
         // Handling NaviAutoCompoundingEvent
-        autoCompoundingEventNode = {
+        eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           compound_amount: BigInt(suiEventJson.compound_amount.toString()),
@@ -110,9 +114,12 @@ export async function fetchEvents(
           location: suiEventJson.location,
           total_amount: BigInt(suiEventJson.total_amount.toString()),
         };
-      } else if ("lower_tick_after" in suiEventJson) {
+      } else if (
+        isRebalanceEvent(suiEvent.type) &&
+        "lower_tick_after" in suiEventJson
+      ) {
         // Handling RebalanceEvent
-        autoCompoundingEventNode = {
+        eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           investor_id: suiEventJson.investor_id.toString(),
@@ -128,7 +135,6 @@ export async function fetchEvents(
       //   timestamp: Number(suiEvent.timestampMs),
       //   ...suiEventJson,
       // };
-      const eventNode: EventNode = autoCompoundingEventNode;
       allEvents.push(eventNode);
     }
 
@@ -150,3 +156,21 @@ export async function fetchEvents(
 
   return allEvents;
 }
+
+const isAutoCompoundingEvent = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo).map((info) => {
+    return info.autoCompoundingEventType;
+  });
+  return eventTypes.includes(eventType);
+};
+
+const isRebalanceEvent = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo)
+    .filter((info) => {
+      return info.rebalanceEventType ? true : false;
+    })
+    .map((info) => {
+      return info.rebalanceEventType as string;
+    });
+  return eventTypes.includes(eventType);
+};

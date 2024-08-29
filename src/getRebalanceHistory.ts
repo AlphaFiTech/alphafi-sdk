@@ -28,5 +28,3 @@ export async function getRebalanceHistories(
   const rebalanceHistoryMap = await calculateRebalanceHistoryFromEvents(events);
   return rebalanceHistoryMap;
 }
-
-getRebalanceHistories();

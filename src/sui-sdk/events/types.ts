@@ -40,18 +40,21 @@ export interface RebalanceHistoryType {
   after_price: string;
 }
 
-export type AutoCompoundingAndRebalanceEventNode =
+export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
-  | (NaviAutoCompoundingEvent & CommonEventAttributes)
-  | (RebalanceEvent & CommonEventAttributes);
+  | (NaviAutoCompoundingEvent & CommonEventAttributes);
 
-export type EventNode = AutoCompoundingAndRebalanceEventNode;
+export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
-export type FetchAutoCompoundingAndRebalanceEventsParams = {
+export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
+
+export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
   endTime?: number;
   poolNames?: PoolName[];
 };
+
+export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchEventsParams = {
   eventTypes: string[];

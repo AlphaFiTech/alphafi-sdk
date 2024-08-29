@@ -2,13 +2,13 @@ import { getInvestorPoolMap, poolInfo } from "../../common/maps";
 import { PoolName } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
-  AutoCompoundingAndRebalanceEventNode,
-  FetchAutoCompoundingAndRebalanceEventsParams,
+  AutoCompoundingEventNode,
+  FetchAutoCompoundingEventsParams,
 } from "./types";
 
 export async function fetchAutoCompoundingEvents(
-  params: FetchAutoCompoundingAndRebalanceEventsParams,
-): Promise<AutoCompoundingAndRebalanceEventNode[]> {
+  params: FetchAutoCompoundingEventsParams,
+): Promise<AutoCompoundingEventNode[]> {
   const eventTypesSet = new Set<string>();
 
   if (params.poolNames) {
@@ -52,14 +52,14 @@ export async function fetchAutoCompoundingEvents(
   const events = (await Promise.all(eventsPromises)).flat();
 
   const autoCompoundingEvents = events.map((e) => {
-    return e as AutoCompoundingAndRebalanceEventNode;
+    return e as AutoCompoundingEventNode;
   });
 
   return autoCompoundingEvents;
 }
 
 async function calculateAprForInvestor(
-  events: AutoCompoundingAndRebalanceEventNode[],
+  events: AutoCompoundingEventNode[],
 ): Promise<number> {
   // Sort events by timestamp to process them in order
   events.sort((a, b) => a.timestamp - b.timestamp);
@@ -162,10 +162,9 @@ async function calculateAprForInvestor(
 }
 
 async function calculateAprForInvestors(
-  events: AutoCompoundingAndRebalanceEventNode[],
+  events: AutoCompoundingEventNode[],
 ): Promise<Record<string, number>> {
-  const investorEvents: Record<string, AutoCompoundingAndRebalanceEventNode[]> =
-    {};
+  const investorEvents: Record<string, AutoCompoundingEventNode[]> = {};
 
   // Step 1: Segregate events by investor_id
   for (const event of events) {
@@ -207,7 +206,7 @@ async function calculateAprForInvestors(
 }
 
 export async function calculateAprForPools(
-  events: AutoCompoundingAndRebalanceEventNode[],
+  events: AutoCompoundingEventNode[],
 ): Promise<Record<PoolName, number>> {
   const aprMap: Record<string, number> = {};
   const investorPoolNameMap = await getInvestorPoolMap();
