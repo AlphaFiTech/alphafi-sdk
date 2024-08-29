@@ -75,11 +75,47 @@ export async function fetchEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent;
-      const autoCompoundingEventNode: AutoCompoundingEventNode = {
-        type: suiEvent.type,
-        timestamp: Number(suiEvent.timestampMs),
-        ...suiEventJson,
-      };
+
+      let autoCompoundingEventNode: AutoCompoundingEventNode;
+
+      if (
+        "compound_amount_a" in suiEventJson &&
+        "compound_amount_b" in suiEventJson
+      ) {
+        // Handling CetusAutoCompoundingEvent
+        autoCompoundingEventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          compound_amount_a: BigInt(suiEventJson.compound_amount_a.toString()),
+          compound_amount_b: BigInt(suiEventJson.compound_amount_b.toString()),
+          current_liquidity: BigInt(suiEventJson.current_liquidity.toString()),
+          fee_collected_a: BigInt(suiEventJson.fee_collected_a.toString()),
+          fee_collected_b: BigInt(suiEventJson.fee_collected_b.toString()),
+          free_balance_a: BigInt(suiEventJson.free_balance_a.toString()),
+          free_balance_b: BigInt(suiEventJson.free_balance_b.toString()),
+          investor_id: suiEventJson.investor_id,
+          total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
+          total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
+        };
+      } else if ("compound_amount" in suiEventJson) {
+        // Handling NaviAutoCompoundingEvent
+        autoCompoundingEventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          compound_amount: BigInt(suiEventJson.compound_amount.toString()),
+          fee_collected: BigInt(suiEventJson.fee_collected.toString()),
+          investor_id: suiEventJson.investor_id,
+          location: suiEventJson.location,
+          total_amount: BigInt(suiEventJson.total_amount.toString()),
+        };
+      } else {
+        throw new Error("Unknown event type");
+      }
+      // const autoCompoundingEventNode: AutoCompoundingEventNode = {
+      //   type: suiEvent.type,
+      //   timestamp: Number(suiEvent.timestampMs),
+      //   ...suiEventJson,
+      // };
       const eventNode: EventNode = autoCompoundingEventNode;
       allEvents.push(eventNode);
     }

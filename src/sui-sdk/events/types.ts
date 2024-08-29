@@ -7,7 +7,7 @@ interface CommonEventAttributes {
 
 export interface CetusAutoCompoundingEvent {
   compound_amount_a: bigint;
-  compound_amount_b: number;
+  compound_amount_b: bigint;
   current_liquidity: bigint;
   fee_collected_a: bigint;
   fee_collected_b: bigint;
