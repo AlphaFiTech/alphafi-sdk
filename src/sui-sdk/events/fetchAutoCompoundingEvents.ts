@@ -2,13 +2,13 @@ import { getInvestorPoolMap, poolInfo } from "../../common/maps";
 import { PoolName } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
-  AutoCompoundingEventNode,
-  FetchAutoCompoundingEventsParams,
+  AutoCompoundingAndRebalanceEventNode,
+  FetchAutoCompoundingAndRebalanceEventsParams,
 } from "./types";
 
 export async function fetchAutoCompoundingEvents(
-  params: FetchAutoCompoundingEventsParams,
-): Promise<AutoCompoundingEventNode[]> {
+  params: FetchAutoCompoundingAndRebalanceEventsParams,
+): Promise<AutoCompoundingAndRebalanceEventNode[]> {
   const eventTypesSet = new Set<string>();
 
   if (params.poolNames) {
@@ -52,14 +52,14 @@ export async function fetchAutoCompoundingEvents(
   const events = (await Promise.all(eventsPromises)).flat();
 
   const autoCompoundingEvents = events.map((e) => {
-    return e as AutoCompoundingEventNode;
+    return e as AutoCompoundingAndRebalanceEventNode;
   });
 
   return autoCompoundingEvents;
 }
 
 async function calculateAprForInvestor(
-  events: AutoCompoundingEventNode[],
+  events: AutoCompoundingAndRebalanceEventNode[],
 ): Promise<number> {
   // Sort events by timestamp to process them in order
   events.sort((a, b) => a.timestamp - b.timestamp);
@@ -161,7 +161,7 @@ async function calculateAprForInvestor(
 }
 
 export async function calculateAprForInvestor1(
-  events: AutoCompoundingEventNode[],
+  events: AutoCompoundingAndRebalanceEventNode[],
 ): Promise<number> {
   // Sort events by timestamp to process them in order
   events.sort((a, b) => a.timestamp - b.timestamp);
@@ -228,9 +228,10 @@ export async function calculateAprForInvestor1(
 }
 
 async function calculateAprForInvestors(
-  events: AutoCompoundingEventNode[],
+  events: AutoCompoundingAndRebalanceEventNode[],
 ): Promise<Record<string, number>> {
-  const investorEvents: Record<string, AutoCompoundingEventNode[]> = {};
+  const investorEvents: Record<string, AutoCompoundingAndRebalanceEventNode[]> =
+    {};
 
   // Step 1: Segregate events by investor_id
   for (const event of events) {
@@ -272,7 +273,7 @@ async function calculateAprForInvestors(
 }
 
 export async function calculateAprForPools(
-  events: AutoCompoundingEventNode[],
+  events: AutoCompoundingAndRebalanceEventNode[],
 ): Promise<Record<PoolName, number>> {
   const aprMap: Record<string, number> = {};
   const investorPoolNameMap = await getInvestorPoolMap();

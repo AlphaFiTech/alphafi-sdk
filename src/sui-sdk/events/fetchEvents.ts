@@ -1,11 +1,12 @@
 import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
-  AutoCompoundingEventNode,
+  AutoCompoundingAndRebalanceEventNode,
   CetusAutoCompoundingEvent,
   EventNode,
   FetchEventsParams,
   NaviAutoCompoundingEvent,
+  RebalanceEvent,
 } from "./types";
 
 export async function fetchEvents(
@@ -74,9 +75,10 @@ export async function fetchEvents(
 
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
-        | NaviAutoCompoundingEvent;
+        | NaviAutoCompoundingEvent
+        | RebalanceEvent;
 
-      let autoCompoundingEventNode: AutoCompoundingEventNode;
+      let autoCompoundingEventNode: AutoCompoundingAndRebalanceEventNode;
 
       if (
         "compound_amount_a" in suiEventJson &&
@@ -107,6 +109,16 @@ export async function fetchEvents(
           investor_id: suiEventJson.investor_id,
           location: suiEventJson.location,
           total_amount: BigInt(suiEventJson.total_amount.toString()),
+        };
+      } else if ("lower_tick_after" in suiEventJson) {
+        // Handling RebalanceEvent
+        autoCompoundingEventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          investor_id: suiEventJson.investor_id.toString(),
+          lower_tick_after: suiEventJson.lower_tick_after.toString(),
+          upper_tick_after: suiEventJson.upper_tick_after.toString(),
+          sqrt_price_after: suiEventJson.sqrt_price_after.toString(),
         };
       } else {
         throw new Error("Unknown event type");

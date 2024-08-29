@@ -109,6 +109,7 @@ export const poolInfo: {
     receiptName: string;
     receiptType: PoolReceipt;
     autoCompoundingEventType: string;
+    rebalanceEventType: string | null;
   };
 } = {
   "NAVI-SUI": {
@@ -120,6 +121,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -130,6 +132,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -140,6 +143,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -150,6 +154,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
@@ -160,6 +165,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -170,6 +176,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -179,6 +186,7 @@ export const poolInfo: {
     receiptName: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: null,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",
@@ -189,6 +197,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].ALPHA_SUI_POOL_REBALANCE_EVENT,
   },
   "HASUI-SUI": {
     parentProtocolName: "CETUS",
@@ -199,6 +208,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].HASUI_SUI_POOL_REBALANCE_EVENT,
   },
   "USDT-USDC": {
     parentProtocolName: "CETUS",
@@ -209,6 +219,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDT_USDC_POOL_REBALANCE_EVENT,
   },
   "USDY-USDC": {
     parentProtocolName: "CETUS",
@@ -219,6 +230,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].USDY_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDY_USDC_POOL_REBALANCE_EVENT,
   },
   "USDC-SUI": {
     parentProtocolName: "CETUS",
@@ -229,6 +241,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
   },
   "WETH-USDC": {
     parentProtocolName: "CETUS",
@@ -239,6 +252,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WETH_USDC_POOL_REBALANCE_EVENT,
   },
   "USDC-WBTC": {
     parentProtocolName: "CETUS",
@@ -249,6 +263,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_WBTC_POOL_REBALANCE_EVENT,
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -259,6 +274,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].NAVX_SUI_POOL_REBALANCE_EVENT,
   },
   "BUCK-USDC": {
     parentProtocolName: "CETUS",
@@ -269,6 +285,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].BUCK_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].BUCK_USDC_POOL_REBALANCE_EVENT,
   },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
@@ -279,6 +296,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
   },
 };
 

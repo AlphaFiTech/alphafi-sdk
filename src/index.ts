@@ -21,11 +21,15 @@ export { getAirdropShare } from "./getAirdropShare";
 export {
   alphaLpBreakdown,
   cetusLpBreakdown,
-  fetchRebalanceHistory,
   lastAutocompoundTime,
 } from "./vaultFunctions";
 
 export { getApr, getAprs, getApy, getApys } from "./getAprs";
+
+export {
+  getRebalanceHistory,
+  getRebalanceHistories,
+} from "./getRebalanceHistory";
 
 export * from "./common/types";
 
