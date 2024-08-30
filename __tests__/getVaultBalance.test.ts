@@ -3,7 +3,7 @@ import {
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
   PoolName,
-} from "../src";
+} from "../dist";
 
 describe("getVaultBalance", () => {
   it("should return the correct value", async () => {
