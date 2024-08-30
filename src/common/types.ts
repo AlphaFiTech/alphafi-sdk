@@ -486,6 +486,13 @@ export type LpBreakdownType = {
   liquidity: string | null;
 };
 
+export interface RebalanceHistoryType {
+  timestamp: string;
+  lower_tick: string;
+  upper_tick: string;
+  after_price: string;
+}
+
 export type TransactionBlockType = {
   digest: string;
   transaction: {

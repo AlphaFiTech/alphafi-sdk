@@ -1,11 +1,10 @@
 import { getInvestorPoolMap, poolInfo } from "../../common/maps";
-import { PoolName } from "../../common/types";
+import { PoolName, RebalanceHistoryType } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
   FetchRebalanceEventsParams,
   RebalanceEvent,
   RebalanceEventNode,
-  RebalanceHistoryType,
 } from "./types";
 
 export async function fetchRebalanceEvents(
