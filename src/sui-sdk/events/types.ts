@@ -26,17 +26,35 @@ export interface NaviAutoCompoundingEvent {
   total_amount: bigint;
 }
 
+export interface RebalanceEvent {
+  investor_id: string;
+  lower_tick_after: string;
+  upper_tick_after: string;
+  sqrt_price_after: string;
+}
+
+export interface RebalanceHistoryType {
+  timestamp: string;
+  lower_tick: string;
+  upper_tick: string;
+  after_price: string;
+}
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes);
 
-export type EventNode = AutoCompoundingEventNode;
+export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
+
+export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
   endTime?: number;
   poolNames?: PoolName[];
 };
+
+export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchEventsParams = {
   eventTypes: string[];

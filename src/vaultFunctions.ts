@@ -1,9 +1,5 @@
 //import { SuiClient } from "@mysten/sui/client";
-import {
-  LpBreakdownType,
-  PoolName,
-  RebalanceHistoryType,
-} from "./common/types";
+import { LpBreakdownType, PoolName } from "./common/types";
 
 export async function alphaLpBreakdown(
   poolName: PoolName,
@@ -33,14 +29,6 @@ export async function cetusLpBreakdown(
 
   console.log(poolName);
   return lp;
-}
-
-export async function fetchRebalanceHistory(
-  poolName: PoolName,
-): Promise<RebalanceHistoryType[]> {
-  const rebalanceArr: RebalanceHistoryType[] = [];
-  console.log(poolName);
-  return rebalanceArr;
 }
 
 export async function lastAutocompoundTime(
