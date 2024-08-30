@@ -33,13 +33,6 @@ export interface RebalanceEvent {
   sqrt_price_after: string;
 }
 
-export interface RebalanceHistoryType {
-  timestamp: string;
-  lower_tick: string;
-  upper_tick: string;
-  after_price: string;
-}
-
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes);

@@ -1,9 +1,8 @@
-import { PoolName } from "./common/types";
+import { PoolName, RebalanceHistoryType } from "./common/types";
 import {
   calculateRebalanceHistoryFromEvents,
   fetchRebalanceEvents,
 } from "./sui-sdk/events/fetchRebalanceEvents";
-import { RebalanceHistoryType } from "./sui-sdk/events/types";
 
 export async function getRebalanceHistory(
   poolName: PoolName,
