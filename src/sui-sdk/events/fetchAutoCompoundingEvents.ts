@@ -155,7 +155,7 @@ export async function calculateAprForInvestor(
         | "ALPHA"
       >;
       const coinName = poolCoinMap[poolName];
-      growthRate = growthRate * 10 ** (9 - coins[coinName].expo);
+      growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
     }
 
     // Accumulate the time-weighted growth
