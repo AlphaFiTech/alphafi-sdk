@@ -539,9 +539,11 @@ export const conf = {
     NAVX_SUI_POOL:
       "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0",
 
-    BUCK_USDC_POOL: "",
+    BUCK_USDC_POOL:
+      "0x59ff9c5df31bfd0a59ac8393cf6f8db1373252e845958953e6199952d194dae4",
 
-    CETUS_SUI_POOL: "",
+    CETUS_SUI_POOL:
+      "0xa87297a4a8aa38848955195340ba40ba4eef476d4204c34a9297efcd37c21264",
 
     // Alphafi-Navi Pools
 

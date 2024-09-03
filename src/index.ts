@@ -31,6 +31,12 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory";
 
+export { getUserHoldingsUsd } from "./getUserHoldingsUsd";
+
+export { getUserTokens } from "./getUserHoldings";
+
+export { getHolders } from "./getHolders";
+
 export * from "./common/types";
 
 // src/index.ts
