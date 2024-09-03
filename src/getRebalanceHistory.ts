@@ -9,6 +9,7 @@ export async function getRebalanceHistory(
 ): Promise<RebalanceHistoryType[]> {
   const historyMap = await getRebalanceHistories([poolName]);
   const history = historyMap[poolName];
+  if (history === undefined) return [];
   return history;
 }
 
