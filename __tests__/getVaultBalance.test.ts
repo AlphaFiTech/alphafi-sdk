@@ -13,7 +13,7 @@ describe("getVaultBalance", () => {
     return getAlphaVaultBalance(address).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 // Single Asset Vaults
@@ -29,7 +29,7 @@ describe("getNaviSuiSingleAssetVaultBalance", () => {
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getNaviVsuiSingleAssetVaultBalance", () => {
@@ -41,7 +41,7 @@ describe("getNaviVsuiSingleAssetVaultBalance", () => {
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getNaviWethSingleAssetVaultBalance", () => {
@@ -53,7 +53,7 @@ describe("getNaviWethSingleAssetVaultBalance", () => {
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getNaviUsdtSingleAssetVaultBalance", () => {
@@ -65,7 +65,7 @@ describe("getNaviUsdtSingleAssetVaultBalance", () => {
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getNaviUsdcSingleAssetVaultBalance", () => {
@@ -77,7 +77,7 @@ describe("getNaviUsdcSingleAssetVaultBalance", () => {
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 // Double Asset Vaults
@@ -91,7 +91,7 @@ describe("getUsdtUsdcDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getHasuiSuiDoubleAssetVaultBalance", () => {
@@ -103,7 +103,7 @@ describe("getHasuiSuiDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getUsdyUsdcDoubleAssetVaultBalance", () => {
@@ -115,7 +115,7 @@ describe("getUsdyUsdcDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getAlphaSuiDoubleAssetVaultBalance", () => {
@@ -127,7 +127,7 @@ describe("getAlphaSuiDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getUsdcSuiDoubleAssetVaultBalance", () => {
@@ -139,7 +139,7 @@ describe("getUsdcSuiDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getUsdcWbtcDoubleAssetVaultBalance", () => {
@@ -151,7 +151,7 @@ describe("getUsdcWbtcDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getWethUsdcDoubleAssetVaultBalance", () => {
@@ -163,7 +163,7 @@ describe("getWethUsdcDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
 
 describe("getNavxSuiDoubleAssetVaultBalance", () => {
@@ -175,5 +175,5 @@ describe("getNavxSuiDoubleAssetVaultBalance", () => {
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
     });
-  }, 10000);
+  });
 });
