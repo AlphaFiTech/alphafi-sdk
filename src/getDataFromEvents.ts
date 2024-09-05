@@ -1,4 +1,4 @@
-import { poolIdPoolNameMap, getPoolConversionMap } from "./common/maps";
+import { poolIdPoolNameMap, getPoolExchangeRateMap } from "./common/maps";
 import { PoolName } from "./common/types";
 import { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents";
 import { LiquidityChangeEventNode } from "./sui-sdk/events/types";
@@ -37,7 +37,7 @@ export async function getTokensFromEvents(params?: {
     poolNames: params?.pools as PoolName[],
   });
   const xTokenHoldings = parseXTokensFromEvent(liquidityChangeEvents);
-  const conversionMap = await getPoolConversionMap();
+  const conversionMap = await getPoolExchangeRateMap();
   const userTokens: [string, string, string][] = xTokenHoldings.map(
     ([owner, pool, xTokens]) => {
       const conversion = new Decimal(

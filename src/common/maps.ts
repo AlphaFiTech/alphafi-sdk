@@ -475,7 +475,7 @@ export const poolIdQueryInvestorMap: { [key: string]: string } = {
 };
 
 // Pagination needed for more than 50 pools
-export async function getPoolConversionMap(): Promise<Map<PoolName, string>> {
+export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
   const poolNameToConversionRateMap = new Map<PoolName, string>();
 
   const poolIds = Object.keys(poolIdPoolNameMap);
@@ -524,11 +524,9 @@ export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
 }
 
 // Pagination needed for more than 50 pools
-export async function getCetusInvestorTicksMap(): Promise<{
-  [pool: string]: { lower: string; upper: string };
-}> {
+export async function getCetusInvestorTicksMap(): Promise<{ [pool in PoolName]?: { lower: string; upper: string }; }> {
   const investorIdToTicksMap: {
-    [pool: string]: { lower: string; upper: string };
+    [pool in PoolName]?: { lower: string; upper: string };
   } = {};
 
   const investorPoolMap = await getInvestorPoolMap();
@@ -544,7 +542,7 @@ export async function getCetusInvestorTicksMap(): Promise<{
     const lower_tick = investorDetails.content.fields.lower_tick;
     const upper_tick = investorDetails.content.fields.upper_tick;
     const pool = investorPoolMap.get(investorDetails.objectId) as string;
-    investorIdToTicksMap[pool] = { lower: lower_tick, upper: upper_tick };
+    investorIdToTicksMap[pool as PoolName] = { lower: lower_tick, upper: upper_tick };
   }
 
   return investorIdToTicksMap;

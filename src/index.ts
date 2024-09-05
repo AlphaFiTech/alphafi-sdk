@@ -31,7 +31,7 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory";
 
-export { getUserHoldingsUsd } from "./getUserHoldingsUsd";
+export { getUserHoldingsInUsd } from "./getUserHoldingsUsd";
 
 export { getUserTokens } from "./getUserHoldings";
 

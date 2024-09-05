@@ -1,5 +1,6 @@
 import { SuiObjectResponse } from "@mysten/sui/client";
 import suiClient from "../sui-sdk/client";
+import { GetReceiptParams } from "./types";
 const recieptTypes = {
   ALPHA:
     "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::Receipt",
@@ -14,10 +15,7 @@ const recieptTypes = {
     "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
 };
 
-export async function getReceipts(params: {
-  pools?: string[];
-  owners: string[];
-}) {
+export async function getReceipts(params: GetReceiptParams) {
   let receipts: SuiObjectResponse[] = [];
   for (const userAddress of params?.owners) {
     console.log("checking receipts for", userAddress);

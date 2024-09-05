@@ -12,13 +12,24 @@ import { coins } from "./common/coins";
 import BN from "bn.js";
 import Decimal from "decimal.js";
 
-export async function getUserHoldingsUsd(params?: {
+export type GetUserHoldingsInUsdParams = {
   pools?: string[];
   startTime?: number;
   endTime?: number;
   owners?: string[];
   userTokensHoldings?: [string, string, string][];
-}): Promise<[string, string, string][]> {
+}
+
+export type LiquidityToUsdParams = {
+  liquidity: string;
+  pool: string;
+  ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
+  sqrtPriceCetusMap: Map<PoolName, string>;
+  tokenPriceMap: Map<CoinName, string>;
+}
+
+export async function getUserHoldingsInUsd(params?: GetUserHoldingsInUsdParams)
+: Promise<[string, string, string][]> {
   let usdHoldings: [string, string, string][] = [];
 
   // format: [address pool tokens][]
@@ -34,14 +45,14 @@ export async function getUserHoldingsUsd(params?: {
   const tokenPriceMap = await getTokenPriceMap();
   console.log(tokenPriceMap);
   usdHoldings = tokenHoldings.map(([address, pool, tokens]) => {
-    const params = {
+    const params: LiquidityToUsdParams = {
       liquidity: tokens,
       pool: pool,
       ticksCetusMap: ticksCetusMap,
       sqrtPriceCetusMap: sqrtPriceCetusMap,
       tokenPriceMap: tokenPriceMap,
     };
-    const usdVal = liquidityToUSD(params) as string;
+    const usdVal = liquidityToUsd(params) as string;
     return [address, pool, usdVal];
   });
   usdHoldings = mergeDuplicateHoldings(usdHoldings);
@@ -49,13 +60,7 @@ export async function getUserHoldingsUsd(params?: {
   return usdHoldings;
 }
 
-function liquidityToUSD(params: {
-  liquidity: string;
-  pool: string;
-  ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
-  sqrtPriceCetusMap: Map<PoolName, string>;
-  tokenPriceMap: Map<CoinName, string>;
-}): string | undefined {
+function liquidityToUsd(params: LiquidityToUsdParams): string | undefined {
   let holdingUSD: string | undefined;
   if (params.pool.slice(0, 4) === "NAVI") {
     holdingUSD = singleAssetLiquidityToUSD(
@@ -189,18 +194,18 @@ function singleAssetLiquidityToUSD(
 function mergeDuplicateHoldings(
   userTokens: [string, string, string][],
 ): [string, string, string][] {
-  const map = new Map<string, number>();
+  const address_poolValueMap = new Map<string, number>();
   userTokens.forEach(([address, pool, value]) => {
-    const key = `${address}~${pool}`;
+    const key = `${address}_${pool}`;
     const numericValue = parseFloat(value);
-    if (map.has(key)) {
-      map.set(key, map.get(key)! + numericValue);
+    if (address_poolValueMap.has(key)) {
+      address_poolValueMap.set(key, address_poolValueMap.get(key)! + numericValue);
     } else {
-      map.set(key, numericValue);
+      address_poolValueMap.set(key, numericValue);
     }
   });
-  return Array.from(map.entries()).map(([key, value]) => {
-    const [address, pool] = key.split("~");
-    return [address, pool, value.toString()];
+  return Array.from(address_poolValueMap.entries()).map(([key, value]) => {
+    const [address, pool] = key.split("_");
+    return [address, pool, value.toFixed(2).toString()];
   });
 }

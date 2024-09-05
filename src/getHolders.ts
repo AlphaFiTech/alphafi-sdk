@@ -3,7 +3,7 @@ import {
   TransactionFilter,
 } from "@mysten/sui/client";
 import { conf } from "./common/constants";
-import { fetchTxbs } from "./sui-sdk/transactions/fetchTxbs";
+import { fetchTransactions } from "./sui-sdk/transactions/fetchTransactions";
 
 const nonAlphaFilters: TransactionFilter[] = [
   {
@@ -58,7 +58,7 @@ export async function getHolders(params?: {
   let userList: string[] = [];
   const filters: TransactionFilter[] = [...alphaFilters, ...nonAlphaFilters];
   for (const filter of filters) {
-    const txbs: SuiTransactionBlockResponse[] = await fetchTxbs({
+    const txbs: SuiTransactionBlockResponse[] = await fetchTransactions({
       startTime: startTime,
       endTime: endTime,
       filter: filter,
