@@ -11,22 +11,7 @@ import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import { coins } from "./common/coins";
 import BN from "bn.js";
 import Decimal from "decimal.js";
-
-export type GetUserHoldingsInUsdParams = {
-  pools?: string[];
-  startTime?: number;
-  endTime?: number;
-  owners?: string[];
-  userTokensHoldings?: [string, string, string][];
-}
-
-export type LiquidityToUsdParams = {
-  liquidity: string;
-  pool: string;
-  ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
-  sqrtPriceCetusMap: Map<PoolName, string>;
-  tokenPriceMap: Map<CoinName, string>;
-}
+import { GetUserHoldingsInUsdParams, LiquidityToUsdParams } from "./types";
 
 export async function getUserHoldingsInUsd(params?: GetUserHoldingsInUsdParams)
 : Promise<[string, string, string][]> {

@@ -1,3 +1,5 @@
+import { CoinName, PoolName } from "./common/types";
+
 export type GetUserTokensParams = {
     poolNames?: string[];
     startTime?: number;
@@ -110,3 +112,19 @@ export type OtherReceiptFields = {
     pool_id: string;
     xTokenBalance: string;
 };
+
+export type GetUserHoldingsInUsdParams = {
+    pools?: string[];
+    startTime?: number;
+    endTime?: number;
+    owners?: string[];
+    userTokensHoldings?: [string, string, string][];
+}
+
+export type LiquidityToUsdParams = {
+    liquidity: string;
+    pool: string;
+    ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
+    sqrtPriceCetusMap: Map<PoolName, string>;
+    tokenPriceMap: Map<CoinName, string>;
+}
