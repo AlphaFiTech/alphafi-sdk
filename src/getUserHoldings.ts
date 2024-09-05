@@ -14,8 +14,10 @@ export async function getUserTokens(params?: {
 }): Promise<[string, string, string][]> {
   let owners: string[];
   if (params?.owners) {
+    console.log("in if");
     owners = params.owners;
   } else {
+    console.log("in else");
     owners = await getHolders(params);
   }
   const receipts = await getReceipts({

@@ -46,7 +46,7 @@ export async function fetchRebalanceEvents(
       if (params.poolNames) {
         return params.poolNames
           .map((poolName) => poolInfo[poolName].investorId)
-          .includes(e.investor_id);
+          .includes((e as RebalanceEventNode).investor_id);
       } else {
         return true;
       }

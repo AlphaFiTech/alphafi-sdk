@@ -20,6 +20,7 @@ export async function getReceipts(params: {
 }) {
   let receipts: SuiObjectResponse[] = [];
   for (const userAddress of params?.owners) {
+    console.log("checking receipts for", userAddress);
     let hasNextPage: boolean = true;
     let nextCursor: null | string | undefined = null;
     while (hasNextPage) {

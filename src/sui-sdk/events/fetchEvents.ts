@@ -1,10 +1,14 @@
 import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
+  AlphaLiquidityChangeEvent,
   CetusAutoCompoundingEvent,
+  CetusLiquidityChangeEvent,
   EventNode,
   FetchEventsParams,
+  LiquidityChangeEventNode,
   NaviAutoCompoundingEvent,
+  NaviLiquidityChangeEvent,
   RebalanceEvent,
 } from "./types";
 import { poolInfo } from "../../common/maps";
@@ -27,7 +31,7 @@ export async function fetchEvents(
   }
 
   const now = Date.now();
-  const twentyFourHoursAgo = now - 7 * 24 * 60 * 60 * 1000; // timestamp for 24 hours ago
+  const twentyFourHoursAgo = now - 24 * 60 * 60 * 1000; // timestamp for 24 hours ago
   const startTime = params.startTime ? params.startTime : twentyFourHoursAgo;
   const endTime = params.endTime ? params.endTime : now;
 
@@ -76,7 +80,10 @@ export async function fetchEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent
-        | RebalanceEvent;
+        | RebalanceEvent
+        | CetusLiquidityChangeEvent
+        | AlphaLiquidityChangeEvent
+        | NaviLiquidityChangeEvent;
 
       let eventNode: EventNode;
 
@@ -127,6 +134,44 @@ export async function fetchEvents(
           upper_tick_after: suiEventJson.upper_tick_after.toString(),
           sqrt_price_after: suiEventJson.sqrt_price_after.toString(),
         };
+      } else if (
+        isLiquidityChangeEvent(suiEvent.type) &&
+        "amount_a" in suiEventJson
+      ) {
+        // Handling CetusLiquidityChangeEvent
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount_a: suiEventJson.amount_a,
+          amount_b: suiEventJson.amount_b,
+          event_type: suiEventJson.event_type,
+          fee_collected_a: suiEventJson.fee_collected_a,
+          fee_collected_b: suiEventJson.fee_collected_b,
+          pool_id: suiEventJson.pool_id,
+          sender: suiEventJson.sender,
+          tokens_invested: suiEventJson.tokens_invested,
+          total_amount_a: suiEventJson.total_amount_a,
+          total_amount_b: suiEventJson.total_amount_b,
+          user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
+          x_token_supply: suiEventJson.x_token_supply,
+        } as LiquidityChangeEventNode;
+      } else if (
+        isLiquidityChangeEvent(suiEvent.type) &&
+        "amount" in suiEventJson
+      ) {
+        // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount: suiEventJson.amount,
+          event_type: suiEventJson.event_type,
+          fee_collected: suiEventJson.fee_collected,
+          pool_id: suiEventJson.pool_id,
+          sender: suiEventJson.sender,
+          tokens_invested: suiEventJson.tokens_invested,
+          user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
+          x_token_supply: suiEventJson.x_token_supply,
+        } as LiquidityChangeEventNode;
       } else {
         throw new Error("Unknown event type");
       }
@@ -172,5 +217,12 @@ const isRebalanceEvent = (eventType: string) => {
     .map((info) => {
       return info.rebalanceEventType as string;
     });
+  return eventTypes.includes(eventType);
+};
+
+const isLiquidityChangeEvent = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo).map((info) => {
+    return info.liquidityChangeEventType;
+  });
   return eventTypes.includes(eventType);
 };

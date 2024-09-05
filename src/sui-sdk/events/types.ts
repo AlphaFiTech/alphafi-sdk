@@ -33,13 +33,59 @@ export interface RebalanceEvent {
   sqrt_price_after: string;
 }
 
+export interface CetusLiquidityChangeEvent {
+  amount_a: string;
+  amount_b: string;
+  event_type: number;
+  fee_collected_a: string;
+  fee_collected_b: string;
+  pool_id: string;
+  sender: string;
+  tokens_invested: string;
+  total_amount_a: string;
+  total_amount_b: string;
+  user_total_x_token_balance: string;
+  x_token_supply: string;
+}
+
+export interface NaviLiquidityChangeEvent {
+  amount: string;
+  event_type: number;
+  fee_collected: string;
+  pool_id: string;
+  sender: string;
+  tokens_invested: string;
+  user_total_x_token_balance: string;
+  x_token_supply: string;
+}
+
+export interface AlphaLiquidityChangeEvent {
+  amount: string;
+  event_type: number;
+  fee_collected: string;
+  pool_id: string;
+  sender: string;
+  tokens_invested: string;
+  user_total_x_token_balance: string;
+  x_token_supply: string;
+}
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes);
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
-export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
+export type LiquidityChangeEventNode =
+  | (CetusLiquidityChangeEvent & CommonEventAttributes)
+  | (NaviLiquidityChangeEvent & CommonEventAttributes)
+  | (AlphaLiquidityChangeEvent & CommonEventAttributes);
+
+export type EventNode =
+  | AutoCompoundingEventNode
+  | RebalanceEventNode
+  | LiquidityChangeEventNode;
+// export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -48,6 +94,8 @@ export type FetchAutoCompoundingEventsParams = {
 };
 
 export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
+
+export type FetchLiquidityChangeEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchEventsParams = {
   eventTypes: string[];

@@ -37,6 +37,8 @@ export { getUserTokens } from "./getUserHoldings";
 
 export { getHolders } from "./getHolders";
 
+export { getHoldersFromEvents, getTokensFromEvents } from "./getDataFromEvents";
+
 export * from "./common/types";
 
 // src/index.ts

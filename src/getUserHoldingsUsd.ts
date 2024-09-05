@@ -17,14 +17,22 @@ export async function getUserHoldingsUsd(params?: {
   startTime?: number;
   endTime?: number;
   owners?: string[];
+  userTokensHoldings?: [string, string, string][];
 }): Promise<[string, string, string][]> {
   let usdHoldings: [string, string, string][] = [];
 
   // format: [address pool tokens][]
-  const tokenHoldings = await getUserTokens(params);
+  console.log("received params", params);
+  let tokenHoldings: [string, string, string][];
+  if (params?.userTokensHoldings) {
+    tokenHoldings = params.userTokensHoldings;
+  } else {
+    tokenHoldings = await getUserTokens(params);
+  }
   const sqrtPriceCetusMap = await getCetusSqrtPriceMap();
   const ticksCetusMap = await getCetusInvestorTicksMap();
   const tokenPriceMap = await getTokenPriceMap();
+  console.log(tokenPriceMap);
   usdHoldings = tokenHoldings.map(([address, pool, tokens]) => {
     const params = {
       liquidity: tokens,
