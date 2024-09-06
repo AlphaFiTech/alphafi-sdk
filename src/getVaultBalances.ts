@@ -9,7 +9,7 @@ import { fetchUserVaultBalances } from "./sui-sdk/functions/fetchUserVaultBalanc
 
 export async function getVaultBalance(
   address: string,
-  poolName: PoolName
+  poolName: PoolName,
 ): Promise<AlphaFiVaultBalance | undefined> {
   const vaultBalance = await fetchUserVaultBalances(address, poolName);
   return vaultBalance;
@@ -17,7 +17,7 @@ export async function getVaultBalance(
 
 export async function getAlphaVaultBalance(
   address: string,
-  poolName: PoolName
+  poolName: PoolName,
 ): Promise<AlphaVaultBalance | undefined> {
   const vaultBalance = await getVaultBalance(address, poolName);
   return vaultBalance as AlphaVaultBalance;
@@ -25,7 +25,7 @@ export async function getAlphaVaultBalance(
 
 export async function getSingleAssetVaultBalance(
   address: string,
-  poolName: PoolName
+  poolName: PoolName,
 ): Promise<SingleAssetVaultBalance | undefined> {
   const vaultBalance = await getVaultBalance(address, poolName);
   return vaultBalance as SingleAssetVaultBalance;
@@ -33,7 +33,7 @@ export async function getSingleAssetVaultBalance(
 
 export async function getDoubleAssetVaultBalance(
   address: string,
-  poolName: PoolName
+  poolName: PoolName,
 ): Promise<DoubleAssetVaultBalance | undefined> {
   const vaultBalance = await getVaultBalance(address, poolName);
   return vaultBalance as DoubleAssetVaultBalance;
