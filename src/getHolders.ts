@@ -46,7 +46,7 @@ const alphaFilters: TransactionFilter[] = conf.production.ALPHA_PACKAGE_IDS.map(
 
 // TODO: add functionality for Pool
 export async function getHolders(params?: {
-  pools?: string[];
+  poolNames?: string[];
   startTime?: number;
   endTime?: number;
 }): Promise<string[]> {
