@@ -211,10 +211,6 @@ export type AlphaReceipt = {
 };
 
 export type Receipt = {
-  balance: string;
-};
-
-export type Receipt1 = {
   objectId: string;
   version: string;
   digest: string;
@@ -376,40 +372,6 @@ export type AlphaPoolType = {
   };
 };
 
-export class SimpleCache<T> {
-  private cache: { [key: string]: { value: T; expiry: number } } = {};
-  private defaultTTL: number;
-
-  constructor(defaultTTL: number = 60000) {
-    // Default TTL is 60 seconds
-    this.defaultTTL = defaultTTL;
-  }
-
-  get(key: string): T | null {
-    const cacheEntry = this.cache[key];
-    if (cacheEntry && cacheEntry.expiry > Date.now()) {
-      return cacheEntry.value;
-    } else {
-      // If the entry has expired, delete it
-      this.delete(key);
-      return null;
-    }
-  }
-
-  set(key: string, value: T, ttl?: number): void {
-    const expiry = Date.now() + (ttl || this.defaultTTL);
-    this.cache[key] = { value, expiry };
-  }
-
-  delete(key: string): void {
-    delete this.cache[key];
-  }
-
-  clear(): void {
-    this.cache = {};
-  }
-}
-
 export interface CoinPair {
   coinA: Coin;
   coinB: Coin;
@@ -477,6 +439,11 @@ export type SingleAssetVaultBalance = {
   coin: string | null;
   valueInUSD: string | null;
 };
+
+export type AlphaFiVaultBalance =
+  | AlphaVaultBalance
+  | SingleAssetVaultBalance
+  | DoubleAssetVaultBalance;
 
 export type LpBreakdownType = {
   coinA: string | null;
