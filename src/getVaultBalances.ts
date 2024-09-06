@@ -17,9 +17,8 @@ export async function getVaultBalance(
 
 export async function getAlphaVaultBalance(
   address: string,
-  poolName: PoolName,
 ): Promise<AlphaVaultBalance | undefined> {
-  const vaultBalance = await getVaultBalance(address, poolName);
+  const vaultBalance = await getVaultBalance(address, "ALPHA");
   return vaultBalance as AlphaVaultBalance;
 }
 
