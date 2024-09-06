@@ -44,10 +44,30 @@ export type CoinName =
   | "USDY"
   | "BUCK";
 
+/**
+ * Represents a coin with its name, type, icon, and exponent.
+ */
 export interface Coin {
+  /**
+   * The name of the coin (e.g., SUI, ALPHA, USDC, USDT).
+   */
   name: CoinName;
+
+  /**
+   * The type of the coin object on the Sui blockchain.
+   */
   type: CoinType;
+
+  /**
+   * The icon or logo associated with the coin.
+   */
   icon: Icon;
+
+  /**
+   * The exponent used to scale the coin's value.
+   * Typically used to convert between the smallest unit and the base unit.
+   * For example, SUI has an exponent of 9 because 1 SUI equals 10^9 MISTs.
+   */
   expo: number;
 }
 
