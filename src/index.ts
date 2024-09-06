@@ -5,6 +5,7 @@ export {
 } from "./getVaults";
 
 export {
+  getVaultBalance,
   getAlphaVaultBalance,
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,

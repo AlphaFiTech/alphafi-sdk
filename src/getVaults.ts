@@ -1,39 +1,12 @@
 import {
-  poolIdPoolNameMap,
-  poolInfo,
-  poolCoinMap,
-  poolCoinPairMap,
-  coinNameTypeMap,
-} from "./common/maps";
-import {
   AlphaFiSingleAssetVault,
   AlphaFiDoubleAssetVault,
-  PoolName,
+  AlphaFiVault,
 } from "./common/types";
+import { fetchUserVaults } from "./sui-sdk/functions/fetchUserVaults";
 
-import { fetchUserVaults } from "./graphql/fetchData";
-
-export async function getVaults(
-  address: string,
-): Promise<(AlphaFiSingleAssetVault | AlphaFiDoubleAssetVault)[]> {
-  const vaultsArr: (AlphaFiSingleAssetVault | AlphaFiDoubleAssetVault)[] = [];
-
-  const vaultsData = await fetchUserVaults(address);
-
-  // Combine all objects into a single array
-  const allObjects = [
-    ...vaultsData.alphaObjects.nodes,
-    ...vaultsData.alphaSuiObjects.nodes,
-    ...vaultsData.usdtUsdcObjects.nodes,
-    ...vaultsData.usdcWbtcObjects.nodes,
-    ...vaultsData.naviObjects.nodes,
-  ];
-
-  const vaults = await buildVaultsArray(allObjects);
-  vaults.forEach((v) =>
-    vaultsArr.push(v as AlphaFiSingleAssetVault | AlphaFiDoubleAssetVault),
-  );
-
+export async function getVaults(address: string): Promise<AlphaFiVault[]> {
+  const vaultsArr: AlphaFiVault[] = await fetchUserVaults(address);
   return vaultsArr;
 }
 
@@ -43,16 +16,10 @@ export async function getSingleAssetVaults(
   const vaultsArr: AlphaFiSingleAssetVault[] = [];
 
   const vaultsData = await fetchUserVaults(address);
-
-  // Combine all objects into a single array
-  const allObjects = [
-    ...vaultsData.alphaObjects.nodes,
-    ...vaultsData.naviObjects.nodes,
-  ];
-
-  const vaults = await buildVaultsArray(allObjects);
-  vaults.forEach((v) => vaultsArr.push(v as AlphaFiSingleAssetVault));
-
+  vaultsData.forEach((v) => {
+    const data = v as AlphaFiSingleAssetVault;
+    if (data.coinName) vaultsArr.push(data);
+  });
   return vaultsArr;
 }
 
@@ -61,61 +28,9 @@ export async function getDoubleAssetVaults(
 ): Promise<AlphaFiDoubleAssetVault[]> {
   const vaultsArr: AlphaFiDoubleAssetVault[] = [];
   const vaultsData = await fetchUserVaults(address);
-
-  // Combine all objects into a single array
-  const allObjects = [
-    ...vaultsData.alphaSuiObjects.nodes,
-    ...vaultsData.usdtUsdcObjects.nodes,
-    ...vaultsData.usdcWbtcObjects.nodes,
-  ];
-
-  const vaults = await buildVaultsArray(allObjects);
-  vaults.forEach((v) => vaultsArr.push(v as AlphaFiDoubleAssetVault));
-
-  return vaultsArr;
-}
-
-async function buildVaultsArray(allObjects: any[]) {
-  const vaultsArr = allObjects.map((o) => {
-    const poolName: PoolName = poolIdPoolNameMap[o.contents.json.pool_id];
-    const pool = poolInfo[poolName];
-    if (
-      pool.parentProtocolName === "ALPHAFI" ||
-      pool.parentProtocolName === "NAVI"
-    ) {
-      const vault: AlphaFiSingleAssetVault = {
-        poolId: pool.poolId,
-        poolName: poolName,
-        receiptName: pool.receiptName,
-        receiptType: pool.receiptType,
-        coinName: poolCoinMap[poolName as keyof typeof poolCoinMap],
-        coinType:
-          coinNameTypeMap[poolCoinMap[poolName as keyof typeof poolCoinMap]],
-      };
-      return vault;
-    } else if (pool.parentProtocolName === "CETUS") {
-      const vault: AlphaFiDoubleAssetVault = {
-        poolId: pool.poolId,
-        poolName: poolName,
-        receiptName: pool.receiptName,
-        receiptType: pool.receiptType,
-        coinTypeA:
-          coinNameTypeMap[
-            poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA
-          ],
-        coinTypeB:
-          coinNameTypeMap[
-            poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB
-          ],
-        coinNameA:
-          poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinA,
-        coinNameB:
-          poolCoinPairMap[poolName as keyof typeof poolCoinPairMap].coinB,
-      };
-      return vault;
-    } else {
-      return undefined;
-    }
+  vaultsData.forEach((v) => {
+    const data = v as AlphaFiDoubleAssetVault;
+    if (data.coinNameA) vaultsArr.push(data);
   });
   return vaultsArr;
 }
