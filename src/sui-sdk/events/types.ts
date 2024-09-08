@@ -33,9 +33,15 @@ export interface RebalanceEvent {
   sqrt_price_after: string;
 }
 
+export interface AlphaAutoCompoundingEvent {
+  amount: string;
+  investor_id: string;
+}
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
-  | (NaviAutoCompoundingEvent & CommonEventAttributes);
+  | (NaviAutoCompoundingEvent & CommonEventAttributes)
+  | (AlphaAutoCompoundingEvent & CommonEventAttributes);
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 

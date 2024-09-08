@@ -1,6 +1,7 @@
 import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
+  AlphaAutoCompoundingEvent,
   CetusAutoCompoundingEvent,
   EventNode,
   FetchEventsParams,
@@ -8,6 +9,7 @@ import {
   RebalanceEvent,
 } from "./types";
 import { poolInfo } from "../../common/maps";
+import { conf, CONF_ENV } from "../../common/constants";
 
 export async function fetchEvents(
   params: FetchEventsParams,
@@ -76,6 +78,7 @@ export async function fetchEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent
+        | AlphaAutoCompoundingEvent
         | RebalanceEvent;
 
       let eventNode: EventNode;
@@ -113,6 +116,16 @@ export async function fetchEvents(
           investor_id: suiEventJson.investor_id,
           location: suiEventJson.location,
           total_amount: BigInt(suiEventJson.total_amount.toString()),
+        };
+      } else if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "amount" in suiEventJson
+      ) {
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount: suiEventJson.amount,
+          investor_id: conf[CONF_ENV].ALPHA_POOL,
         };
       } else if (
         isRebalanceEvent(suiEvent.type) &&
