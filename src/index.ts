@@ -32,6 +32,8 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory";
 
+export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime";
+
 export * from "./common/types";
 
 // src/index.ts
