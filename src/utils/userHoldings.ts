@@ -31,7 +31,7 @@ export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
 export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
     const sqrtPriceCetusMap = await getCetusSqrtPriceMap();
     const ticksCetusMap = await getCetusInvestorTicksMap();
-    const tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] = holdings.map(
+    let tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] = holdings.map(
         (holdingsObj) => {
             const tokens = liquidityToTokens({
                 liquidity: holdingsObj.holding,
@@ -47,6 +47,7 @@ export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
             }
         }
     )
+    tokenHoldings = mergeDuplicateTokenHoldings(tokenHoldings);
     return tokenHoldings;
 }
 
@@ -153,6 +154,48 @@ function singleAssetLiquidityToTokens(
     return amount.toFixed(5).toString();
 }
 
+function mergeDuplicateTokenHoldings(tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[]) {
+    const uniqueOwnerPoolMap = new Map<string, { tokens: string } | { tokenAmountA: string, tokenAmountB: string }>();
+
+    for (const holding of tokenHoldings) {
+        const owner = holding.user;
+        const poolName = holding.poolName;
+        const key = `${owner}_${poolName}`;
+        if (uniqueOwnerPoolMap.has(key)) {
+            const existingTokens = uniqueOwnerPoolMap.get(key);
+            if ("tokens" in existingTokens!) {
+                const thisHolding = holding as SingleAssetTokenHoldings;
+                uniqueOwnerPoolMap.set(key, {tokens: (parseFloat(thisHolding.tokens) + parseFloat(existingTokens.tokens)).toFixed(5).toString()});
+            }
+            else {
+                const thisHolding = holding as DoubleAssetTokenHoldings;
+                const tokensObj = {
+                    tokenAmountA: (parseFloat(thisHolding.tokenAmountA) + parseFloat(existingTokens!.tokenAmountA)).toFixed(5).toString(),
+                    tokenAmountB: (parseFloat(thisHolding.tokenAmountB) + parseFloat(existingTokens!.tokenAmountB)).toFixed(5).toString()
+                };
+                uniqueOwnerPoolMap.set(key,tokensObj);
+            }
+        }
+        else {
+            if ("tokens" in holding) {
+                uniqueOwnerPoolMap.set(key, { tokens: holding.tokens });
+            }
+            else {
+                uniqueOwnerPoolMap.set(key, { tokenAmountA: holding.tokenAmountA, tokenAmountB: holding.tokenAmountB });
+            }
+        }
+    }
+
+    const uniqueOwnerPoolMapArr = Array.from(uniqueOwnerPoolMap);
+    const result: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] = uniqueOwnerPoolMapArr.map(
+        ([owner_pool, holding]) => {
+            const owner = owner_pool.split("_")[0];
+            const poolName = owner_pool.split("_")[1];
+            return {user:owner, poolName:poolName, ...holding} as (SingleAssetTokenHoldings | DoubleAssetTokenHoldings);
+        }
+    )
+    return result;
+}
 
 export async function multiTokensToUsd(tokensHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[]): Promise<HoldingsObj[]> {
     const usdHoldings: HoldingsObj[] = [];
@@ -204,26 +247,3 @@ export async function multiTokensToUsd(tokensHoldings: (SingleAssetTokenHoldings
 
     return usdHoldings;
 }
-
-// async function main() {
-//     const res = await multiTokensToUsd([
-//         {
-//             user: '0x2720318fd72d4c1d4ab97017fe39f4fb9f3e710eb08c0979f943341ffa265ce2',
-//             poolName: 'ALPHA',
-//             tokens: '509.21'
-//         },
-//         {
-//             user: '0x2720318fd72d4c1d4ab97017fe39f4fb9f3e710eb08c0979f943341ffa265ce2',
-//             poolName: 'USDT-USDC',
-//             tokenAmountA: '0.3757',
-//             tokenAmountB: '0.0913'
-//         },
-//         {
-//             user: '0x2720318fd72d4c1d4ab97017fe39f4fb9f3e710eb08c0979f943341ffa265ce2',
-//             poolName: 'NAVI-SUI',
-//             tokens: '0.10'
-//         }
-//     ])
-//     console.log(res);
-// }
-// main();
