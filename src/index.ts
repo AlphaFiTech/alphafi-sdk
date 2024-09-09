@@ -9,6 +9,7 @@ export {
   getAlphaVaultBalance,
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
+  getVaultBalanceForActiveUsers
 } from "./getVaultBalances";
 
 export {
@@ -32,13 +33,12 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory";
 
-export { getUserHoldingsInUsd } from "./getUserHoldingsUsd";
 
-export { getUserTokens } from "./getUserHoldings";
-
-export { getHolders } from "./getHolders";
-
-export { getHoldersFromEvents, getTokensFromEvents } from "./getDataFromEvents";
+export { 
+  getHoldersFromTransactions, 
+  getUserTokensFromTransactions, 
+  getUserTokensInUsdFromTransactions 
+} from "./getHoldersFromTransactions";
 
 export * from "./common/types";
 

@@ -1,4 +1,4 @@
 export type GetReceiptParams = {
-    poolNames?: string[];
-    owners: string[];
-}
+  poolNames?: string[];
+  owners: string[];
+};

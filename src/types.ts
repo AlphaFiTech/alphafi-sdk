@@ -1,10 +1,18 @@
-import { CoinName, PoolName } from "./common/types";
+import { CoinName, DoubleAssetPoolNames, PoolName, SingleAssetPoolNames, AlphaFiVaultBalance } from "./common/types";
 
-export type GetUserTokensParams = {
+export type GetUserTokensFromTransactionsParams = {
     poolNames?: string[];
     startTime?: number;
     endTime?: number;
     owners?: string[];
+};
+
+export type GetUserTokensInUsdFromTransactionsParams = {
+    poolNames?: string[];
+    startTime?: number;
+    endTime?: number;
+    owners?: string[];
+    userTokensHoldings?: [string, string, string][];
 }
 
 export type AlphaReceiptFields = {
@@ -113,18 +121,88 @@ export type OtherReceiptFields = {
     xTokenBalance: string;
 };
 
-export type GetUserHoldingsInUsdParams = {
-    pools?: string[];
+export type GetHoldersParams = {
+    poolNames?: string[];
     startTime?: number;
     endTime?: number;
-    owners?: string[];
-    userTokensHoldings?: [string, string, string][];
+}
+
+export type GetTokenHoldingsParams = {
+    poolNames?: PoolName[];
+    startTime?: number;
+    endTime?: number;
 }
 
 export type LiquidityToUsdParams = {
     liquidity: string;
-    pool: string;
+    poolName: string;
     ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
     sqrtPriceCetusMap: Map<PoolName, string>;
     tokenPriceMap: Map<CoinName, string>;
+};
+
+export type LiquidityToTokensParams = {
+    liquidity: string;
+    poolName: string;
+    ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
+    sqrtPriceCetusMap: Map<PoolName, string>;
 }
+
+export type UserUsdHoldings = {
+    user: string;
+    poolName: PoolName;
+    usdHoldings: string;
+};
+
+export type UserPoolLiquidity = {
+    user: string;
+    poolName: string;
+    liquidity: string;
+}
+
+export type UserPoolTokenHoldings = SingleAssetTokenHoldings | DoubleAssetTokenHoldings
+
+export type SingleAssetTokenHoldings = {
+    user: string;
+    poolName: SingleAssetPoolNames;
+    tokens: string;
+}
+
+export type DoubleAssetTokenHoldings = {
+    user: string;
+    poolName: DoubleAssetPoolNames;
+    tokenAmountA: string;
+    tokenAmountB: string;
+}
+
+export type MultiGetVaultBalancesParams = {
+    poolNames?: PoolName[];
+    startTime?: number;
+    endTime?: number;
+}
+export type SingleGetVaultBalancesParams = {
+    address?: string;
+    poolName?: PoolName
+}
+export type GetVaultBalanceParams = SingleGetVaultBalancesParams | MultiGetVaultBalancesParams;
+
+export type HoldingsObj = {
+    owner: string;
+    poolName: PoolName;
+    holding: string;
+}
+
+export type VaultBalance = AlphaFiVaultBalance | undefined | AlphaFiMultiVaultBalance[];
+
+export type AlphaFiMultiVaultBalance = SingleAssetMultiVaultBalance | DoubleAssetMultiVaultBalance;
+
+export type SingleAssetMultiVaultBalance = { 
+    owner: string, poolName: PoolName, tokens: string, tokensInUsd: string 
+}
+export type DoubleAssetMultiVaultBalance = {
+    owner: string, poolName: PoolName, tokenA: string, tokenB: string, tokensInUsd: string
+}
+
+export type GetVaultBalanceForActiveUsersParams = {
+    poolName?: PoolName[], startTime?: bigint, endTime?: bigint
+  }

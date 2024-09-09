@@ -524,7 +524,9 @@ export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
 }
 
 // Pagination needed for more than 50 pools
-export async function getCetusInvestorTicksMap(): Promise<{ [pool in PoolName]?: { lower: string; upper: string }; }> {
+export async function getCetusInvestorTicksMap(): Promise<{
+  [pool in PoolName]?: { lower: string; upper: string };
+}> {
   const investorIdToTicksMap: {
     [pool in PoolName]?: { lower: string; upper: string };
   } = {};
@@ -542,7 +544,10 @@ export async function getCetusInvestorTicksMap(): Promise<{ [pool in PoolName]?:
     const lower_tick = investorDetails.content.fields.lower_tick;
     const upper_tick = investorDetails.content.fields.upper_tick;
     const pool = investorPoolMap.get(investorDetails.objectId) as string;
-    investorIdToTicksMap[pool as PoolName] = { lower: lower_tick, upper: upper_tick };
+    investorIdToTicksMap[pool as PoolName] = {
+      lower: lower_tick,
+      upper: upper_tick,
+    };
   }
 
   return investorIdToTicksMap;
