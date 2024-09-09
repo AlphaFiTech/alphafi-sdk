@@ -44,10 +44,8 @@ export async function getUserTokensFromTransactions(
 ): Promise<[string, string, string][]> {
   let owners: string[];
   if (params?.owners) {
-    console.log("in if");
     owners = params.owners;
   } else {
-    console.log("in else");
     owners = await getHoldersFromTransactions({
       poolNames: params?.poolNames,
       startTime: params?.startTime,
