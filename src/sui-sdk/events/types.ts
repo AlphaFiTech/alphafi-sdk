@@ -31,6 +31,10 @@ export interface RebalanceEvent {
   lower_tick_after: string;
   upper_tick_after: string;
   sqrt_price_after: string;
+  amount_a_before: string;
+  amount_b_before: string;
+  amount_a_after: string;
+  amount_b_after: string;
 }
 
 export interface AlphaAutoCompoundingEvent {

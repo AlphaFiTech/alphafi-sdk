@@ -478,6 +478,10 @@ export interface RebalanceHistoryType {
   lower_tick: string;
   upper_tick: string;
   after_price: string;
+  amount_a_before: string;
+  amount_b_before: string;
+  amount_a_after: string;
+  amount_b_after: string;
 }
 
 export type TransactionBlockType = {

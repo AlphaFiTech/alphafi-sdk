@@ -40,26 +40,6 @@ export async function fetchEvents(
       query: {
         MoveEventType: params.eventTypes[0],
       },
-      // query: {
-      //   All: [
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
-      //     },
-      //   ],
-      // },
     });
 
     const se = result.data;
@@ -139,15 +119,15 @@ export async function fetchEvents(
           lower_tick_after: suiEventJson.lower_tick_after.toString(),
           upper_tick_after: suiEventJson.upper_tick_after.toString(),
           sqrt_price_after: suiEventJson.sqrt_price_after.toString(),
+          amount_a_before: suiEventJson.amount_a_before.toString(),
+          amount_b_before: suiEventJson.amount_b_before.toString(),
+          amount_a_after: suiEventJson.amount_a_after.toString(),
+          amount_b_after: suiEventJson.amount_b_after.toString(),
         };
       } else {
         throw new Error("Unknown event type");
       }
-      // const autoCompoundingEventNode: AutoCompoundingEventNode = {
-      //   type: suiEvent.type,
-      //   timestamp: Number(suiEvent.timestampMs),
-      //   ...suiEventJson,
-      // };
+
       allEvents.push(eventNode);
     }
 
@@ -159,13 +139,6 @@ export async function fetchEvents(
     hasNextPage = result.hasNextPage;
     startCursor = result.nextCursor;
   }
-
-  // console.log(
-  //   "counts(total, picked, page): ",
-  //   totalCount,
-  //   allEvents.length,
-  //   pageCount,
-  // );
 
   return allEvents;
 }
