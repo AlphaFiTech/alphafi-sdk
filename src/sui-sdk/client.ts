@@ -7,7 +7,8 @@ import { SuiClient } from "@mysten/sui/client";
 import { SuiNetwork } from "../common/types";
 
 const suiClient = new SuiClient({
-  url: "https://mainnet-rpc.sui.chainbase.online" as SuiNetwork,
+  url: getFullnodeUrl(conf[CONF_ENV].SUI_NETWORK as SuiNetwork),
+  //url: "https://mainnet-rpc.sui.chainbase.online" as SuiNetwork,
 });
 
 export default suiClient;
