@@ -135,12 +135,6 @@ export async function calculateAprForInvestor(
   let totalTimeSpan = 0;
   let previousTimestamp = events[0].timestamp; // Start with the timestamp of the first event
 
-  // Variables to hold previous compound amounts and total amounts in case of zero total amounts
-  // let previousCompoundAmountA = 0n;
-  // let previousCompoundAmountB = 0n;
-  // let previousTotalAmountA = 0n;
-  // let previousTotalAmountB = 0n;
-
   const investorPoolMap = await getInvestorPoolMap();
 
   for (const event of events) {

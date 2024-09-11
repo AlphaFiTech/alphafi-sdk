@@ -4,7 +4,6 @@
  */
 
 import { SuiClient } from "@mysten/sui/client";
-// import { CONF_ENV, conf } from "../common/constants";
 import { SuiNetwork } from "../common/types";
 
 const suiClient = new SuiClient({
