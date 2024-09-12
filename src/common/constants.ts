@@ -807,6 +807,8 @@ export const conf = {
 
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
+    NAVI_SUI_VSUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi SUI-VSUI Receipt",
+
     ALPHA_USDC_POOL_RECEIPT_NAME: "",
     WSOL_USDC_POOL_RECEIPT_NAME: "",
     FUD_SUI_POOL_RECEIPT_NAME: "",
@@ -864,6 +866,8 @@ export const conf = {
 
     NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
+
+    NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT: "",
 
     ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
@@ -972,6 +976,8 @@ export const conf = {
 
     NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
 
     ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
 

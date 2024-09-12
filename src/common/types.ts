@@ -22,6 +22,7 @@ export type PoolName =
   | "NAVI-USDC"
   | "BUCK-USDC"
   | "CETUS-SUI"
+  | "NAVI-LOOP-SUI-VSUI"
   | "ALPHA-USDC"
   | "WSOL-USDC"
   | "FUD-SUI"

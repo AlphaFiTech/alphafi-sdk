@@ -136,6 +136,7 @@ function doubleAssetliquidityToTokens(params: {
         | "NAVI-WETH"
         | "NAVI-USDC"
         | "NAVI-USDT"
+        | "NAVI-LOOP-SUI-VSUI"
         | "ALPHA"
       >
     ].coinA;
@@ -148,6 +149,7 @@ function doubleAssetliquidityToTokens(params: {
         | "NAVI-WETH"
         | "NAVI-USDC"
         | "NAVI-USDT"
+        | "NAVI-LOOP-SUI-VSUI"
         | "ALPHA"
       >
     ].coinB;
@@ -270,6 +272,7 @@ export async function multiTokensToUsd(
         | "NAVI-WETH"
         | "NAVI-USDC"
         | "NAVI-USDT"
+        | "NAVI-LOOP-SUI-VSUI"
         | "ALPHA"
       >;
       const coin1 = poolCoinPairMap[poolName].coinA;

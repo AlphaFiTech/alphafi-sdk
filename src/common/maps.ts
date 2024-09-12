@@ -77,7 +77,13 @@ export const receiptNameMap: { [key in string]: string } = {
 export const poolCoinPairMap: Record<
   Exclude<
     PoolName,
-    "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT" | "ALPHA"
+    | "NAVI-VSUI"
+    | "NAVI-SUI"
+    | "NAVI-WETH"
+    | "NAVI-USDC"
+    | "NAVI-USDT"
+    | "ALPHA"
+    | "NAVI-LOOP-SUI-VSUI"
   >,
   { coinA: CoinName; coinB: CoinName }
 > = {
@@ -101,7 +107,13 @@ export const poolCoinPairMap: Record<
 export const poolCoinMap: Record<
   Extract<
     PoolName,
-    "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT" | "ALPHA"
+    | "NAVI-VSUI"
+    | "NAVI-SUI"
+    | "NAVI-WETH"
+    | "NAVI-USDC"
+    | "NAVI-USDT"
+    | "ALPHA"
+    | "NAVI-LOOP-SUI-VSUI"
   >,
   CoinName
 > = {
@@ -111,6 +123,7 @@ export const poolCoinMap: Record<
   "NAVI-WETH": "WETH",
   "NAVI-USDC": "USDC",
   "NAVI-USDT": "USDT",
+  "NAVI-LOOP-SUI-VSUI": "VSUI",
 };
 
 export const poolInfo: {
@@ -126,6 +139,19 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "NAVI-LOOP-SUI-VSUI": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_VSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "NAVI-SUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_SUI_POOL,

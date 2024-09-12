@@ -111,6 +111,7 @@ function doubleAssetliquidityToUSD(params: {
           | "NAVI-WETH"
           | "NAVI-USDC"
           | "NAVI-USDT"
+          | "NAVI-LOOP-SUI-VSUI"
           | "ALPHA"
         >
       ].coinA;
@@ -123,6 +124,7 @@ function doubleAssetliquidityToUSD(params: {
           | "NAVI-WETH"
           | "NAVI-USDC"
           | "NAVI-USDT"
+          | "NAVI-LOOP-SUI-VSUI"
           | "ALPHA"
         >
       ].coinB;
