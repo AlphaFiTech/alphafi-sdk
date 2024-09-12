@@ -12,8 +12,7 @@ import {
   UsersCollectedAlphaRewards,
 } from "../../utils/poolEarnings/types";
 import Decimal from "decimal.js";
-import { PoolAmounts, SingleTokenAmounts } from "../../common/types";
-import { conf, CONF_ENV } from "../../common/constants";
+import { PoolAmounts, SingleTokenAmounts, PoolName } from "../../common/types";
 
 export function parseHoldersFromLCEvents(events: LiquidityChangeEventNode[]) {
   const holders: Set<string> = new Set<string>();
@@ -115,9 +114,15 @@ export function parseAlphaRewardsFromDepositEvents(
       const prevReward = usersCollectedAlphaRewards[owner]["ALPHA"];
       usersCollectedAlphaRewards[owner]["ALPHA"] = reward.add(new Decimal(prevReward)).toFixed(5).toString();
     } else {
-      usersCollectedAlphaRewards[owner]["ALPHA"] = reward.toFixed(5).toString();
+      usersCollectedAlphaRewards[owner] = { "ALPHA" : reward.toFixed(5).toString() } as { [poolName in PoolName]: string };
     }
   }
+
+  usersCollectedAlphaRewards = Object.fromEntries(
+    params.owners
+      .filter((owner) => owner in usersCollectedAlphaRewards)
+      .map((owner) => [owner, usersCollectedAlphaRewards[owner]]),
+  );
 
   return usersCollectedAlphaRewards;
 }
@@ -200,7 +205,7 @@ export function parseAlphaRewardsFromLCEvents(params: ParseAlphaRewardsFromLCEve
           .toString();
         usersCollectedAlphaRewards[owner]["ALPHA"] = newReward;
       } else {
-        usersCollectedAlphaRewards[owner]["ALPHA"] = reward.toFixed(5).toString();
+        usersCollectedAlphaRewards[owner] = { "ALPHA" : reward.toFixed(5).toString() } as { [poolName in PoolName]: string };
       }
     }
     else if (isCetusLCEventNode(node)) {
@@ -210,6 +215,12 @@ export function parseAlphaRewardsFromLCEvents(params: ParseAlphaRewardsFromLCEve
       continue;
     }
   }
+
+  usersCollectedAlphaRewards = Object.fromEntries(
+    params.owners
+      .filter((owner) => owner in usersCollectedAlphaRewards)
+      .map((owner) => [owner, usersCollectedAlphaRewards[owner]]),
+  );
 
   return usersCollectedAlphaRewards;
 }

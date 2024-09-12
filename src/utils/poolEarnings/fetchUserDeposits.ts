@@ -11,7 +11,6 @@ import {
     UsersCollectedAlphaRewards,
     UsersInvestmentsInPools,
 } from "./types";
-import fs from "fs";
 import { lastAlphaPoolDepositEventTime } from "../../common/constants";
 import { fetchLiquidityChangeEvents } from "../../sui-sdk/events/fetchLiquidityChangeEvents";
 import { SingleTokenAmounts, MultiTokenAmounts, PoolName } from "../../common/types";

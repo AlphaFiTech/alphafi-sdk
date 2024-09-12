@@ -156,6 +156,9 @@ export async function fetchEvents(
       ) {
         // Handling CetusLiquidityChangeEvent
         eventNode = {
+          txModule: suiEvent.transactionModule,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: suiEvent.id.eventSeq,
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           amount_a: suiEventJson.amount_a,
@@ -180,6 +183,9 @@ export async function fetchEvents(
         eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
+          txModule: suiEvent.transactionModule,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: suiEvent.id.eventSeq,
           amount: suiEventJson.amount,
           event_type: suiEventJson.event_type,
           fee_collected: suiEventJson.fee_collected,
@@ -196,6 +202,8 @@ export async function fetchEvents(
         // Handling DepositEvent
         eventNode = {
           txModule: suiEvent.transactionModule,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: suiEvent.id.eventSeq,
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           amount_deposited: suiEventJson.amount_deposited,

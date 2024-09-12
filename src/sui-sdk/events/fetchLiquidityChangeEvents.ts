@@ -39,7 +39,6 @@ export async function fetchLiquidityChangeEvents(
     return events;
   });
   const events = (await Promise.all(eventsPromises)).flat();
-  console.log(events);
   const liquidityChangeEvents = events.map((e) => {
     return e as LiquidityChangeEventNode;
   });
