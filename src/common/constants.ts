@@ -384,7 +384,9 @@ export const conf = {
     // General Contants
     MS_IN_A_DAY: 864_00_000,
 
-    HALF_MUL: 1000000000000000000n,
+    HALF_MUL: 1000000000000000000,
+
+    HOP_API_KEY: "hopapiJrsprQopziLlhXKFPGV98ECGjBTcsxx5",
 
     HOP_MAX_SLIPPAGE_BPS: 100,
 
@@ -404,6 +406,9 @@ export const conf = {
     ALPHA_XUSDC_COIN_TYPE: "",
 
     ALPHA_XUSDT_COIN_TYPE: "",
+
+    FEE_ADDRESS:
+      "0xee5360c5fa13555cbf355cb5015b865d742040e42ff90c324e11f0c63e504545",
 
     // constants for Alpha Protocol
 
@@ -457,6 +462,15 @@ export const conf = {
     ALPHA_2_VERSION:
       "0xb89716c470af0d16505ff5621e2111f73ac97247c093948660548c3548845aa8", // new package for looping strategy
 
+    VOLO_NATIVE_POOL:
+      "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_METADATA:
+      "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
+
+    SUI_SYSTEM_STATE:
+      "0x0000000000000000000000000000000000000000000000000000000000000005",
+
     ALPHA_NAVI_BORROW_FACTOR: 0.95,
 
     ALPHA_TOKEN_REWARD_SHARE: 0.45,
@@ -506,6 +520,13 @@ export const conf = {
     BUCK_COIN_TYPE:
       "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
 
+    WSOL_COIN_TYPE:
+      "0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8::coin::COIN",
+    FUD_COIN_TYPE:
+      "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD",
+    BLUB_COIN_TYPE:
+      "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB",
+
     // Alpha POOL Id's
 
     ALPHA_POOL:
@@ -522,8 +543,6 @@ export const conf = {
 
     USDY_USDC_POOL:
       "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437",
-
-    ALPHA_USDC_POOL: "",
 
     ALPHA_USDT_POOL: "",
 
@@ -545,6 +564,12 @@ export const conf = {
     CETUS_SUI_POOL:
       "0xa87297a4a8aa38848955195340ba40ba4eef476d4204c34a9297efcd37c21264",
 
+    ALPHA_USDC_POOL: "",
+    WSOL_USDC_POOL: "",
+    FUD_SUI_POOL: "",
+    BLUB_SUI_POOL: "",
+    SCA_SUI_POOL: "",
+
     // Alphafi-Navi Pools
 
     ALPHAFI_NAVI_SUI_POOL:
@@ -558,6 +583,7 @@ export const conf = {
     ALPHAFI_NAVI_USDC_POOL:
       "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae",
     ALPHAFI_NAVI_HASUI_POOL: "",
+    ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL: "",
 
     // CETUS Pool Id's
 
@@ -602,6 +628,17 @@ export const conf = {
     BUCK_USDC_CETUS_POOL_ID:
       "0x81fe26939ed676dd766358a60445341a06cea407ca6f3671ef30f162c84126d5",
 
+    ALPHA_USDC_CETUS_POOL_ID:
+      "0x0cbe3e6bbac59a93e4d358279dff004c98b2b8da084729fabb9831b1c9f71db6",
+    WSOL_USDC_CETUS_POOL_ID:
+      "0x9ddb0d269d1049caf7c872846cc6d9152618d1d3ce994fae84c1c051ee23b179",
+    FUD_SUI_CETUS_POOL_ID:
+      "0xfc6a11998f1acf1dd55acb58acd7716564049cfd5fd95e754b0b4fe9444f4c9d",
+    BLUB_SUI_CETUS_POOL_ID:
+      "0x40a372f9ee1989d76ceb8e50941b04468f8551d091fb8a5d7211522e42e60aaf",
+    SCA_SUI_CETUS_POOL_ID:
+      "0xaa72bd551b25715b8f9d72f226fa02526bdf2e085a86faec7184230c5209bb6e",
+
     //Cetus Info Id's
 
     CETUS_REWARDER_GLOBAL_VAULT_ID:
@@ -626,8 +663,6 @@ export const conf = {
     USDY_USDC_CETUS_INVESTOR:
       "0x1b923520f19660d4eb013242c6d03c84fdea034b8f784cfd71173ef72ece50e1",
 
-    ALPHA_USDC_CETUS_INVESTOR: "",
-
     ALPHA_USDT_CETUS_INVESTOR: "",
 
     USDC_SUI_CETUS_INVESTOR:
@@ -648,6 +683,12 @@ export const conf = {
     CETUS_SUI_CETUS_INVESTOR:
       "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6",
 
+    ALPHA_USDC_CETUS_INVESTOR: "",
+    WSOL_USDC_CETUS_INVESTOR: "",
+    FUD_SUI_CETUS_INVESTOR: "",
+    BLUB_SUI_CETUS_INVESTOR: "",
+    SCA_SUI_CETUS_INVESTOR: "",
+
     // Navi Investor Ids
 
     NAVI_SUI_INVESTOR:
@@ -666,6 +707,8 @@ export const conf = {
       "0xdf980cacf2ef2f4411f793ee9ee9266af78324b228323ede2ce73f9cf0c301cc",
 
     NAVI_HASUI_INVESTOR: "",
+
+    NAVI_LOOP_SUI_VSUI_INVESTOR: "",
 
     // Receipt Types
 
@@ -720,6 +763,14 @@ export const conf = {
     NAVI_HASUI_POOL_RECEIPT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
 
+    NAVI_LOOP_SUI_VSUI_RECEIPT: "",
+
+    ALPHA_USDC_POOL_RECEIPT: "",
+    WSOL_USDC_POOL_RECEIPT: "",
+    FUD_SUI_POOL_RECEIPT: "",
+    BLUB_SUI_POOL_RECEIPT: "",
+    SCA_SUI_POOL_RECEIPT: "",
+
     // Receipt Names
 
     ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
@@ -755,6 +806,14 @@ export const conf = {
     NAVI_USDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC Receipt",
 
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
+
+    NAVI_SUI_VSUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi SUI-VSUI Receipt",
+
+    ALPHA_USDC_POOL_RECEIPT_NAME: "",
+    WSOL_USDC_POOL_RECEIPT_NAME: "",
+    FUD_SUI_POOL_RECEIPT_NAME: "",
+    BLUB_SUI_POOL_RECEIPT_NAME: "",
+    SCA_SUI_POOL_RECEIPT_NAME: "",
 
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
@@ -808,6 +867,19 @@ export const conf = {
     NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
 
+    NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT: "",
+
+    ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
+    WSOL_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
+    FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+    BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+    SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+
     //Rebalance Event Types
 
     ALPHA_SUI_POOL_REBALANCE_EVENT:
@@ -843,6 +915,16 @@ export const conf = {
     NAVI_SUI_POOL_REBALANCE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::RebalancePoolEvent",
 
+    ALPHA_USDC_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
+    WSOL_USDC_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
+    FUD_SUI_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+    BLUB_SUI_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+    SCA_SUI_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
     //Liquidity Change Event Types
     ALPHA_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphapool::LiquidityChangeEvent",
@@ -895,6 +977,18 @@ export const conf = {
     NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
 
+    NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
+    ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
+    WSOL_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
+    FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
+    BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
+    SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:
@@ -940,6 +1034,14 @@ export const conf = {
 
     NAVI_NAVX_FUNDS_POOL:
       "0x9dae0cf104a193217904f88a48ce2cf0221e8cd9073878edd05101d6b771fa09",
+
+    // constants for kriya
+
+    KRIYA_VSUI_SUI_POOL:
+      "0xf1b6a7534027b83e9093bec35d66224daa75ea221d555c79b499f88c93ea58a9",
+
+    KRIYA_VERSION:
+      "0xf5145a7ac345ca8736cf8c76047d00d6d378f30e81be6f6eb557184d9de93c78",
 
     // constants for Scallop Protocol
 

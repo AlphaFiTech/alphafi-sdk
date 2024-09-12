@@ -21,7 +21,13 @@ export type PoolName =
   | "NAVI-USDT"
   | "NAVI-USDC"
   | "BUCK-USDC"
-  | "CETUS-SUI";
+  | "CETUS-SUI"
+  | "NAVI-LOOP-SUI-VSUI"
+  | "ALPHA-USDC"
+  | "WSOL-USDC"
+  | "FUD-SUI"
+  | "BLUB-SUI"
+  | "SCA-SUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -55,14 +61,16 @@ export type CoinName =
   | "AFSUI"
   | "WETH"
   | "APT"
-  | "SOL"
+  | "WSOL"
   | "SLP"
   | "WBTC"
   | "CELO"
   | "TURBOS"
   | "HASUI"
   | "USDY"
-  | "BUCK";
+  | "BUCK"
+  | "FUD"
+  | "BLUB";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
@@ -93,7 +101,6 @@ export interface Coin {
 
 export type Icon =
   | "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg"
-  | "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg"
   | "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp"
   | "https://coinmeta.polymedia.app/img/coins/0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c-coin-COIN.webp"
   | "https://coinmeta.polymedia.app/img/coins/0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55-cert-CERT.webp"
@@ -112,7 +119,9 @@ export type Icon =
   | "https://7taj6jfau6n3dri7agspzfnva7qbj5sizz5xc3lb56nmxpsyoiba.arweave.net/_MCfJKCnm7HFHwGk_JW1B-AU9kjOe3FtYe-ay75YcgI"
   | "https://coinmeta.polymedia.app/img/coins/0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d-hasui-HASUI.svg"
   | "https://coinmeta.polymedia.app/img/coins/0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb-usdy-USDY.svg"
-  | "https://imagedelivery.net/cBNDGgkrsEA-b_ixIp9SkQ/buck.svg/public";
+  | "https://imagedelivery.net/cBNDGgkrsEA-b_ixIp9SkQ/buck.svg/public"
+  | ""
+  | "";
 
 export type CoinType =
   | "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA"
@@ -133,7 +142,9 @@ export type CoinType =
   | "0x5d1f47ea69bb0de31c313d7acf89b890dbb8991ea8e03c6c355171f84bb1ba4a::turbos::TURBOS"
   | "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI"
   | "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
-  | "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK";
+  | "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK"
+  | "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD"
+  | "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_USDC_POOL_RECEIPT = conf[CONF_ENV].USDY_USDC_POOL_RECEIPT;

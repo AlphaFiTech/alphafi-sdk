@@ -77,8 +77,8 @@ export const coins: { [key in CoinName]: Coin } = {
     icon: "https://coinmeta.polymedia.app/img/coins/0x3a5143bb1196e3bcdfab6203d1683ae29edd26294fc8bfeafe4aaa9d2704df37-coin-COIN.webp",
     expo: 8,
   },
-  SOL: {
-    name: "SOL",
+  WSOL: {
+    name: "WSOL",
     type: "0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8::coin::COIN",
     icon: "https://coinmeta.polymedia.app/img/coins/0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8-coin-COIN.webp",
     expo: 8,
@@ -118,5 +118,17 @@ export const coins: { [key in CoinName]: Coin } = {
     type: "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
     icon: "https://imagedelivery.net/cBNDGgkrsEA-b_ixIp9SkQ/buck.svg/public",
     expo: 9,
+  },
+  FUD: {
+    name: "FUD",
+    type: "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD",
+    icon: "",
+    expo: 5,
+  },
+  BLUB: {
+    name: "BLUB",
+    type: "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB",
+    icon: "",
+    expo: 2,
   },
 };
