@@ -3,6 +3,7 @@ import {
   fetchAutoCompoundingEvents,
 } from "./sui-sdk/events/fetchAutoCompoundingEvents";
 import { PoolName } from "./common/types";
+import { poolInfo } from "./common/maps";
 
 export async function getApr(poolName: PoolName): Promise<number> {
   const aprMap = await getAprs([poolName]);
@@ -23,6 +24,13 @@ export async function getAprs(
   });
 
   const aprMap = await calculateAprForPools(events);
+
+  for (const pool of Object.keys(poolInfo)) {
+    const poolName = pool as PoolName;
+    if (!(poolName in aprMap)) {
+      aprMap[poolName] = 0;
+    }
+  }
   return aprMap;
 }
 

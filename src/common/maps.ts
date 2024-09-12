@@ -83,6 +83,11 @@ export const poolCoinPairMap: Record<
   "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
   "BUCK-USDC": { coinA: "BUCK", coinB: "USDC" },
   "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
+  "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
+  "WSOL-USDC": { coinA: "WSOL", coinB: "USDC" },
+  "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
+  "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
+  "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
 };
 
 export const poolCoinMap: Record<
@@ -298,6 +303,61 @@ export const poolInfo: {
       conf[CONF_ENV].CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
   },
+  "ALPHA-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].ALPHA_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].ALPHA_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHA_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
+  },
+  "WSOL-USDC": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].WSOL_USDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WSOL_USDC_POOL,
+    investorId: conf[CONF_ENV].WSOL_USDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WSOL_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WSOL_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].WSOL_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WSOL_USDC_POOL_REBALANCE_EVENT,
+  },
+  "FUD-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].FUD_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].FUD_SUI_POOL,
+    investorId: conf[CONF_ENV].FUD_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
+  },
+  "BLUB-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].BLUB_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].BLUB_SUI_POOL,
+    investorId: conf[CONF_ENV].BLUB_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
+  },
+  "SCA-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].SCA_SUI_POOL,
+    investorId: conf[CONF_ENV].SCA_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
+  },
 };
 
 export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
@@ -352,7 +412,7 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
     "0xf325ce1300e8dac124071d3152c5c5ee6174914f8bc2161e88329cf579246efc::afsui::AFSUI",
   WETH: "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
   APT: "0x3a5143bb1196e3bcdfab6203d1683ae29edd26294fc8bfeafe4aaa9d2704df37::coin::COIN",
-  SOL: "0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8::coin::COIN",
+  WSOL: "0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8::coin::COIN",
   SLP: "0xc44d97a4bc4e5a33ca847b72b123172c88a6328196b71414f32c3070233604b2::slp::SLP",
   WBTC: "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
   CELO: "0xa198f3be41cda8c07b3bf3fee02263526e535d682499806979a111e88a5a8d0f::coin::COIN",
@@ -362,6 +422,8 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
     "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
   USDY: "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
   BUCK: "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
+  FUD: conf[CONF_ENV].FUD_COIN_TYPE as CoinType,
+  BLUB: conf[CONF_ENV].BLUB_COIN_TYPE as CoinType,
 };
 
 export const poolIdQueryPoolMap: { [key: string]: string } = {
