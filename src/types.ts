@@ -4,6 +4,7 @@ import {
   PoolName,
   SingleAssetPoolNames,
   AlphaFiVaultBalance,
+  PoolAmounts,
 } from "./common/types";
 
 export type GetUserTokensFromTransactionsParams = {
@@ -231,15 +232,13 @@ export type GetVaultBalanceForActiveUsersParams = {
   endTime?: bigint;
 };
 
-import { PoolName, PoolAmounts } from "./common/types";
-
 export type GetPoolEarningsParams = {
-    owners?: string | string[],
-    poolNames?: PoolName | PoolName[],
-    startTime?: number,
-    endTime?: number,
-}
+  owners?: string | string[];
+  poolNames?: PoolName | PoolName[];
+  startTime?: number;
+  endTime?: number;
+};
 
 export type GetPoolEarningsResponse = {
-    [owner: string]: PoolAmounts
-} 
+  [owner: string]: PoolAmounts;
+};

@@ -1,10 +1,12 @@
 import { PoolName } from "../../common/types";
 
 // Add others also if fetchLiquidityEvents is not merged
-interface CommonEventAttributes {
+export interface CommonEventAttributes {
   type: string;
   timestamp: number;
   txModule: string;
+  txDigest: string;
+  eventSeq: string;
 }
 
 export interface CetusAutoCompoundingEvent {
@@ -83,7 +85,7 @@ export interface AlphaLiquidityChangeEvent {
 
 export interface DepositEvent {
   amount_deposited: string;
-  coin_type: {name: string}
+  coin_type: { name: string };
   sender: string;
 }
 
@@ -92,7 +94,7 @@ export type AutoCompoundingEventNode =
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
   | (AlphaAutoCompoundingEvent & CommonEventAttributes);
 
-export type DepositEventNode = DepositEvent & CommonEventAttributes
+export type DepositEventNode = DepositEvent & CommonEventAttributes;
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
@@ -104,9 +106,9 @@ export type LiquidityChangeEventNode =
 export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
-  | LiquidityChangeEventNode;
+  | LiquidityChangeEventNode
+  | DepositEventNode;
 // export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
-
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -133,9 +135,25 @@ export type FetchEventsParams = {
 export type FetchDepositEventsResponse = DepositEventNode[];
 
 export type ParseInvestmentsfromDepositEventsParams = {
-  poolNames: PoolName[],
-  owners: string[],
-  events: DepositEventNode[],
+  poolNames: PoolName[];
+  owners: string[];
+  events: DepositEventNode[];
 };
 
-export type ParseAlphaRewardsFromDepositEventsParams = ParseInvestmentsfromDepositEventsParams;
+export type ParseAlphaRewardsFromDepositEventsParams = {
+  poolNames: PoolName[];
+  owners: string[];
+  events: DepositEventNode[];
+}
+
+export type ParseInvestmentsFromLCEventsParams = {
+  poolNames: PoolName[];
+  owners: string[];
+  events: LiquidityChangeEventNode[];
+};
+
+export type ParseAlphaRewardsFromLCEventsParams = {
+  poolNames: PoolName[];
+  owners: string[];
+  events: LiquidityChangeEventNode[];
+}

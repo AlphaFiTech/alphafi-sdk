@@ -542,35 +542,14 @@ export type TransactionBlockType = {
 };
 
 export type SingleTokenAmounts = {
-  tokens: string,
-}
+  tokens: string;
+};
 
 export type MultiTokenAmounts = {
-  tokensA: string,
-  tokensB: string,
-}
+  tokensA: string;
+  tokensB: string;
+};
 
 export type PoolAmounts = {
-  [poolName in PoolName]: SingleTokenAmounts | MultiTokenAmounts
-}
-
-// Remove these 2 if userHoldings is merged
-export type SingleAssetPoolNames =
-  | "ALPHA"
-  | "NAVI-SUI"
-  | "NAVI-VSUI"
-  | "NAVI-WETH"
-  | "NAVI-USDT"
-  | "NAVI-USDC"
-
-export type DoubleAssetPoolNames =
-  | "HASUI-SUI"
-  | "USDY-USDC"
-  | "ALPHA-SUI"
-  | "USDT-USDC"
-  | "USDC-SUI"
-  | "USDC-WBTC"
-  | "WETH-USDC"
-  | "NAVX-SUI"
-  | "BUCK-USDC"
-  | "CETUS-SUI";
+  [poolName in PoolName]: SingleTokenAmounts | MultiTokenAmounts;
+};

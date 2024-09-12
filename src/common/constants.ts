@@ -983,6 +983,6 @@ export const conf = {
   },
 };
 
-export const lastInvestmentAlphaPoolDepositEventTime: number =  1724074240881;
-export const lastAlphaPoolDepositEventTime: number =  1724077012872;
+export const lastInvestmentAlphaPoolDepositEventTime: number = 1724074240881;
+export const lastAlphaPoolDepositEventTime: number = 1724077012872;
 export const alphafiInceptionTime: number = 1719499980000;
