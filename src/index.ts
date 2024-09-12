@@ -33,12 +33,13 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory";
 
-
 export { 
   getHoldersFromTransactions, 
   getUserTokensFromTransactions, 
   getUserTokensInUsdFromTransactions 
 } from "./getHoldersFromTransactions";
+
+export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime";
 
 export * from "./common/types";
 

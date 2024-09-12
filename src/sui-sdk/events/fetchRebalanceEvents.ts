@@ -105,6 +105,10 @@ export async function calculateRebalanceHistoryFromEvents(
         lower_tick: lower_tick.toString(),
         upper_tick: upper_tick.toString(),
         after_price: after_price.toString(),
+        amount_a_before: e.amount_a_before,
+        amount_b_before: e.amount_b_before,
+        amount_a_after: e.amount_a_after,
+        amount_b_after: e.amount_b_after,
       };
       rebalanceHistoryMap[poolName].push(history);
     }

@@ -757,7 +757,8 @@ export const conf = {
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
     // AutoCompoundingEvent
-    ALPHA_POOL_AUTO_COMPOUNDING_EVENT: "",
+    ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
 
     ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",

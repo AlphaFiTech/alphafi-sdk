@@ -2,6 +2,7 @@ import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
   AlphaLiquidityChangeEvent,
+  AlphaAutoCompoundingEvent,
   CetusAutoCompoundingEvent,
   CetusLiquidityChangeEvent,
   EventNode,
@@ -12,6 +13,7 @@ import {
   RebalanceEvent,
 } from "./types";
 import { poolInfo } from "../../common/maps";
+import { conf, CONF_ENV } from "../../common/constants";
 
 export async function fetchEvents(
   params: FetchEventsParams,
@@ -46,26 +48,6 @@ export async function fetchEvents(
       query: {
         MoveEventType: params.eventTypes[0],
       },
-      // query: {
-      //   All: [
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::AutoCompoundingEvent",
-      //     },
-      //     {
-      //       MoveEventType:
-      //         "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
-      //     },
-      //   ],
-      // },
     });
 
     const se = result.data;
@@ -87,7 +69,8 @@ export async function fetchEvents(
         | RebalanceEvent
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
-        | NaviLiquidityChangeEvent;
+        | NaviLiquidityChangeEvent
+        | AlphaAutoCompoundingEvent;
 
       let eventNode: EventNode;
 
@@ -126,6 +109,16 @@ export async function fetchEvents(
           total_amount: BigInt(suiEventJson.total_amount.toString()),
         };
       } else if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "amount" in suiEventJson
+      ) {
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount: suiEventJson.amount,
+          investor_id: conf[CONF_ENV].ALPHA_POOL,
+        };
+      } else if (
         isRebalanceEvent(suiEvent.type) &&
         "lower_tick_after" in suiEventJson
       ) {
@@ -137,6 +130,10 @@ export async function fetchEvents(
           lower_tick_after: suiEventJson.lower_tick_after.toString(),
           upper_tick_after: suiEventJson.upper_tick_after.toString(),
           sqrt_price_after: suiEventJson.sqrt_price_after.toString(),
+          amount_a_before: suiEventJson.amount_a_before.toString(),
+          amount_b_before: suiEventJson.amount_b_before.toString(),
+          amount_a_after: suiEventJson.amount_a_after.toString(),
+          amount_b_after: suiEventJson.amount_b_after.toString(),
         };
       } else if (
         isLiquidityChangeEvent(suiEvent.type) &&
@@ -179,11 +176,7 @@ export async function fetchEvents(
       } else {
         throw new Error("Unknown event type");
       }
-      // const autoCompoundingEventNode: AutoCompoundingEventNode = {
-      //   type: suiEvent.type,
-      //   timestamp: Number(suiEvent.timestampMs),
-      //   ...suiEventJson,
-      // };
+
       allEvents.push(eventNode);
     }
 
@@ -195,13 +188,6 @@ export async function fetchEvents(
     hasNextPage = result.hasNextPage;
     startCursor = result.nextCursor;
   }
-
-  // console.log(
-  //   "counts(total, picked, page): ",
-  //   totalCount,
-  //   allEvents.length,
-  //   pageCount,
-  // );
 
   return allEvents;
 }
