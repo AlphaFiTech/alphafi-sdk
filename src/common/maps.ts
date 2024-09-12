@@ -1,11 +1,19 @@
 import { conf, CONF_ENV } from "./constants";
 import {
+  AlphaPoolType,
+  CetusInvestor,
+  CetusPoolType,
   CoinName,
   CoinType,
   ParentProtocolName,
   PoolName,
   PoolReceipt,
+  PoolType,
 } from "./types";
+import { PythPriceIdPair } from "./pyth";
+import { getLatestPrice } from "../utils/prices";
+import suiClient from "../sui-sdk/client";
+import Decimal from "decimal.js";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
@@ -110,6 +118,7 @@ export const poolInfo: {
     receiptType: PoolReceipt;
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
+    liquidityChangeEventType: string;
     depositEventType?: string | undefined;
   };
 } = {
@@ -123,6 +132,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -134,6 +145,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -145,6 +158,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_WETH_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -156,6 +171,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
@@ -167,6 +184,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -178,6 +197,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -188,6 +209,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    liquidityChangeEventType: conf[CONF_ENV].ALPHA_POOL_LIQUIDITY_CHANGE_EVENT,
     depositEventType: conf[CONF_ENV].ALPHA_POOL_DEPOSIT_EVENT,
   },
   "ALPHA-SUI": {
@@ -200,6 +222,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].ALPHA_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "HASUI-SUI": {
     parentProtocolName: "CETUS",
@@ -211,6 +235,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].HASUI_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "USDT-USDC": {
     parentProtocolName: "CETUS",
@@ -222,6 +248,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDT_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "USDY-USDC": {
     parentProtocolName: "CETUS",
@@ -233,6 +261,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].USDY_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDY_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDY_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "USDC-SUI": {
     parentProtocolName: "CETUS",
@@ -244,6 +274,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "WETH-USDC": {
     parentProtocolName: "CETUS",
@@ -255,6 +287,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WETH_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].WETH_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "USDC-WBTC": {
     parentProtocolName: "CETUS",
@@ -266,6 +300,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_WBTC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -277,6 +313,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].NAVX_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "BUCK-USDC": {
     parentProtocolName: "CETUS",
@@ -288,6 +326,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].BUCK_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].BUCK_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].BUCK_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
@@ -299,6 +339,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
 };
 
@@ -338,6 +380,8 @@ export const poolIdPoolNameMap: {
   [conf[CONF_ENV].WETH_USDC_POOL]: "WETH-USDC",
   [conf[CONF_ENV].USDC_WBTC_POOL]: "USDC-WBTC",
   [conf[CONF_ENV].NAVX_SUI_POOL]: "NAVX-SUI",
+  [conf[CONF_ENV].CETUS_SUI_POOL]: "CETUS-SUI",
+  [conf[CONF_ENV].BUCK_USDC_POOL]: "BUCK-USDC",
 };
 
 export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
@@ -431,3 +475,104 @@ export const poolIdQueryInvestorMap: { [key: string]: string } = {
   "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
     "navxSuiInvestor",
 };
+
+// Pagination needed for more than 50 pools
+export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
+  const poolNameToConversionRateMap = new Map<PoolName, string>();
+
+  const poolIds = Object.keys(poolIdPoolNameMap);
+  const res = await suiClient.multiGetObjects({
+    ids: poolIds,
+    options: {
+      showContent: true,
+    },
+  });
+  for (const poolRawData of res) {
+    const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
+    const poolId = poolDetails.objectId;
+    const xTokenSupply = new Decimal(poolDetails.content.fields.xTokenSupply);
+    const tokensInvested = new Decimal(
+      poolDetails.content.fields.tokensInvested,
+    );
+    const conversionRate =
+      Number(xTokenSupply) !== 0
+        ? tokensInvested.div(xTokenSupply).toString()
+        : "0";
+    poolNameToConversionRateMap.set(poolIdPoolNameMap[poolId], conversionRate);
+  }
+
+  return poolNameToConversionRateMap;
+}
+
+// Pagination needed for more than 50 pools
+export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
+  const poolNameToSqrtPriceMap = new Map<PoolName, string>();
+
+  const cetusPools = Object.values(cetusPoolMap);
+  const res = await suiClient.multiGetObjects({
+    ids: cetusPools,
+    options: {
+      showContent: true,
+    },
+  });
+  for (const poolRawData of res) {
+    const poolDetails = poolRawData.data as CetusPoolType;
+    const poolId = poolDetails.objectId;
+    const pool = Object.keys(cetusPoolMap).find(
+      (key) => cetusPoolMap[key] === poolId,
+    );
+    const sqrtPrice = poolDetails.content.fields.current_sqrt_price;
+    poolNameToSqrtPriceMap.set(pool as PoolName, sqrtPrice);
+  }
+
+  return poolNameToSqrtPriceMap;
+}
+
+// Pagination needed for more than 50 pools
+export async function getCetusInvestorTicksMap(): Promise<{
+  [pool in PoolName]?: { lower: string; upper: string };
+}> {
+  const investorIdToTicksMap: {
+    [pool in PoolName]?: { lower: string; upper: string };
+  } = {};
+
+  const investorPoolMap = await getInvestorPoolMap();
+  const investors = Array.from(investorPoolMap.keys());
+  const res = await suiClient.multiGetObjects({
+    ids: investors,
+    options: {
+      showContent: true,
+    },
+  });
+  for (const investorRawData of res) {
+    const investorDetails = investorRawData.data as CetusInvestor;
+    const lower_tick = investorDetails.content.fields.lower_tick;
+    const upper_tick = investorDetails.content.fields.upper_tick;
+    const pool = investorPoolMap.get(investorDetails.objectId) as string;
+    investorIdToTicksMap[pool as PoolName] = {
+      lower: lower_tick,
+      upper: upper_tick,
+    };
+  }
+
+  return investorIdToTicksMap;
+}
+
+export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
+  const coinNameToPriceMap = new Map<CoinName, string>();
+
+  const coinsSet = new Set<CoinName>(Object.values(poolCoinMap));
+  Object.values(poolCoinPairMap).map(({ coinA: coin1, coinB: coin2 }) => {
+    coinsSet.add(coin1);
+    coinsSet.add(coin2);
+  });
+  const coins = Array.from(coinsSet);
+  for (const coin of coins) {
+    const priceOfCoin = (await getLatestPrice(
+      `${coin}/USD` as PythPriceIdPair,
+    )) as string;
+    coinNameToPriceMap.set(coin, priceOfCoin);
+  }
+
+  return coinNameToPriceMap;
+}

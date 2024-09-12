@@ -539,9 +539,11 @@ export const conf = {
     NAVX_SUI_POOL:
       "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0",
 
-    BUCK_USDC_POOL: "",
+    BUCK_USDC_POOL:
+      "0x59ff9c5df31bfd0a59ac8393cf6f8db1373252e845958953e6199952d194dae4",
 
-    CETUS_SUI_POOL: "",
+    CETUS_SUI_POOL:
+      "0xa87297a4a8aa38848955195340ba40ba4eef476d4204c34a9297efcd37c21264",
 
     // Alphafi-Navi Pools
 
@@ -755,7 +757,8 @@ export const conf = {
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
     // AutoCompoundingEvent
-    ALPHA_POOL_AUTO_COMPOUNDING_EVENT: "",
+    ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
 
     ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
@@ -839,6 +842,58 @@ export const conf = {
 
     NAVI_SUI_POOL_REBALANCE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::RebalancePoolEvent",
+
+    //Liquidity Change Event Types
+    ALPHA_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphapool::LiquidityChangeEvent",
+
+    ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
+
+    USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool::LiquidityChangeEvent",
+
+    USDY_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool::LiquidityChangeEvent",
+
+    HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
+
+    USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
+
+    USDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool_base_a::LiquidityChangeEvent",
+
+    WETH_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool::LiquidityChangeEvent",
+
+    NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
+
+    BUCK_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool::LiquidityChangeEvent",
+
+    CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::LiquidityChangeEvent",
+
+    NAVI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_WETH_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
+    NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
 
     // Deposit Event Types
 

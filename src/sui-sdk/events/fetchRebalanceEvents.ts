@@ -1,11 +1,18 @@
-import { getInvestorPoolMap, poolInfo } from "../../common/maps";
-import { PoolName, RebalanceHistoryType } from "../../common/types";
+import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import {
+  getInvestorPoolMap,
+  poolCoinPairMap,
+  poolInfo,
+} from "../../common/maps";
+import { CoinName, PoolName, RebalanceHistoryType } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
   FetchRebalanceEventsParams,
   RebalanceEvent,
   RebalanceEventNode,
 } from "./types";
+import { coins } from "../../common/coins";
+import BN from "bn.js";
 
 export async function fetchRebalanceEvents(
   params: FetchRebalanceEventsParams,
@@ -39,7 +46,7 @@ export async function fetchRebalanceEvents(
       if (params.poolNames) {
         return params.poolNames
           .map((poolName) => poolInfo[poolName].investorId)
-          .includes(e.investor_id);
+          .includes((e as RebalanceEventNode).investor_id);
       } else {
         return true;
       }
@@ -69,11 +76,39 @@ export async function calculateRebalanceHistoryFromEvents(
       if (!rebalanceHistoryMap[poolName]) {
         rebalanceHistoryMap[poolName] = [];
       }
+
+      const pool1 = poolCoinPairMap[poolName as keyof typeof poolCoinPairMap]
+        .coinA as CoinName;
+      const pool2 = poolCoinPairMap[poolName as keyof typeof poolCoinPairMap]
+        .coinB as CoinName;
+      const after_price = TickMath.sqrtPriceX64ToPrice(
+        new BN(event.sqrt_price_after),
+        coins[pool1].expo,
+        coins[pool2].expo,
+      );
+      const lower_tick = TickMath.tickIndexToPrice(
+        Number(event.lower_tick_after) > Math.pow(2, 31)
+          ? Number(event.lower_tick_after) - Math.pow(2, 32)
+          : Number(event.lower_tick_after),
+        coins[pool1].expo,
+        coins[pool2].expo,
+      );
+      const upper_tick = TickMath.tickIndexToPrice(
+        Number(event.upper_tick_after) > Math.pow(2, 31)
+          ? Number(event.upper_tick_after) - Math.pow(2, 32)
+          : Number(event.upper_tick_after),
+        coins[pool1].expo,
+        coins[pool2].expo,
+      );
       const history: RebalanceHistoryType = {
         timestamp: e.timestamp.toString(),
-        lower_tick: event.lower_tick_after,
-        upper_tick: event.upper_tick_after,
-        after_price: event.sqrt_price_after,
+        lower_tick: lower_tick.toString(),
+        upper_tick: upper_tick.toString(),
+        after_price: after_price.toString(),
+        amount_a_before: e.amount_a_before,
+        amount_b_before: e.amount_b_before,
+        amount_a_after: e.amount_a_after,
+        amount_b_after: e.amount_b_after,
       };
       rebalanceHistoryMap[poolName].push(history);
     }

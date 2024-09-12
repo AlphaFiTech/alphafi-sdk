@@ -23,6 +23,26 @@ export type PoolName =
   | "BUCK-USDC"
   | "CETUS-SUI";
 
+export type SingleAssetPoolNames =
+  | "ALPHA"
+  | "NAVI-SUI"
+  | "NAVI-VSUI"
+  | "NAVI-WETH"
+  | "NAVI-USDT"
+  | "NAVI-USDC";
+
+export type DoubleAssetPoolNames =
+  | "HASUI-SUI"
+  | "USDY-USDC"
+  | "ALPHA-SUI"
+  | "USDT-USDC"
+  | "USDC-SUI"
+  | "USDC-WBTC"
+  | "WETH-USDC"
+  | "NAVX-SUI"
+  | "BUCK-USDC"
+  | "CETUS-SUI";
+
 export type CoinName =
   | "ALPHA"
   | "SUI"
@@ -44,10 +64,30 @@ export type CoinName =
   | "USDY"
   | "BUCK";
 
+/**
+ * Represents a coin with its name, type, icon, and exponent.
+ */
 export interface Coin {
+  /**
+   * The name of the coin (e.g., SUI, ALPHA, USDC, USDT).
+   */
   name: CoinName;
+
+  /**
+   * The type of the coin object on the Sui blockchain.
+   */
   type: CoinType;
+
+  /**
+   * The icon or logo associated with the coin.
+   */
   icon: Icon;
+
+  /**
+   * The exponent used to scale the coin's value.
+   * Typically used to convert between the smallest unit and the base unit.
+   * For example, SUI has an exponent of 9 because 1 SUI equals 10^9 MISTs.
+   */
   expo: number;
 }
 
@@ -211,10 +251,6 @@ export type AlphaReceipt = {
 };
 
 export type Receipt = {
-  balance: string;
-};
-
-export type Receipt1 = {
   objectId: string;
   version: string;
   digest: string;
@@ -376,40 +412,6 @@ export type AlphaPoolType = {
   };
 };
 
-export class SimpleCache<T> {
-  private cache: { [key: string]: { value: T; expiry: number } } = {};
-  private defaultTTL: number;
-
-  constructor(defaultTTL: number = 60000) {
-    // Default TTL is 60 seconds
-    this.defaultTTL = defaultTTL;
-  }
-
-  get(key: string): T | null {
-    const cacheEntry = this.cache[key];
-    if (cacheEntry && cacheEntry.expiry > Date.now()) {
-      return cacheEntry.value;
-    } else {
-      // If the entry has expired, delete it
-      this.delete(key);
-      return null;
-    }
-  }
-
-  set(key: string, value: T, ttl?: number): void {
-    const expiry = Date.now() + (ttl || this.defaultTTL);
-    this.cache[key] = { value, expiry };
-  }
-
-  delete(key: string): void {
-    delete this.cache[key];
-  }
-
-  clear(): void {
-    this.cache = {};
-  }
-}
-
 export interface CoinPair {
   coinA: Coin;
   coinB: Coin;
@@ -478,6 +480,11 @@ export type SingleAssetVaultBalance = {
   valueInUSD: string | null;
 };
 
+export type AlphaFiVaultBalance =
+  | AlphaVaultBalance
+  | SingleAssetVaultBalance
+  | DoubleAssetVaultBalance;
+
 export type LpBreakdownType = {
   coinA: string | null;
   coinAInUsd: string | null;
@@ -491,6 +498,10 @@ export interface RebalanceHistoryType {
   lower_tick: string;
   upper_tick: string;
   after_price: string;
+  amount_a_before: string;
+  amount_b_before: string;
+  amount_a_after: string;
+  amount_b_after: string;
 }
 
 export type TransactionBlockType = {
