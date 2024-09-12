@@ -492,7 +492,10 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
     const tokensInvested = new Decimal(
       poolDetails.content.fields.tokensInvested,
     );
-    const conversionRate = (xTokenSupply !== 0) ? (tokensInvested.div(xTokenSupply).toString()) : "0";
+    const conversionRate =
+      Number(xTokenSupply) !== 0
+        ? tokensInvested.div(xTokenSupply).toString()
+        : "0";
     poolNameToConversionRateMap.set(poolIdPoolNameMap[poolId], conversionRate);
   }
 

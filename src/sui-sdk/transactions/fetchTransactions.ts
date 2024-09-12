@@ -2,12 +2,12 @@ import suiClient from "../client";
 import { SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { FetchTransactionParams } from "./types";
 
-export async function fetchTransactions(params: FetchTransactionParams):
-  Promise<SuiTransactionBlockResponse[]> {
+export async function fetchTransactions(
+  params: FetchTransactionParams,
+): Promise<SuiTransactionBlockResponse[]> {
   let transactionBlocks: SuiTransactionBlockResponse[] = [];
 
   for (const filter of params.filter) {
-
     let hasNextPage: boolean = true;
     let nextCursor: null | string | undefined = null;
     while (hasNextPage) {
@@ -19,51 +19,59 @@ export async function fetchTransactions(params: FetchTransactionParams):
           showInput: true,
           showObjectChanges: true,
         },
-      }); 
+      });
       if (res.data.length !== 0) {
         const lastTx = res.data[res.data.length - 1];
         const firstTx = res.data[0];
         const laterTime = firstTx.timestampMs as string;
         const earlierTime = lastTx.timestampMs as string;
         if (Number(laterTime) < params.startTime) {
-          // Page beyond interval 
+          // Page beyond interval
           hasNextPage = false;
           break;
         } else if (Number(earlierTime) > params.endTime) {
           // Page beyond interval
           continue;
-        }
-        else if(((Number(laterTime) > params.startTime) && (Number(laterTime) < params.endTime)) && (Number(earlierTime) < params.startTime)){
+        } else if (
+          Number(laterTime) > params.startTime &&
+          Number(laterTime) < params.endTime &&
+          Number(earlierTime) < params.startTime
+        ) {
           // Page spills from interval startTime
-          for(let i = 0; i<res.data.length; i++){
-            if(Number(res.data[i].timestampMs) > params.startTime){
+          for (let i = 0; i < res.data.length; i++) {
+            if (Number(res.data[i].timestampMs) > params.startTime) {
               transactionBlocks.push(res.data[i]);
-            }
-            else{
+            } else {
               break;
             }
           }
-        }
-        else if((Number(laterTime) > params.endTime) && ((Number(earlierTime) > params.startTime) && (Number(earlierTime) < params.endTime))){
+        } else if (
+          Number(laterTime) > params.endTime &&
+          Number(earlierTime) > params.startTime &&
+          Number(earlierTime) < params.endTime
+        ) {
           // Page spills from interval endTIme
-          for(let i = res.data.length-1; i>=0; i--){
-            if(Number(res.data[i].timestampMs) < params.endTime){
+          for (let i = res.data.length - 1; i >= 0; i--) {
+            if (Number(res.data[i].timestampMs) < params.endTime) {
               transactionBlocks.push(res.data[i]);
-            }
-            else{
+            } else {
               break;
             }
           }
-        }
-        else if (Number(laterTime) > params.endTime && Number(earlierTime) < params.startTime){
+        } else if (
+          Number(laterTime) > params.endTime &&
+          Number(earlierTime) < params.startTime
+        ) {
           // Page spills from interval both bounds
-          for(let i = 0; i<res.data.length; i++){
-            if((Number(res.data[i].timestampMs) > params.startTime) && (Number(res.data[i].timestampMs) < params.endTime)){
+          for (let i = 0; i < res.data.length; i++) {
+            if (
+              Number(res.data[i].timestampMs) > params.startTime &&
+              Number(res.data[i].timestampMs) < params.endTime
+            ) {
               transactionBlocks.push(res.data[i]);
             }
           }
-        }
-        else {
+        } else {
           // Page is in the interval
           transactionBlocks = transactionBlocks.concat(res.data);
           hasNextPage = res.hasNextPage;
@@ -76,7 +84,6 @@ export async function fetchTransactions(params: FetchTransactionParams):
         nextCursor = res.nextCursor;
       }
     }
-
   }
 
   return transactionBlocks;

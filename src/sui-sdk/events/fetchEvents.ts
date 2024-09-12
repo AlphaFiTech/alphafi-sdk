@@ -37,8 +37,8 @@ export async function fetchEvents(
   const startTime = params.startTime ? params.startTime : twentyFourHoursAgo;
   const endTime = params.endTime ? params.endTime : now;
 
-  if(startTime >= endTime) {
-    throw new Error("startTime must be less than endTime")
+  if (startTime >= endTime) {
+    throw new Error("startTime must be less than endTime");
   }
 
   while (hasNextPage) {
@@ -158,7 +158,8 @@ export async function fetchEvents(
         } as LiquidityChangeEventNode;
       } else if (
         isLiquidityChangeEvent(suiEvent.type) &&
-        "amount" in suiEventJson
+        "amount" in suiEventJson &&
+        !("investor_id" in suiEventJson)
       ) {
         // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
         eventNode = {

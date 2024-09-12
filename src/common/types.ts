@@ -29,7 +29,7 @@ export type SingleAssetPoolNames =
   | "NAVI-VSUI"
   | "NAVI-WETH"
   | "NAVI-USDT"
-  | "NAVI-USDC"
+  | "NAVI-USDC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"

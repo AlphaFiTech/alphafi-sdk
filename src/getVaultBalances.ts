@@ -5,28 +5,57 @@ import {
   SingleAssetVaultBalance,
 } from "./common/types";
 import { fetchUserVaultBalances } from "./sui-sdk/functions/fetchUserVaultBalances";
-import { MultiGetVaultBalancesParams, HoldingsObj, SingleAssetTokenHoldings, DoubleAssetTokenHoldings, AlphaFiMultiVaultBalance, SingleAssetMultiVaultBalance, DoubleAssetMultiVaultBalance } from "./types";
+import {
+  MultiGetVaultBalancesParams,
+  HoldingsObj,
+  SingleAssetTokenHoldings,
+  DoubleAssetTokenHoldings,
+  AlphaFiMultiVaultBalance,
+  SingleAssetMultiVaultBalance,
+  DoubleAssetMultiVaultBalance,
+  VaultBalance,
+  GetVaultBalanceForActiveUsersParams,
+} from "./types";
 import { FetchLiquidityChangeEventsParams } from "./sui-sdk/events/types";
 import { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents";
 import { parseXTokensFromLCEvent } from "./sui-sdk/events/parseData";
-import { multiLiquidityToTokens, multiTokensToUsd, multiXTokensToLiquidity } from "./utils/userHoldings";
-import { VaultBalance, GetVaultBalanceForActiveUsersParams } from "./types";
+import {
+  multiLiquidityToTokens,
+  multiTokensToUsd,
+  multiXTokensToLiquidity,
+} from "./utils/userHoldings";
 
-export async function getVaultBalanceForActiveUsers(params: GetVaultBalanceForActiveUsersParams) {
+export async function getVaultBalanceForActiveUsers(
+  params: GetVaultBalanceForActiveUsersParams,
+) {
   // multirun
 
-  const liquidityChangeEvents = await fetchLiquidityChangeEvents(params as FetchLiquidityChangeEventsParams);
+  const liquidityChangeEvents = await fetchLiquidityChangeEvents(
+    params as FetchLiquidityChangeEventsParams,
+  );
   const xTokenHoldingsArr = parseXTokensFromLCEvent(liquidityChangeEvents);
   const xTokenHoldingsObj: HoldingsObj[] = xTokenHoldingsArr.map(
     ([address, poolName, xTokens]) => {
-      return { owner: address, poolName: poolName as PoolName, holding: xTokens }
-    }
+      return {
+        owner: address,
+        poolName: poolName as PoolName,
+        holding: xTokens,
+      };
+    },
   );
-  const liquidityHoldingsObj: HoldingsObj[] = await multiXTokensToLiquidity(xTokenHoldingsObj);
-  const tokenHoldingsObj: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] = await multiLiquidityToTokens(liquidityHoldingsObj);
-  const usdHoldingsObj: HoldingsObj[] = await multiTokensToUsd(tokenHoldingsObj);
+  const liquidityHoldingsObj: HoldingsObj[] =
+    await multiXTokensToLiquidity(xTokenHoldingsObj);
+  const tokenHoldingsObj: (
+    | SingleAssetTokenHoldings
+    | DoubleAssetTokenHoldings
+  )[] = await multiLiquidityToTokens(liquidityHoldingsObj);
+  const usdHoldingsObj: HoldingsObj[] =
+    await multiTokensToUsd(tokenHoldingsObj);
   const uniqueUsdHoldings: { [key: string]: string } = {};
-  usdHoldingsObj.map((usdHolding) => { uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] = usdHolding.holding });
+  usdHoldingsObj.map((usdHolding) => {
+    uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] =
+      usdHolding.holding;
+  });
   const multiVaultBalances: AlphaFiMultiVaultBalance[] = tokenHoldingsObj.map(
     (tokenHolding) => {
       const owner = tokenHolding.user;
@@ -39,19 +68,18 @@ export async function getVaultBalanceForActiveUsers(params: GetVaultBalanceForAc
           poolName: poolName,
           tokens: tokenHolding.tokens,
           tokensInUsd: tokensInUsd,
-        } as SingleAssetMultiVaultBalance
-      }
-      else {
+        } as SingleAssetMultiVaultBalance;
+      } else {
         return {
           owner: owner,
           poolName: poolName,
           tokenA: tokenHolding.tokenAmountA,
           tokenB: tokenHolding.tokenAmountB,
           tokensInUsd: tokensInUsd,
-        } as DoubleAssetMultiVaultBalance
+        } as DoubleAssetMultiVaultBalance;
       }
-    }
-  )
+    },
+  );
 
   return multiVaultBalances;
 }
@@ -61,27 +89,38 @@ export async function getVaultBalance(
   poolName?: PoolName,
   multiGet?: MultiGetVaultBalancesParams,
 ): Promise<VaultBalance> {
-
   if (address && poolName && !multiGet) {
     const vaultBalance = await fetchUserVaultBalances(address, poolName);
 
     return vaultBalance;
-  }
-
-  else if (!address && !poolName && multiGet) {
+  } else if (!address && !poolName && multiGet) {
     // multirun
-    const liquidityChangeEvents = await fetchLiquidityChangeEvents(multiGet as FetchLiquidityChangeEventsParams);
+    const liquidityChangeEvents = await fetchLiquidityChangeEvents(
+      multiGet as FetchLiquidityChangeEventsParams,
+    );
     const xTokenHoldingsArr = parseXTokensFromLCEvent(liquidityChangeEvents);
     const xTokenHoldingsObj: HoldingsObj[] = xTokenHoldingsArr.map(
       ([address, poolName, xTokens]) => {
-        return { owner: address, poolName: poolName as PoolName, holding: xTokens }
-      }
+        return {
+          owner: address,
+          poolName: poolName as PoolName,
+          holding: xTokens,
+        };
+      },
     );
-    const liquidityHoldingsObj: HoldingsObj[] = await multiXTokensToLiquidity(xTokenHoldingsObj);
-    const tokenHoldingsObj: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] = await multiLiquidityToTokens(liquidityHoldingsObj);
-    const usdHoldingsObj: HoldingsObj[] = await multiTokensToUsd(tokenHoldingsObj);
+    const liquidityHoldingsObj: HoldingsObj[] =
+      await multiXTokensToLiquidity(xTokenHoldingsObj);
+    const tokenHoldingsObj: (
+      | SingleAssetTokenHoldings
+      | DoubleAssetTokenHoldings
+    )[] = await multiLiquidityToTokens(liquidityHoldingsObj);
+    const usdHoldingsObj: HoldingsObj[] =
+      await multiTokensToUsd(tokenHoldingsObj);
     const uniqueUsdHoldings: { [key: string]: string } = {};
-    usdHoldingsObj.map((usdHolding) => { uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] = usdHolding.holding });
+    usdHoldingsObj.map((usdHolding) => {
+      uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] =
+        usdHolding.holding;
+    });
     const multiVaultBalances: AlphaFiMultiVaultBalance[] = tokenHoldingsObj.map(
       (tokenHolding) => {
         const owner = tokenHolding.user;
@@ -94,24 +133,24 @@ export async function getVaultBalance(
             poolName: poolName,
             tokens: tokenHolding.tokens,
             tokensInUsd: tokensInUsd,
-          } as SingleAssetMultiVaultBalance
-        }
-        else {
+          } as SingleAssetMultiVaultBalance;
+        } else {
           return {
             owner: owner,
             poolName: poolName,
             tokenA: tokenHolding.tokenAmountA,
             tokenB: tokenHolding.tokenAmountB,
             tokensInUsd: tokensInUsd,
-          } as DoubleAssetMultiVaultBalance
+          } as DoubleAssetMultiVaultBalance;
         }
-      }
-    )
+      },
+    );
 
     return multiVaultBalances;
-  }
-  else {
-    throw new Error("Invalid Params: Give only multiGet or only address and poolName")
+  } else {
+    throw new Error(
+      "Invalid Params: Give only multiGet or only address and poolName",
+    );
   }
 }
 

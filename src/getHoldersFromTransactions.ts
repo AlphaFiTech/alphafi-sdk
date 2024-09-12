@@ -1,16 +1,30 @@
-import { SuiTransactionBlockResponse, TransactionFilter, SuiObjectResponse } from "@mysten/sui/client";
+import {
+  SuiTransactionBlockResponse,
+  TransactionFilter,
+} from "@mysten/sui/client";
 import { fetchTransactions } from "./sui-sdk/transactions/fetchTransactions";
-import { nonAlphaDepositFilters, alphaDepositFilters } from "./sui-sdk/transactions/constants";
-import { GetUserTokensFromTransactionsParams, AlphaReceiptFields, OtherReceiptFields, GetUserTokensInUsdFromTransactionsParams, UserUsdHoldings, LiquidityToUsdParams } from "./types";
+import {
+  nonAlphaDepositFilters,
+  alphaDepositFilters,
+} from "./sui-sdk/transactions/constants";
+import {
+  GetUserTokensFromTransactionsParams,
+  GetUserTokensInUsdFromTransactionsParams,
+  UserUsdHoldings,
+  LiquidityToUsdParams,
+} from "./types";
 import { getReceipts } from "./utils/getReceipts";
-import { poolIdPoolNameMap, getPoolExchangeRateMap, getCetusSqrtPriceMap, getCetusInvestorTicksMap, getTokenPriceMap, poolCoinPairMap, poolCoinMap } from "./common/maps";
-import { PoolName, CoinName } from "./common/types";
-import Decimal from "decimal.js";
-import { CoinAmounts, ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
-import { BN } from "bn.js";
-import { coins } from "./common/coins";
-import { parseTokensFromReceipts, liquidityToUsd, mergeDuplicateHoldings } from "./utils/getHoldersFromTransactionsUtils";
-
+import {
+  getCetusSqrtPriceMap,
+  getCetusInvestorTicksMap,
+  getTokenPriceMap,
+} from "./common/maps";
+import { PoolName } from "./common/types";
+import {
+  parseTokensFromReceipts,
+  liquidityToUsd,
+  mergeDuplicateHoldings,
+} from "./utils/getHoldersFromTransactionsUtils";
 
 // TODO: add functionality for Pool
 export async function getHoldersFromTransactions(params?: {
@@ -23,8 +37,10 @@ export async function getHoldersFromTransactions(params?: {
   const startTime = params?.startTime ? params.startTime : twentyFourHoursAgo;
   const endTime = params?.endTime ? params.endTime : now;
 
-  let userList: string[] = [];
-  const filters: TransactionFilter[] = [...alphaDepositFilters, ...nonAlphaDepositFilters];
+  const filters: TransactionFilter[] = [
+    ...alphaDepositFilters,
+    ...nonAlphaDepositFilters,
+  ];
   const transactions: SuiTransactionBlockResponse[] = await fetchTransactions({
     startTime: startTime,
     endTime: endTime,
@@ -34,9 +50,9 @@ export async function getHoldersFromTransactions(params?: {
   const users = transactions.map((tx) => {
     const owner = tx.effects?.gasObject.owner as { AddressOwner: string };
     return owner.AddressOwner;
-  })
+  });
 
-  const userSet = new Set<string>(userList);
+  const userSet = new Set<string>(users);
   return Array.from(userSet);
 }
 
@@ -62,7 +78,7 @@ export async function getUserTokensFromTransactions(
 }
 
 export async function getUserTokensInUsdFromTransactions(
-  params?: GetUserTokensInUsdFromTransactionsParams
+  params?: GetUserTokensInUsdFromTransactionsParams,
 ): Promise<UserUsdHoldings[]> {
   let usdHoldings: [string, string, string][] = [];
 
