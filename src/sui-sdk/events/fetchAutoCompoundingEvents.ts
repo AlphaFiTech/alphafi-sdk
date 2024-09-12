@@ -61,7 +61,7 @@ export async function fetchAutoCompoundingEvents(
       if (params.poolNames) {
         return params.poolNames
           .map((poolName) => poolInfo[poolName].investorId)
-          .includes(e.investor_id);
+          .includes((e as AutoCompoundingEventNode).investor_id);
       } else {
         return true;
       }
@@ -79,7 +79,7 @@ export async function fetchAutoCompoundingEvents(
       if (params.poolNames) {
         return params.poolNames
           .map((poolName) => poolInfo[poolName].investorId)
-          .includes(e.investor_id);
+          .includes((e as AutoCompoundingEventNode).investor_id);
       } else {
         return true;
       }
