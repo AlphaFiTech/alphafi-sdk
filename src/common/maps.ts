@@ -355,6 +355,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "WSOL-USDC": {
     parentProtocolName: "CETUS",
@@ -366,6 +368,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].WSOL_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WSOL_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].WSOL_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "FUD-SUI": {
     parentProtocolName: "CETUS",
@@ -377,6 +381,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "BLUB-SUI": {
     parentProtocolName: "CETUS",
@@ -388,6 +394,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "SCA-SUI": {
     parentProtocolName: "CETUS",
@@ -399,6 +407,8 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
 };
 
