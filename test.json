@@ -1,0 +1,2627 @@
+{
+    "0xde0c7ac925edceeb1da055208778fa4fb7726c963d62d31edfdcba3c7bbf4615": {
+        "ALPHA": {
+            "tokens": "28.72750"
+        }
+    },
+    "0xcfa90668e446e80d0172ec7e9f9f0e80d48045bbb1817616552060574e049866": {
+        "ALPHA": {
+            "tokens": "0.13374"
+        }
+    },
+    "0xd1273902b7a297dfe0f10e999286de042d8b21b03a110a83f5ce93f444b6122b": {
+        "ALPHA": {
+            "tokens": "0.00045"
+        }
+    },
+    "0xef4ca2588fb151d19098cc67093bd49bc0392fe4f663bd59ac9da520ae64e11b": {
+        "ALPHA": {
+            "tokens": "0.19717"
+        }
+    },
+    "0x4dcef7b6eed23d1aa870561dd7d563923ec4bf84aea1763d7fcfbb6a856ff0cd": {
+        "ALPHA": {
+            "tokens": "0.60000"
+        }
+    },
+    "0x9458c67b2de3a2b4786462d328c46786e6ab16e750e0aec802663b34bbd8f973": {
+        "ALPHA": {
+            "tokens": "2913.75632"
+        }
+    },
+    "0xe8893162b6c08ae233b34a8ac7ff9a8f0c4fc8d6847630ad4264a1af7d4ef950": {
+        "ALPHA": {
+            "tokens": "1.55882"
+        }
+    },
+    "0xbdaee7c803e5db14b6571d78d05e152057b72bace936566b8403b760d5d228e8": {
+        "ALPHA": {
+            "tokens": "654660.11866"
+        }
+    },
+    "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a": {
+        "ALPHA": {
+            "tokens": "175000.00000"
+        }
+    },
+    "0xe207e06c6a8a7946abc20ba90ce4ab55ec27efa4685c925504a76f3456f0b76e": {
+        "ALPHA": {
+            "tokens": "0.22266"
+        }
+    },
+    "0xee5360c5fa13555cbf355cb5015b865d742040e42ff90c324e11f0c63e504545": {
+        "ALPHA": {
+            "tokens": "91079.58874"
+        }
+    },
+    "0xabf99cc6bf281ca67a9256af3c78c456e2a43e396de56cbdd60797028c81bd11": {
+        "ALPHA": {
+            "tokens": "492.44997"
+        }
+    },
+    "0xea86e5cc587a91389719715d566730fb6e6f44ee476831bdd15b4998640ed4c4": {
+        "ALPHA": {
+            "tokens": "17.39349"
+        }
+    },
+    "0x458a0171a0d2b0d0eedcbb6e2c23c34ce67694bc88e1528199431bb6e2dd22c2": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    },
+    "0x935d5451181b3c67e759c88c32e1722203e862d3848117dd9d41a831dedbad91": {
+        "ALPHA": {
+            "tokens": "893.38105"
+        }
+    },
+    "0x990ab36a1bb1e7e043d01c60da2c654335984ebc841a4711bc332102bdf1938d": {
+        "ALPHA": {
+            "tokens": "102.55237"
+        }
+    },
+    "0xb0615e458f9b5f6e563515fa5192d1311fbc7fd4f93025b327510fbf72bc5c20": {
+        "ALPHA": {
+            "tokens": "182644.12407"
+        }
+    },
+    "0x6f9cb0db76956b81983fd4ed107814136da1763a0979d3265454b7b4d74a1c4a": {
+        "ALPHA": {
+            "tokens": "32.90595"
+        }
+    },
+    "0xa047876b104820734c38b76a459f1a3c890364fa6548f4eaf9c9c0d6b3f47e8c": {
+        "ALPHA": {
+            "tokens": "42.74795"
+        }
+    },
+    "0xbdaa4d27599e551e048bba68ec458332735552ea8f6632bf52296bb5ed467221": {
+        "ALPHA": {
+            "tokens": "109.31702"
+        }
+    },
+    "0xacc8132bdad3b07a9fd11b1dc6e4240cbb9ee1733b93571745395b1f0a1cbe13": {
+        "ALPHA": {
+            "tokens": "2049.91382"
+        }
+    },
+    "0xac8c952d7272b99479d20f36a0b8872e70b5dfc47520a7e75fba91f6f7d67eb8": {
+        "ALPHA": {
+            "tokens": "15.97440"
+        }
+    },
+    "0xd7bd566881da36484a691460dd54e0242943178f8b32f99f6f74b05283dae611": {
+        "ALPHA": {
+            "tokens": "521.54711"
+        }
+    },
+    "0xace47d46403f665eb3f388b4fe71c993d8793de19677cc2d4594e2199e006fde": {
+        "ALPHA": {
+            "tokens": "1423.89524"
+        }
+    },
+    "0x96fdb2051e1669d16938878ed370587909e103d2137cb8f75541ec0ae0f17d2d": {
+        "ALPHA": {
+            "tokens": "1422.84057"
+        }
+    },
+    "0x2ffe880f02e2137268d4c745a2ded6cf34d0b05ce3400946ce96937b80152707": {
+        "ALPHA": {
+            "tokens": "1.37535"
+        }
+    },
+    "0xe1b164826b02443681f927df4abc00a14b5c334e233be78113cea0e5d7be1d63": {
+        "ALPHA": {
+            "tokens": "0.01530"
+        }
+    },
+    "0xc4ff4789d547045bdb04d93267716d5bea1dbbe30fc3af692085b2579cd2ec18": {
+        "ALPHA": {
+            "tokens": "1.16838"
+        }
+    },
+    "0xeeba089dba0f6bf49b73e138733e64a036f3fc98f21e40499d8deb14ce549a74": {
+        "ALPHA": {
+            "tokens": "508.18360"
+        }
+    },
+    "0x4992ffddb9d0976e8daf43fb8c45e6cb248155d87bd741cb975a20983e165e9a": {
+        "ALPHA": {
+            "tokens": "492.27451"
+        }
+    },
+    "0x80842763a7e47429f96f45561d2065dfe99f1514f6b315b6e0865bf40da32c76": {
+        "ALPHA": {
+            "tokens": "1.88179"
+        }
+    },
+    "0x9a939e20285700b2252e413260da8fa5ed88417beb408baedcb035ca89ba74f0": {
+        "ALPHA": {
+            "tokens": "1858.64509"
+        }
+    },
+    "0x2701eb93b0ba04e1a9815381b6d2671893e9c43b90374049ee08fa1f0b8a3b3f": {
+        "ALPHA": {
+            "tokens": "5.42584"
+        }
+    },
+    "0xf7db5b7ef05d3b7d30d23a1344245f2bac828d3a1591f4eb5c8e571521c6f0b9": {
+        "ALPHA": {
+            "tokens": "200.01000"
+        }
+    },
+    "0x09dd8bdf037cbdc122182cc11a4e9f1c94e0381d6bc84ab6956b5a6bfd0a0009": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    },
+    "0xb47cd28239213682f96a2414b3b5e1f73167dcd1d1b4456aebd5adbcff7dfac3": {
+        "ALPHA": {
+            "tokens": "83.80906"
+        }
+    },
+    "0x003ea6930a1ed5a43a4b65a1d4efcaf9126479697e6acfe23e8d7789e3607162": {
+        "ALPHA": {
+            "tokens": "2.49415"
+        }
+    },
+    "0x6d9e18ef751832e2cf1968c8054d94fa3c0c1676d1359cb059219023d9a1c2aa": {
+        "ALPHA": {
+            "tokens": "1580.00000"
+        }
+    },
+    "0xc0cd19944b3b9593e64e59dd982080d0f198edb2756e9633e67be75834ed5f87": {
+        "ALPHA": {
+            "tokens": "48.43751"
+        }
+    },
+    "0xf2f4bc32e858fb2cc60816fff0efdfc9bd08e83084dcb9c1f8745aff0594f68e": {
+        "ALPHA": {
+            "tokens": "1652.60523"
+        }
+    },
+    "0xeba3190637462817f5337404de5cebd724b89f1f23248856aedacf43a05f330e": {
+        "ALPHA": {
+            "tokens": "16.42577"
+        }
+    },
+    "0xf8ac5978b1a1cc4bf98285d7235987d15a3f9014c0f1ffe92112521c59515215": {
+        "ALPHA": {
+            "tokens": "277.34674"
+        }
+    },
+    "0xd4dcb53c9fdaec0e1096f14f965d41c332b5fde5692ed870a74cc3ba3009081e": {
+        "ALPHA": {
+            "tokens": "49.90085"
+        }
+    },
+    "0x23f30aa9c49fbdf58c620fa4619be379a340b3172250c94c0bb33a848084af74": {
+        "ALPHA": {
+            "tokens": "5588.53498"
+        }
+    },
+    "0xa1c497647abaf2874f90a956af51685b89027a69bd0ded14e8b2c3d13a6a3e15": {
+        "ALPHA": {
+            "tokens": "13.68005"
+        }
+    },
+    "0x51a7030fe2f66692ed6d40252d8ae03561c846c2fb62e42182e724689b0009f4": {
+        "ALPHA": {
+            "tokens": "0.12300"
+        }
+    },
+    "0x34917bf22d7f6e473bada0913d1af21bcd49bd390f8b23f39a8624fe6d827e95": {
+        "ALPHA": {
+            "tokens": "110.88096"
+        }
+    },
+    "0xd434c8b431c64b57f933b907b1448abaea01c0c503264a536a94ba3d38e77dc0": {
+        "ALPHA": {
+            "tokens": "3196.68336"
+        }
+    },
+    "0xa5eef128217de4d60cd135721d21cce3b1d2deb8f47c64458b341eed8204029e": {
+        "ALPHA": {
+            "tokens": "38.12972"
+        }
+    },
+    "0xfe1ef9d7b383d015644623d660339ea8b248e3888321df47a11b801996cb4d10": {
+        "ALPHA": {
+            "tokens": "0.00445"
+        }
+    },
+    "0x46952661a9e988121924a92771259d6561482f55d9abe631dca26f659221ad4d": {
+        "ALPHA": {
+            "tokens": "123.82456"
+        }
+    },
+    "0x20c676eb3426289b202e14237e92f469d9dc90426ca4cb073a6cfcebf009b29a": {
+        "ALPHA": {
+            "tokens": "24.00000"
+        }
+    },
+    "0xca10a7ab4600e0e6bd48604c5942ef706219a8898033d49a7c11f7f530c18f6f": {
+        "ALPHA": {
+            "tokens": "2.62904"
+        }
+    },
+    "0x5f2357a9e5ba1f800f1b0057de1a791a04591d3ef1a642a253646359d21ae7e1": {
+        "ALPHA": {
+            "tokens": "110.90000"
+        }
+    },
+    "0xa6cac6cfa833b07418bb8b4e65456fca9a7c79035b8c5cb1958d952489185ee4": {
+        "ALPHA": {
+            "tokens": "274.98590"
+        }
+    },
+    "0x24ea8d8221ec18b7bcbb1f536855d7770063541966148296c9113faa26658f07": {
+        "ALPHA": {
+            "tokens": "0.50000"
+        }
+    },
+    "0x5e9cc1b0eb9cbad54a9f20985ad6d33e41c5a82f201571e4a2cb8267d02d3b77": {
+        "ALPHA": {
+            "tokens": "50.04632"
+        }
+    },
+    "0x86d214f02348fc6d5fd1bec67a111c9d1bcdae5b0cc56dd815ed9bffada45219": {
+        "ALPHA": {
+            "tokens": "890.01979"
+        }
+    },
+    "0x399dff04b33b2ae7b277751c9d9acc4ba6cdfb4bb998630ff54e3f4c5fe2a318": {
+        "ALPHA": {
+            "tokens": "11.01430"
+        }
+    },
+    "0x86ea77da52e41820e21f525a497a3d3760c41410bb76da121547a5ff674dec50": {
+        "ALPHA": {
+            "tokens": "44644.96624"
+        }
+    },
+    "0x3ce65c03642dfea704a031b28fffc850a6e3def8ee126ccc3a209f5314986279": {
+        "ALPHA": {
+            "tokens": "143099.22206"
+        }
+    },
+    "0x6a498c57c18306e0af942442a5d20e5b2940939b4937ed52f4b17e3fa99972f5": {
+        "ALPHA": {
+            "tokens": "27072.41002"
+        }
+    },
+    "0x76c8548bdf9d32f48a3d993fb8e31980f63b70fd398916819198406f17ad351f": {
+        "ALPHA": {
+            "tokens": "100.80335"
+        }
+    },
+    "0xa538b1bbeba685e27a04930a14ebce89467a91f14f5f812a48dd99e1137a4183": {
+        "ALPHA": {
+            "tokens": "36.30207"
+        }
+    },
+    "0xf9fa706411fc4a4276bca0ba38643eaf924c1bee607c753f7db5f5eb1247262a": {
+        "ALPHA": {
+            "tokens": "50.02592"
+        }
+    },
+    "0xf0a345923c95356526b4af4ff13ff986cfb932d9330c5b84e11109899c28257e": {
+        "ALPHA": {
+            "tokens": "252.82258"
+        }
+    },
+    "0xa6a045bac8a4a799b8cbdb66ccc1d72266ed256fca50d294b482c3b6dd58de5c": {
+        "ALPHA": {
+            "tokens": "436.22725"
+        }
+    },
+    "0x0707c242aedfabd1230f5d5225b0cc14b833a61a5f1fc4e3414dc7aa4369fb8a": {
+        "ALPHA": {
+            "tokens": "1284.00058"
+        }
+    },
+    "0xe94978d0ee16861433e6d962a76d51b6eb0ce0aaefbe128e579ea71211c97995": {
+        "ALPHA": {
+            "tokens": "9.66213"
+        }
+    },
+    "0xdb63cefec9f7661a98050404a03f7403464a110cfbb3c34c2c6c144aea7ae68b": {
+        "ALPHA": {
+            "tokens": "1294.34997"
+        }
+    },
+    "0x1b55a305185dd5ffafc0e34a068090e6f22c49495d1bc57664ba768c1ccad002": {
+        "ALPHA": {
+            "tokens": "53.57081"
+        }
+    },
+    "0x0865effe778adf5188bd197ba3ae882117c1a506a1a3ed5ff23294a1398b30b4": {
+        "ALPHA": {
+            "tokens": "11379.73105"
+        }
+    },
+    "0x37be66c40a575685950946a5bf9ab0becf3b99ac2a4e72d0e787692e3124517f": {
+        "ALPHA": {
+            "tokens": "0.50000"
+        }
+    },
+    "0x390c12a9a860f6883d8cf79bc6291028424e2d28c9ce7e3c71ba59ab40b1ff9f": {
+        "ALPHA": {
+            "tokens": "49.42555"
+        }
+    },
+    "0xbf19439245eed200874f9f457686d76707806c875c2398bacb4aa617ee7c4e19": {
+        "ALPHA": {
+            "tokens": "66.78343"
+        }
+    },
+    "0x083cdd5ffd37247f0408850f4f63058c967f6c1fb0ac7e8cdb881be309e1eb03": {
+        "ALPHA": {
+            "tokens": "24.80272"
+        }
+    },
+    "0xff9a2a5da9e661a2c113ca6c030c67fb98422a0587bd3cd74cd9899b8613effa": {
+        "ALPHA": {
+            "tokens": "154.82907"
+        }
+    },
+    "0x04587f177e417022dde0b1f5385fd2c3930d1bc2daa209bb206069aa8a6d6c3d": {
+        "ALPHA": {
+            "tokens": "0.04425"
+        }
+    },
+    "0x5d7c0c962f524ee1cdab4ea25b23da318219d1ead0ab44ee6b8fa1ad3dade611": {
+        "ALPHA": {
+            "tokens": "24.53096"
+        }
+    },
+    "0xaa7e87d005f0d0ef62023972beec953184cc4c766bbd3042a4da624cd28b9da4": {
+        "ALPHA": {
+            "tokens": "6.90868"
+        }
+    },
+    "0xcf6e15b47a69ab1122bcdc58d79b3a53f541044553bad38e58ee8c9d27fb555e": {
+        "ALPHA": {
+            "tokens": "1.01000"
+        }
+    },
+    "0xa2bd9b6d73624f000f7b13cfa99a2e2554c0c3631d501c4c940c0d30af738b39": {
+        "ALPHA": {
+            "tokens": "45.01854"
+        }
+    },
+    "0x3e554aaf8feea08f143e7a5f749070cda08e4f536d0b590895174892476a41e8": {
+        "ALPHA": {
+            "tokens": "1424.73544"
+        }
+    },
+    "0xf2e714d20be8d6b7f3758615f16fbada7ef58b6d929ffc31c85418d24a4cb936": {
+        "ALPHA": {
+            "tokens": "5.57184"
+        }
+    },
+    "0x4dde66fc52ec16d5e6c0fbd0968580cdf0d962cbb970591ec1e47617b9265617": {
+        "ALPHA": {
+            "tokens": "506.45067"
+        }
+    },
+    "0x623121ed84a43609e216239822624f87a7fa4a57941a03b933fedd8d2b257eeb": {
+        "ALPHA": {
+            "tokens": "301.65191"
+        }
+    },
+    "0xfed1098d8895f2ada803e151fd15768a5aac317e904d16e9abc1d069939e6d12": {
+        "ALPHA": {
+            "tokens": "0.51000"
+        }
+    },
+    "0x34c763356fcadecfa64d9dd6ab408c4857ac945389d44f9482c4b0e9520efe91": {
+        "ALPHA": {
+            "tokens": "15.99071"
+        }
+    },
+    "0x10efd3dee9191fec578931190dcecb3d386811bc538de70d3c8248389608cc08": {
+        "ALPHA": {
+            "tokens": "205.15516"
+        }
+    },
+    "0x240feb907d0cfdfd3b78bfd1e9812262660aff2ece529cb4880c75148f0def7a": {
+        "ALPHA": {
+            "tokens": "600.89517"
+        }
+    },
+    "0x3af6728ffb05ed5751abb05bf81440a5cc3d8112d56f084f17b85b1e288ce233": {
+        "ALPHA": {
+            "tokens": "1059.72006"
+        }
+    },
+    "0xec545bb99a17f877ab1aa0e530a2b4e2ad209495ac1afe3591dbb469202fc409": {
+        "ALPHA": {
+            "tokens": "1.68036"
+        }
+    },
+    "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1": {
+        "ALPHA": {
+            "tokens": "1180.45000"
+        }
+    },
+    "0xe98270c518efd7f19eb82cc32ccc34e3008d3a1b1238689074ef980372f0e5d8": {
+        "ALPHA": {
+            "tokens": "981.59607"
+        }
+    },
+    "0x918c0c590a685525385c9d7b7fcae824df1a888b1534a4dbcbeb880d07a0c45c": {
+        "ALPHA": {
+            "tokens": "52.24837"
+        }
+    },
+    "0x661ab52d14188af6e5337679f1c344d25e7e2e7509c7be705c0962f0dd3788bd": {
+        "ALPHA": {
+            "tokens": "211.50466"
+        }
+    },
+    "0xeb3bd8e9c4385dec4f790460f07d0dc59ca416a3e012f6b8454960456e78abab": {
+        "ALPHA": {
+            "tokens": "226.30115"
+        }
+    },
+    "0x82cebf3ea10e7ea3cb375588b00d0453b374105eba8adb8bebe990ce84794477": {
+        "ALPHA": {
+            "tokens": "781.33254"
+        }
+    },
+    "0x25b0414db7389cc5fec804e57680f6e4276dd2e55f3817a2db65de413b5ede56": {
+        "ALPHA": {
+            "tokens": "374.77459"
+        }
+    },
+    "0xaebc045a6e57df48546fb98cf54c59db809e3909bc17f5339b471629c3bd50a5": {
+        "ALPHA": {
+            "tokens": "6.87080"
+        }
+    },
+    "0xddd348b010a81314762eee896859222d073e82de2b745effca8105582b4622b0": {
+        "ALPHA": {
+            "tokens": "0.25000"
+        }
+    },
+    "0xacf9b1e55313724a8b5da837a40b40536bde6430aabfc1a853aed1165d088fc0": {
+        "ALPHA": {
+            "tokens": "142.80453"
+        }
+    },
+    "0x5cbcbdc03b978868406383e9f266446895b1e01ce37e28f30fef22b9b5517f46": {
+        "ALPHA": {
+            "tokens": "76.87614"
+        }
+    },
+    "0x034a82ea8ebf656700f2da447befedb5d545611184f829ba89e3b6bfaf02b0b1": {
+        "ALPHA": {
+            "tokens": "671.05575"
+        }
+    },
+    "0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7": {
+        "ALPHA": {
+            "tokens": "0.42787"
+        }
+    },
+    "0x29d6c93f0c13f5cb33bd569f5e906486b1ad01a7508940126c1158fc7faed621": {
+        "ALPHA": {
+            "tokens": "120.19439"
+        }
+    },
+    "0x3fdae372e59d3a434083fc1e28c446ce4325913ad406f3aa51f2541443ca82e2": {
+        "ALPHA": {
+            "tokens": "518.33234"
+        }
+    },
+    "0xc5055be27f54b2519b2a17012b61adbfba121dc9225b10a662b62eef64baeaf6": {
+        "ALPHA": {
+            "tokens": "2987.15277"
+        }
+    },
+    "0x0e427788b41992b329efd025c89137d4614d4ab4558a06adac827c9b0b4b4983": {
+        "ALPHA": {
+            "tokens": "43489.19807"
+        }
+    },
+    "0xb71d12ee020a269ee0ac1e74b8627d0645cc7887c16852188d6b5165a1b5f4f2": {
+        "ALPHA": {
+            "tokens": "837.51968"
+        }
+    },
+    "0xad61298f914d2d0bdab4d2112fc5e25980044f363e5e2a853b0729603b7dba1f": {
+        "ALPHA": {
+            "tokens": "2563.38054"
+        }
+    },
+    "0x663d023eb7a68b625ab13abeee6d2e5d73ac3e2b0e0cd1a16a37086aa23777a6": {
+        "ALPHA": {
+            "tokens": "617.19098"
+        }
+    },
+    "0x088532e8f11abb9bbcbb1f69b1a3beb65f7be521a288a577ef13645eae453a01": {
+        "ALPHA": {
+            "tokens": "4.44531"
+        }
+    },
+    "0xc3eb6a79f5e4b8634196ae5db4dc298fd6c66f858a5211c517aeb8503fb0e70f": {
+        "ALPHA": {
+            "tokens": "1.31099"
+        }
+    },
+    "0x20f7175d0d33b0717099a25c52b69bced8f4281bfcb2a15ab2589a259dad7abc": {
+        "ALPHA": {
+            "tokens": "181.96922"
+        }
+    },
+    "0x9244ca98b5b5325e3e913098a4db088f3222abde7fef5fe38a0834ad4a620f9c": {
+        "ALPHA": {
+            "tokens": "780.35252"
+        }
+    },
+    "0x84b17c214a630f86d377c7add7bbb3ca5c85c9b796ea9a8b69f621bccc602d0a": {
+        "ALPHA": {
+            "tokens": "1424.06840"
+        }
+    },
+    "0x27034bd1f9fa7608fa74e0a8b7aa95a4b0f0ab0e1c8792faf80d5d5b2dba9ac0": {
+        "ALPHA": {
+            "tokens": "1312.33437"
+        }
+    },
+    "0xa215c446a1bf4effd8a6d616a33c280be2dda8ae36563b54cc5b730e03c9d5c3": {
+        "ALPHA": {
+            "tokens": "15.62355"
+        }
+    },
+    "0xe77f8ca529ba22bbf3784f68d05b4d6a1c22e5c982ce8903fd2cd539201e3a16": {
+        "ALPHA": {
+            "tokens": "1343.46685"
+        }
+    },
+    "0x77aa6c19caf64c0949b7b114a5aecc19503531a99238fc9498dd0e0520613ff0": {
+        "ALPHA": {
+            "tokens": "88.42082"
+        }
+    },
+    "0xd406216be12f4a9b450790f94678d80e1c82ba02bb2fc5ae36841a08c901979e": {
+        "ALPHA": {
+            "tokens": "312.56862"
+        }
+    },
+    "0x3bd78f85dffae7bf02950e91dc5bce0ef67a9df65a4e7e5e8ff2945c8a629ed0": {
+        "ALPHA": {
+            "tokens": "0.50000"
+        }
+    },
+    "0x27fd964b9d5418f9bb891f9f798bcef3507de194fe0b86fc6ddf06446e073d76": {
+        "ALPHA": {
+            "tokens": "1.09064"
+        }
+    },
+    "0x9cd75c11be7dde79b653af552d20c8adf3e902660047d792981cb77f98f022b9": {
+        "ALPHA": {
+            "tokens": "1010.38768"
+        }
+    },
+    "0x991d2749f576bb31e54847c73348f1a120566c3eaf034498ff470a94566dfd7c": {
+        "ALPHA": {
+            "tokens": "11.16188"
+        }
+    },
+    "0x0801a4aff6c525b5b2b43c00e67f34e8cc1dc5782ba6da2501aaefd8c5b0c31a": {
+        "ALPHA": {
+            "tokens": "0.60000"
+        }
+    },
+    "0x2b2d29933160edc92fafa13b5124fb00899156a767bf6f76e716b3f64e3cb214": {
+        "ALPHA": {
+            "tokens": "4.52084"
+        }
+    },
+    "0xf037b1410f0ac3f9f815464735c8da8941cb9f1174fef8f9de3b2a08ef64d692": {
+        "ALPHA": {
+            "tokens": "1218.04047"
+        }
+    },
+    "0xfef37519d45531405d480bac329465b82e403f2616f769822ba9674bccbd626c": {
+        "ALPHA": {
+            "tokens": "362.61290"
+        }
+    },
+    "0x00f3b60e1f4fff6eb94d70fa79a9e912b9b9dfb039a1adc9740a80b847b0c5bd": {
+        "ALPHA": {
+            "tokens": "46.36628"
+        }
+    },
+    "0x4d70274c99b61b91d4506a8e01b060baaa8107c303e1b7b306873d8456f634fe": {
+        "ALPHA": {
+            "tokens": "2.50392"
+        }
+    },
+    "0x37bef6da3d0b4036b6876f5dd922ebca277af0b16dba3bb426efafe4f8d26bec": {
+        "ALPHA": {
+            "tokens": "126.03530"
+        }
+    },
+    "0xa9c3f34a45f5dbf5800d79860517f2657b665a5b1ff7192234f76ff0a6a5da80": {
+        "ALPHA": {
+            "tokens": "1053.23184"
+        }
+    },
+    "0x7731d4ff1d59ea5690d62ff047ee997032df7b7ea8260388ffa6bf09e937943f": {
+        "ALPHA": {
+            "tokens": "25872.22172"
+        }
+    },
+    "0x87ef5fd77811aba18b511b9aca2f5afa534cf5960057caaa0ecf7ee5464348fc": {
+        "ALPHA": {
+            "tokens": "203.46205"
+        }
+    },
+    "0x360aaa74649e7abd50d1f53edfb989489ace2df415c064712e183c04fff4ac42": {
+        "ALPHA": {
+            "tokens": "94.72952"
+        }
+    },
+    "0xcf25fb4fcd702641189247b3b99d1907d9b54019b4c7a1b568f90d4bbe9a811c": {
+        "ALPHA": {
+            "tokens": "23.85591"
+        }
+    },
+    "0x4c07cc3f94900c86ed3cdc253e7b5833a1e7d20b041c48970880556e35657eaf": {
+        "ALPHA": {
+            "tokens": "333.63702"
+        }
+    },
+    "0xa3fd0ab61f6292b40c21ffcc0887ac2eff09616169ea811a44f7567142aba279": {
+        "ALPHA": {
+            "tokens": "246318.37980"
+        }
+    },
+    "0xe78df53b6f7d5ff3f5bd326eb2020bf5a1698f07c4358151bde64800135b8e3b": {
+        "ALPHA": {
+            "tokens": "42.03262"
+        }
+    },
+    "0x63a3d018a7a51e19a9aac1257602468311aeffb61163f1dd680ec1dddb227792": {
+        "ALPHA": {
+            "tokens": "23.82967"
+        }
+    },
+    "0x641f871bba820afbf644e52db6a843fb34704d7ab6b0f42c738a92637555a2b3": {
+        "ALPHA": {
+            "tokens": "1.62387"
+        }
+    },
+    "0x03014fa689fe948c68a49bbc939eddddec75b28dffc287e1115275d37ccd8ed3": {
+        "ALPHA": {
+            "tokens": "13342.68720"
+        }
+    },
+    "0x12a178810c0df5ea0b55b15674b0d6bbff413d4900e2b42dda0cab2685e704bf": {
+        "ALPHA": {
+            "tokens": "943.22425"
+        }
+    },
+    "0x94aada9f34c61bed322e71370ce9dff6c0a33e8bf6924d8ece08d5e110945448": {
+        "ALPHA": {
+            "tokens": "122.21708"
+        }
+    },
+    "0x92bcb220e5b75aac3cc07956606abaafdf5dc9193911e6b6573526bcbfa1437b": {
+        "ALPHA": {
+            "tokens": "1272.28087"
+        }
+    },
+    "0x912335f6fe699309f47ce966d4226643a50152597770e3580a79448663c98582": {
+        "ALPHA": {
+            "tokens": "14.82399"
+        }
+    },
+    "0xeafd3b04ac29d591de4db1c4704a6df22ea953d43a0747d4908cde667d2e8574": {
+        "ALPHA": {
+            "tokens": "6.21317"
+        }
+    },
+    "0xac8bcb2b959b12f4de7bab6b35b06d31185fd41b1718258fd72e1f8a2c5c84c4": {
+        "ALPHA": {
+            "tokens": "38.04681"
+        }
+    },
+    "0xb37dad89fcc9dec32149fc69fc5db7ed15238e6ef87181f885f9bbaf6fb4eed3": {
+        "ALPHA": {
+            "tokens": "529.01419"
+        }
+    },
+    "0xd915e13ffe79255f735e213f1b3b8d494bc5d15e6db696d2263cb321c284b2c6": {
+        "ALPHA": {
+            "tokens": "137.90662"
+        }
+    },
+    "0x2efff7c1b01cdb2cf59bac8e83d46ba539b63e3b17f291ede4fb2d126c594900": {
+        "ALPHA": {
+            "tokens": "531.00000"
+        }
+    },
+    "0x6c9830f63d28b96ed70d7aa537981799b03d8fac83352a227838afb5ab64af6f": {
+        "ALPHA": {
+            "tokens": "7052.30242"
+        }
+    },
+    "0x7bfada9c38cbb0df76451ad5a0a0e12aeda68dcc336f00f0ba254d37e19f42f2": {
+        "ALPHA": {
+            "tokens": "16796.09814"
+        }
+    },
+    "0x8bdbadd363687c6565a03ab74d6e9560db136316978280b61475fc0aa1a3520a": {
+        "ALPHA": {
+            "tokens": "0.50000"
+        }
+    },
+    "0xb0d07afa7a867560cd1c10038d8a619a6f84c88dc758db9eaef9193f1bbed80f": {
+        "ALPHA": {
+            "tokens": "127.74224"
+        }
+    },
+    "0x6f9fcb41d15049ac41c6bd1a50c8269eecd8d58d13dbe1ba40c8d99fe79dc6c3": {
+        "ALPHA": {
+            "tokens": "32.92131"
+        }
+    },
+    "0x3ced67e47198d2fe8de8ae8e38741700b26dba5b601a3e5be508e0d86e91c5d0": {
+        "ALPHA": {
+            "tokens": "3374.98460"
+        }
+    },
+    "0xafa5aa6a424416580314c242a83fd9659238ecd3b46e864eb378fce4b4dd6c71": {
+        "ALPHA": {
+            "tokens": "1640.86942"
+        }
+    },
+    "0x954c10aa6c95f93f468d858fb0f2b84b5f49a63474f39b7c594dd24ab9dd9503": {
+        "ALPHA": {
+            "tokens": "2.58500"
+        }
+    },
+    "0x0c5e15cd620191712effe1a41f45d7392f738e0a724a8882cffa338b33c3920c": {
+        "ALPHA": {
+            "tokens": "224.10000"
+        }
+    },
+    "0xb110b14788cbd775dd7e1599eb0e1fb401b4fb39fc552705696e59959f70adfe": {
+        "ALPHA": {
+            "tokens": "2.71284"
+        }
+    },
+    "0x9c472ff095db90073b50bd698d3b3ffc10465ad591f819d68076577b6f7e6913": {
+        "ALPHA": {
+            "tokens": "5028.50844"
+        }
+    },
+    "0x7317ab1caddedf188dea1211bb8c2605616e77b8f7f67d7d489f19fdf24bcefe": {
+        "ALPHA": {
+            "tokens": "0.10000"
+        }
+    },
+    "0xd9bb3a4bddd5f824615463f2abf9754aab25576ee622303938b122bb73a68cba": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    },
+    "0x5e922117ad870e55ffe55b4a7057479a806ca0865aee0925b52265d2bdf4cea3": {
+        "ALPHA": {
+            "tokens": "26.34380"
+        }
+    },
+    "0xee6688a836c23c33a8b57de1c07b6b8b6eaf1351b24bb4e3b16d5f6930f7f897": {
+        "ALPHA": {
+            "tokens": "0.38547"
+        }
+    },
+    "0xce116dd5a9fc489931e767ff60d04db3a4c7bfbf0bf6b7198a4a2d8f961599b1": {
+        "ALPHA": {
+            "tokens": "63.44589"
+        }
+    },
+    "0x6b0ecbf8c4454422554ef775931669194c8a2cf37abfac519ff111c18bff1517": {
+        "ALPHA": {
+            "tokens": "94.65709"
+        }
+    },
+    "0xb37e2277458ab1b285d1048706de335355d46888918bc88aec7ee617fda46497": {
+        "ALPHA": {
+            "tokens": "94.39807"
+        }
+    },
+    "0xd202ef43747c57fc8496e3f2f56e256afcaedd630fc54536e2cdf36cabc05a06": {
+        "ALPHA": {
+            "tokens": "644.25360"
+        }
+    },
+    "0x2720318fd72d4c1d4ab97017fe39f4fb9f3e710eb08c0979f943341ffa265ce2": {
+        "ALPHA": {
+            "tokens": "332.90507"
+        }
+    },
+    "0x8983f49747f2c700a15dd22508a0af973b4f961c5c90fe7750188d8099e3fa1a": {
+        "ALPHA": {
+            "tokens": "0.23000"
+        }
+    },
+    "0xe5cdd24becfa51014767b860e8588719f794d1b977e78a6ff73debef482ab0ce": {
+        "ALPHA": {
+            "tokens": "175.74799"
+        }
+    },
+    "0x0c60cc061fd2393265d138b56cb12e34e1282ba6c3f2d629d9abca0f21ab2054": {
+        "ALPHA": {
+            "tokens": "135.00000"
+        }
+    },
+    "0x667bc11b740bc3ffff49423adfbe0720878b76658fb2d3699c1bdfe5ecfb03b8": {
+        "ALPHA": {
+            "tokens": "3.86984"
+        }
+    },
+    "0x9736e29e5ffe46c559ba987ebeb401c087cdfb8cb7a8e960fb8122e678f38a25": {
+        "ALPHA": {
+            "tokens": "23.17525"
+        }
+    },
+    "0x85d0d2ac485a6ac0419325259bd37af73fa1eccb4299b393c212c2a3e7eb74e3": {
+        "ALPHA": {
+            "tokens": "39.06782"
+        }
+    },
+    "0x8443c54145cd0ecaec452e2acc08dee0da4af71ac964398789ed24e5500907b6": {
+        "ALPHA": {
+            "tokens": "331.17754"
+        }
+    },
+    "0xce52c7aab8daeea0820d7f505a831e02919abc554800396d2b23480383957c24": {
+        "ALPHA": {
+            "tokens": "100.59296"
+        }
+    },
+    "0x4e436b25d91182de4050ce6879360f4e5e1c238070d1526378c3bf6eb4f045a9": {
+        "ALPHA": {
+            "tokens": "6.11891"
+        }
+    },
+    "0x192d73794777fbea915187bedae020ca6dbbafaef2feb96b9f2877b7f44d543d": {
+        "ALPHA": {
+            "tokens": "4269.39810"
+        }
+    },
+    "0x5579218a6cdc9817781479c79479c74b354ffb9fe27d6f497facd105fb2a556f": {
+        "ALPHA": {
+            "tokens": "98.56466"
+        }
+    },
+    "0xc56cf1f0d488a52a25e19b63268c94375ce998f0b8cdee08236c89781986ba54": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    },
+    "0x6e5294870ebb33be79cbf22a0b0faaefedf9e6e85d75fa34f9cfed748b6adcf8": {
+        "ALPHA": {
+            "tokens": "519.30738"
+        }
+    },
+    "0xa5661ae5170d0d97a647db5f78c2442832a13be930ff9ee31f48b5b15ddc9000": {
+        "ALPHA": {
+            "tokens": "231.23996"
+        }
+    },
+    "0x1a884cb79dd1e40365be67b48932dc2e7262c878c7b534cb86a7fcd995cdee31": {
+        "ALPHA": {
+            "tokens": "34.12675"
+        }
+    },
+    "0x07187ba162c6e73545d940305edc9992246a369596a5142b5f526284d8350c03": {
+        "ALPHA": {
+            "tokens": "231.61157"
+        }
+    },
+    "0x38b4dde2e754b61397ff454857ecae7280d89b963c8b37be9f8b8540219ef1ac": {
+        "ALPHA": {
+            "tokens": "52.23159"
+        }
+    },
+    "0x2485cff4a4fbeee97303b4b28898f8bedcff559c57baa94fa074b03cd517ef55": {
+        "ALPHA": {
+            "tokens": "2806.36653"
+        }
+    },
+    "0x56f96e28e286161c0ffc657dbd335439ed4fb37caf16a83731769685d5c3e439": {
+        "ALPHA": {
+            "tokens": "40.45181"
+        }
+    },
+    "0xc0de104b8fc9f5c20bc763e3b544aee3c9685f53d01c4458ca99c323e81ce060": {
+        "ALPHA": {
+            "tokens": "1834.48561"
+        }
+    },
+    "0x615798f0933dbdda6e92cad999f85b728c5a8ba534824dc8867dc9a449b92439": {
+        "ALPHA": {
+            "tokens": "50.00000"
+        }
+    },
+    "0x8764efc43a934e285b3abd6f31067de392c62a446a8d8cc0f63a134633b4dd19": {
+        "ALPHA": {
+            "tokens": "2.00549"
+        }
+    },
+    "0x8db1fc7314dfbfc5e22a5510f1842773bea7658d4648eb461307bada9d0e9949": {
+        "ALPHA": {
+            "tokens": "503.23867"
+        }
+    },
+    "0xedbaa67e58c2e489f01f0e744321f264531d7025beb35ec25eee8cb49fa45895": {
+        "ALPHA": {
+            "tokens": "121.46342"
+        }
+    },
+    "0xb1f6eaf9dbc99b5584e34c5660415043ab4cf26b859764910f1aa5a44d3e3b44": {
+        "ALPHA": {
+            "tokens": "7.76639"
+        }
+    },
+    "0x85964ba95405741ecf816bcd3a929d7ffb204a5b2ce7aa8bc602a5482796a6e4": {
+        "ALPHA": {
+            "tokens": "109.90414"
+        }
+    },
+    "0xe5fbd0449ccbd70f550103c6769a0d725cf3362d435cf97d24c0e05fac18bcb8": {
+        "ALPHA": {
+            "tokens": "1000.00000"
+        }
+    },
+    "0xeb8a2a84529002e7121a476fcf37aa9862f5473fbb73a004b600874188238252": {
+        "ALPHA": {
+            "tokens": "100.00000"
+        }
+    },
+    "0xbd1ed2c138d140ef15a94ed3821b182d62723569b25472be3c45c1a5a1df41b7": {
+        "ALPHA": {
+            "tokens": "45.69673"
+        }
+    },
+    "0xe49b8fec793c2d8ff33f9e7ba8acf2cf24aca8305becc9c997a8d84f5c995312": {
+        "ALPHA": {
+            "tokens": "400.26211"
+        }
+    },
+    "0x7903bfa3a43421579d3885a16c4e531bf448115e121a56e045f9474c06a4b255": {
+        "ALPHA": {
+            "tokens": "219.95647"
+        }
+    },
+    "0x034704a57bc12d95848fd49a17b5b1f2ed4a10da8be9e7d0c1f2bdddcf23b6e5": {
+        "ALPHA": {
+            "tokens": "5991.60582"
+        }
+    },
+    "0xf7ccdd1f1d3a0c473f2c106850cf66ab91b8b95d07139b1c32a2081ee898ef80": {
+        "ALPHA": {
+            "tokens": "6.75154"
+        }
+    },
+    "0x7f514035dd01f84e0d731876ddb5e722b4489f6209c1d3429a438de4092ab986": {
+        "ALPHA": {
+            "tokens": "124.70644"
+        }
+    },
+    "0x0412befcf8d7d9eb6613bd3c734fa056d2cc15e9f3ed0a7b03bb135fb7d0d7e1": {
+        "ALPHA": {
+            "tokens": "303.51456"
+        }
+    },
+    "0x0bd95fbae6b77ec6253ee152770e262a5dd8baa91013bae2f860833c248dae03": {
+        "ALPHA": {
+            "tokens": "154.99344"
+        }
+    },
+    "0x6d2c8573a996f012c7131048f2627abf21dbefb1947c1ee31d11a57431778f86": {
+        "ALPHA": {
+            "tokens": "20.13227"
+        }
+    },
+    "0xe85e418e8fa592f7aea6fc3d5f0b5cd972ca607333fd58e124b9af5c819ff0ea": {
+        "ALPHA": {
+            "tokens": "1838.55988"
+        }
+    },
+    "0x802413a949b77b8bee25a34263e43156ceeb3fdf46054d2c15ae1ee6237c9953": {
+        "ALPHA": {
+            "tokens": "1850.83220"
+        }
+    },
+    "0xb3e4b185fdeab546c1d6a9b7837d8e319bcde3c05b74be59b431796e2513c0c6": {
+        "ALPHA": {
+            "tokens": "16731.36140"
+        }
+    },
+    "0x46a0a5adc6a13c059bb00c2c1592a72e707591638e43231d99f35a0d73da87f8": {
+        "ALPHA": {
+            "tokens": "4.71848"
+        }
+    },
+    "0xfa2ac866cef6ba34f4d9c4e85f0ad6389d84a5421bdb3080345ee5bebd282b77": {
+        "ALPHA": {
+            "tokens": "310.26174"
+        }
+    },
+    "0x7a3231c480c44e5295e4e1b4644f3ab6a2db43384da9767bf3246fc342514c9e": {
+        "ALPHA": {
+            "tokens": "820.75727"
+        }
+    },
+    "0x3d350937ed006e611950abc89ed7c3596530356942a50f34624154aedc416d3e": {
+        "ALPHA": {
+            "tokens": "27.10711"
+        }
+    },
+    "0xa6e5663b4b6606fc7be9a6044e5fe03c1d76fe9efa96e2a89b9c9f73e87a74cd": {
+        "ALPHA": {
+            "tokens": "36.22640"
+        }
+    },
+    "0x396c8d5f9560f2ffa5d67dcdf3f458ee654ad3e3e08d4eb6ff50e7ddf66a82e5": {
+        "ALPHA": {
+            "tokens": "19150.00000"
+        }
+    },
+    "0xf0c623f0fd09fb25fb96b8633fb0db1c8571c65a38fbcdb1cc84714c1552bd3e": {
+        "ALPHA": {
+            "tokens": "3024.75690"
+        }
+    },
+    "0x73d10e5c274fe53d894d960577ef62a0d0a79f9e884e0c1b392eaad2feb5dd92": {
+        "ALPHA": {
+            "tokens": "1006.77355"
+        }
+    },
+    "0x0d9470860be945af13d514db6b8ab74e51182e860fe2ef4b039f2aca4059f54b": {
+        "ALPHA": {
+            "tokens": "26.00000"
+        }
+    },
+    "0x00c55cb0f2420eb28d23115dda0145a52341f06485533c8de779618551f93ff2": {
+        "ALPHA": {
+            "tokens": "7105.00000"
+        }
+    },
+    "0x564eb2f68ee72a0c79b66f2d4a18a2a5749238442b7a4dc5cb3df973cca0ba85": {
+        "ALPHA": {
+            "tokens": "23.76396"
+        }
+    },
+    "0x65421cc0e9f34c8d2b61442fcbe68ed8a86ca90705a55380498496fcc721c08a": {
+        "ALPHA": {
+            "tokens": "896.03539"
+        }
+    },
+    "0x9d206df623f341d61445f4959636dbf162b6c56e4e7584e74c82bf5ecec27121": {
+        "ALPHA": {
+            "tokens": "49.59680"
+        }
+    },
+    "0x6c4b4e8732603357deb5c583634581f1dd56036c780f9e4194e5184e5528b3b9": {
+        "ALPHA": {
+            "tokens": "207.52646"
+        }
+    },
+    "0xfd8ab6ffe4c501f707330ea26a74f4d429af0bdf6ff762d9ff21ad8cd428f2d3": {
+        "ALPHA": {
+            "tokens": "136.34506"
+        }
+    },
+    "0x51209fc2fe38bf22b52f3344334c89dd1c591499143d0b5a8fd5e05ab88d21a7": {
+        "ALPHA": {
+            "tokens": "2.52517"
+        }
+    },
+    "0xb6e552ff1b83ef5c06c469c1bddf5b23da6bc769f9b5abb4c8953dea97297b21": {
+        "ALPHA": {
+            "tokens": "31.35162"
+        }
+    },
+    "0xe9b78871980b9c2216b195f38f630b0e2893a402fe32c46eae36c8de4b38daae": {
+        "ALPHA": {
+            "tokens": "40.97115"
+        }
+    },
+    "0x7f8aad4c8e2ef285cfe5bb9badbc1ad2ad7ebb2f1a92d0f675e24170c730974b": {
+        "ALPHA": {
+            "tokens": "234.04113"
+        }
+    },
+    "0x30429c84e894ce4fbc2d0c0bb314897b31ea4c31508d3daa840a20a2caea1514": {
+        "ALPHA": {
+            "tokens": "3348.10189"
+        }
+    },
+    "0xb49c6556d3e3204eef83b13a71e6f106bf90b7f5c9010f330b366b3e8617faae": {
+        "ALPHA": {
+            "tokens": "7.42856"
+        }
+    },
+    "0x3091302b51bc206a79e010aca4b2f22879d0c7be463a82a88c7763056483572c": {
+        "ALPHA": {
+            "tokens": "1.67282"
+        }
+    },
+    "0xc3951237d2f5311d4103ea989c8c47eb82c6d9df82b5c7ce4d46702fb5323196": {
+        "ALPHA": {
+            "tokens": "4785.24136"
+        }
+    },
+    "0xe107020adc1822c2045d5e42aff33342d9c5d4e38f2e1064e950a7918cd06222": {
+        "ALPHA": {
+            "tokens": "2500.00000"
+        }
+    },
+    "0x8bba55f44e8f7ee30d9e1c31470cb1f1aee8a7023ff15646a8703187a0bbfd3d": {
+        "ALPHA": {
+            "tokens": "88.82625"
+        }
+    },
+    "0x0737101ddd3fc012f683e9bde0f7e5dd2e693e67615e5e400735a92646580ae3": {
+        "ALPHA": {
+            "tokens": "51.99356"
+        }
+    },
+    "0x5c5641fa2d9b120845b26f4561c83c5584fe2f951cef7c063c894a698da2834e": {
+        "ALPHA": {
+            "tokens": "252.82050"
+        }
+    },
+    "0xd52e2decf0954afd0e6b04a599fd33fc35b61d510f79eae882a9c67a6e9a2c89": {
+        "ALPHA": {
+            "tokens": "150.03675"
+        }
+    },
+    "0xab175797833c82d285e0a2c4040889c23ae0d1a866c8d083f2da6ebe87d00332": {
+        "ALPHA": {
+            "tokens": "2515.39038"
+        }
+    },
+    "0x5d5d90729c64fbf03c6ff41375f03d2b8f29c6ce1368e282260df70e7eaa6f52": {
+        "ALPHA": {
+            "tokens": "715.60485"
+        }
+    },
+    "0x95a766c2fdf9194463aa2f68842d435edcd3f153259d178fb473c3b497db3643": {
+        "ALPHA": {
+            "tokens": "494.62207"
+        }
+    },
+    "0x7afd816a2bc947305f97460da5dd0e2b0906645542bddd18acc2f68751b666a8": {
+        "ALPHA": {
+            "tokens": "438.14005"
+        }
+    },
+    "0x9852797336e9f1a08f9ef2dfd7abbfc5fb55efae707586a15a77d3e2f1e647fd": {
+        "ALPHA": {
+            "tokens": "2.22790"
+        }
+    },
+    "0x71c4c415decfe3f2042d3160c4bcbae935a317778036ad6be4353d21160217d1": {
+        "ALPHA": {
+            "tokens": "2000.00000"
+        }
+    },
+    "0x03110d327e8bf426df7156285faf6eb08fbd01edeffd7b0dbdb89e2f67dedb43": {
+        "ALPHA": {
+            "tokens": "160.48218"
+        }
+    },
+    "0xf7206251d9619af07672d89b01cb3b3a4113c8c2a7c103cb3bef1d3cf3510c3b": {
+        "ALPHA": {
+            "tokens": "193.81291"
+        }
+    },
+    "0xb75a287332483b24da312462f9fd1ae3ae672e025fbf45cddc54eba7e67eb83b": {
+        "ALPHA": {
+            "tokens": "39.59624"
+        }
+    },
+    "0xc6baa980368d7e506b1f542f721bc84aa9e0b0c4f60458a7f0b96a9c5cd95e25": {
+        "ALPHA": {
+            "tokens": "52.82793"
+        }
+    },
+    "0x9d95e91e6e81723a37bfb8214e9dedd69404e1e82db9ada8b93e434bc15cad44": {
+        "ALPHA": {
+            "tokens": "109.60199"
+        }
+    },
+    "0x70b11ef966fc14d2afad62d43c5dcfa0fd86db7781b9f684f6c0159a7d978f64": {
+        "ALPHA": {
+            "tokens": "256.83851"
+        }
+    },
+    "0x37cf1d254cb9ae6992052c7e9e5e38e2dc2fa6b66856c3adf6d99ff7c2d12f28": {
+        "ALPHA": {
+            "tokens": "5.16443"
+        }
+    },
+    "0x02fa63f8856aa92bfd2103c4802c2cdab125a98c9889a06fe4af1db57c48e19a": {
+        "ALPHA": {
+            "tokens": "1411.85822"
+        }
+    },
+    "0x6c689edb15c5b05b321da66123150de75b2d3fb95d88b320d8682625cc336473": {
+        "ALPHA": {
+            "tokens": "54.39254"
+        }
+    },
+    "0x755cdb72459bdb50cae7352a94b16a4b3d381da713d04879c5208230f03c23ef": {
+        "ALPHA": {
+            "tokens": "422.07882"
+        }
+    },
+    "0xae3bbb896fd9e7bee505fa34da4087c3a5af56ddebf53c2f171b9f7a40f21b1e": {
+        "ALPHA": {
+            "tokens": "63.11297"
+        }
+    },
+    "0xb05914ec4fbaf68ab1be142dd7e2396c44c1fc44f52df51888551c0087aa992b": {
+        "ALPHA": {
+            "tokens": "50.50010"
+        }
+    },
+    "0xb2efb85fc7c842fdda793b69bee7f38fabd8975addf207a6a88bbc60d0408a5a": {
+        "ALPHA": {
+            "tokens": "92.61114"
+        }
+    },
+    "0x9626b485b4423f0be42d70cb79da89948666bda764260dc92e6b5d53d2835b59": {
+        "ALPHA": {
+            "tokens": "1.01024"
+        }
+    },
+    "0x80bd6b5719d36703f7cebac3c0b32841d5e91431fd5740494e9acb9cf7f42da9": {
+        "ALPHA": {
+            "tokens": "252.94540"
+        }
+    },
+    "0x56669f1c5b6452e9d9b76915c1e3fcae77c07fd81842c669a288abd3a069fcae": {
+        "ALPHA": {
+            "tokens": "21.09908"
+        }
+    },
+    "0x3d5263836680bcec34c8dea6a863147f0e8c1bc60761fbdc0b9ad887f223da73": {
+        "ALPHA": {
+            "tokens": "36.74618"
+        }
+    },
+    "0x5c45d3a4173241b6128b4a602dadb1202354e869f22ab1fa5bcde70e12408fbd": {
+        "ALPHA": {
+            "tokens": "1003.33171"
+        }
+    },
+    "0x95fa412691f598bc379f15c3e7e49d23a41ec610f2b0cddd07f8de46f68e3ed7": {
+        "ALPHA": {
+            "tokens": "189.96224"
+        }
+    },
+    "0x16c96d828c3ca2497b53f43723c08ce6cfcca33301fc5519f01311c02a67cb2c": {
+        "ALPHA": {
+            "tokens": "430.39948"
+        }
+    },
+    "0x72c6073a9f9171054b17aa6e0fc80145d6362f32981426e9de1351c2ae0f2360": {
+        "ALPHA": {
+            "tokens": "24.33683"
+        }
+    },
+    "0x75912a6b49e907c1f77d6e60bb5b258a60a05bb8780f97b03d344597b721afb7": {
+        "ALPHA": {
+            "tokens": "278.45218"
+        }
+    },
+    "0x2680e392b47948b5e2c81ee8191cb780e005ce56882a17978990ef8b4517f0ac": {
+        "ALPHA": {
+            "tokens": "213.66397"
+        }
+    },
+    "0x6e9995daffa30666dc1e02f41a9f18e770e842798c8d37df429ac57f06d08e8a": {
+        "ALPHA": {
+            "tokens": "21.72780"
+        }
+    },
+    "0xd74515e750a210bd671639154cb3130d1aa49f6558afbe17092f4f0ca4a18d9e": {
+        "ALPHA": {
+            "tokens": "742.53549"
+        }
+    },
+    "0xfb1bb74cfa20a99fb8a9d0822c68b28623c407b6cb497734d7ef4f3da52b624e": {
+        "ALPHA": {
+            "tokens": "110.35597"
+        }
+    },
+    "0x023c091750a32f95fc880e0769da864b80498db61374f8df83e0cfdf223e9c69": {
+        "ALPHA": {
+            "tokens": "6342.70543"
+        }
+    },
+    "0x76317fc2b3d71a659e37b0575807499e68fb2beaa2aba913d4af228aaac3af54": {
+        "ALPHA": {
+            "tokens": "224.92704"
+        }
+    },
+    "0x0ff8aba88a343f27daf1c7e081532678f4084e2078e6fb6112456bc2ebfd3614": {
+        "ALPHA": {
+            "tokens": "89.57782"
+        }
+    },
+    "0x2aa33715e001b40c73e9d0fe51ce5f2b3c1fddaf0f214ebd57cde8703ffa633d": {
+        "ALPHA": {
+            "tokens": "41.41785"
+        }
+    },
+    "0xe9866b0d3001564394601e217d4bfd1af1dbb911d4a53bb9eafab8e79cd269fe": {
+        "ALPHA": {
+            "tokens": "803.88914"
+        }
+    },
+    "0x07962e5fdf18b8ebd06ed7da8db2e2fa34d8c4f081ce4f4ea1e3f18a4f43d77e": {
+        "ALPHA": {
+            "tokens": "2.50000"
+        }
+    },
+    "0x2be6b34c34b9bf6f07f8a8e48bc069f275b865f1e601f9974604f48cbddd66d0": {
+        "ALPHA": {
+            "tokens": "34.32619"
+        }
+    },
+    "0x39b66dc31c9694a737d208180fa8d029c8fad6f43430a432415923a4f892482a": {
+        "ALPHA": {
+            "tokens": "47.40275"
+        }
+    },
+    "0x7c4fb00414c610ad0799a6b8dea7fb62c727c5e8452c5d9c713b3b59cae35b4e": {
+        "ALPHA": {
+            "tokens": "63.66103"
+        }
+    },
+    "0xbad9037b30fa45153a9b6689dd47f9df1cc7576759dd0de2cd15da9deb74de6b": {
+        "ALPHA": {
+            "tokens": "21100.00000"
+        }
+    },
+    "0xe2101e5f77950c164b479fcad33e3f3b870ba31f85b2c146ff26e912d7bf1157": {
+        "ALPHA": {
+            "tokens": "113.66335"
+        }
+    },
+    "0xd819125d39ac0db9df4b015bd7f2be81de4021874254c08b2514b3f4ce6a0f3f": {
+        "ALPHA": {
+            "tokens": "4608.63719"
+        }
+    },
+    "0x22e621504304420be9421dfd9261c25e435a056c381654084e4a6a265d756b9d": {
+        "ALPHA": {
+            "tokens": "145.37042"
+        }
+    },
+    "0x4b865358307634cf9c6d8396d61f43552defa9b41f7bfd3edc1909212eec2593": {
+        "ALPHA": {
+            "tokens": "3772.43364"
+        }
+    },
+    "0x7e9ee7d82de08b0c2d5d6580c6933fc8895a25b7b131ab2a317ffde55ee9d57a": {
+        "ALPHA": {
+            "tokens": "1098.10578"
+        }
+    },
+    "0x79d6d1803ce56fe2f269c000ce99936ce56b4acee6ed5b153a62b959b8ba036f": {
+        "ALPHA": {
+            "tokens": "383.86620"
+        }
+    },
+    "0xede43e8dcd45f80518e642f49b1061117417c8b8b2b9865df46a5196cec37411": {
+        "ALPHA": {
+            "tokens": "69.32588"
+        }
+    },
+    "0xdee624de5aa555ab11e67e7efd0c8a09d09bbc3834dc46a2cd2db1ced4148f0f": {
+        "ALPHA": {
+            "tokens": "1.72546"
+        }
+    },
+    "0x2531aa6cdab50812493fb8197f11a9f0d8ac6503ffbe033e68316320a06cc31b": {
+        "ALPHA": {
+            "tokens": "6.91843"
+        }
+    },
+    "0x6d575ebf0305dbcac6b4c6936dde860722976844cbe7e5674b06a3eaf899376c": {
+        "ALPHA": {
+            "tokens": "136.29906"
+        }
+    },
+    "0xf461d0d0cee51db438735161c4780fa31313100100dbc9913f2cb117e64eb424": {
+        "ALPHA": {
+            "tokens": "39.54134"
+        }
+    },
+    "0x295ae7323dc9f99ead1242d749977a3c2c6055039297c1b84befe03dd82e80b8": {
+        "ALPHA": {
+            "tokens": "12790.56347"
+        }
+    },
+    "0x3bd07231a754ed95e7293310c1b12dd0c9ea7415e0a4f53f26e7e4cbbb69d10e": {
+        "ALPHA": {
+            "tokens": "12.78249"
+        }
+    },
+    "0x372d80d2e73a503dbbefa65daa618752e30ec77687bb7eb273229fd19dd84acb": {
+        "ALPHA": {
+            "tokens": "6963.70349"
+        }
+    },
+    "0xf69a922af3a65b9247bbe6df9c427a207a0e8dfe40b561f4634a85104595120b": {
+        "ALPHA": {
+            "tokens": "283.25886"
+        }
+    },
+    "0xbdf3d3461ba4205d1bbefb573e86bf439330ffb87dd450532784efdc7006ab9e": {
+        "ALPHA": {
+            "tokens": "8.00605"
+        }
+    },
+    "0xa7917aa2c029b886d28a5fb78b80c61dca8278c547b5155b6379242d6ff9c185": {
+        "ALPHA": {
+            "tokens": "192.17215"
+        }
+    },
+    "0x4792b9ee54b5c3c5dcbb8272dab118031f0d0990d05ceea6bec9686f91ff4eab": {
+        "ALPHA": {
+            "tokens": "336.49755"
+        }
+    },
+    "0x1c37daea4626df6d6b02f5f09d163ef7c89c25ad86e782142ad7ef955ae0ef04": {
+        "ALPHA": {
+            "tokens": "77.75928"
+        }
+    },
+    "0xddb1a61b2d7ea1ce2fa94696154701c28c2b6d52d4860ea36f749b1d60df0621": {
+        "ALPHA": {
+            "tokens": "88.48461"
+        }
+    },
+    "0x1f775485ad9acf4497b63c45b7aef37ace3f358abae29089f19be4235547cdbf": {
+        "ALPHA": {
+            "tokens": "62.60651"
+        }
+    },
+    "0xfc8997e1a8abc0f33cf2b206d42bec9a3134ff998eb6f536bc09c9eea53cc407": {
+        "ALPHA": {
+            "tokens": "43.92265"
+        }
+    },
+    "0xe9e4409dd2d04324022027d6e0568ff6ccc81e61bb2bb1bfa0f02ac72a0c21ce": {
+        "ALPHA": {
+            "tokens": "15.56100"
+        }
+    },
+    "0xd67336274170202b44065b34bfb1a28f431761172614462afb7ec1149ffa9857": {
+        "ALPHA": {
+            "tokens": "235.80252"
+        }
+    },
+    "0xdf7049fad21f052cfa5b644fc5645642f3345951c4ce0d255171316e01d02803": {
+        "ALPHA": {
+            "tokens": "2365.96111"
+        }
+    },
+    "0x8e8fec5c09d8b1a0d00de8db207108081ade3824ff445ed19ede4fa7a2245c55": {
+        "ALPHA": {
+            "tokens": "255.68034"
+        }
+    },
+    "0x233d0203ccbc3250759bd87d12b98bb48e28a79ad6254a624f9d6662aa376a7b": {
+        "ALPHA": {
+            "tokens": "355.22435"
+        }
+    },
+    "0x8adcea28f870c3f4d834a3de549ded26b87edded265296a46da92915607a671b": {
+        "ALPHA": {
+            "tokens": "47.13588"
+        }
+    },
+    "0xf40ce4bc6391ed78fda513eacb623d81a8f67ce1366e594dd3741a0c0b7c5288": {
+        "ALPHA": {
+            "tokens": "60.99647"
+        }
+    },
+    "0xa44d4a7d6173db11c5311902bda01cc464cd4892eeffe611ec908869717c84cd": {
+        "ALPHA": {
+            "tokens": "56.86182"
+        }
+    },
+    "0xa1ab32f6c638c2810a3f34a7cbac2161314de03ba458b22ea55e221ecb577eb1": {
+        "ALPHA": {
+            "tokens": "265.43776"
+        }
+    },
+    "0x1aa02c0a71e26618ccedb9418acc5a2c1971396bd8155570c5b902df770d83c7": {
+        "ALPHA": {
+            "tokens": "331.74940"
+        }
+    },
+    "0x9ff3cdec46db842203c69c3c68c1e2e15de58e99992f1357b6860b8049c6bbd0": {
+        "ALPHA": {
+            "tokens": "60.81707"
+        }
+    },
+    "0x8bb80858754e95f276ecab7ecf86c9325bad7fcf7882312539360187cc1b12bc": {
+        "ALPHA": {
+            "tokens": "28.99801"
+        }
+    },
+    "0x1c2fc1cb8cfb83b6826f89907ca57ed93f4685ba9f3a01afa78b21253dc7c7d8": {
+        "ALPHA": {
+            "tokens": "190.22572"
+        }
+    },
+    "0x1f318a5f414f0eff013a63fca6adfd29230c4c7bc4488f541dcc674481dc2f48": {
+        "ALPHA": {
+            "tokens": "2.37930"
+        }
+    },
+    "0xc8e7204f412057e84ed2544a7f26c5b602fa3bca7f60638940466d86e50fc154": {
+        "ALPHA": {
+            "tokens": "31.89077"
+        }
+    },
+    "0x73c5fe4ae92512cf54c44e9ec0511684d862e2737f65c416025a548b13564e36": {
+        "ALPHA": {
+            "tokens": "0.23833"
+        }
+    },
+    "0x637c433ea5103ebf22c11fc490ca842e9e1e0ba58867b0cbab166e7a179c429c": {
+        "ALPHA": {
+            "tokens": "4186.01524"
+        }
+    },
+    "0xd2e307289e2a52024a27796b9579738ceae44e7d11a0f23d108074edf1dca624": {
+        "ALPHA": {
+            "tokens": "0.71100"
+        }
+    },
+    "0xbc5fdfe0e73a2c18e350b255ac673c34724934558d77a623eb1548fbfa00edb2": {
+        "ALPHA": {
+            "tokens": "4935.58560"
+        }
+    },
+    "0xefe6bd43f5932bba757a4f69f97ddd70e6ef3a8daa633a0747330b364ac7e1fd": {
+        "ALPHA": {
+            "tokens": "376.45823"
+        }
+    },
+    "0xb977ea25dc746e8ebff7df3b133224cba666f54a3347c3a361a741775c6c82aa": {
+        "ALPHA": {
+            "tokens": "18277.75918"
+        }
+    },
+    "0xdbe932bc5a8c01775051debb500cfe0062ee0d95fbe9efdd063d0ba4da3632a3": {
+        "ALPHA": {
+            "tokens": "7.31708"
+        }
+    },
+    "0x5a15d2b5a153dc249cfcb7a64bf3de5f2ddc03a3cff37a2aa37895f36e3adb7f": {
+        "ALPHA": {
+            "tokens": "36.00000"
+        }
+    },
+    "0xdcddd6532ab702ed77d4460619c413660e795abd57a615cf5d7ad9d53fc76e18": {
+        "ALPHA": {
+            "tokens": "477.60994"
+        }
+    },
+    "0x78b494b01838765745647c47e4eb689b5ba059b9769e11eff81d53416ef6df05": {
+        "ALPHA": {
+            "tokens": "4.88408"
+        }
+    },
+    "0x0941340e36100edb75f8c1cd99fcaf7ce07785f19d4827352915ba3e3f8ddbc6": {
+        "ALPHA": {
+            "tokens": "49.14028"
+        }
+    },
+    "0x7e37ce8e0d3b760ab4fe9458fe8cbaef46e901565e489a7b127854e31e608ab0": {
+        "ALPHA": {
+            "tokens": "291.20217"
+        }
+    },
+    "0x7954c529efd32b58fe4546522a363df9d60462b188fdce7aaa7acb865111ab55": {
+        "ALPHA": {
+            "tokens": "395.59724"
+        }
+    },
+    "0xd28a68955a8dae52ccf723f64973d61e0d25bf24309d050895d4adb42507349f": {
+        "ALPHA": {
+            "tokens": "151.02121"
+        }
+    },
+    "0xc844cface24eaf36ca467bbf1779f32f5f48bf71c6fe9138c58e05bd6f1556fc": {
+        "ALPHA": {
+            "tokens": "1.48300"
+        }
+    },
+    "0x010591923a35e36c4c71843e2f481a414d97ee6a547c12f978d4af2a4b1d3f2a": {
+        "ALPHA": {
+            "tokens": "695.47333"
+        }
+    },
+    "0xbe39ca81479169eba7a41ec38b86fdfc6755fe41e9417dc914201ab691910dc6": {
+        "ALPHA": {
+            "tokens": "12734.62289"
+        }
+    },
+    "0x5560f3edb5ed527c6a2c3db6c9042dd4bd9e2a41e1ae38e297306800bcf7365c": {
+        "ALPHA": {
+            "tokens": "451.01000"
+        }
+    },
+    "0xde5c753b1a6cdee197a9d6199a99355432400c309e9c912653b413d61b0449e0": {
+        "ALPHA": {
+            "tokens": "16076.99976"
+        }
+    },
+    "0x8602c47ad7ec37965ff0b0d067c0e9fbcf3317a17a94a1937c519c656505777c": {
+        "ALPHA": {
+            "tokens": "8592.05527"
+        }
+    },
+    "0x58e8a1d5aecb1ccb9bfd90eb560c3d2aed7a9a5d6c2d1dd6046169a7e4b7c421": {
+        "ALPHA": {
+            "tokens": "1829.92233"
+        }
+    },
+    "0x91de941ac8df7cf0d8a2fae478baf903ea68d4ee2a5d76569218134bd1d0a8bd": {
+        "ALPHA": {
+            "tokens": "77.63393"
+        }
+    },
+    "0x2279521f3f9501883c7b6bd8ba5d695d5df6dbf8af29dcfd36972f7467c5f9ff": {
+        "ALPHA": {
+            "tokens": "1111.00000"
+        }
+    },
+    "0x499e82c1e8df0c94b841b46e8444acdbcfd6e3e1b72766b478ffa60a44f170fe": {
+        "ALPHA": {
+            "tokens": "12.01200"
+        }
+    },
+    "0x46f0d69c0092e54ffb624b25f0d96d107048ee6fb10edb2d6fa46c40cb3f54df": {
+        "ALPHA": {
+            "tokens": "73.08913"
+        }
+    },
+    "0xd511ad5135b33815fe61a54cb31cbde9d27dac777907e1bb67bc1bfbd9f475d1": {
+        "ALPHA": {
+            "tokens": "240.01230"
+        }
+    },
+    "0xf42c56780ba7be74d10aa17f9bec390404f0b96a312941e66f456a1e661b6c44": {
+        "ALPHA": {
+            "tokens": "57.67744"
+        }
+    },
+    "0x912a7d837e2060b8fb4afad95a88eb5efff4be4605deb51eee7376b823c0587c": {
+        "ALPHA": {
+            "tokens": "922.94018"
+        }
+    },
+    "0xc2d7166cb88c60c8303996a71505f18157df4676dbeeea5e821ce8dd18600914": {
+        "ALPHA": {
+            "tokens": "37.89717"
+        }
+    },
+    "0xc15ed03c0f11f23806bcd0641c01ba4b1382e02bc5859143ded48b6645c78527": {
+        "ALPHA": {
+            "tokens": "100.00000"
+        }
+    },
+    "0xbfd3674c5a2838ed3ff8b6ece7071dd08fb95aa0a8362b27c6f8f2be1fdad636": {
+        "ALPHA": {
+            "tokens": "46.25257"
+        }
+    },
+    "0x5b355c1643c5fc1df74d2874ed46d33c1e52aaab54491c2f53b8ae4977c4e3c4": {
+        "ALPHA": {
+            "tokens": "500.00000"
+        }
+    },
+    "0xfde2a46f1a94374c0178b35000024d394b659c61019676175a038e0219074f19": {
+        "ALPHA": {
+            "tokens": "0.46257"
+        }
+    },
+    "0xa07d83700d71299d402cca003fb536967fe2ddccea803f7e69a4b62901bd2668": {
+        "ALPHA": {
+            "tokens": "120.60486"
+        }
+    },
+    "0xffda0cbc8ca65c3a05ba4e0784d36b877269ed4e6a6c5e7514525e5971119e2e": {
+        "ALPHA": {
+            "tokens": "232.07269"
+        }
+    },
+    "0x16597806773a4ea2394f7860a7059b5df0e04094fedc273b98c3475462538e81": {
+        "ALPHA": {
+            "tokens": "59.73196"
+        }
+    },
+    "0xf2a2289315acb5e00ec14e1ed563931bda57e0fe85b182458167d2045c2732c3": {
+        "ALPHA": {
+            "tokens": "4.61646"
+        }
+    },
+    "0xa994c76336530fbe7574d9908ecb5cd0b9bf47cc76a9ae620fe487a0a233223c": {
+        "ALPHA": {
+            "tokens": "22996.86529"
+        }
+    },
+    "0x1995f015e3a7b827214434ed635b24177a2e11f02b2ce88fb6b5e097ae263961": {
+        "ALPHA": {
+            "tokens": "995.67905"
+        }
+    },
+    "0xea310141e351a7261dc0f42f49cd4a0777186db09c2f0b3c6f4149d340caa3aa": {
+        "ALPHA": {
+            "tokens": "83.53005"
+        }
+    },
+    "0xcb1f92e7b86ffbca13b50cea859b3a89932fd68bddcafae9f2bae014548be76c": {
+        "ALPHA": {
+            "tokens": "1717.20153"
+        }
+    },
+    "0x6dcc33a7fe72349fe1ff470b282a0980d3551f171abbb7f0650212e6e1fde1d6": {
+        "ALPHA": {
+            "tokens": "33302.07631"
+        }
+    },
+    "0x92134fd15c20a8aa49696d131b6341b5d849b91bb2de920f3a5e303cd0de0576": {
+        "ALPHA": {
+            "tokens": "200.00000"
+        }
+    },
+    "0x38657b507cbf4c75cb13fd5cb8e4bf85a2f7609c615b57d769a5147bb638dbc8": {
+        "ALPHA": {
+            "tokens": "2000.00000"
+        }
+    },
+    "0x89764f566df822445d97458bb8e7b3e6b734b12ac781c29202b700e63a6ee094": {
+        "ALPHA": {
+            "tokens": "400.04693"
+        }
+    },
+    "0xfd146135f2466235cbe9f7dc5e15e2765b81f6373476971ba10ce96df503f41d": {
+        "ALPHA": {
+            "tokens": "11971.71200"
+        }
+    },
+    "0xf130fe6bc100433a37db94c5f908d2772380337016ad6a697bfa4c21ecfce5ec": {
+        "ALPHA": {
+            "tokens": "216.09072"
+        }
+    },
+    "0xa9f91018a04ce5a143e35d0e1d0ad527a462bdcc9c134588eade669539a23fd8": {
+        "ALPHA": {
+            "tokens": "13368.46793"
+        }
+    },
+    "0xf9b7bc1289fa439144a555e67037b1370f67bb027fe9bd6b007a55d7ca851861": {
+        "ALPHA": {
+            "tokens": "32.41419"
+        }
+    },
+    "0x8b9f269c3fc9bd2f68017d162756e33d2a513ab2b4bfc6dd6ea488ddc3438c4c": {
+        "ALPHA": {
+            "tokens": "443.32262"
+        }
+    },
+    "0xad3b8fe379139a5f7b64126c3d7de42760a3a78342d123fc936fd8e92e897357": {
+        "ALPHA": {
+            "tokens": "241.99611"
+        }
+    },
+    "0x74c920a01fd502e8320de756001c4d51571fc9db6f2eba8dd33378565f96fc4a": {
+        "ALPHA": {
+            "tokens": "5.32480"
+        }
+    },
+    "0xcfd639be03b844095b72b3874401aafe3528ab04dcde831995a881c4ac83903c": {
+        "ALPHA": {
+            "tokens": "30.60343"
+        }
+    },
+    "0x509bd697952a81d702518a871a5f07dab4d10bd5dc24a21d0f6d29982c1e4e47": {
+        "ALPHA": {
+            "tokens": "9.91865"
+        }
+    },
+    "0x6e94f56699cc8b8dc652a5bb8652dfc1b7bc8c652e1ecd2dd7dff25525506773": {
+        "ALPHA": {
+            "tokens": "1681.05525"
+        }
+    },
+    "0xd0a122fe57e6f6a0bd06e698ef99b74e8af6a887682689527dd82fab69ccf042": {
+        "ALPHA": {
+            "tokens": "118.46000"
+        }
+    },
+    "0xa4a7a29e4a4101b54c6b50cdef816322641375576880a41e19f06b4f2437f7fc": {
+        "ALPHA": {
+            "tokens": "4.99266"
+        }
+    },
+    "0xca1c11be6f6446e301b17d04d418daf681303fd841c64af2dde718ecdb2bd7b3": {
+        "ALPHA": {
+            "tokens": "101.43213"
+        }
+    },
+    "0x8c918c78f72dee25b7fa87b4860957017efb8b16897379fd2ba2b6501cb06e3f": {
+        "ALPHA": {
+            "tokens": "53.00272"
+        }
+    },
+    "0x6b75ee8d1d3e6041896021f06e067575fa9145cc4edfdd5c9df85c64a9b40350": {
+        "ALPHA": {
+            "tokens": "372.58168"
+        }
+    },
+    "0xe52e44771bb625749100c741767b761a9d8aff6db188a211b87f5544605324e0": {
+        "ALPHA": {
+            "tokens": "1672.11525"
+        }
+    },
+    "0xdd2d2b1fabe368869e9fb58cee5f3da4ccb25b4474ddde5a503ff5644b9dee6a": {
+        "ALPHA": {
+            "tokens": "401.67391"
+        }
+    },
+    "0x7df92ae9deda063c7280fe4125c6a016f638e2f09abdd238764289db53d97cf6": {
+        "ALPHA": {
+            "tokens": "7.00000"
+        }
+    },
+    "0xb0370380c0286fac5da9efd3865930992a8bbdbc9f18b569bc2cb44bd4ce7c05": {
+        "ALPHA": {
+            "tokens": "42.30187"
+        }
+    },
+    "0x62c6638b9dcfb94e22769464a768b38e1ca06c967469d6e7f531dcc528d92994": {
+        "ALPHA": {
+            "tokens": "404.59542"
+        }
+    },
+    "0xfcedc51a234009aa075cb59c50f18806b0aad311867abb79bea003fe82314730": {
+        "ALPHA": {
+            "tokens": "226.69056"
+        }
+    },
+    "0xcda11fc627a7c575741adb52bc47a25b527dfc06a0770b0cd18ea93f46f24c82": {
+        "ALPHA": {
+            "tokens": "256.73949"
+        }
+    },
+    "0xf0d601dccd48ef448df3018e4e18478392c2971b7456be637cad1b6acee5795f": {
+        "ALPHA": {
+            "tokens": "12.84113"
+        }
+    },
+    "0xe560f6778355cd6b9a2e1d87030eaf47758f7941f5225023dad9d1682cc23acb": {
+        "ALPHA": {
+            "tokens": "25.68334"
+        }
+    },
+    "0x320980d4f22f19442c1e76b207634e0e60c0ec1aebf677340785f0fb60abd4c5": {
+        "ALPHA": {
+            "tokens": "20.54756"
+        }
+    },
+    "0x52e79888e454cfc6e3cbc3bd438183f9d1dfb132595a30f66f424cfd067a49f1": {
+        "ALPHA": {
+            "tokens": "473.02323"
+        }
+    },
+    "0x6a9b77f6a0fa05607695689b44a3db939152a5952eb51d6f89687ddaf3a41fe1": {
+        "ALPHA": {
+            "tokens": "631.44690"
+        }
+    },
+    "0xea4095ef356e61eafe11268302485f1d66ae298bbc5d9f68d002a3b0e99bd113": {
+        "ALPHA": {
+            "tokens": "25.77085"
+        }
+    },
+    "0xc2df3fcd39c28f4237a4a60c8a0a6020665d61d2b34ba173191ef5071f6902df": {
+        "ALPHA": {
+            "tokens": "219.10375"
+        }
+    },
+    "0xc93bb4e88b8f20b708bdc7159441e53c3a8991e3d9172367cf6927a3cbc00b81": {
+        "ALPHA": {
+            "tokens": "380.76723"
+        }
+    },
+    "0xab4bc550a334b286c896e47f9fe55f8000e3e25225c102643ae31c2c706550ef": {
+        "ALPHA": {
+            "tokens": "25.79178"
+        }
+    },
+    "0xd1c075d780f01acd4e1c1d95504ee27f9e2fb8e468c3d10669fcd0eee5024eac": {
+        "ALPHA": {
+            "tokens": "1250.00000"
+        }
+    },
+    "0x24ee4d9212664fdd2af34adfe40f723e5e459365572f3a7777d3cb70bb914146": {
+        "ALPHA": {
+            "tokens": "1000.00000"
+        }
+    },
+    "0x8fe6de7f0f3fd074716c9ceb8cda91696ab2f4717dd43e4f2e04c7f2a1c678b5": {
+        "ALPHA": {
+            "tokens": "43.81275"
+        }
+    },
+    "0x82c8580ff72c485d73ed9a8530c0eb6a3e9ee5a8420b6949fe5d1f10578c15af": {
+        "ALPHA": {
+            "tokens": "78.13127"
+        }
+    },
+    "0x425012b94bce1a08b7fa5404cf08805dfb532307e3e687a46ea6a755b1b34150": {
+        "ALPHA": {
+            "tokens": "28.65520"
+        }
+    },
+    "0x95d008d17582e03bace2411f01d5c8f416cae2f74dd94f895c3dbfb236e40184": {
+        "ALPHA": {
+            "tokens": "1200.00000"
+        }
+    },
+    "0xecccd340967e3289ad3deb05a6e3f30bc1df9e304fd065aed9676aa8c33c6142": {
+        "ALPHA": {
+            "tokens": "500.00000"
+        }
+    },
+    "0x9d11564cf203aac35fff7f11ef2540c008790d9398ccc408ee84cd801b0e5813": {
+        "ALPHA": {
+            "tokens": "500.00000"
+        }
+    },
+    "0x10b35b03cd48eb6f6aa62a39a91e22216bd715f6ebea65d64ee23a50c2515761": {
+        "ALPHA": {
+            "tokens": "700.00000"
+        }
+    },
+    "0xc7455b3360fb0889daf9aafd52af2b58361c33312c34c9eb8a885911e7779443": {
+        "ALPHA": {
+            "tokens": "15.64024"
+        }
+    },
+    "0x3828421b928c8fb2c86747cd4eb035198e80e07b6574168b98320cbb8d4ca33b": {
+        "ALPHA": {
+            "tokens": "1.00098"
+        }
+    },
+    "0xfdc74ddd733a736e6c025de81c231616e656d3e15e5f0e1c43e379015dafb5bf": {
+        "ALPHA": {
+            "tokens": "312.85578"
+        }
+    },
+    "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15": {
+        "ALPHA": {
+            "tokens": "2.20000"
+        }
+    },
+    "0x7ff08dec292aad0eeca333fbc198005ce0d9dbd3a5aebf199cc3d832f5eed568": {
+        "ALPHA": {
+            "tokens": "104.31566"
+        }
+    },
+    "0x89c167e2bf5578c108b53bafe534b55c4a8cf6e35f1dae6c40e877399ab0e6fd": {
+        "ALPHA": {
+            "tokens": "1558.35361"
+        }
+    },
+    "0x208feade47814890c82cbbf1455199733664233251da4e1c2fa071d7400752f9": {
+        "ALPHA": {
+            "tokens": "141.00000"
+        }
+    },
+    "0xbd6524242fced80ecd619af8f06e2461b8bb16b0f09d53ac16df51ad82c6455e": {
+        "ALPHA": {
+            "tokens": "52.76205"
+        }
+    },
+    "0x5dfa64088528452fa228d9fcfb65aacca342a4b5325ecc61a05261d229b56a72": {
+        "ALPHA": {
+            "tokens": "40.74672"
+        }
+    },
+    "0xdab9e9327dbf5c8c3f750a2719ab4db2542b0ab8adeb674def76cbcb1311d6d1": {
+        "ALPHA": {
+            "tokens": "62.91917"
+        }
+    },
+    "0x7b2186cff92f5b1c16272a8ec26fa0965dd02b2366f6d1e0c7e1afe1fcf3412b": {
+        "ALPHA": {
+            "tokens": "3.28234"
+        }
+    },
+    "0x71f0a247b7a84ae48f80246221ce857e47ee11137f0226eeb9055d394d17753a": {
+        "ALPHA": {
+            "tokens": "0.78375"
+        }
+    },
+    "0x2203dc24b915d78e8db2dda5e718c4e5d607494142dc42a76a109f38d47e9736": {
+        "ALPHA": {
+            "tokens": "52.26170"
+        }
+    },
+    "0xe4def9cabc4c45ff9afba4efcbe45f929aa1a091cf85b797c56a932ff7b9d01c": {
+        "ALPHA": {
+            "tokens": "156.80033"
+        }
+    },
+    "0x7733ca9c0b76e01e0c68e68d4dad14258535708f14b979aca9e1d17b85aef5d0": {
+        "ALPHA": {
+            "tokens": "44.82373"
+        }
+    },
+    "0x860a13995d148a80be362c7e0939ddb941cff6c99bc5981a34db34f08c3b51e2": {
+        "ALPHA": {
+            "tokens": "0.11685"
+        }
+    },
+    "0x1e08dc2674e432fcab1acfb716388decda5516eec78cf6c35d39eace3d4bf24c": {
+        "ALPHA": {
+            "tokens": "1282.51898"
+        }
+    },
+    "0x85006682f13f2b0b83c714c24419683fbd779be9de058b0243e17c55a6f62133": {
+        "ALPHA": {
+            "tokens": "1571.85298"
+        }
+    },
+    "0x65ce1e25c9c198d1a7bf3d4a8cb27ccc0e76f0771a1012ccf7eebb77d556e2d8": {
+        "ALPHA": {
+            "tokens": "209.93474"
+        }
+    },
+    "0xc15bd44a8053d48ed95803c44358f72a2655e771099e0f675bb7c3bc3fabaf7c": {
+        "ALPHA": {
+            "tokens": "18.37096"
+        }
+    },
+    "0x0ff890791f75fd4a30b42f8b05c7cd0798a6b54892bd764d9d9054fbab66552e": {
+        "ALPHA": {
+            "tokens": "64.14124"
+        }
+    },
+    "0xd72a497c13dda4f9042eb9990f1cf57468cba9073d465bd0f35b4fd543d5117b": {
+        "ALPHA": {
+            "tokens": "1952.65499"
+        }
+    },
+    "0x51271fed4c32783b5df4aeef6edb8c473dd66485b0fa1cd6d48e59f61ffaacc6": {
+        "ALPHA": {
+            "tokens": "627.70623"
+        }
+    },
+    "0x65154842b6898f026477a171f36373b43ea82911abc4ac33fd571f3a09b306bf": {
+        "ALPHA": {
+            "tokens": "38.00503"
+        }
+    },
+    "0xaf28725f2d772e9bdd9a519ebd7dfdba2a2cbf24850f1849357a6ea8f63edebd": {
+        "ALPHA": {
+            "tokens": "2031.67347"
+        }
+    },
+    "0x6d33985fd6f333d1a23aa39c23b69eabe7bfbd03434e87d6cb66e0ac3d5448da": {
+        "ALPHA": {
+            "tokens": "3.22212"
+        }
+    },
+    "0xceed5bae82808803875d4b3580a2064a577bd6cba96f0076a6c65a8080a19709": {
+        "ALPHA": {
+            "tokens": "108.44712"
+        }
+    },
+    "0x1add26a04ae84823ef9a8c7fe7076cc04449f8bb30d5402f2d0d3c502c6a5cf0": {
+        "ALPHA": {
+            "tokens": "1.06057"
+        }
+    },
+    "0x967b4a8976e0c1797162ee53c6ed9a1c72556a2180982bd156a05d46e9b372d6": {
+        "ALPHA": {
+            "tokens": "13.62942"
+        }
+    },
+    "0xc432d5cc861d6ce530c4e528ea0f3eb6c03497f1dd6e6f46b3eacc5b4a8398f9": {
+        "ALPHA": {
+            "tokens": "3.27229"
+        }
+    },
+    "0x57df6f214413de831e9278a6bd8fc98a08e6bf93856a19402f4a2f9f00865b5b": {
+        "ALPHA": {
+            "tokens": "2.72593"
+        }
+    },
+    "0x0f0ab15348a3117f2932c00cf4fd40797d7ce002a7c8b55c0679ae30d809850c": {
+        "ALPHA": {
+            "tokens": "136.40730"
+        }
+    },
+    "0x63f6c5f8e79eb308a9b880dcb977cf31bb08c38dfbc7f2860eefcfb873a8d391": {
+        "ALPHA": {
+            "tokens": "5.44305"
+        }
+    },
+    "0xcd05b756c0a2ed58d30c4332fc4392ce1c5c23c4849125d6a48eb820de0b5520": {
+        "ALPHA": {
+            "tokens": "7.81503"
+        }
+    },
+    "0x341452b6d0c3e2c29bc7d2264e341c961094b59e20aa0adb2f95cd6a27c81622": {
+        "ALPHA": {
+            "tokens": "0.05457"
+        }
+    },
+    "0xf14a609e4c4fae95fbeadcaf042cc98253040d98017bdd33cf6051818c53d427": {
+        "ALPHA": {
+            "tokens": "6.69597"
+        }
+    },
+    "0xf23494bcf3be9aab38f6fbf1b402bcd300c195b05b1440b27f86db4824086ea3": {
+        "ALPHA": {
+            "tokens": "92.77245"
+        }
+    },
+    "0xd3695890d542fdfa68b2e74557df40796dee6becf328dde7f6bfffc7b599f16e": {
+        "ALPHA": {
+            "tokens": "243.11491"
+        }
+    },
+    "0x2a13de1b59209275e1856e70b4a8575a94578e5bd6fc4b616f6f52ee609edde9": {
+        "ALPHA": {
+            "tokens": "54.62662"
+        }
+    },
+    "0xa3aff1ea7ef438e58f8a012f4678e8edb509dd9d9d63a2df97f9b518be1e423e": {
+        "ALPHA": {
+            "tokens": "54.63268"
+        }
+    },
+    "0x7e0edc4fe947755792136bed728bdee37d9c000f97db300aee9ebd648893bf64": {
+        "ALPHA": {
+            "tokens": "38.25369"
+        }
+    },
+    "0x8c656e357d91cfc266647b9e5e0b4d77d3011ed6b089de1189e2dd96af4747e9": {
+        "ALPHA": {
+            "tokens": "1110.00000"
+        }
+    },
+    "0x6b2a6f17c6eb6e268844e154443e250853aa7e05cd03aff84519a3c56faad5c3": {
+        "ALPHA": {
+            "tokens": "54.65366"
+        }
+    },
+    "0x85e98a56c425bf11dde95f89a60fffe74ae9837be5f80843d13527d3067cb304": {
+        "ALPHA": {
+            "tokens": "55.03635"
+        }
+    },
+    "0x8f466808191bcfe78924b86c47c1fa65d43ada1ac5769e6b884ed1cca12d866d": {
+        "ALPHA": {
+            "tokens": "55.05172"
+        }
+    },
+    "0x006a517413b8fcd32350497238627bc6ab73c9061a34268b86438ced7a8f6275": {
+        "ALPHA": {
+            "tokens": "280.89721"
+        }
+    },
+    "0xe5923e316beb6d4beeb7aa6c7376fdc16323df3f44522b2f1cf7d3612fe633e3": {
+        "ALPHA": {
+            "tokens": "216.58239"
+        }
+    },
+    "0xd9a60fedac3b3d4b4910f7bab01f6a6319d8a232dfea5c8f65dedba70e0ee727": {
+        "ALPHA": {
+            "tokens": "55.14191"
+        }
+    },
+    "0x294feb9ae90e929cb8aa3d3e44c24e3e7f8260d951de1653fda42184e947e6ec": {
+        "ALPHA": {
+            "tokens": "552.53373"
+        }
+    },
+    "0x1b6621b208ac613532f8306c6de477a3ff853a00e59795dba6db8035e15858f9": {
+        "ALPHA": {
+            "tokens": "71.59443"
+        }
+    },
+    "0xfb0544dc07765ddd5bde97dd3f484ddf028cfcca3fed97b0c9253a81787ae214": {
+        "ALPHA": {
+            "tokens": "668.80928"
+        }
+    },
+    "0x84d23a264d8da9c512b55d62d600ff9173cb7215506cbd9397a657f7cf3b7985": {
+        "ALPHA": {
+            "tokens": "664.87445"
+        }
+    },
+    "0x1b9b4129ea5392da20be9e14b031c3a4dcdc17e5f70e0884e61c119db196e5b5": {
+        "ALPHA": {
+            "tokens": "2887.81681"
+        }
+    },
+    "0x06d8f7e8a1ae18230e3e4a3cda3ac040628dae9e29ed805b528aa8b3e426a6c8": {
+        "ALPHA": {
+            "tokens": "67.49360"
+        }
+    },
+    "0x92ffef1604c7be3724993867b02879532fa7f30539d8da9237c0294efae6ff5b": {
+        "ALPHA": {
+            "tokens": "56.06624"
+        }
+    },
+    "0x1e7e31797d2326127e166dc15e692a565bc5e134a8f4d93cc6181dcae451567e": {
+        "ALPHA": {
+            "tokens": "168.95385"
+        }
+    },
+    "0x868f1d384c2d6d9a2f6a8630c255f2fccb24b3facb5ef9dcf5569348cbad8290": {
+        "ALPHA": {
+            "tokens": "8.25000"
+        }
+    },
+    "0x8e8aa93ffa95e15fba85b82d59e90a8f2a806cd4a17bcb0a236f2534f41db4f2": {
+        "ALPHA": {
+            "tokens": "338.34572"
+        }
+    },
+    "0xaa42b0a0dbaf308e6e27fa64da7e2121e93b750ff6cc33f5ef8de554025f98f4": {
+        "ALPHA": {
+            "tokens": "60.19368"
+        }
+    },
+    "0xed30d49234a89c752eaaf7543e9ea87c9fbc8776d5ac49bba83fac48f1fd77ec": {
+        "ALPHA": {
+            "tokens": "47.49985"
+        }
+    },
+    "0x3366591900e2ebcf9344ae6ada952ad73a336dfbdf681f7e9ecfedba54f96887": {
+        "ALPHA": {
+            "tokens": "1.11285"
+        }
+    },
+    "0x108729451b30c50b8d57cdceaecfffc7cd4978edf4e1f692bd9d34fd7f46ec75": {
+        "ALPHA": {
+            "tokens": "66.86173"
+        }
+    },
+    "0xafa529ea3794bba96c8195839fed141f35d92011a0038b1faec734b6cce4df12": {
+        "ALPHA": {
+            "tokens": "179.69335"
+        }
+    },
+    "0x909f27e13ca34945f7531aea2d1ad253e9f878d96e5f9150eedcfb8b09cd534a": {
+        "ALPHA": {
+            "tokens": "66.86704"
+        }
+    },
+    "0xec46760574e7066e29a0f60b7d582e7b0ac2a36500b86eda35b3409a58829033": {
+        "ALPHA": {
+            "tokens": "59.65746"
+        }
+    },
+    "0x5001ae44dba60c1e81783125b3390eb93f0e72ca656ed26c81ea5bf636b32d70": {
+        "ALPHA": {
+            "tokens": "111.54487"
+        }
+    },
+    "0xa259bf69611ee76926d421a3b25cdbf14b2cd3d9fae08276d1c6f489de88bc7f": {
+        "ALPHA": {
+            "tokens": "345.58065"
+        }
+    },
+    "0x5741a5bee4a66c234bea75b98452efc4ff8855da72ccfaa7c14ef05820ba87d5": {
+        "ALPHA": {
+            "tokens": "69.17387"
+        }
+    },
+    "0x1df428ab989273bdf509dcca1242803bd2484fbd9b0efab4153e4c132e4e46b6": {
+        "ALPHA": {
+            "tokens": "1.00005"
+        }
+    },
+    "0x6f79b0c59d17da9ae9304df87865f218e9a7360e1b9fa70e175602bd62d60a74": {
+        "ALPHA": {
+            "tokens": "0.05619"
+        }
+    },
+    "0xdb0bd86a3753aa4886e8b739409bf45624bc81177231ffa9c2528f99945e0353": {
+        "ALPHA": {
+            "tokens": "100.55007"
+        }
+    },
+    "0x74fed224663d295ba11e22522c53d76b09f7fa6ed1cce7ecf866c8edf417666e": {
+        "ALPHA": {
+            "tokens": "5.58477"
+        }
+    },
+    "0x2d8320adadd80bf2162b7031fdc4b50f2619fe6bf17dd08ed48703074ca68957": {
+        "ALPHA": {
+            "tokens": "8189.52531"
+        }
+    },
+    "0x9b94b8e8ede0dbffd6850b79ee452e830fced7a3b5ee61116a4d4c2466295d61": {
+        "ALPHA": {
+            "tokens": "3.16095"
+        }
+    },
+    "0x9d693a4122624a2a57a4b49b4d5607444875ad53aab79e4afc045d75bf14a84a": {
+        "ALPHA": {
+            "tokens": "103.46170"
+        }
+    },
+    "0x464b7ca02e92fb3a2e2e58891f066b0c0d7e5fd218d3790d1d7962e3eadbe743": {
+        "ALPHA": {
+            "tokens": "95.45648"
+        }
+    },
+    "0xf5a972cb92e462396441e0c1f35f9c30f6d33a90615803078673c83bcce0f876": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    },
+    "0x0ed670c2457a6f3902d001f8613b36da8aaddc8372a02f4764e5a24117aa670b": {
+        "ALPHA": {
+            "tokens": "348.24209"
+        }
+    },
+    "0x74bd991f694eb5792c10c3715a125629da67a0494e95b299ae23264210a53cf5": {
+        "ALPHA": {
+            "tokens": "10.67269"
+        }
+    },
+    "0x51a522fdc13742294deea8167dfa2cd2db3bf0348d91ae3f7555981eeecbb894": {
+        "ALPHA": {
+            "tokens": "1.68556"
+        }
+    },
+    "0xad9185bd0740defc6b18448c4858bfab54ad90b39121c21fe2f3b08146096db1": {
+        "ALPHA": {
+            "tokens": "5.61903"
+        }
+    },
+    "0xf0240baa3b06807f47c24e0ed34db9338fe017ded01fc58af4db07c1ee674013": {
+        "ALPHA": {
+            "tokens": "3756.32524"
+        }
+    },
+    "0xe35e28c2a7272e73d692259ec83890828e959561145061e6cce37b8b8172827c": {
+        "ALPHA": {
+            "tokens": "1100.00000"
+        }
+    },
+    "0x2096a41be58ca2a601e5e8ca30c7704f3a2720202d413f982f482cab68cbff91": {
+        "ALPHA": {
+            "tokens": "14.11510"
+        }
+    },
+    "0xc9db5cd5c79433dcfa138ec8fefa294c5fb5baef00756a12fffbda857dd72970": {
+        "ALPHA": {
+            "tokens": "1033.09893"
+        }
+    },
+    "0x236578f9fba71af6ae71e8c0da7fc6b58a504e4665f198259ffd1d7dba633564": {
+        "ALPHA": {
+            "tokens": "500.00000"
+        }
+    },
+    "0xcbd9bfb27b21a95345ec52786603a92e102ace3d73550d7bc3321ffdf45e3429": {
+        "ALPHA": {
+            "tokens": "800.00000"
+        }
+    },
+    "0x5681ba9ce358f5a6e7a320a67675a8323e9f80428293d9a2981052de58bfd828": {
+        "ALPHA": {
+            "tokens": "9517.94416"
+        }
+    },
+    "0xf9214668d0943a628b04f68a84dc6572a00c687da761810cfe6f02d025c5d8e3": {
+        "ALPHA": {
+            "tokens": "2691.17014"
+        }
+    },
+    "0x579006ef994c847f84647ce6112e981127e0e526ca9f6a7c87ee25d967313d57": {
+        "ALPHA": {
+            "tokens": "30.16418"
+        }
+    },
+    "0xffc2c38085ef2063c0750ad2972589950f07ce6cc8a13cd79f593efcc0902876": {
+        "ALPHA": {
+            "tokens": "0.07251"
+        }
+    },
+    "0x15c6849783a5db5ffb8a2f16a026eb168788d7887984479ca9f4206b897d68b4": {
+        "ALPHA": {
+            "tokens": "8000.00000"
+        }
+    },
+    "0x8294eff5e44c90d30c568c2e3d94efd86392a28f833d62d9b37246b301bd35ce": {
+        "ALPHA": {
+            "tokens": "2971.36787"
+        }
+    },
+    "0x2ae93ff27e3d0960916b59375d833faa1e7193333f39ced648dd57cdd49e0d4a": {
+        "ALPHA": {
+            "tokens": "1000.67494"
+        }
+    },
+    "0x55b026433ccd3d9010172737f83ad680243519072f483015d524bd919292e58f": {
+        "ALPHA": {
+            "tokens": "909.70506"
+        }
+    },
+    "0x2cb666dc596289c92bf9750453ca7a1bd01a5fe0158ed6514c14aa4bb33cdade": {
+        "ALPHA": {
+            "tokens": "1009.82462"
+        }
+    },
+    "0xee49db918d4657c636a70b46e9db26239543975132f1dbff0de6ae2df64256d7": {
+        "ALPHA": {
+            "tokens": "17511.04641"
+        }
+    },
+    "0x5c7576c42266ac2df3a82ec1344f73b14c6f7a9e869627b3b8af3b6643ad8387": {
+        "ALPHA": {
+            "tokens": "12.18875"
+        }
+    },
+    "0x58a8de3e029622406a8f540905427ed14d485ecafc26890a1f94d8dc7e258d14": {
+        "ALPHA": {
+            "tokens": "855.53799"
+        }
+    },
+    "0x52ce54f6549fba437a4f8f03b94852e582cf7bded77c509dc3c7eeecc1578fa4": {
+        "ALPHA": {
+            "tokens": "500.00000"
+        }
+    },
+    "0x44e0f9383edf066dbf58069ed070e68870100dac8146da7fe6bd40c36d1b324b": {
+        "ALPHA": {
+            "tokens": "110997.57951"
+        }
+    },
+    "0x9d405719977b497b741a6c044ac8aca28eea6b8cfa8fe2f10a0cd9b20e510b6f": {
+        "ALPHA": {
+            "tokens": "466.41865"
+        }
+    },
+    "0x68768cfa8e12550410c6bd6147b05f75fbf8f17b8cae69e7556bb76140977b02": {
+        "ALPHA": {
+            "tokens": "7198.17372"
+        }
+    },
+    "0x7c2e89e5df4813b33488a9a060cc4eb7d7a70c36cafb01e9e49189bffbccb00b": {
+        "ALPHA": {
+            "tokens": "60459.08187"
+        }
+    },
+    "0xd748f04873388027b3a62e63286bf7580d3cc97e7dfe431ef15595e6e9c7eff8": {
+        "ALPHA": {
+            "tokens": "22985.60049"
+        }
+    },
+    "0x0cc0bb14f02b886b790b49ae2b44483357d2621e75e216576ac41e3743354271": {
+        "ALPHA": {
+            "tokens": "2948.80163"
+        }
+    },
+    "0xd172d44ac0c74cf951839c8f2e29c7b752d0e6d26cedb9f80c6a120e3cb80b29": {
+        "ALPHA": {
+            "tokens": "19409.71997"
+        }
+    },
+    "0x9f03c212c3ab88e4c943b5318ccdf2f12ce494a280181a507ed1d864d73b62a6": {
+        "ALPHA": {
+            "tokens": "13802.00000"
+        }
+    },
+    "0xd48f73c6f077f20e9e48c6164f9f97c7a1fde6c88fdc93def4e03b35a641d92b": {
+        "ALPHA": {
+            "tokens": "34861.06765"
+        }
+    },
+    "0xf64fb9edc414acd7c9b9484612124382868e31b0061ef068da5ae05bb51ce8ba": {
+        "ALPHA": {
+            "tokens": "35708.72698"
+        }
+    },
+    "0xfdf2e0627495ae47a6865f5b3267553d100157d65eb4a35b174c8aa38a359c63": {
+        "ALPHA": {
+            "tokens": "1596.21542"
+        }
+    },
+    "0xb1a8e13ca0ab2d8522bf4bea25d2fec0d1339f1919e2ef1b00a25ea0774b2520": {
+        "ALPHA": {
+            "tokens": "6.24640"
+        }
+    },
+    "0x57287287ae6843ab20bd31b76b67cdb3b639ecb29ea3bb9ebb6beaa417d2c979": {
+        "ALPHA": {
+            "tokens": "38609.00000"
+        }
+    },
+    "0xed5dfcf4f141f8a999ae77a461d9a925927adeb8bfdd4c87edbaecfa7b0b0bd9": {
+        "ALPHA": {
+            "tokens": "5000.00000"
+        }
+    },
+    "0x29b3449325203320731bf7e1de4f4e46d18962a5d8db1a411e642e5db3b0cc2e": {
+        "ALPHA": {
+            "tokens": "5554.00000"
+        }
+    },
+    "0xbda08c129157b0b97a2136176a5a0f229c79b18612caec90a2ec32ae90115fed": {
+        "ALPHA": {
+            "tokens": "43690.10260"
+        }
+    },
+    "0x1c4793c93429cf4f4386b15f32e0b4c0157081006e0609d4ca99ea5146b811f1": {
+        "ALPHA": {
+            "tokens": "21100.99928"
+        }
+    },
+    "0x2ec4ceb846a9920682dd4b59ef283dbab753e5afcaef8081db7d0fc7c76c92d2": {
+        "ALPHA": {
+            "tokens": "57836.96362"
+        }
+    },
+    "0xebc05fa7e9e3309e0bf5b1b4fdfa9bc6667c79b71c0922c56a2c08325cf1e7bd": {
+        "ALPHA": {
+            "tokens": "20000.00000"
+        }
+    },
+    "0xe25b5d16ca31ddfdc31a7219c90f88bdfc56b606c13df6619aef22515580e293": {
+        "ALPHA": {
+            "tokens": "1.00000"
+        }
+    }
+}

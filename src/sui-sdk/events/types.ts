@@ -1,8 +1,10 @@
 import { PoolName } from "../../common/types";
 
+// Add others also if fetchLiquidityEvents is not merged
 interface CommonEventAttributes {
   type: string;
   timestamp: number;
+  txModule: string;
 }
 
 export interface CetusAutoCompoundingEvent {
@@ -33,13 +35,24 @@ export interface RebalanceEvent {
   sqrt_price_after: string;
 }
 
+export interface DepositEvent {
+  amount_deposited: string;
+  coin_type: {name: string}
+  sender: string;
+}
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes);
 
+export type DepositEventNode = DepositEvent & CommonEventAttributes
+
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
-export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
+export type EventNode = 
+  | AutoCompoundingEventNode 
+  | RebalanceEventNode
+  | DepositEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -49,8 +62,24 @@ export type FetchAutoCompoundingEventsParams = {
 
 export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
 
+export type FetchDepositEventsParams = {
+  startTime: number;
+  endTime: number;
+  poolNames?: PoolName[];
+};
+
 export type FetchEventsParams = {
   eventTypes: string[];
   startTime?: number;
   endTime?: number;
 };
+
+export type FetchDepositEventsResponse = DepositEventNode[];
+
+export type ParseInvestmentsfromDepositEventsParams = {
+  poolNames: PoolName[],
+  owners: string[],
+  events: DepositEventNode[],
+};
+
+export type ParseAlphaRewardsFromDepositEventsParams = ParseInvestmentsfromDepositEventsParams;

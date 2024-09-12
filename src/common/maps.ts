@@ -110,6 +110,7 @@ export const poolInfo: {
     receiptType: PoolReceipt;
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
+    depositEventType?: string | undefined;
   };
 } = {
   "NAVI-SUI": {
@@ -187,6 +188,7 @@ export const poolInfo: {
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
+    depositEventType: conf[CONF_ENV].ALPHA_POOL_DEPOSIT_EVENT,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",

@@ -2,6 +2,7 @@ import suiClient from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
   CetusAutoCompoundingEvent,
+  DepositEvent,
   EventNode,
   FetchEventsParams,
   NaviAutoCompoundingEvent,
@@ -76,7 +77,8 @@ export async function fetchEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent
-        | RebalanceEvent;
+        | RebalanceEvent
+        | DepositEvent;
 
       let eventNode: EventNode;
 
@@ -87,6 +89,7 @@ export async function fetchEvents(
       ) {
         // Handling CetusAutoCompoundingEvent
         eventNode = {
+          txModule: suiEvent.transactionModule,
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           compound_amount_a: BigInt(suiEventJson.compound_amount_a.toString()),
@@ -106,6 +109,7 @@ export async function fetchEvents(
       ) {
         // Handling NaviAutoCompoundingEvent
         eventNode = {
+          txModule: suiEvent.transactionModule,
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           compound_amount: BigInt(suiEventJson.compound_amount.toString()),
@@ -120,6 +124,7 @@ export async function fetchEvents(
       ) {
         // Handling RebalanceEvent
         eventNode = {
+          txModule: suiEvent.transactionModule,
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           investor_id: suiEventJson.investor_id.toString(),
@@ -127,7 +132,22 @@ export async function fetchEvents(
           upper_tick_after: suiEventJson.upper_tick_after.toString(),
           sqrt_price_after: suiEventJson.sqrt_price_after.toString(),
         };
-      } else {
+      } 
+      else if (
+        isDepositEvent(suiEvent.type) &&
+        "amount_deposited" in suiEventJson
+      ) {
+        // Handling DepositEvent
+        eventNode = {
+          txModule: suiEvent.transactionModule,
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount_deposited: suiEventJson.amount_deposited,
+          coin_type: suiEventJson.coin_type,
+          sender: suiEventJson.sender,
+        }
+      } 
+      else {
         throw new Error("Unknown event type");
       }
       // const autoCompoundingEventNode: AutoCompoundingEventNode = {
@@ -174,3 +194,15 @@ const isRebalanceEvent = (eventType: string) => {
     });
   return eventTypes.includes(eventType);
 };
+
+//Add this Filter list to poolInfo in constants
+const isDepositEvent = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo)
+    .filter((info) => {
+      return info.depositEventType ? true : false;
+    })
+    .map((info) => {
+      return info.depositEventType as string;
+    })
+  return eventTypes.includes(eventType);
+}
