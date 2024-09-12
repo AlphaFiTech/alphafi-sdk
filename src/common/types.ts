@@ -23,6 +23,26 @@ export type PoolName =
   | "BUCK-USDC"
   | "CETUS-SUI";
 
+export type SingleAssetPoolNames =
+  | "ALPHA"
+  | "NAVI-SUI"
+  | "NAVI-VSUI"
+  | "NAVI-WETH"
+  | "NAVI-USDT"
+  | "NAVI-USDC";
+
+export type DoubleAssetPoolNames =
+  | "HASUI-SUI"
+  | "USDY-USDC"
+  | "ALPHA-SUI"
+  | "USDT-USDC"
+  | "USDC-SUI"
+  | "USDC-WBTC"
+  | "WETH-USDC"
+  | "NAVX-SUI"
+  | "BUCK-USDC"
+  | "CETUS-SUI";
+
 export type CoinName =
   | "ALPHA"
   | "SUI"

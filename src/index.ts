@@ -9,6 +9,7 @@ export {
   getAlphaVaultBalance,
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
+  getVaultBalanceForActiveUsers,
 } from "./getVaultBalances";
 
 export {
@@ -31,6 +32,12 @@ export {
   getRebalanceHistory,
   getRebalanceHistories,
 } from "./getRebalanceHistory";
+
+export {
+  getHoldersFromTransactions,
+  getUserTokensFromTransactions,
+  getUserTokensInUsdFromTransactions,
+} from "./getHoldersFromTransactions";
 
 export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime";
 
