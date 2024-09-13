@@ -144,6 +144,10 @@ export function parseInvestmentsFromLCEvents(
         // this is collect reward
         continue;
       }
+      if (node.event_type !== 0) {
+        // this is withdraw
+        continue;
+      }
       const owner = node.sender;
       const investment = new Decimal(node.amount).div(1e9);
       if (owner in usersInvestmentsInPools) {
