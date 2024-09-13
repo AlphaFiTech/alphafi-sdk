@@ -34,7 +34,6 @@ export async function getVaultBalanceForActiveUsers(
     params as FetchLiquidityChangeEventsParams,
   );
   const xTokenHoldingsArr = parseXTokensFromLCEvent(liquidityChangeEvents);
-  return xTokenHoldingsArr;
   const xTokenHoldingsObj: HoldingsObj[] = xTokenHoldingsArr.map(
     ([address, poolName, xTokens]) => {
       return {
@@ -50,40 +49,39 @@ export async function getVaultBalanceForActiveUsers(
     | SingleAssetTokenHoldings
     | DoubleAssetTokenHoldings
   )[] = await multiLiquidityToTokens(liquidityHoldingsObj);
-  return tokenHoldingsObj; // debug remove this and uncomment below
-  // const usdHoldingsObj: HoldingsObj[] =
-  //   await multiTokensToUsd(tokenHoldingsObj);
-  // const uniqueUsdHoldings: { [key: string]: string } = {};
-  // usdHoldingsObj.map((usdHolding) => {
-  //   uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] =
-  //     usdHolding.holding;
-  // });
-  // const multiVaultBalances: AlphaFiMultiVaultBalance[] = tokenHoldingsObj.map(
-  //   (tokenHolding) => {
-  //     const owner = tokenHolding.user;
-  //     const poolName = tokenHolding.poolName;
-  //     const tokensInUsd = uniqueUsdHoldings[`${owner}_${poolName}`];
+  const usdHoldingsObj: HoldingsObj[] =
+    await multiTokensToUsd(tokenHoldingsObj);
+  const uniqueUsdHoldings: { [key: string]: string } = {};
+  usdHoldingsObj.map((usdHolding) => {
+    uniqueUsdHoldings[`${usdHolding.owner}_${usdHolding.poolName}`] =
+      usdHolding.holding;
+  });
+  const multiVaultBalances: AlphaFiMultiVaultBalance[] = tokenHoldingsObj.map(
+    (tokenHolding) => {
+      const owner = tokenHolding.user;
+      const poolName = tokenHolding.poolName;
+      const tokensInUsd = uniqueUsdHoldings[`${owner}_${poolName}`];
 
-  //     if ("tokens" in tokenHolding) {
-  //       return {
-  //         owner: owner,
-  //         poolName: poolName,
-  //         tokens: tokenHolding.tokens,
-  //         tokensInUsd: tokensInUsd,
-  //       } as SingleAssetMultiVaultBalance;
-  //     } else {
-  //       return {
-  //         owner: owner,
-  //         poolName: poolName,
-  //         tokenA: tokenHolding.tokenAmountA,
-  //         tokenB: tokenHolding.tokenAmountB,
-  //         tokensInUsd: tokensInUsd,
-  //       } as DoubleAssetMultiVaultBalance;
-  //     }
-  //   },
-  // );
+      if ("tokens" in tokenHolding) {
+        return {
+          owner: owner,
+          poolName: poolName,
+          tokens: tokenHolding.tokens,
+          tokensInUsd: tokensInUsd,
+        } as SingleAssetMultiVaultBalance;
+      } else {
+        return {
+          owner: owner,
+          poolName: poolName,
+          tokenA: tokenHolding.tokenAmountA,
+          tokenB: tokenHolding.tokenAmountB,
+          tokensInUsd: tokensInUsd,
+        } as DoubleAssetMultiVaultBalance;
+      }
+    },
+  );
 
-  // return multiVaultBalances;
+  return multiVaultBalances;
 }
 
 export async function getVaultBalance(
