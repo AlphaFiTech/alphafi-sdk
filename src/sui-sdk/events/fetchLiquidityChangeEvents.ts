@@ -44,7 +44,9 @@ export async function fetchLiquidityChangeEvents(
   });
 
   if (params.poolNames) {
-    liquidityChangeEvents = liquidityChangeEvents.filter(e => (poolIdPoolNameMap[e.pool_id] in params.poolNames!));
+    liquidityChangeEvents = liquidityChangeEvents.filter(
+      (e) => poolIdPoolNameMap[e.pool_id] in params.poolNames!,
+    );
   }
 
   return liquidityChangeEvents;
