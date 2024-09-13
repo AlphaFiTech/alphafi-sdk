@@ -1,4 +1,4 @@
-import { poolInfo } from "../../common/maps";
+import { poolInfo, poolIdPoolNameMap } from "../../common/maps";
 import { fetchEvents } from "./fetchEvents";
 import {
   FetchLiquidityChangeEventsParams,
@@ -39,9 +39,13 @@ export async function fetchLiquidityChangeEvents(
     return events;
   });
   const events = (await Promise.all(eventsPromises)).flat();
-  console.log(events);
-  const liquidityChangeEvents = events.map((e) => {
+  let liquidityChangeEvents = events.map((e) => {
     return e as LiquidityChangeEventNode;
   });
+
+  if (params.poolNames) {
+    liquidityChangeEvents = liquidityChangeEvents.filter(e => (poolIdPoolNameMap[e.pool_id] in params.poolNames!));
+  }
+
   return liquidityChangeEvents;
 }
