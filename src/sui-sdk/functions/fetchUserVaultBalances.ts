@@ -1,6 +1,6 @@
 import { poolInfo } from "../../common/maps";
 import { AlphaFiVaultBalance, PoolName } from "../../common/types";
-import suiClient from "../client";
+import { getSuiClient } from "../client";
 import {
   getAlphaPortfolioAmount,
   getAlphaPortfolioAmountInUSD,
@@ -9,6 +9,8 @@ import {
   getSingleAssetPortfolioAmount,
   getSingleAssetPortfolioAmountInUSD,
 } from "./getPortfolioAmounts";
+
+const suiClient = getSuiClient();
 
 export async function fetchUserVaultBalances(
   address: string,

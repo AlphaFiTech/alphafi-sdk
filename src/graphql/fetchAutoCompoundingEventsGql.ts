@@ -1,8 +1,10 @@
 //import { GET_AUTOCOMPOUND_EVENTS } from "./queries";
 //import { ApolloQueryResult } from "@apollo/client/core";
 //import client from "./client";
-import suiClient from "../sui-sdk/client";
+import { getSuiClient } from "../sui-sdk/client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
+
+const suiClient = getSuiClient();
 
 // interface PageInfo {
 //   hasNextPage: boolean;

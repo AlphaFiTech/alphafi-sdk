@@ -1,7 +1,9 @@
 import { AlphaFiVault, CoinName, PoolName } from "../..";
 import { coinNameTypeMap, poolCoinPairMap, poolInfo } from "../../common/maps";
-import suiClient from "../client";
+import { getSuiClient } from "../client";
 import { getReceipts } from "./getReceipts";
+
+const suiClient = getSuiClient();
 
 export async function fetchUserVaults(
   address: string,

@@ -12,8 +12,10 @@ import {
 } from "./types";
 import { PythPriceIdPair } from "./pyth";
 import { getLatestPrice } from "../utils/prices";
-import suiClient from "../sui-sdk/client";
+import { getSuiClient } from "../sui-sdk/client";
 import Decimal from "decimal.js";
+
+const suiClient = getSuiClient();
 
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,

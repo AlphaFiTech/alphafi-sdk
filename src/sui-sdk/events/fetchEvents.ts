@@ -1,4 +1,4 @@
-import suiClient from "../client";
+import { getSuiClient } from "../client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
   AlphaLiquidityChangeEvent,
@@ -14,6 +14,8 @@ import {
 } from "./types";
 import { poolInfo } from "../../common/maps";
 import { conf, CONF_ENV } from "../../common/constants";
+
+const suiClient = getSuiClient();
 
 export async function fetchEvents(
   params: FetchEventsParams,

@@ -1,5 +1,5 @@
 import { SuiObjectResponse } from "@mysten/sui/client";
-import suiClient from "../sui-sdk/client";
+import { getSuiClient } from "../sui-sdk/client";
 import { GetReceiptParams } from "./types";
 const recieptTypes = {
   ALPHA:
@@ -14,6 +14,8 @@ const recieptTypes = {
   "CETUS-SUI":
     "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
 };
+
+const suiClient = getSuiClient();
 
 export async function getReceipts(params: GetReceiptParams) {
   let receipts: SuiObjectResponse[] = [];

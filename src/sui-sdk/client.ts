@@ -1,15 +1,20 @@
 // src/sui-sdk/client.ts
 
-/* This file will contain the setup for the Sui Client:
+/* This file contains the setup for the Sui Client, implemented as a singleton
  */
 
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
-import { SuiNetwork } from "../common/types";
-import { conf, CONF_ENV } from "../common/constants";
+//import { SuiNetwork } from "../common/types";
 
-const suiClient = new SuiClient({
-  url: getFullnodeUrl(conf[CONF_ENV].SUI_NETWORK as SuiNetwork),
-  //url: "https://mainnet-rpc.sui.chainbase.online" as SuiNetwork,
-});
+// Lazy initialization for the SuiClient instance
+let suiClientInstance: SuiClient | null = null;
 
-export default suiClient;
+export function getSuiClient(): SuiClient {
+  if (!suiClientInstance) {
+    suiClientInstance = new SuiClient({
+      //url: "https://api.shinami.com/node/v1/sui_mainnet_67fed6f1843fe0684df885e784ba49e4" as SuiNetwork,
+      url: getFullnodeUrl("mainnet"),
+    });
+  }
+  return suiClientInstance;
+}
