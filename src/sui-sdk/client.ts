@@ -9,7 +9,7 @@ import { conf, CONF_ENV } from "../common/constants";
 
 const suiClient = new SuiClient({
   url: getFullnodeUrl(conf[CONF_ENV].SUI_NETWORK as SuiNetwork),
-  //url: "https://mainnet-rpc.sui.chainbase.online" as SuiNetwork,
+  // url: "https://mainnet-rpc.sui.chainbase.online" as SuiNetwork,
 });
 
 export default suiClient;
