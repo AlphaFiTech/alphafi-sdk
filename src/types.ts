@@ -226,7 +226,7 @@ export type DoubleAssetMultiVaultBalance = {
 };
 
 export type GetVaultBalanceForActiveUsersParams = {
-  poolName?: PoolName[];
-  startTime?: bigint;
-  endTime?: bigint;
+  poolNames?: PoolName[];
+  startTime?: number;
+  endTime?: number;
 };
