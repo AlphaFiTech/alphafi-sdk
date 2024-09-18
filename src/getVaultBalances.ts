@@ -25,6 +25,25 @@ import {
   multiXTokensToLiquidity,
 } from "./utils/userHoldings";
 
+export async function getXTokenVaultBalanceForActiveUsers(
+  params: GetVaultBalanceForActiveUsersParams,
+) {
+  const liquidityChangeEvents = await fetchLiquidityChangeEvents(
+    params as FetchLiquidityChangeEventsParams,
+  );
+  const xTokenHoldingsArr = parseXTokensFromLCEvent(liquidityChangeEvents);
+  const xTokenHoldingsObj: HoldingsObj[] = xTokenHoldingsArr.map(
+    ([address, poolName, xTokens]) => {
+      return {
+        owner: address,
+        poolName: poolName as PoolName,
+        holding: xTokens,
+      };
+    },
+  );
+  return xTokenHoldingsObj;
+}
+
 export async function getVaultBalanceForActiveUsers(
   params: GetVaultBalanceForActiveUsersParams,
 ) {

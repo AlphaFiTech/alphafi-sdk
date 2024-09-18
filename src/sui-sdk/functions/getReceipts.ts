@@ -1,4 +1,4 @@
-import { PaginatedObjectsResponse, SuiClient } from "@mysten/sui/client";
+import { PaginatedObjectsResponse } from "@mysten/sui/client";
 import {
   AlphaPoolType,
   CetusInvestor,
@@ -13,18 +13,18 @@ import { SimpleCache } from "../../utils/simpleCache";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import Decimal from "decimal.js";
+import { getSuiClient } from "../client";
+
+const suiClient = getSuiClient();
 
 const receiptsCache = new SimpleCache<Receipt[]>();
 const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
 export async function getReceipts(
   poolName: string,
-  options: {
-    address: string;
-    suiClient: SuiClient;
-  },
+  address: string,
   ignoreCache: boolean = false,
 ): Promise<Receipt[]> {
-  const receiptsCacheKey = `getReceipts-${poolName}-${options.address}`;
+  const receiptsCacheKey = `getReceipts-${poolName}-${address}`;
   if (ignoreCache) {
     receiptsCache.delete(receiptsCacheKey);
     receiptsPromiseCache.delete(receiptsCacheKey);
@@ -44,8 +44,8 @@ export async function getReceipts(
       /* eslint-disable-next-line no-constant-condition */
       while (true) {
         const paginatedObjects: PaginatedObjectsResponse =
-          await options.suiClient.getOwnedObjects({
-            owner: options.address,
+          await suiClient.getOwnedObjects({
+            owner: address,
             cursor: currentCursor,
             filter: {
               // StructType: `${first_package}::${module}::Receipt`,
@@ -96,7 +96,6 @@ const poolExchangeRateCache = new SimpleCache<Decimal>();
 
 export async function getPoolExchangeRate(
   poolName: PoolName,
-  options: { suiClient: SuiClient },
   ignoreCache: boolean = false,
 ): Promise<Decimal | undefined> {
   const poolExchangeRateCacheKey = `getPoolExchangeRate-${poolName}`;
@@ -111,7 +110,7 @@ export async function getPoolExchangeRate(
   let pool = undefined;
   try {
     if (poolName === "ALPHA") {
-      pool = await getPool("ALPHA", options);
+      pool = await getPool("ALPHA");
     } else if (
       poolName === "ALPHA-SUI" ||
       poolName === "USDT-USDC" ||
@@ -120,9 +119,9 @@ export async function getPoolExchangeRate(
       poolName === "USDC-SUI" ||
       poolName === "WETH-USDC"
     ) {
-      pool = await getPool(poolName, options);
+      pool = await getPool(poolName);
     } else {
-      pool = await getPool(poolName, options);
+      pool = await getPool(poolName);
     }
     if (pool) {
       const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
@@ -152,10 +151,9 @@ export async function getPoolExchangeRate(
 export async function getCoinAmountsFromLiquidity(
   poolName: PoolName,
   liquidity: number,
-  options: { suiClient: SuiClient },
 ): Promise<[number, number]> {
-  const cetus_pool = await getCetusPool(poolName, options);
-  const cetusInvestor = await getCetusInvestor(poolName, options);
+  const cetus_pool = await getCetusPool(poolName);
+  const cetusInvestor = await getCetusInvestor(poolName);
 
   const upper_bound = 443636;
   let lower_tick = Number(cetusInvestor!.content.fields.lower_tick);
@@ -191,9 +189,6 @@ const poolPromiseCache = new SimpleCache<
 
 export async function getPool(
   poolName: string,
-  options: {
-    suiClient: SuiClient;
-  },
   ignoreCache: boolean = false,
 ): Promise<PoolType | AlphaPoolType | undefined> {
   const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].poolId}`;
@@ -218,7 +213,7 @@ export async function getPool(
   // If not, create a new promise and cache it
   poolPromise = (async () => {
     try {
-      const o = await options.suiClient.getObject({
+      const o = await suiClient.getObject({
         id: poolInfo[poolName].poolId,
         options: {
           showContent: true,
@@ -252,9 +247,6 @@ const cetusPoolPromiseCache = new SimpleCache<
 
 export async function getCetusPool(
   poolName: string,
-  options: {
-    suiClient: SuiClient;
-  },
   ignoreCache: boolean = false,
 ): Promise<CetusPoolType | undefined> {
   const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
@@ -278,7 +270,7 @@ export async function getCetusPool(
   // If not, create a new promise and cache it
   cetusPoolPromise = (async () => {
     try {
-      const o = await options.suiClient.getObject({
+      const o = await suiClient.getObject({
         id: cetusPoolMap[poolName.toUpperCase()],
         options: {
           showContent: true,
@@ -310,9 +302,6 @@ const cetusInvestorPromiseCache = new SimpleCache<
 
 export async function getCetusInvestor(
   poolName: PoolName,
-  options: {
-    suiClient: SuiClient;
-  },
   ignoreCache: boolean = false,
 ): Promise<CetusInvestor | undefined> {
   const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
@@ -335,7 +324,7 @@ export async function getCetusInvestor(
   // If not, create a new promise and cache it
   cetusInvestorPromise = (async () => {
     try {
-      const o = await options.suiClient.getObject({
+      const o = await suiClient.getObject({
         id: poolInfo[poolName.toUpperCase()].investorId,
         options: {
           showContent: true,
