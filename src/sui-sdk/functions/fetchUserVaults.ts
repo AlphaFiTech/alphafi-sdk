@@ -1,16 +1,13 @@
 import { AlphaFiVault, CoinName, PoolName } from "../..";
 import { coinNameTypeMap, poolCoinPairMap, poolInfo } from "../../common/maps";
-import { getSuiClient } from "../client";
 import { getReceipts } from "./getReceipts";
-
-const suiClient = getSuiClient();
 
 export async function fetchUserVaults(
   address: string,
 ): Promise<AlphaFiVault[]> {
   const vaultsArr = [];
   for (const pool of Object.keys(poolInfo)) {
-    const receipt = await getReceipts(pool, { address, suiClient });
+    const receipt = await getReceipts(pool, address);
     if (receipt.length > 0) {
       const name = receipt[0].content.fields.name;
       let res;

@@ -18,15 +18,13 @@ export async function getAlphaPortfolioAmount(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
 ) {
-  const receipts = await getReceipts(poolName, options);
-  const pool = await getPool(poolName, { suiClient: options.suiClient });
+  const receipts = await getReceipts(poolName, options.address);
+  const pool = await getPool(poolName);
   if (!pool) {
     throw new Error("Pool not found");
   }
 
-  const exchangeRate = await getPoolExchangeRate(poolName, {
-    suiClient: options.suiClient,
-  });
+  const exchangeRate = await getPoolExchangeRate(poolName);
   let totalXTokens = new Decimal(0);
   if (!exchangeRate) {
     return "0"; // if pool has 0 xtokens
@@ -55,7 +53,7 @@ export async function getAlphaPortfolioAmount(
     });
   }
   if (totalXTokens.gt(0)) {
-    const poolExchangeRate = await getPoolExchangeRate(poolName, options);
+    const poolExchangeRate = await getPoolExchangeRate(poolName);
     if (poolExchangeRate) {
       const tokens = totalXTokens.div(1e9).mul(poolExchangeRate);
       return `${tokens}`;
@@ -105,7 +103,7 @@ export async function getPortfolioAmount(
 
   if (!cachedPromise) {
     cachedPromise = (async () => {
-      const receipts = await getReceipts(poolName, options);
+      const receipts = await getReceipts(poolName, options.address);
       let totalXTokens = new Decimal(0);
       if (receipts) {
         receipts.forEach((receipt) => {
@@ -115,13 +113,12 @@ export async function getPortfolioAmount(
       }
 
       if (totalXTokens.gt(0)) {
-        const poolExchangeRate = await getPoolExchangeRate(poolName, options);
+        const poolExchangeRate = await getPoolExchangeRate(poolName);
         if (poolExchangeRate) {
           const tokens = totalXTokens.mul(poolExchangeRate);
           const poolTokenAmounts = await getCoinAmountsFromLiquidity(
             poolName,
             tokens.toNumber(),
-            { suiClient: options.suiClient },
           );
           portfolioAmount = poolTokenAmounts;
         } else {
@@ -222,7 +219,11 @@ export async function getSingleAssetPortfolioAmount(
 
   if (!cachedPromise) {
     cachedPromise = (async () => {
-      const receipts = await getReceipts(poolName, options, ignoreCache);
+      const receipts = await getReceipts(
+        poolName,
+        options.address,
+        ignoreCache,
+      );
       let totalXTokens = new Decimal(0);
       if (receipts) {
         receipts.forEach((receipt) => {
@@ -233,7 +234,6 @@ export async function getSingleAssetPortfolioAmount(
       if (totalXTokens.gt(0)) {
         const poolExchangeRate = await getPoolExchangeRate(
           poolName,
-          options,
           ignoreCache,
         );
         if (poolExchangeRate) {

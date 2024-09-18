@@ -10,6 +10,7 @@ export {
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
   getVaultBalanceForActiveUsers,
+  getXTokenVaultBalanceForActiveUsers,
 } from "./getVaultBalances";
 
 export {
@@ -47,3 +48,5 @@ export * from "./common/types";
 export * from "./graphql/fetchData";
 export * from "./graphql/parseData";
 export * from "./graphql/executeMutations";
+
+export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts";
