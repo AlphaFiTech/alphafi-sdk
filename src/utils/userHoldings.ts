@@ -74,7 +74,7 @@ export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
   return tokenHoldings;
 }
 
-function liquidityToTokens(
+export function liquidityToTokens(
   params: LiquidityToTokensParams,
 ): string | [string, string] {
   let holdingUSD: string | undefined;
