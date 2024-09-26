@@ -583,7 +583,9 @@ export const conf = {
     ALPHAFI_NAVI_USDC_POOL:
       "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae",
     ALPHAFI_NAVI_HASUI_POOL: "",
-    ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL: "",
+    ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL:
+      "0xd013a1a0c6f2bad46045e3a1ba05932b4a32f15864021d7e0178d5c2fdcc85e3",
+    ALPHAFI_NAVI_LOOP_USDT_USDC_POOL: "",
 
     // CETUS Pool Id's
 
@@ -708,7 +710,10 @@ export const conf = {
 
     NAVI_HASUI_INVESTOR: "",
 
-    NAVI_LOOP_SUI_VSUI_INVESTOR: "",
+    NAVI_LOOP_SUI_VSUI_INVESTOR:
+      "0x36cc3135c255632f9275a5b594145745f8344ce8f6e46d9991ffb17596195869",
+
+    NAVI_LOOP_USDT_USDC_INVESTOR: "",
 
     // Receipt Types
 
@@ -763,7 +768,10 @@ export const conf = {
     NAVI_HASUI_POOL_RECEIPT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
 
-    NAVI_LOOP_SUI_VSUI_RECEIPT: "",
+    NAVI_LOOP_SUI_VSUI_RECEIPT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::Receipt",
+
+    NAVI_LOOP_USDT_USDC_RECEIPT: "",
 
     ALPHA_USDC_POOL_RECEIPT: "",
     WSOL_USDC_POOL_RECEIPT: "",
@@ -808,6 +816,8 @@ export const conf = {
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
     NAVI_SUI_VSUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi SUI-VSUI Receipt",
+
+    NAVI_USDT_USDC_LOOP_RECEIPT_NAME: "AlphaFi-Navi USDT-USDC Receipt",
 
     ALPHA_USDC_POOL_RECEIPT_NAME: "",
     WSOL_USDC_POOL_RECEIPT_NAME: "",
@@ -867,7 +877,10 @@ export const conf = {
     NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
 
-    NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT: "",
+    NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::AutoCompoundingEvent",
+
+    NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT: "",
 
     ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
@@ -977,7 +990,10 @@ export const conf = {
     NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
 
-    NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+    NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeEvent",
+
+    NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
 
     ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
 

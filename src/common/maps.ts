@@ -141,6 +141,19 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "NAVI-LOOP-USDT-USDC": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_USDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "NAVI-LOOP-SUI-VSUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_VSUI_POOL,
