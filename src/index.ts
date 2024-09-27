@@ -57,4 +57,8 @@ export {
   poolInfo,
   getCetusSqrtPriceMap,
   getCetusInvestorTicksMap,
+  poolCoinMap,
+  poolCoinPairMap,
 } from "./common/maps";
+
+export { coins } from "./common/coins";

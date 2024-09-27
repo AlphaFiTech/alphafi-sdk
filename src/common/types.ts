@@ -20,9 +20,11 @@ export type PoolName =
   | "NAVI-WETH"
   | "NAVI-USDT"
   | "NAVI-USDC"
+  | "NAVI-HASUI"
   | "BUCK-USDC"
   | "CETUS-SUI"
   | "NAVI-LOOP-SUI-VSUI"
+  | "NAVI-LOOP-USDT-USDC"
   | "ALPHA-USDC"
   | "WSOL-USDC"
   | "FUD-SUI"
@@ -35,19 +37,27 @@ export type SingleAssetPoolNames =
   | "NAVI-VSUI"
   | "NAVI-WETH"
   | "NAVI-USDT"
-  | "NAVI-USDC";
+  | "NAVI-USDC"
+  | "NAVI-HASUI"
+  | "NAVI-LOOP-SUI-VSUI"
+  | "NAVI-LOOP-USDT-USDC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
   | "USDY-USDC"
   | "ALPHA-SUI"
+  | "ALPHA-USDC"
   | "USDT-USDC"
   | "USDC-SUI"
   | "USDC-WBTC"
   | "WETH-USDC"
   | "NAVX-SUI"
   | "BUCK-USDC"
-  | "CETUS-SUI";
+  | "CETUS-SUI"
+  | "WSOL-USDC"
+  | "FUD-SUI"
+  | "BLUB-SUI"
+  | "SCA-SUI";
 
 export type CoinName =
   | "ALPHA"

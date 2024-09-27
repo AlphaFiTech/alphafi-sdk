@@ -5,10 +5,12 @@ import {
   CetusPoolType,
   CoinName,
   CoinType,
+  DoubleAssetPoolNames,
   ParentProtocolName,
   PoolName,
   PoolReceipt,
   PoolType,
+  SingleAssetPoolNames,
 } from "./types";
 import { PythPriceIdPair } from "./pyth";
 import { getLatestPrice } from "../utils/prices";
@@ -77,16 +79,7 @@ export const receiptNameMap: { [key in string]: string } = {
 };
 
 export const poolCoinPairMap: Record<
-  Exclude<
-    PoolName,
-    | "NAVI-VSUI"
-    | "NAVI-SUI"
-    | "NAVI-WETH"
-    | "NAVI-USDC"
-    | "NAVI-USDT"
-    | "ALPHA"
-    | "NAVI-LOOP-SUI-VSUI"
-  >,
+  DoubleAssetPoolNames,
   { coinA: CoinName; coinB: CoinName }
 > = {
   "USDT-USDC": { coinA: "USDT", coinB: "USDC" },
@@ -106,26 +99,16 @@ export const poolCoinPairMap: Record<
   "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
 };
 
-export const poolCoinMap: Record<
-  Extract<
-    PoolName,
-    | "NAVI-VSUI"
-    | "NAVI-SUI"
-    | "NAVI-WETH"
-    | "NAVI-USDC"
-    | "NAVI-USDT"
-    | "ALPHA"
-    | "NAVI-LOOP-SUI-VSUI"
-  >,
-  CoinName
-> = {
+export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   ALPHA: "ALPHA",
   "NAVI-VSUI": "VSUI",
   "NAVI-SUI": "SUI",
   "NAVI-WETH": "WETH",
   "NAVI-USDC": "USDC",
   "NAVI-USDT": "USDT",
+  "NAVI-HASUI": "HASUI",
   "NAVI-LOOP-SUI-VSUI": "VSUI",
+  "NAVI-LOOP-USDT-USDC": "USDT",
 };
 
 export const poolInfo: {
