@@ -1,66 +1,7 @@
 import { GET_NFT_HOLDERS } from "./queries";
 import { ApolloQueryResult } from "@apollo/client/core";
 import client from "./client";
-
-interface PageInfo {
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-  endCursor: string | null;
-  startCursor: string | null;
-}
-
-interface KeyValue {
-  key: {
-    name: string;
-  };
-  value: string;
-}
-
-interface LastAccRewardPerXToken {
-  contents: KeyValue[];
-}
-
-interface LockedBalance {
-  id: string;
-  size: string;
-  head: string;
-  tail: string;
-}
-
-interface PendingRewards {
-  contents: KeyValue[];
-}
-
-interface MoveObjectContents {
-  id: string;
-  owner: string;
-  name: string;
-  image_url: string;
-  pool_id: string;
-  xTokenBalance: string;
-  last_acc_reward_per_xtoken: LastAccRewardPerXToken;
-  locked_balance: LockedBalance;
-  unlocked_xtokens: string;
-  pending_rewards: PendingRewards;
-}
-
-interface AsMoveObject {
-  status: string;
-  contents: {
-    json: MoveObjectContents;
-  };
-}
-
-interface ReceiptNode {
-  asMoveObject: AsMoveObject;
-}
-
-interface ReceiptsResponse {
-  objects: {
-    pageInfo: PageInfo;
-    nodes: ReceiptNode[];
-  };
-}
+import { ReceiptNode, ReceiptsResponse } from "./types";
 
 export async function fetchNftHolders(): Promise<ReceiptNode[]> {
   const allEvents: ReceiptNode[] = [];
