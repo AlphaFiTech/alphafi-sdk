@@ -1,6 +1,6 @@
 import { coins } from "../../common/coins";
 import { getInvestorPoolMap, poolCoinMap, poolInfo } from "../../common/maps";
-import { PoolName } from "../../common/types";
+import { PoolName, SingleAssetPoolNames } from "../../common/types";
 import { fetchEvents } from "./fetchEvents";
 import {
   AutoCompoundingEventNode,
@@ -138,7 +138,6 @@ export async function calculateAprForInvestor(
   const investorPoolMap = await getInvestorPoolMap();
 
   for (const event of events) {
-    //console.log(event);
     // Calculate the time difference from the previous event
     const timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
 
@@ -165,16 +164,11 @@ export async function calculateAprForInvestor(
       )
         ? 0
         : Number(event.compound_amount) / Number(event.total_amount);
-      const poolName = investorPoolMap.get(event.investor_id) as Extract<
-        PoolName,
-        | "NAVI-VSUI"
-        | "NAVI-SUI"
-        | "NAVI-WETH"
-        | "NAVI-USDC"
-        | "NAVI-USDT"
-        | "ALPHA"
-      >;
+      const poolName = investorPoolMap.get(
+        event.investor_id,
+      ) as SingleAssetPoolNames;
       const coinName = poolCoinMap[poolName];
+
       growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
     }
 
