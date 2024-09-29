@@ -1,0 +1,27 @@
+{
+  "semi": true,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": "*.tsx",
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": "*.graphql",
+      "options": {
+        "parser": "graphql"
+      }
+    }
+  ]
+}
