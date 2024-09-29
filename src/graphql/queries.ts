@@ -12,6 +12,9 @@ import investors from "./queries/investors.graphql";
 import cetusPools from "./queries/cetusPools.graphql";
 import autoCompoundEvents from "./queries/autoCompoundEvents.graphql";
 import nftHolders from "./queries/nftHolders.graphql";
+import receiptData from "./queries/receiptData.graphql";
+import lockedTableDataFragment from "./queries/lockedTableDataFragment.graphql";
+import lockedTableData from "./queries/lockedTableData.graphql";
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`
@@ -80,4 +83,16 @@ export const GET_AUTOCOMPOUND_EVENTS = gql`
 
 export const GET_NFT_HOLDERS = gql`
   ${nftHolders}
+`;
+
+export const GET_RECEIPT_DATA = gql`
+  ${receiptData}
+`;
+
+export const GET_LOCKED_TABLE_DATA_FRAGMENT = gql`
+  ${lockedTableDataFragment}
+`;
+
+export const GET_LOCKED_TABLE_DATA = gql`
+  ${lockedTableData}
 `;

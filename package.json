@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "buildNoPrettier": "npm run lint && webpack && npm link",
     "build": "npm run prettier && npm run lint && webpack && npm link",
     "test": "jest",
     "lint": "eslint 'src/**/*.ts' --fix",
