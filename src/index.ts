@@ -62,4 +62,5 @@ export {
 } from "./common/maps";
 
 export { coins } from "./common/coins";
-export { getLockedTableId } from "./getLockedTable";
+
+export { getAlphaUnlocks } from "./getAlphaUnlocks";
