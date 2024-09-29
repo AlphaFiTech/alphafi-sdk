@@ -62,3 +62,5 @@ export {
 } from "./common/maps";
 
 export { coins } from "./common/coins";
+
+export { getAlphaUnlocks } from "./getAlphaUnlocks";
