@@ -158,12 +158,16 @@ export async function calculateAprForInvestor(
 
       growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
     } else if ("total_amount" in event) {
+      let compoundAmount: number = Number(event.compound_amount);
+      let totalAmount: number = Number(event.total_amount);
+      if ("cur_total_debt" in event && "accrued_interest" in event) {
+        compoundAmount = Number(event.compound_amount - event.accrued_interest);
+        totalAmount = Number(event.total_amount - event.cur_total_debt);
+      }
       // NaviAutoCompoundingEvent
-      growthRate = isNaN(
-        Number(event.compound_amount) / Number(event.total_amount),
-      )
+      growthRate = isNaN(compoundAmount / totalAmount)
         ? 0
-        : Number(event.compound_amount) / Number(event.total_amount);
+        : compoundAmount / totalAmount;
       const poolName = investorPoolMap.get(
         event.investor_id,
       ) as SingleAssetPoolNames;

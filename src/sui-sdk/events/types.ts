@@ -26,6 +26,11 @@ export interface NaviAutoCompoundingEvent {
   total_amount: bigint;
 }
 
+export interface NaviLoopAutoCompoundingEvent extends NaviAutoCompoundingEvent {
+  cur_total_debt: bigint;
+  accrued_interest: bigint;
+}
+
 export interface RebalanceEvent {
   investor_id: string;
   lower_tick_after: string;
@@ -82,6 +87,7 @@ export interface AlphaLiquidityChangeEvent {
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
+  | (NaviLoopAutoCompoundingEvent & CommonEventAttributes)
   | (AlphaAutoCompoundingEvent & CommonEventAttributes);
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;

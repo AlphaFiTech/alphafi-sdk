@@ -9,8 +9,10 @@ import {
   FetchEventsParams,
   LiquidityChangeEventNode,
   NaviAutoCompoundingEvent,
+  NaviLoopAutoCompoundingEvent,
   NaviLiquidityChangeEvent,
   RebalanceEvent,
+  AutoCompoundingEventNode,
 } from "./types";
 import { poolInfo } from "../../common/maps";
 import { conf, CONF_ENV } from "../../common/constants";
@@ -68,6 +70,7 @@ export async function fetchEvents(
       const suiEventJson = suiEvent.parsedJson as
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent
+        | NaviLoopAutoCompoundingEvent
         | RebalanceEvent
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
@@ -110,6 +113,17 @@ export async function fetchEvents(
           location: suiEventJson.location,
           total_amount: BigInt(suiEventJson.total_amount.toString()),
         };
+        if (
+          "cur_total_debt" in suiEventJson &&
+          "accrued_interest" in suiEventJson
+        ) {
+          const loopEvent: AutoCompoundingEventNode = {
+            ...eventNode,
+            cur_total_debt: BigInt(suiEventJson.cur_total_debt.toString()),
+            accrued_interest: BigInt(suiEventJson.accrued_interest.toString()),
+          };
+          eventNode = loopEvent;
+        }
       } else if (
         isAutoCompoundingEvent(suiEvent.type) &&
         "amount" in suiEventJson
