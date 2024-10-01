@@ -474,6 +474,7 @@ export const poolIdPoolNameMap: {
   [conf[CONF_ENV].NAVX_SUI_POOL]: "NAVX-SUI",
   [conf[CONF_ENV].CETUS_SUI_POOL]: "CETUS-SUI",
   [conf[CONF_ENV].BUCK_USDC_POOL]: "BUCK-USDC",
+  [conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL]: "NAVI-LOOP-SUI-VSUI",
 };
 
 export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
