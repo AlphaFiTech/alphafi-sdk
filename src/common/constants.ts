@@ -1002,7 +1002,7 @@ export const conf = {
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
 
     NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT:
-      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeEvent",
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeNewNewEvent",
 
     NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
 
