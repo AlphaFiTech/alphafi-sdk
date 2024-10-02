@@ -80,6 +80,42 @@ describe("getNaviUsdcSingleAssetVaultBalance", () => {
   });
 });
 
+describe("getNaviUsdcSingleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "NAVI-LOOP-SUI-VSUI";
+
+    return getSingleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getNaviUsdcSingleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "NAVI-HASUI";
+
+    return getSingleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getNaviUsdcSingleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "NAVI-LOOP-USDT-USDC";
+
+    return getSingleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
 // Double Asset Vaults
 
 describe("getUsdtUsdcDoubleAssetVaultBalance", () => {
@@ -171,6 +207,90 @@ describe("getNavxSuiDoubleAssetVaultBalance", () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
     const poolName: PoolName = "NAVX-SUI";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getBuckUsdcDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "BUCK-USDC";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getCetusSuiDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "CETUS-SUI";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getAlphaUsdcDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "ALPHA-USDC";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getWsolUsdcDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "WSOL-USDC";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getFudSuiDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "FUD-SUI";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getBlubSuiDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "BLUB-SUI";
+
+    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+      expect(balance).toBeDefined();
+    });
+  });
+});
+
+describe("getScaSuiDoubleAssetVaultBalance", () => {
+  it("should return the correct value", async () => {
+    const address =
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+    const poolName: PoolName = "SCA-SUI";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();

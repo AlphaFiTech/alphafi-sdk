@@ -1,6 +1,6 @@
 import { SuiClient } from "@mysten/sui/client";
 import Decimal from "decimal.js";
-import { CoinName, PoolName } from "../..";
+import { CoinName, PoolName, DoubleAssetPoolNames } from "../..";
 import {
   getCoinAmountsFromLiquidity,
   getPool,
@@ -144,26 +144,19 @@ export async function getPortfolioAmount(
   return cachedPromise;
 }
 
-export async function getPortfolioAmountInUSD(
+export async function getDoubleAssetPortfolioAmountInUSD(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
   ignoreCache: boolean = false,
 ): Promise<string | undefined> {
-  if (
-    poolName === "ALPHA-SUI" ||
-    poolName === "USDT-USDC" ||
-    poolName === "HASUI-SUI" ||
-    poolName === "USDY-USDC" ||
-    poolName === "USDC-SUI" ||
-    poolName === "WETH-USDC" ||
-    poolName === "USDC-WBTC" ||
-    poolName === "NAVX-SUI"
-  ) {
+  if ((poolName as DoubleAssetPoolNames) !== undefined) {
     const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
     if (amounts !== undefined) {
       const ten = new Decimal(10);
-      const pool1 = poolCoinPairMap[poolName].coinA as CoinName;
-      const pool2 = poolCoinPairMap[poolName].coinB as CoinName;
+      const pool1 = poolCoinPairMap[poolName as DoubleAssetPoolNames]
+        .coinA as CoinName;
+      const pool2 = poolCoinPairMap[poolName as DoubleAssetPoolNames]
+        .coinB as CoinName;
       const amount0 = new Decimal(amounts[0]).div(
         ten.pow(coins[pool1 as CoinName].expo),
       );
