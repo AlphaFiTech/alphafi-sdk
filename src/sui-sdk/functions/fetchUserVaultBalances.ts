@@ -5,7 +5,7 @@ import {
   getAlphaPortfolioAmount,
   getAlphaPortfolioAmountInUSD,
   getPortfolioAmount,
-  getPortfolioAmountInUSD,
+  getDoubleAssetPortfolioAmountInUSD,
   getSingleAssetPortfolioAmount,
   getSingleAssetPortfolioAmountInUSD,
 } from "./getPortfolioAmounts";
@@ -67,7 +67,7 @@ export async function fetchUserVaultBalances(
       suiClient,
       address,
     });
-    const portfolioAmountInUSD = await getPortfolioAmountInUSD(
+    const portfolioAmountInUSD = await getDoubleAssetPortfolioAmountInUSD(
       poolName as PoolName,
       { suiClient, address },
     );
