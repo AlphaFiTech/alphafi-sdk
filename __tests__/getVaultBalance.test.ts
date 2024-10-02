@@ -229,7 +229,7 @@ describe("getBuckUsdcDoubleAssetVaultBalance", () => {
 describe("getCetusSuiDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
-      "0x2720318fd72d4c1d4ab97017fe39f4fb9f3e710eb08c0979f943341ffa265ce2";
+      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
     const poolName: PoolName = "CETUS-SUI";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
