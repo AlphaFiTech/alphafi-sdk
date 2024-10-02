@@ -1,5 +1,6 @@
 import { PythPriceIdPair } from "../common/pyth";
 import { getAlphaPrice, getBUCKPrice, getUSDYPrice } from "./clmm/prices";
+import { getBlubPrice, getWsolPrice, getFudPrice } from "./hop";
 import { SimpleCache } from "./simpleCache";
 
 const debug = false;
@@ -25,6 +26,15 @@ export async function getLatestPrices(
     } else if (pair === ("BUCK/USD" as PythPriceIdPair)) {
       const buckPrice = await getBUCKPrice();
       prices[i] = buckPrice ? `${buckPrice}` : undefined;
+    } else if (pair === ("WSOL/USD" as PythPriceIdPair)) {
+      const wsolPrice = await getWsolPrice();
+      prices[i] = wsolPrice ? `${wsolPrice}` : undefined;
+    } else if (pair === ("FUD/USD" as PythPriceIdPair)) {
+      const fudPrice = await getFudPrice();
+      prices[i] = fudPrice ? `${fudPrice}` : undefined;
+    } else if (pair === ("BLUB/USD" as PythPriceIdPair)) {
+      const blubPrice = await getBlubPrice();
+      prices[i] = blubPrice ? `${blubPrice}` : undefined;
     } else {
       pairsToFetch.push(pair);
       if (!indexMap.has(pair)) {
@@ -88,6 +98,21 @@ export async function getLatestPrice(
     const buckPrice = await getBUCKPrice();
     if (buckPrice) {
       price = `${buckPrice}`;
+    }
+  } else if (pair === ("WSOL/USD" as PythPriceIdPair)) {
+    const wsolPrice = await getWsolPrice();
+    if (wsolPrice) {
+      price = `${wsolPrice}`;
+    }
+  } else if (pair === ("BLUB/USD" as PythPriceIdPair)) {
+    const blubPrice = await getBlubPrice();
+    if (blubPrice) {
+      price = `${blubPrice}`;
+    }
+  } else if (pair === ("FUD/USD" as PythPriceIdPair)) {
+    const fudPrice = await getFudPrice();
+    if (fudPrice) {
+      price = `${fudPrice}`;
     }
   } else {
     try {
