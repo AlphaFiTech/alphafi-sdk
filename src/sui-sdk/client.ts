@@ -18,3 +18,11 @@ export function getSuiClient(): SuiClient {
   }
   return suiClientInstance;
 }
+
+export function getSuiNodeUrl(): string {
+  // const url =
+  // "https://api.shinami.com/node/v1/sui_mainnet_53aeba16fc07edd3c1ec5110550c8189";
+  const url = getFullnodeUrl("mainnet");
+  // const url = "https://sui-mainnet-endpoint.blockvision.org";
+  return url;
+}
