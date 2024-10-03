@@ -64,3 +64,5 @@ export {
 export { coins } from "./common/coins";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks";
+
+export { getSuiClient, getSuiNodeUrl, setSuiNodeUrl } from "./sui-sdk/client";
