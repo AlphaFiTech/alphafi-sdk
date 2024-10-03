@@ -1,11 +1,20 @@
 import { SuiClient } from "@mysten/sui/client";
-import Decimal from "decimal.js";
-import { CoinName, PoolName, DoubleAssetPoolNames } from "../..";
+import { Decimal } from "decimal.js";
+import {
+  CoinName,
+  PoolName,
+  DoubleAssetPoolNames,
+  NaviInvestor,
+  CommonInvestorFields,
+  SingleAssetPoolNames,
+} from "../..";
 import {
   getCoinAmountsFromLiquidity,
   getPool,
   getPoolExchangeRate,
   getReceipts,
+  getNaviInvestor,
+  fetchVoloExchangeRate,
 } from "./getReceipts";
 import { SimpleCache } from "../../utils/simpleCache";
 import { coins } from "../../common/coins";
@@ -188,7 +197,7 @@ const singleAssetPortfolioAmountPromiseCache = new SimpleCache<
   Promise<number>
 >();
 export async function getSingleAssetPortfolioAmount(
-  poolName: PoolName,
+  poolName: SingleAssetPoolNames,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
   ignoreCache: boolean = false,
 ) {
@@ -225,23 +234,75 @@ export async function getSingleAssetPortfolioAmount(
         });
       }
       if (totalXTokens.gt(0)) {
-        const poolExchangeRate = await getPoolExchangeRate(
-          poolName,
-          ignoreCache,
-        );
-        if (poolExchangeRate) {
-          let tokens = totalXTokens.mul(poolExchangeRate);
-          tokens = tokens.div(
-            Math.pow(
-              10,
-              9 - coins[poolCoinMap[poolName as keyof typeof poolCoinMap]].expo,
-            ),
-          );
-          portfolioAmount = tokens.toNumber();
+        if (
+          poolName == "NAVI-LOOP-SUI-VSUI" ||
+          poolName == "NAVI-LOOP-USDT-USDC"
+        ) {
+          const pool = await getPool(poolName, ignoreCache);
+          const investor = (await getNaviInvestor(
+            poolName,
+            ignoreCache,
+          )) as NaviInvestor & CommonInvestorFields;
+          if (pool && investor) {
+            const liquidity = new Decimal(
+              investor.content.fields.tokensDeposited,
+            );
+            const debtToSupplyRatio = new Decimal(
+              investor.content.fields.current_debt_to_supply_ratio,
+            );
+            const tokensInvested = liquidity.mul(
+              new Decimal(1).minus(new Decimal(debtToSupplyRatio).div(1e20)),
+            );
+            const xTokenSupplyInPool = new Decimal(
+              pool.content.fields.xTokenSupply,
+            );
+            const userTokens = totalXTokens
+              .mul(tokensInvested)
+              .div(xTokenSupplyInPool);
+            const tokens = userTokens.div(
+              Math.pow(10, 9 - coins[poolCoinMap[poolName]].expo),
+            );
+            if (poolName == "NAVI-LOOP-SUI-VSUI") {
+              // const { SevenKGateway } = await import("../");
+              // const sevenKInstance = new SevenKGateway();
+              // const numberOfTokensInSui = (await sevenKInstance.getQuote({
+              //   slippage: 1,
+              //   senderAddress: options.address,
+              //   pair: { coinA: coins["VSUI"], coinB: coins["SUI"] },
+              //   inAmount: new BN(tokens.toNumber()),
+              // })) as QuoteResponse;
+              const voloExchRate = await fetchVoloExchangeRate();
+              portfolioAmount = Number(
+                tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
+              );
+            }
+            // TODO: Whenever NAVI-LOOP-USDT-USDC is released, change this else implementation
+            else {
+              portfolioAmount = Number(tokens);
+            }
+          } else {
+            console.error(`Could not get object for poolName: ${poolName}`);
+          }
         } else {
-          console.error(
-            `Could not get poolExchangeRate for poolName: ${poolName}`,
+          const poolExchangeRate = await getPoolExchangeRate(
+            poolName,
+            ignoreCache,
           );
+          if (poolExchangeRate) {
+            let tokens = totalXTokens.mul(poolExchangeRate);
+            tokens = tokens.div(
+              Math.pow(
+                10,
+                9 -
+                  coins[poolCoinMap[poolName as keyof typeof poolCoinMap]].expo,
+              ),
+            );
+            portfolioAmount = tokens.toNumber();
+          } else {
+            console.error(
+              `Could not get poolExchangeRate for poolName: ${poolName}`,
+            );
+          }
         }
       } else {
         portfolioAmount = 0;
@@ -268,7 +329,7 @@ export async function getSingleAssetPortfolioAmount(
 }
 
 export async function getSingleAssetPortfolioAmountInUSD(
-  poolName: PoolName,
+  poolName: SingleAssetPoolNames,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
   ignoreCache: boolean = false,
 ): Promise<string | undefined> {

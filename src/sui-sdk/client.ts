@@ -15,7 +15,10 @@ export function getSuiNodeUrl(): string {
   return url;
 }
 
-export function getSuiClient(): SuiClient {
+export function getSuiClient(customClient?: SuiClient): SuiClient {
+  if (customClient) {
+    return customClient;
+  }
   if (!suiClientInstance) {
     suiClientInstance = new SuiClient({
       url: getSuiNodeUrl(),

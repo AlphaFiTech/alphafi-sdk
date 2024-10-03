@@ -2,17 +2,21 @@ import { PaginatedObjectsResponse } from "@mysten/sui/client";
 import {
   AlphaPoolType,
   CetusInvestor,
+  NaviInvestor,
+  CommonInvestorFields,
   CetusPoolType,
   CoinAmounts,
   PoolName,
   PoolType,
   Receipt,
+  SingleAssetPoolNames,
+  NaviVoloData,
 } from "../..";
 import { cetusPoolMap, poolInfo } from "../../common/maps";
 import { SimpleCache } from "../../utils/simpleCache";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 import { getSuiClient } from "../client";
 
 const suiClient = getSuiClient();
@@ -347,4 +351,105 @@ export async function getCetusInvestor(
   // Cache the promise
   cetusInvestorPromiseCache.set(cacheKey, cetusInvestorPromise);
   return cetusInvestorPromise;
+}
+
+const naviInvestorCache = new SimpleCache<
+  NaviInvestor & CommonInvestorFields
+>();
+const naviInvestorPromiseCache = new SimpleCache<
+  Promise<(NaviInvestor & CommonInvestorFields) | undefined>
+>();
+
+export async function getNaviInvestor(
+  poolName: SingleAssetPoolNames,
+  ignoreCache: boolean = false,
+): Promise<(NaviInvestor & CommonInvestorFields) | undefined> {
+  const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
+  if (ignoreCache) {
+    naviInvestorCache.delete(cacheKey);
+    naviInvestorPromiseCache.delete(cacheKey);
+  }
+  // Check if the investor is already in the cache
+  const cachedInvestor = naviInvestorCache.get(cacheKey);
+  if (cachedInvestor) {
+    return cachedInvestor;
+  }
+
+  // Check if there is already a promise in the cache
+  let naviInvestorPromise = naviInvestorPromiseCache.get(cacheKey);
+  if (naviInvestorPromise) {
+    return naviInvestorPromise;
+  }
+
+  // If not, create a new promise and cache it
+  naviInvestorPromise = (async () => {
+    try {
+      const o = await suiClient.getObject({
+        id: poolInfo[poolName.toUpperCase()].investorId,
+        options: {
+          showContent: true,
+        },
+      });
+      const navi_investor = o.data as NaviInvestor & CommonInvestorFields;
+
+      // Cache the investor object
+      naviInvestorCache.set(cacheKey, navi_investor);
+      return navi_investor;
+    } catch (e) {
+      console.error(`getNaviInvestor failed for pool: ${poolName}`);
+      return undefined;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      naviInvestorPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  naviInvestorPromiseCache.set(cacheKey, naviInvestorPromise);
+  return naviInvestorPromise;
+}
+
+const naviVoloExchangeRateCache = new SimpleCache<NaviVoloData>();
+const naviVoloExchangeRatePromiseCache = new SimpleCache<
+  Promise<NaviVoloData>
+>();
+
+export async function fetchVoloExchangeRate(
+  ignoreCache: boolean = false,
+): Promise<NaviVoloData> {
+  const apiUrl = "https://open-api.naviprotocol.io/api/volo/stats";
+  let NaviVoloDetails: NaviVoloData;
+  if (ignoreCache) {
+    naviVoloExchangeRateCache.clear();
+    naviVoloExchangeRatePromiseCache.delete(apiUrl);
+  }
+
+  const cachedResponse = naviVoloExchangeRateCache.get(apiUrl);
+  if (cachedResponse) {
+    NaviVoloDetails = cachedResponse;
+  } else {
+    let cachedPromise = naviVoloExchangeRatePromiseCache.get(apiUrl);
+
+    if (!cachedPromise) {
+      cachedPromise = fetch(apiUrl)
+        .then(async (response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = (await response.json()) as NaviVoloData; // Parse the JSON response
+          naviVoloExchangeRateCache.set(apiUrl, data); // Cache the response
+          naviVoloExchangeRatePromiseCache.delete(apiUrl); // Remove the promise from the cache
+          return data;
+        })
+        .catch((error) => {
+          naviVoloExchangeRatePromiseCache.delete(apiUrl); // Ensure the promise is removed on error
+          throw error;
+        });
+      naviVoloExchangeRatePromiseCache.set(apiUrl, cachedPromise);
+      NaviVoloDetails = await cachedPromise;
+    }
+    return cachedPromise;
+  }
+
+  return NaviVoloDetails;
 }

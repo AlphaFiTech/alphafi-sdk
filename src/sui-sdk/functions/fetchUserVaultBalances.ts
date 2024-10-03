@@ -1,5 +1,9 @@
 import { poolInfo } from "../../common/maps";
-import { AlphaFiVaultBalance, PoolName } from "../../common/types";
+import {
+  AlphaFiVaultBalance,
+  PoolName,
+  SingleAssetPoolNames,
+} from "../../common/types";
 import { getSuiClient } from "../client";
 import {
   getAlphaPortfolioAmount,
@@ -81,14 +85,14 @@ export async function fetchUserVaultBalances(
     }
   } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
     const portfolioAmount = await getSingleAssetPortfolioAmount(
-      poolName as PoolName,
+      poolName as SingleAssetPoolNames,
       {
         suiClient,
         address,
       },
     );
     const portfolioAmountInUSD = await getSingleAssetPortfolioAmountInUSD(
-      poolName as PoolName,
+      poolName as SingleAssetPoolNames,
       {
         suiClient,
         address,

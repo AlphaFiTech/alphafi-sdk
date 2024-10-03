@@ -214,6 +214,34 @@ export type CetusInvestor = {
   };
 };
 
+export type NaviInvestor = {
+  content: {
+    fields: {
+      tokensDeposited: string;
+      current_debt_to_supply_ratio: string;
+    };
+  };
+};
+
+export type CommonInvestorFields = {
+  objectId: string;
+  version: string;
+  digest: string;
+  type: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      id: {
+        id: string;
+      };
+      performance_fee: string;
+      performance_fee_max_cap: string;
+    };
+  };
+};
+
 export type CetusPoolType = {
   objectId: string;
   version: string;
@@ -561,3 +589,25 @@ export type TransactionBlockType = {
   timestampMs: string;
   checkpoint: string;
 };
+
+export interface NaviVoloData {
+  data: {
+    operatorBalance: string;
+    collectableFee: string;
+    pendingStakes: string;
+    poolTotalRewards: string;
+    unstakeTicketSupply: string;
+    totalStaked: string;
+    activeStake: string;
+    calcTotalRewards: string;
+    currentEpoch: string;
+    validators: object;
+    exchangeRate: string;
+    totalSupply: string;
+    apy: string;
+    sortedValidators: string[];
+    maxInstantUnstake: string;
+    maxNoFeeUnstake: string;
+  };
+  code: number;
+}
