@@ -107,7 +107,7 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-USDC": "USDC",
   "NAVI-USDT": "USDT",
   "NAVI-HASUI": "HASUI",
-  "NAVI-LOOP-SUI-VSUI": "VSUI",
+  "NAVI-LOOP-SUI-VSUI": "SUI",
   "NAVI-LOOP-USDT-USDC": "USDT",
 };
 
