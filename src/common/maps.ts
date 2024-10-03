@@ -15,7 +15,7 @@ import {
 import { PythPriceIdPair } from "./pyth";
 import { getLatestPrice } from "../utils/prices";
 import { getSuiClient } from "../sui-sdk/client";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 
 const suiClient = getSuiClient();
 

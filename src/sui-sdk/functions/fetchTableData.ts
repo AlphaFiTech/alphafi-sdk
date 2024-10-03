@@ -1,5 +1,5 @@
 import { getSuiClient } from "../client";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 import { getPoolExchangeRate } from "./getReceipts";
 
 export interface LockedAlphaObject {
