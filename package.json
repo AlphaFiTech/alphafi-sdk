@@ -1,9 +1,12 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "AlphaFi SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "buildNoPrettier": "npm run lint && webpack && npm link",
     "build": "npm run prettier && npm run lint && webpack && npm link",
