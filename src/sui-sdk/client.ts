@@ -15,14 +15,17 @@ export function getSuiNodeUrl(): string {
   return url;
 }
 
-export function getSuiClient(customClient?: SuiClient): SuiClient {
-  if (customClient) {
-    return customClient;
-  }
+export function getSuiClient(rpcNodeUrl?: string): SuiClient {
   if (!suiClientInstance) {
     suiClientInstance = new SuiClient({
-      url: getSuiNodeUrl(),
+      url: rpcNodeUrl ? rpcNodeUrl : getSuiNodeUrl(),
     });
   }
   return suiClientInstance;
+}
+
+export function setSuiClient(rpcNodeUrl?: string) {
+  suiClientInstance = new SuiClient({
+    url: rpcNodeUrl ? rpcNodeUrl : getSuiNodeUrl(),
+  });
 }
