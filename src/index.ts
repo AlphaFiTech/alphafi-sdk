@@ -1,4 +1,11 @@
 export {
+  setSuiNodeUrl,
+  setSuiClient,
+  getSuiNodeUrl,
+  getSuiClient,
+} from "./sui-sdk/client";
+
+export {
   getVaults,
   getSingleAssetVaults,
   getDoubleAssetVaults,
@@ -64,5 +71,3 @@ export {
 export { coins } from "./common/coins";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks";
-
-export { getSuiClient, getSuiNodeUrl, setSuiNodeUrl } from "./sui-sdk/client";

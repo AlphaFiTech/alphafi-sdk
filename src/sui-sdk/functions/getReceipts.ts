@@ -19,8 +19,6 @@ import BN from "bn.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../client";
 
-const suiClient = getSuiClient();
-
 const receiptsCache = new SimpleCache<Receipt[]>();
 const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
 export async function getReceipts(
@@ -28,6 +26,7 @@ export async function getReceipts(
   address: string,
   ignoreCache: boolean = false,
 ): Promise<Receipt[]> {
+  const suiClient = getSuiClient();
   const receiptsCacheKey = `getReceipts-${poolName}-${address}`;
   if (ignoreCache) {
     receiptsCache.delete(receiptsCacheKey);
@@ -216,6 +215,8 @@ export async function getPool(
 
   // If not, create a new promise and cache it
   poolPromise = (async () => {
+    const suiClient = getSuiClient();
+
     try {
       const o = await suiClient.getObject({
         id: poolInfo[poolName].poolId,
@@ -274,6 +275,8 @@ export async function getCetusPool(
   // If not, create a new promise and cache it
   cetusPoolPromise = (async () => {
     try {
+      const suiClient = getSuiClient();
+
       const o = await suiClient.getObject({
         id: cetusPoolMap[poolName.toUpperCase()],
         options: {
@@ -328,6 +331,8 @@ export async function getCetusInvestor(
   // If not, create a new promise and cache it
   cetusInvestorPromise = (async () => {
     try {
+      const suiClient = getSuiClient();
+
       const o = await suiClient.getObject({
         id: poolInfo[poolName.toUpperCase()].investorId,
         options: {
@@ -384,6 +389,8 @@ export async function getNaviInvestor(
   // If not, create a new promise and cache it
   naviInvestorPromise = (async () => {
     try {
+      const suiClient = getSuiClient();
+
       const o = await suiClient.getObject({
         id: poolInfo[poolName.toUpperCase()].investorId,
         options: {

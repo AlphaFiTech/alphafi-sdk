@@ -4,8 +4,6 @@
 import { getSuiClient } from "../sui-sdk/client";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 
-const suiClient = getSuiClient();
-
 // interface PageInfo {
 //   hasNextPage: boolean;
 //   hasPreviousPage: boolean;
@@ -53,6 +51,8 @@ export async function fetchAutoCompoundingEventsGql(
   eventType: string,
 ): Promise<AutoCompoundingEventNode[]> {
   const allEvents: AutoCompoundingEventNode[] = [];
+  const suiClient = getSuiClient();
+
   let hasNextPage = true;
   let startCursor: EventId | null | undefined = null;
 

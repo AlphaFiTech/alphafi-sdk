@@ -17,8 +17,6 @@ import {
 import { poolInfo } from "../../common/maps";
 import { conf, CONF_ENV } from "../../common/constants";
 
-const suiClient = getSuiClient();
-
 export async function fetchEvents(
   params: FetchEventsParams,
 ): Promise<EventNode[]> {
@@ -44,6 +42,8 @@ export async function fetchEvents(
   if (startTime >= endTime) {
     throw new Error("startTime must be less than endTime");
   }
+
+  const suiClient = getSuiClient();
 
   while (hasNextPage) {
     const result: PaginatedEvents = await suiClient.queryEvents({

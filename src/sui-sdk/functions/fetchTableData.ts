@@ -45,13 +45,12 @@ export type AlphaUnlocks = {
   timestampMs: number;
 };
 
-const suiClient = getSuiClient();
-
 export async function getTableDataXtokens(
   owner: string,
   table: string,
 ): Promise<AlphaUnlocks[] | undefined> {
   let locked_alpha_pos_arr: LockedAlphaObject[] = [];
+  const suiClient = getSuiClient();
 
   let currentCursor: string | null | undefined = null;
   do {

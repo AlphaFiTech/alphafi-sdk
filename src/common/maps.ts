@@ -17,8 +17,6 @@ import { getLatestPrice } from "../utils/prices";
 import { getSuiClient } from "../sui-sdk/client";
 import { Decimal } from "decimal.js";
 
-const suiClient = getSuiClient();
-
 export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
@@ -576,6 +574,7 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
   const poolNameToConversionRateMap = new Map<PoolName, string>();
 
   const poolIds = Object.keys(poolIdPoolNameMap);
+  const suiClient = getSuiClient();
   const res = await suiClient.multiGetObjects({
     ids: poolIds,
     options: {
@@ -604,6 +603,7 @@ export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
   const poolNameToSqrtPriceMap = new Map<PoolName, string>();
 
   const cetusPools = Object.values(cetusPoolMap);
+  const suiClient = getSuiClient();
   const res = await suiClient.multiGetObjects({
     ids: cetusPools,
     options: {
@@ -633,6 +633,7 @@ export async function getCetusInvestorTicksMap(): Promise<{
 
   const investorPoolMap = await getInvestorPoolMap();
   const investors = Array.from(investorPoolMap.keys());
+  const suiClient = getSuiClient();
   const res = await suiClient.multiGetObjects({
     ids: investors,
     options: {

@@ -15,10 +15,10 @@ const recieptTypes = {
     "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
 };
 
-const suiClient = getSuiClient();
-
 export async function getReceipts(params: GetReceiptParams) {
   let receipts: SuiObjectResponse[] = [];
+  const suiClient = getSuiClient();
+
   for (const userAddress of params?.owners) {
     console.log("checking receipts for", userAddress);
     let hasNextPage: boolean = true;

@@ -14,12 +14,12 @@ import {
   getSingleAssetPortfolioAmountInUSD,
 } from "./getPortfolioAmounts";
 
-const suiClient = getSuiClient();
-
 export async function fetchUserVaultBalances(
   address: string,
   poolName: PoolName,
 ): Promise<AlphaFiVaultBalance | undefined> {
+  const suiClient = getSuiClient();
+
   let vaultBalance;
   if (poolInfo[poolName].parentProtocolName === "ALPHAFI") {
     const lockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {

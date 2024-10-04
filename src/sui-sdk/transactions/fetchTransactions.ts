@@ -2,12 +2,11 @@ import { getSuiClient } from "../client";
 import { SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { FetchTransactionParams } from "./types";
 
-const suiClient = getSuiClient();
-
 export async function fetchTransactions(
   params: FetchTransactionParams,
 ): Promise<SuiTransactionBlockResponse[]> {
   let transactionBlocks: SuiTransactionBlockResponse[] = [];
+  const suiClient = getSuiClient();
 
   for (const filter of params.filter) {
     let hasNextPage: boolean = true;
