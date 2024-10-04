@@ -5,6 +5,10 @@ import {
   SingleAssetPoolNames,
   AlphaFiVaultBalance,
 } from "./common/types";
+import {
+  GetDepositActivityResponse,
+  GetFullWithdrawActivityResponse,
+} from "./utils/userHoldings";
 
 export type GetUserTokensFromTransactionsParams = {
   poolNames?: string[];
@@ -229,4 +233,14 @@ export type GetVaultBalanceForActiveUsersParams = {
   poolNames?: PoolName[];
   startTime?: number;
   endTime?: number;
+};
+
+export type GetUsersActivityParams = {
+  poolNames?: PoolName[];
+  startTime?: number;
+  endTime?: number;
+};
+export type GetUsersActivityResponse = {
+  depositActivity: GetDepositActivityResponse;
+  fullWithdrawActivity: GetFullWithdrawActivityResponse;
 };

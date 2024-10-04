@@ -15,16 +15,22 @@ import {
   DoubleAssetMultiVaultBalance,
   VaultBalance,
   GetVaultBalanceForActiveUsersParams,
+  GetUsersActivityParams,
+  GetUsersActivityResponse,
 } from "./types";
 import { FetchLiquidityChangeEventsParams } from "./sui-sdk/events/types";
 import { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents";
 import { parseXTokensFromLCEvent } from "./sui-sdk/events/parseData";
 import {
+  getDepositActivity,
+  getFullWithdrawActivity,
   multiLiquidityToTokens,
   multiTokensToUsd,
   multiXTokensToLiquidity,
 } from "./utils/userHoldings";
+import { poolInfo } from "./common/maps";
 
+// TODO: Deprecate in favour of getUsersActivity()
 export async function getXTokenVaultBalanceForActiveUsers(
   params: GetVaultBalanceForActiveUsersParams,
 ) {
@@ -194,4 +200,29 @@ export async function getDoubleAssetVaultBalance(
 ): Promise<DoubleAssetVaultBalance | undefined> {
   const vaultBalance = await getVaultBalance(address, poolName);
   return vaultBalance as DoubleAssetVaultBalance;
+}
+
+export async function getUsersActivity(
+  params: GetUsersActivityParams,
+): Promise<GetUsersActivityResponse> {
+  const poolNames = params.poolNames
+    ? params.poolNames
+    : (Object.keys(poolInfo) as PoolName[]);
+  const startTime = params.startTime
+    ? params.startTime
+    : Date.now() - 24 * 60 * 60 * 1000;
+  const endTime = params.endTime ? params.endTime : Date.now();
+  if (startTime > endTime) {
+    throw new Error("startTime must be less than endTime");
+  }
+  const liquidityChangeEvents = await fetchLiquidityChangeEvents({
+    startTime,
+    endTime,
+    poolNames,
+  });
+  const depositActivity = getDepositActivity({ events: liquidityChangeEvents });
+  const fullWithdrawActivity = getFullWithdrawActivity({
+    events: liquidityChangeEvents,
+  });
+  return { depositActivity, fullWithdrawActivity };
 }

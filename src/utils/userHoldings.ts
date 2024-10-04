@@ -5,6 +5,7 @@ import {
   getCetusSqrtPriceMap,
   poolCoinPairMap,
   poolCoinMap,
+  poolIdPoolNameMap,
 } from "../common/maps";
 import {
   DoubleAssetTokenHoldings,
@@ -21,6 +22,61 @@ import {
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import { coins } from "../common/coins";
+import { LiquidityChangeEventNode } from "../sui-sdk/events/types";
+import { parseXTokensFromLCEvent } from "../sui-sdk/events/parseData";
+
+export type GetFullWithdrawActivityParams = {
+  events: LiquidityChangeEventNode[];
+};
+export type GetFullWithdrawActivityResponse = {
+  address: string;
+  poolName: PoolName;
+}[];
+export type GetDepositActivityParams = {
+  events: LiquidityChangeEventNode[];
+};
+export type GetDepositActivityResponse = HoldingsObj[];
+
+// works only for modern events
+// TODO: update for alpha pool when alpha pool liquidityChangeEvents are changed
+export function getFullWithdrawActivity(
+  params: GetFullWithdrawActivityParams,
+): GetFullWithdrawActivityResponse {
+  const { events } = params;
+  const response: GetFullWithdrawActivityResponse = [];
+  const addressPoolNameKey = new Set<string>();
+  events.forEach((event) => {
+    if (event.event_type === 1 && event.user_total_x_token_balance === "0") {
+      addressPoolNameKey.add(
+        `${event.sender}#${poolIdPoolNameMap[event.pool_id]}`,
+      );
+    }
+  });
+  Array.from(addressPoolNameKey).map((key) => {
+    response.push({
+      address: key.split("#")[0],
+      poolName: key.split("#")[1] as PoolName,
+    });
+  });
+  return response;
+}
+
+export function getDepositActivity(
+  params: GetDepositActivityParams,
+): GetDepositActivityResponse {
+  const { events } = params;
+  const xTokenHoldingsArr = parseXTokensFromLCEvent(events);
+  const xTokenHoldingsObj: HoldingsObj[] = xTokenHoldingsArr.map(
+    ([address, poolName, xTokens]) => {
+      return {
+        owner: address,
+        poolName: poolName as PoolName,
+        holding: xTokens,
+      };
+    },
+  );
+  return xTokenHoldingsObj;
+}
 
 export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
   let holdings: HoldingsObj[] = [];
