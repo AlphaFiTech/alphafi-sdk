@@ -9,8 +9,11 @@
   ],
   "scripts": {
     "buildNoPrettier": "npm run lint && webpack && npm link",
-    "build": "npm run prettier && npm run lint && webpack && npm link",
+    "prebuild": "npm run prettier && npm run lint",
+    "build": "tsc",
+    "postbuild": "npm run cpx && npm link",
     "test": "jest",
+    "cpx": "cpx 'src/**/*.graphql' dist/",
     "lint": "eslint 'src/**/*.ts' --fix",
     "prettier": "prettier --write 'src/**/*.ts'",
     "docs": "typedoc"
@@ -30,6 +33,7 @@
     "@typescript-eslint/parser": "^7.14.1",
     "babel-loader": "^9.1.3",
     "clean-webpack-plugin": "^4.0.0",
+    "cpx": "^1.5.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

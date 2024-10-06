@@ -4,17 +4,60 @@
 /* data, protocol data, and portfolio data.
  */
 
+import { readFileSync } from "fs";
 import { gql } from "@apollo/client/core";
-import userVaults from "./queries/userVaults.graphql";
-import userVaultBalances from "./queries/userVaultBalances.graphql";
-import pools from "./queries/pools.graphql";
-import investors from "./queries/investors.graphql";
-import cetusPools from "./queries/cetusPools.graphql";
-import autoCompoundEvents from "./queries/autoCompoundEvents.graphql";
-import nftHolders from "./queries/nftHolders.graphql";
-import receiptData from "./queries/receiptData.graphql";
-import lockedTableDataFragment from "./queries/lockedTableDataFragment.graphql";
-import lockedTableData from "./queries/lockedTableData.graphql";
+import * as path from "path";
+
+// Load GraphQL queries as strings
+const userVaults = readFileSync(
+  path.resolve(__dirname, "./queries/userVaults.graphql"),
+  "utf-8",
+);
+
+const userVaultBalances = readFileSync(
+  path.resolve(__dirname, "./queries/userVaultBalances.graphql"),
+  "utf-8",
+);
+
+const pools = readFileSync(
+  path.resolve(__dirname, "./queries/pools.graphql"),
+  "utf-8",
+);
+
+const investors = readFileSync(
+  path.resolve(__dirname, "./queries/investors.graphql"),
+  "utf-8",
+);
+
+const cetusPools = readFileSync(
+  path.resolve(__dirname, "./queries/cetusPools.graphql"),
+  "utf-8",
+);
+
+const autoCompoundEvents = readFileSync(
+  path.resolve(__dirname, "./queries/autoCompoundEvents.graphql"),
+  "utf-8",
+);
+
+const nftHolders = readFileSync(
+  path.resolve(__dirname, "./queries/nftHolders.graphql"),
+  "utf-8",
+);
+
+const receiptData = readFileSync(
+  path.resolve(__dirname, "./queries/receiptData.graphql"),
+  "utf-8",
+);
+
+const lockedTableDataFragment = readFileSync(
+  path.resolve(__dirname, "./queries/lockedTableDataFragment.graphql"),
+  "utf-8",
+);
+
+const lockedTableData = readFileSync(
+  path.resolve(__dirname, "./queries/lockedTableData.graphql"),
+  "utf-8",
+);
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`
