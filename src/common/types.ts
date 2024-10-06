@@ -1,5 +1,5 @@
 import BN from "bn.js";
-import { conf, CONF_ENV } from "./constants";
+import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
