@@ -4,60 +4,18 @@
 /* data, protocol data, and portfolio data.
  */
 
-import { readFileSync } from "fs";
-import { gql } from "@apollo/client/core";
-import * as path from "path";
+import { gql } from "@apollo/client";
 
-// Load GraphQL queries as strings
-const userVaults = readFileSync(
-  path.resolve(__dirname, "./queries/userVaults.graphql"),
-  "utf-8",
-);
-
-const userVaultBalances = readFileSync(
-  path.resolve(__dirname, "./queries/userVaultBalances.graphql"),
-  "utf-8",
-);
-
-const pools = readFileSync(
-  path.resolve(__dirname, "./queries/pools.graphql"),
-  "utf-8",
-);
-
-const investors = readFileSync(
-  path.resolve(__dirname, "./queries/investors.graphql"),
-  "utf-8",
-);
-
-const cetusPools = readFileSync(
-  path.resolve(__dirname, "./queries/cetusPools.graphql"),
-  "utf-8",
-);
-
-const autoCompoundEvents = readFileSync(
-  path.resolve(__dirname, "./queries/autoCompoundEvents.graphql"),
-  "utf-8",
-);
-
-const nftHolders = readFileSync(
-  path.resolve(__dirname, "./queries/nftHolders.graphql"),
-  "utf-8",
-);
-
-const receiptData = readFileSync(
-  path.resolve(__dirname, "./queries/receiptData.graphql"),
-  "utf-8",
-);
-
-const lockedTableDataFragment = readFileSync(
-  path.resolve(__dirname, "./queries/lockedTableDataFragment.graphql"),
-  "utf-8",
-);
-
-const lockedTableData = readFileSync(
-  path.resolve(__dirname, "./queries/lockedTableData.graphql"),
-  "utf-8",
-);
+import { userVaults } from "./queries/userVaults.js";
+import { userVaultBalances } from "./queries/userVaultBalances.js";
+import { pools } from "./queries/pools.js";
+import { investors } from "./queries/investors.js";
+import { cetusPools } from "./queries/cetusPools.js";
+import { autoCompoundEvents } from "./queries/autoCompoundEvents.js";
+import { nftHolders } from "./queries/nftHolders.js";
+import { receiptData } from "./queries/receiptData.js";
+import { lockedTableDataFragment } from "./queries/lockedTableDataFragment.js";
+import { lockedTableData } from "./queries/lockedTableData.js";
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`
