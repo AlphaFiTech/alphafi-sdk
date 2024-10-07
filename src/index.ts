@@ -71,3 +71,10 @@ export {
 export { coins } from "./common/coins";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks";
+
+//internals
+export { poolIdPoolNameMap } from "./common/maps";
+
+export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents";
+
+export { LiquidityChangeEventNode } from "./sui-sdk/events/types";
