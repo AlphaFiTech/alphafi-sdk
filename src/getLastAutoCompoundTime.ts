@@ -1,5 +1,5 @@
-import { PoolName } from "./common/types";
-import { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents";
+import { PoolName } from "./common/types.js";
+import { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 
 export async function getLastAutoCompoundTime(
   poolName: PoolName,

@@ -1,9 +1,9 @@
-import { poolInfo, poolIdPoolNameMap } from "../../common/maps";
-import { fetchEvents } from "./fetchEvents";
+import { poolInfo, poolIdPoolNameMap } from "../../common/maps.js";
+import { fetchEvents } from "./fetchEvents.js";
 import {
   FetchLiquidityChangeEventsParams,
   LiquidityChangeEventNode,
-} from "./types";
+} from "./types.js";
 
 export async function fetchLiquidityChangeEvents(
   params: FetchLiquidityChangeEventsParams,

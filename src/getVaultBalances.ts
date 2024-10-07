@@ -3,8 +3,8 @@ import {
   DoubleAssetVaultBalance,
   PoolName,
   SingleAssetVaultBalance,
-} from "./common/types";
-import { fetchUserVaultBalances } from "./sui-sdk/functions/fetchUserVaultBalances";
+} from "./common/types.js";
+import { fetchUserVaultBalances } from "./sui-sdk/functions/fetchUserVaultBalances.js";
 import {
   MultiGetVaultBalancesParams,
   HoldingsObj,
@@ -15,15 +15,15 @@ import {
   DoubleAssetMultiVaultBalance,
   VaultBalance,
   GetVaultBalanceForActiveUsersParams,
-} from "./types";
-import { FetchLiquidityChangeEventsParams } from "./sui-sdk/events/types";
-import { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents";
-import { parseXTokensFromLCEvent } from "./sui-sdk/events/parseData";
+} from "./types.js";
+import { FetchLiquidityChangeEventsParams } from "./sui-sdk/events/types.js";
+import { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
+import { parseXTokensFromLCEvent } from "./sui-sdk/events/parseData.js";
 import {
   multiLiquidityToTokens,
   multiTokensToUsd,
   multiXTokensToLiquidity,
-} from "./utils/userHoldings";
+} from "./utils/userHoldings.js";
 
 export async function getXTokenVaultBalanceForActiveUsers(
   params: GetVaultBalanceForActiveUsersParams,

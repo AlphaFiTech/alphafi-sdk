@@ -1,12 +1,16 @@
-import { coins } from "../../common/coins";
-import { getInvestorPoolMap, poolCoinMap, poolInfo } from "../../common/maps";
-import { PoolName, SingleAssetPoolNames } from "../../common/types";
-import { fetchEvents } from "./fetchEvents";
+import { coins } from "../../common/coins.js";
+import {
+  getInvestorPoolMap,
+  poolCoinMap,
+  poolInfo,
+} from "../../common/maps.js";
+import { PoolName, SingleAssetPoolNames } from "../../common/types.js";
+import { fetchEvents } from "./fetchEvents.js";
 import {
   AutoCompoundingEventNode,
   FetchAutoCompoundingEventsParams,
   RebalanceEventNode,
-} from "./types";
+} from "./types.js";
 
 export async function fetchAutoCompoundingEvents(
   params: FetchAutoCompoundingEventsParams,

@@ -1,10 +1,10 @@
 // src/graphql/executeMutations.ts
-import client from "./client";
+import client from "./client.js";
 import {
   DEPOSIT_MUTATION,
   WITHDRAW_MUTATION,
   COLLECT_REWARDS_MUTATION,
-} from "./mutations";
+} from "./mutations.js";
 
 export async function deposit(amount: number, poolId: string) {
   const { data } = await client.mutate({

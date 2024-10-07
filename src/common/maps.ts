@@ -1,4 +1,4 @@
-import { conf, CONF_ENV } from "./constants";
+import { conf, CONF_ENV } from "./constants.js";
 import {
   AlphaPoolType,
   CetusInvestor,
@@ -11,10 +11,10 @@ import {
   PoolReceipt,
   PoolType,
   SingleAssetPoolNames,
-} from "./types";
-import { PythPriceIdPair } from "./pyth";
-import { getLatestPrice } from "../utils/prices";
-import { getSuiClient } from "../sui-sdk/client";
+} from "./types.js";
+import { PythPriceIdPair } from "./pyth.js";
+import { getLatestPrice } from "../utils/prices.js";
+import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 
 export const cetusPoolMap: { [key: string]: string } = {

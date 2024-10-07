@@ -12,7 +12,7 @@ import {
   SingleAssetTokenHoldings,
   LiquidityToTokensParams,
 } from "../types.js";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 import { DoubleAssetPoolNames, PoolName } from "../common/types.js";
 import {
   CoinAmounts,

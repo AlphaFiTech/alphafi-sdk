@@ -2,8 +2,8 @@ import {
   AlphaFiSingleAssetVault,
   AlphaFiDoubleAssetVault,
   AlphaFiVault,
-} from "./common/types";
-import { fetchUserVaults } from "./sui-sdk/functions/fetchUserVaults";
+} from "./common/types.js";
+import { fetchUserVaults } from "./sui-sdk/functions/fetchUserVaults.js";
 
 export async function getVaults(address: string): Promise<AlphaFiVault[]> {
   const vaultsArr: AlphaFiVault[] = await fetchUserVaults(address);

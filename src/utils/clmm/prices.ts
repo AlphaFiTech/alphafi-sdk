@@ -1,4 +1,4 @@
-import CetusClmmSDK, {
+import {
   SdkOptions,
   Pool,
   Percentage,
@@ -7,15 +7,16 @@ import CetusClmmSDK, {
   ClmmPoolUtil,
   TickMath,
   d,
+  CetusClmmSDK,
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import { Transaction } from "@mysten/sui/transactions";
-import { Coin } from "../../common/types";
-import { coins } from "../../common/coins";
-import { CetusSwapOptions, CreatePoolOptions } from "./types";
-import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config";
-import { getLatestPrice } from "../prices";
-import { SimpleCache } from "../simpleCache";
+import { Coin } from "../../common/types.js";
+import { coins } from "../../common/coins.js";
+import { CetusSwapOptions, CreatePoolOptions } from "./types.js";
+import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config.js";
+import { getLatestPrice } from "../prices.js";
+import { SimpleCache } from "../simpleCache.js";
 
 interface PoolData {
   pair: string;
@@ -207,7 +208,7 @@ export class CetusGateway {
     const matchedPools: Pool[] = [];
 
     pairs.forEach((pair) => {
-      const filteredPools: Pool[] = allPools.filter((pool) => {
+      const filteredPools: Pool[] = allPools.filter((pool: Pool) => {
         if (pair.coinA && pair.coinB) {
           return (
             (pool.coinTypeA === pair.coinA.type &&

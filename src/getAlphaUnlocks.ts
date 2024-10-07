@@ -1,12 +1,12 @@
-import { fetchReceiptsGql } from "./graphql/fetchReceipts";
+import { fetchReceiptsGql } from "./graphql/fetchReceipts.js";
 import {
   OwnerTableIdPair,
   parseLockedTableIdFromReceipts,
-} from "./graphql/parseLockedTableId";
+} from "./graphql/parseLockedTableId.js";
 import {
   getUnlocksData,
   AlphaUnlocks,
-} from "./sui-sdk/functions/fetchTableData";
+} from "./sui-sdk/functions/fetchTableData.js";
 
 type GetAlphaUnlocksParams = {
   address?: string;

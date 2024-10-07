@@ -1,4 +1,4 @@
-import { poolInfo } from "./common/maps";
+import { poolInfo } from "./common/maps.js";
 
 export async function getAllVaults(): Promise<string[]> {
   const vaultsArr = [];

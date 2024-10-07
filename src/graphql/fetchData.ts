@@ -4,7 +4,7 @@
 /* execute the queries and return data.
  */
 
-import client from "./client";
+import client from "./client.js";
 import {
   GET_USER_WALLET_DATA,
   GET_PROTOCOL_DATA,
@@ -15,7 +15,7 @@ import {
   GET_POOLS,
   GET_INVESTORS,
   GET_CETUS_POOLS,
-} from "./queries";
+} from "./queries.js";
 
 export async function fetchUserWalletData(address: string) {
   const { data } = await client.query({
@@ -101,7 +101,7 @@ export async function fetchCetusPools() {
 export {
   fetchAutoCompoundingEventsGql,
   AutoCompoundingEventNode,
-} from "./fetchAutoCompoundingEventsGql";
-export { fetchNftHolders } from "./fetchNftHolders";
+} from "./fetchAutoCompoundingEventsGql.js";
+export { fetchNftHolders } from "./fetchNftHolders.js";
 
 // Add more functions for other data fetching requirements

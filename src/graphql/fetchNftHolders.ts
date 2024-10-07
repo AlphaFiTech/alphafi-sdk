@@ -1,7 +1,7 @@
-import { GET_NFT_HOLDERS } from "./queries";
+import { GET_NFT_HOLDERS } from "./queries.js";
 import { ApolloQueryResult } from "@apollo/client/core";
-import client from "./client";
-import { ReceiptNode, ReceiptsResponse } from "./types";
+import client from "./client.js";
+import { ReceiptNode, ReceiptsResponse } from "./types.js";
 
 export async function fetchNftHolders(): Promise<ReceiptNode[]> {
   const allEvents: ReceiptNode[] = [];

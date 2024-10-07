@@ -1,4 +1,4 @@
-import { ReceiptMoveObjectContents } from "./types";
+import { ReceiptMoveObjectContents } from "./types.js";
 
 export type OwnerTableIdPair = {
   owner: string;
