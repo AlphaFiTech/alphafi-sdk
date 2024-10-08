@@ -23,7 +23,12 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    // Add the baseUrl option
+    "baseUrl": "./", // Specifies the base directory for non-relative module names
+    "paths": {
+      "@mysten/sui/*": ["node_modules/@mysten/sui/dist/esm/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["src/__tests__"]

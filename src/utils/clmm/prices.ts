@@ -378,21 +378,6 @@ export class CetusGateway {
       tick_upper: upperTick,
     });
 
-    // const paramss: CreatePoolParams = {
-    //   tick_spacing: 60,
-    //   initialize_sqrt_price: TickMath.priceToSqrtPriceX64(
-    //     d(2.36528),
-    //     9,
-    //     6,
-    //   ).toString(),
-    //   uri: "",
-    //   coinTypeA:
-    //     "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
-    //   coinTypeB:
-    //     "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
-    // };
-
-    // const txb = this.cetusSDK.Pool.creatPoolTransactionPayload(paramss);
     // build creatPoolPayload Payload
     const txb = this.cetusSDK.Pool.creatPoolTransactionPayload({
       coinTypeA: coins[options.coinNameA].type,
