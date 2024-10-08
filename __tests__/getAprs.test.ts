@@ -1,4 +1,4 @@
-import { getApr, getAprs } from "../dist";
+import { getApr, getAprs } from "..";
 
 describe("getApr", () => {
   it("should return the correct value", async () => {

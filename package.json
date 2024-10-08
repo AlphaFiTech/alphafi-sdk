@@ -23,7 +23,8 @@
     "cpx": "cpx 'src/**/*.graphql' dist/cjs && cpx 'src/**/*.graphql' dist/esm",
     "prettier": "prettier --write 'src/**/*.ts'",
     "gen": "node embed-graphql.js",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "test": "jest"
   },
   "keywords": [],
   "author": "AlphaFi",

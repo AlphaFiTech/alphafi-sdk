@@ -5,7 +5,7 @@ import {
   getAllSingleAssetVaults,
   getDoubleAssetVaults,
   getAllDoubleAssetVaults,
-} from "../dist";
+} from "..";
 
 describe("getVaults", () => {
   it("should return the correct value", async () => {
