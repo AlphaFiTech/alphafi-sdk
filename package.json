@@ -24,7 +24,9 @@
     "prettier": "prettier --write 'src/**/*.ts'",
     "gen": "node embed-graphql.js",
     "docs": "typedoc",
-    "test": "jest"
+    "test:esm": "jest --config jest.config.esm.js",
+    "test:cjs": "jest --config jest.config.cjs.js",
+    "test": "npm run test:esm && npm run test:cjs"
   },
   "keywords": [],
   "author": "AlphaFi",
