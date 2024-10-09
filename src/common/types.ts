@@ -8,25 +8,25 @@ export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI";
 export type PoolName =
   | "ALPHA"
   | "HASUI-SUI"
-  | "USDY-USDC"
+  | "USDY-WUSDC"
   | "ALPHA-SUI"
-  | "USDT-USDC"
-  | "USDC-SUI"
-  | "USDC-WBTC"
-  | "WETH-USDC"
+  | "USDT-WUSDC"
+  | "WUSDC-SUI"
+  | "WUSDC-WBTC"
+  | "WETH-WUSDC"
   | "NAVI-SUI"
   | "NAVI-VSUI"
   | "NAVX-SUI"
   | "NAVI-WETH"
   | "NAVI-USDT"
-  | "NAVI-USDC"
+  | "NAVI-WUSDC"
   | "NAVI-HASUI"
-  | "BUCK-USDC"
+  | "BUCK-WUSDC"
   | "CETUS-SUI"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDT-USDC"
-  | "ALPHA-USDC"
-  | "WSOL-USDC"
+  | "NAVI-LOOP-USDT-WUSDC"
+  | "ALPHA-WUSDC"
+  | "WSOL-WUSDC"
   | "FUD-SUI"
   | "BLUB-SUI"
   | "SCA-SUI";
@@ -37,24 +37,24 @@ export type SingleAssetPoolNames =
   | "NAVI-VSUI"
   | "NAVI-WETH"
   | "NAVI-USDT"
-  | "NAVI-USDC"
+  | "NAVI-WUSDC"
   | "NAVI-HASUI"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDT-USDC";
+  | "NAVI-LOOP-USDT-WUSDC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
-  | "USDY-USDC"
+  | "USDY-WUSDC"
   | "ALPHA-SUI"
-  | "ALPHA-USDC"
-  | "USDT-USDC"
-  | "USDC-SUI"
-  | "USDC-WBTC"
-  | "WETH-USDC"
+  | "ALPHA-WUSDC"
+  | "USDT-WUSDC"
+  | "WUSDC-SUI"
+  | "WUSDC-WBTC"
+  | "WETH-WUSDC"
   | "NAVX-SUI"
-  | "BUCK-USDC"
+  | "BUCK-WUSDC"
   | "CETUS-SUI"
-  | "WSOL-USDC"
+  | "WSOL-WUSDC"
   | "FUD-SUI"
   | "BLUB-SUI"
   | "SCA-SUI";
@@ -62,6 +62,7 @@ export type DoubleAssetPoolNames =
 export type CoinName =
   | "ALPHA"
   | "SUI"
+  | "WUSDC"
   | "USDC"
   | "USDT"
   | "VSUI"
@@ -87,7 +88,7 @@ export type CoinName =
  */
 export interface Coin {
   /**
-   * The name of the coin (e.g., SUI, ALPHA, USDC, USDT).
+   * The name of the coin (e.g., SUI, ALPHA, WUSDC, USDT).
    */
   name: CoinName;
 
@@ -111,6 +112,7 @@ export interface Coin {
 
 export type Icon =
   | "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg"
+  | "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp"
   | "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp"
   | "https://coinmeta.polymedia.app/img/coins/0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c-coin-COIN.webp"
   | "https://coinmeta.polymedia.app/img/coins/0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55-cert-CERT.webp"
@@ -138,6 +140,7 @@ export type CoinType =
   | "0x2::sui::SUI"
   | "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT"
   | "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN"
+  | "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
   | "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN"
   | "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX"
   | "0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"
@@ -157,34 +160,34 @@ export type CoinType =
   | "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
-const USDY_USDC_POOL_RECEIPT = conf[CONF_ENV].USDY_USDC_POOL_RECEIPT;
-const USDT_USDC_POOL_RECEIPT = conf[CONF_ENV].USDT_USDC_POOL_RECEIPT;
+const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
+const USDT_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT;
 const ALPHA_POOL_RECEIPT = conf[CONF_ENV].ALPHA_POOL_RECEIPT;
 const HASUI_SUI_POOL_RECEIPT = conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT;
-const USDC_SUI_POOL_RECEIPT = conf[CONF_ENV].USDC_SUI_POOL_RECEIPT;
-const USDC_WBTC_POOL_RECEIPT = conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT;
-const WETH_USDC_POOL_RECEIPT = conf[CONF_ENV].WETH_USDC_POOL_RECEIPT;
+const WUSDC_SUI_POOL_RECEIPT = conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT;
+const WUSDC_WBTC_POOL_RECEIPT = conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT;
+const WETH_WUSDC_POOL_RECEIPT = conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT;
 const NAVI_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT;
 const NAVI_VSUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT;
 const NAVX_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT;
 const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
 const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
-const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
+const NAVI_WUSDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT;
 export type PoolReceipt =
   | typeof ALPHA_SUI_POOL_RECEIPT
-  | typeof USDY_USDC_POOL_RECEIPT
-  | typeof USDT_USDC_POOL_RECEIPT
+  | typeof USDY_WUSDC_POOL_RECEIPT
+  | typeof USDT_WUSDC_POOL_RECEIPT
   | typeof ALPHA_POOL_RECEIPT
   | typeof HASUI_SUI_POOL_RECEIPT
-  | typeof USDC_SUI_POOL_RECEIPT
-  | typeof USDC_WBTC_POOL_RECEIPT
-  | typeof WETH_USDC_POOL_RECEIPT
+  | typeof WUSDC_SUI_POOL_RECEIPT
+  | typeof WUSDC_WBTC_POOL_RECEIPT
+  | typeof WETH_WUSDC_POOL_RECEIPT
   | typeof NAVI_SUI_POOL_RECEIPT
   | typeof NAVI_VSUI_POOL_RECEIPT
   | typeof NAVX_SUI_POOL_RECEIPT
   | typeof NAVI_WETH_POOL_RECEIPT
   | typeof NAVI_USDT_POOL_RECEIPT
-  | typeof NAVI_USDC_POOL_RECEIPT;
+  | typeof NAVI_WUSDC_POOL_RECEIPT;
 
 export type CoinAmounts = {
   coinA: BN;

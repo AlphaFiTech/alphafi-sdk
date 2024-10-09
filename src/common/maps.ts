@@ -18,58 +18,58 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 
 export const cetusPoolMap: { [key: string]: string } = {
-  "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
+  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
-  "USDT-USDC": conf[CONF_ENV].USDT_USDC_CETUS_POOL_ID,
-  "USDY-USDC": conf[CONF_ENV].USDY_USDC_CETUS_POOL_ID,
+  "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
+  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
-  "WETH-USDC": conf[CONF_ENV].WETH_USDC_CETUS_POOL_ID,
-  "USDC-WBTC": conf[CONF_ENV].USDC_WBTC_CETUS_POOL_ID,
+  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
+  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
   "VSUI-SUI": conf[CONF_ENV].VSUI_SUI_CETUS_POOL_ID,
   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
-  "USDC-CETUS": conf[CONF_ENV].USDC_CETUS_CETUS_POOL_ID,
-  "BUCK-USDC": conf[CONF_ENV].BUCK_USDC_CETUS_POOL_ID,
+  "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
+  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
 };
 
 export const cetusInvestorMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_CETUS_INVESTOR,
-  "USDT-USDC": conf[CONF_ENV].USDT_USDC_CETUS_INVESTOR,
+  "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_INVESTOR,
   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_INVESTOR,
   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_INVESTOR,
-  "USDY-USDC": conf[CONF_ENV].USDY_USDC_CETUS_INVESTOR,
-  "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
-  "WETH-USDC": conf[CONF_ENV].WETH_USDC_CETUS_INVESTOR,
-  "USDC-WBTC": conf[CONF_ENV].USDC_WBTC_CETUS_INVESTOR,
+  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_INVESTOR,
+  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_INVESTOR,
+  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_INVESTOR,
+  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_INVESTOR,
   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_INVESTOR,
-  "BUCK-USDC": conf[CONF_ENV].BUCK_USDC_CETUS_INVESTOR,
+  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_INVESTOR,
   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_INVESTOR,
 };
 
 export const poolMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_POOL,
   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_POOL,
-  "USDT-USDC": conf[CONF_ENV].USDC_USDT_POOL,
+  "USDT-WUSDC": conf[CONF_ENV].WUSDC_USDT_POOL,
   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_POOL,
-  "USDY-USDC": conf[CONF_ENV].USDY_USDC_POOL,
-  "USDC-SUI": conf[CONF_ENV].USDC_SUI_POOL,
-  "WETH-USDC": conf[CONF_ENV].WETH_USDC_POOL,
-  "USDC-WBTC": conf[CONF_ENV].USDC_WBTC_POOL,
+  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_POOL,
+  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_POOL,
+  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_POOL,
+  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_POOL,
   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_POOL,
-  "BUCK-USDC": conf[CONF_ENV].BUCK_USDC_POOL,
+  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_POOL,
   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_POOL,
 };
 
 export const receiptNameMap: { [key in string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT_NAME,
-  "USDT-USDC": conf[CONF_ENV].USDT_USDC_POOL_RECEIPT_NAME,
+  "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT_NAME,
   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT_NAME,
-  "USDY-USDC": conf[CONF_ENV].USDY_USDC_POOL_RECEIPT_NAME,
-  "USDC-SUI": conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
-  "WETH-USDC": conf[CONF_ENV].WETH_USDC_POOL_RECEIPT_NAME,
-  "USDC-WBTC": conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT_NAME,
-  "BUCK-USDC": conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT_NAME,
+  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT_NAME,
+  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT_NAME,
+  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT_NAME,
+  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT_NAME,
+  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT_NAME,
   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT_NAME,
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT_NAME,
   "NAVI-SUI": conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT_NAME,
@@ -80,18 +80,18 @@ export const poolCoinPairMap: Record<
   DoubleAssetPoolNames,
   { coinA: CoinName; coinB: CoinName }
 > = {
-  "USDT-USDC": { coinA: "USDT", coinB: "USDC" },
+  "USDT-WUSDC": { coinA: "USDT", coinB: "WUSDC" },
   "ALPHA-SUI": { coinA: "ALPHA", coinB: "SUI" },
   "HASUI-SUI": { coinA: "HASUI", coinB: "SUI" },
-  "USDY-USDC": { coinA: "USDY", coinB: "USDC" },
-  "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
-  "WETH-USDC": { coinA: "WETH", coinB: "USDC" },
-  "USDC-WBTC": { coinA: "USDC", coinB: "WBTC" },
+  "USDY-WUSDC": { coinA: "USDY", coinB: "WUSDC" },
+  "WUSDC-SUI": { coinA: "WUSDC", coinB: "SUI" },
+  "WETH-WUSDC": { coinA: "WETH", coinB: "WUSDC" },
+  "WUSDC-WBTC": { coinA: "WUSDC", coinB: "WBTC" },
   "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
-  "BUCK-USDC": { coinA: "BUCK", coinB: "USDC" },
+  "BUCK-WUSDC": { coinA: "BUCK", coinB: "WUSDC" },
   "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
-  "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
-  "WSOL-USDC": { coinA: "WSOL", coinB: "USDC" },
+  "ALPHA-WUSDC": { coinA: "ALPHA", coinB: "WUSDC" },
+  "WSOL-WUSDC": { coinA: "WSOL", coinB: "WUSDC" },
   "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
   "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
   "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
@@ -102,11 +102,11 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-VSUI": "VSUI",
   "NAVI-SUI": "SUI",
   "NAVI-WETH": "WETH",
-  "NAVI-USDC": "USDC",
+  "NAVI-WUSDC": "WUSDC",
   "NAVI-USDT": "USDT",
   "NAVI-HASUI": "HASUI",
   "NAVI-LOOP-SUI-VSUI": "SUI",
-  "NAVI-LOOP-USDT-USDC": "USDT",
+  "NAVI-LOOP-USDT-WUSDC": "USDT",
 };
 
 export const poolInfo: {
@@ -122,18 +122,18 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
-  "NAVI-LOOP-USDT-USDC": {
+  "NAVI-LOOP-USDT-WUSDC": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_USDC_POOL,
-    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDT_WUSDC_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+      conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-LOOP-SUI-VSUI": {
     parentProtocolName: "NAVI",
@@ -200,18 +200,18 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "NAVI-USDC": {
+  "NAVI-WUSDC": {
     parentProtocolName: "NAVI",
-    parentPoolId: conf[CONF_ENV].NAVI_USDC_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_USDC_POOL,
-    investorId: conf[CONF_ENV].NAVI_USDC_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].NAVI_WUSDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_WUSDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_WUSDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+      conf[CONF_ENV].NAVI_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].NAVI_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -263,70 +263,70 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "USDT-USDC": {
+  "USDT-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDT_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].USDC_USDT_POOL,
-    investorId: conf[CONF_ENV].USDT_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].USDT_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WUSDC_USDT_POOL,
+    investorId: conf[CONF_ENV].USDT_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].USDT_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].USDT_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDT_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "USDY-USDC": {
+  "USDY-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDY_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].USDY_USDC_POOL,
-    investorId: conf[CONF_ENV].USDY_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].USDY_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDY_WUSDC_POOL,
+    investorId: conf[CONF_ENV].USDY_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].USDY_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].USDY_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].USDY_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDY_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].USDY_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].USDY_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "USDC-SUI": {
+  "WUSDC-SUI": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].USDC_SUI_POOL,
-    investorId: conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WUSDC_SUI_POOL,
+    investorId: conf[CONF_ENV].WUSDC_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].WUSDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WUSDC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].WUSDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "WETH-USDC": {
+  "WETH-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].WETH_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].WETH_USDC_POOL,
-    investorId: conf[CONF_ENV].WETH_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].WETH_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WETH_WUSDC_POOL,
+    investorId: conf[CONF_ENV].WETH_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].WETH_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].WETH_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].WETH_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WETH_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].WETH_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].WETH_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "USDC-WBTC": {
+  "WUSDC-WBTC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDC_WBTC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].USDC_WBTC_POOL,
-    investorId: conf[CONF_ENV].USDC_WBTC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].USDC_WBTC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WUSDC_WBTC_POOL,
+    investorId: conf[CONF_ENV].WUSDC_WBTC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].USDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].USDC_WBTC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].WUSDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WUSDC_WBTC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].USDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].WUSDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -341,18 +341,18 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "BUCK-USDC": {
+  "BUCK-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].BUCK_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].BUCK_USDC_POOL,
-    investorId: conf[CONF_ENV].BUCK_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].BUCK_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].BUCK_WUSDC_POOL,
+    investorId: conf[CONF_ENV].BUCK_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].BUCK_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].BUCK_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].BUCK_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].BUCK_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].BUCK_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].BUCK_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
@@ -367,31 +367,31 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "ALPHA-USDC": {
+  "ALPHA-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].ALPHA_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].ALPHA_USDC_POOL,
-    investorId: conf[CONF_ENV].ALPHA_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].ALPHA_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].ALPHA_WUSDC_POOL,
+    investorId: conf[CONF_ENV].ALPHA_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHA_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHA_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].ALPHA_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].ALPHA_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].ALPHA_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "WSOL-USDC": {
+  "WSOL-WUSDC": {
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].WSOL_USDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].WSOL_USDC_POOL,
-    investorId: conf[CONF_ENV].WSOL_USDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].WSOL_USDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].WSOL_USDC_POOL_RECEIPT,
+    parentPoolId: conf[CONF_ENV].WSOL_WUSDC_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].WSOL_WUSDC_POOL,
+    investorId: conf[CONF_ENV].WSOL_WUSDC_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].WSOL_WUSDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].WSOL_WUSDC_POOL_RECEIPT,
     autoCompoundingEventType:
-      conf[CONF_ENV].WSOL_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].WSOL_USDC_POOL_REBALANCE_EVENT,
+      conf[CONF_ENV].WSOL_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].WSOL_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
-      conf[CONF_ENV].WSOL_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].WSOL_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
   "FUD-SUI": {
     parentProtocolName: "CETUS",
@@ -453,28 +453,6 @@ export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
   return investorIdToPoolNameMap;
 }
 
-// export const poolIdPoolNameMap: {
-//   [key: string]: PoolName;
-// } = {
-//   [conf[CONF_ENV].ALPHAFI_NAVI_SUI_POOL]: "NAVI-SUI",
-//   [conf[CONF_ENV].ALPHAFI_NAVI_VSUI_POOL]: "NAVI-VSUI",
-//   [conf[CONF_ENV].ALPHAFI_NAVI_WETH_POOL]: "NAVI-WETH",
-//   [conf[CONF_ENV].ALPHAFI_NAVI_USDT_POOL]: "NAVI-USDT",
-//   [conf[CONF_ENV].ALPHAFI_NAVI_USDC_POOL]: "NAVI-USDC",
-//   [conf[CONF_ENV].ALPHA_POOL]: "ALPHA",
-//   [conf[CONF_ENV].ALPHA_SUI_POOL]: "ALPHA-SUI",
-//   [conf[CONF_ENV].HASUI_SUI_POOL]: "HASUI-SUI",
-//   [conf[CONF_ENV].USDC_USDT_POOL]: "USDT-USDC",
-//   [conf[CONF_ENV].USDY_USDC_POOL]: "USDY-USDC",
-//   [conf[CONF_ENV].USDC_SUI_POOL]: "USDC-SUI",
-//   [conf[CONF_ENV].WETH_USDC_POOL]: "WETH-USDC",
-//   [conf[CONF_ENV].USDC_WBTC_POOL]: "USDC-WBTC",
-//   [conf[CONF_ENV].NAVX_SUI_POOL]: "NAVX-SUI",
-//   [conf[CONF_ENV].CETUS_SUI_POOL]: "CETUS-SUI",
-//   [conf[CONF_ENV].BUCK_USDC_POOL]: "BUCK-USDC",
-//   [conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL]: "NAVI-LOOP-SUI-VSUI",
-// };
-
 export const poolIdPoolNameMap = ((): {
   [key: string]: PoolName;
 } => {
@@ -491,7 +469,9 @@ export const poolIdPoolNameMap = ((): {
 export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
   ALPHA: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
   SUI: "0x2::sui::SUI",
-  USDC: "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+  WUSDC:
+    "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+  USDC: "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
   USDT: "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
   VSUI: "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT",
   NAVX: "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
@@ -524,15 +504,15 @@ export const poolIdQueryPoolMap: { [key: string]: string } = {
   "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
     "alphaSuiPool",
   "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
-    "usdcUsdtPool",
+    "wusdcUsdtPool",
   "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
-    "usdyUsdcPool",
+    "usdyWusdcPool",
   "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
-    "suiUsdcPool",
+    "suiWusdcPool",
   "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
-    "wethUsdcPool",
+    "wethWusdcPool",
   "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
-    "wbtcUsdcPool",
+    "wbtcWusdcPool",
   "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
     "navxSuiPool",
   // navi pools
@@ -545,22 +525,22 @@ export const poolIdQueryPoolMap: { [key: string]: string } = {
   "0xc696ca5b8f21a1f8fcd62cff16bbe5a396a4bed6f67909cfec8269eb16e60757":
     "usdtPool",
   "0x01493446093dfcdcfc6c16dc31ffe40ba9ac2e99a3f6c16a0d285bff861944ae":
-    "usdcPool",
+    "wusdcPool",
 };
 
 export const poolIdQueryCetusPoolMap: { [key: string]: string } = {
   "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
     "alphaSuiCetusPool",
   "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
-    "usdcUsdtCetusPool",
+    "wusdcUsdtCetusPool",
   "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
-    "usdyUsdcCetusPool",
+    "usdyWusdcCetusPool",
   "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
-    "suiUsdcCetusPool",
+    "suiWusdcCetusPool",
   "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
-    "wethUsdcCetusPool",
+    "wethWusdcCetusPool",
   "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
-    "wbtcUsdcCetusPool",
+    "wbtcWusdcCetusPool",
   "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
     "navxSuiCetusPool",
 };
@@ -569,15 +549,15 @@ export const poolIdQueryInvestorMap: { [key: string]: string } = {
   "0x594f13b8f287003fd48e4264e7056e274b84709ada31e3657f00eeedc1547e37":
     "alphaSuiInvestor",
   "0x30066d9879374276dc01177fbd239a9377b497bcd347c82811d75fcda35b18e5":
-    "usdcUsdtInvestor",
+    "wusdcUsdtInvestor",
   "0xa7239a0c727c40ee3a139689b16b281acfd0682a06c23531b184a61721ece437":
-    "usdyUsdcInvestor",
+    "usdyWusdcInvestor",
   "0xee6f6392cbd9e1997f6e4cf71db0c1ae1611f1f5f7f23f90ad2c64b8f23cceab":
-    "suiUsdcInvestor",
+    "suiWusdcInvestor",
   "0xbdf4f673b34274f36be284bca3f765083380fefb29141f971db289294bf679c6":
-    "wethUsdcInvestor",
+    "wethWusdcInvestor",
   "0x676fc5cad79f51f6a7d03bfa3474ecd3c695d322380fc68e3d4f61819da3bf8a":
-    "wbtcUsdcInvestor",
+    "wbtcWusdcInvestor",
   "0x045e4e3ccd383bedeb8fda54c39a7a1b1a6ed6a9f66aec4998984373558f96a0":
     "navxSuiInvestor",
 };
