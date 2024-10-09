@@ -1,5 +1,5 @@
-import { LiquidityChangeEventNode } from "./types";
-import { poolIdPoolNameMap } from "../../common/maps";
+import { LiquidityChangeEventNode } from "./types.js";
+import { poolIdPoolNameMap } from "../../common/maps.js";
 
 export function parseHoldersFromLCEvents(events: LiquidityChangeEventNode[]) {
   const holders: Set<string> = new Set<string>();

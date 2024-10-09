@@ -1,14 +1,16 @@
-import { GetTxParams, HopApi, HopApiOptions } from "@hop.ag/sdk";
 import {
+  GetTxParams,
+  HopApi,
+  HopApiOptions,
   GetQuoteParams,
   GetQuoteResponse,
-} from "@hop.ag/sdk/dist/cjs/sdk/routes/quote";
-import { SwapOptions } from "../common/types";
-import { conf, CONF_ENV } from "../common/constants";
+} from "@hop.ag/sdk";
+import { SwapOptions } from "../common/types.js";
+import { conf, CONF_ENV } from "../common/constants.js";
 import { Transaction } from "@mysten/sui/transactions";
-import { getSuiNodeUrl } from "../sui-sdk/client";
-import { coins } from "../common/coins";
-import { getLatestPrice } from "./prices";
+import { getSuiNodeUrl } from "../sui-sdk/client.js";
+import { coins } from "../common/coins.js";
+import { getLatestPrice } from "./prices.js";
 import BN from "bn.js";
 
 export type HopSwapOptions = SwapOptions;

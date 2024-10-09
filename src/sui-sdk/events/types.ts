@@ -1,4 +1,4 @@
-import { PoolName } from "../../common/types";
+import { PoolName } from "../../common/types.js";
 
 interface CommonEventAttributes {
   type: string;

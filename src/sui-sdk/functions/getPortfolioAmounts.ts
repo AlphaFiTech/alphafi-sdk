@@ -7,7 +7,7 @@ import {
   NaviInvestor,
   CommonInvestorFields,
   SingleAssetPoolNames,
-} from "../..";
+} from "../../index.js";
 import {
   getCoinAmountsFromLiquidity,
   getPool,
@@ -15,13 +15,13 @@ import {
   getReceipts,
   getNaviInvestor,
   fetchVoloExchangeRate,
-} from "./getReceipts";
-import { SimpleCache } from "../../utils/simpleCache";
-import { coins } from "../../common/coins";
-import { poolCoinMap, poolCoinPairMap } from "../../common/maps";
-import { PythPriceIdPair } from "../../common/pyth";
-import { getLatestPrice } from "../../utils/prices";
-import { getAlphaPrice } from "../../utils/clmm/prices";
+} from "./getReceipts.js";
+import { SimpleCache } from "../../utils/simpleCache.js";
+import { coins } from "../../common/coins.js";
+import { poolCoinMap, poolCoinPairMap } from "../../common/maps.js";
+import { PythPriceIdPair } from "../../common/pyth.js";
+import { getLatestPrice } from "../../utils/prices.js";
+import { getAlphaPrice } from "../../utils/clmm/prices.js";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,

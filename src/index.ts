@@ -3,13 +3,13 @@ export {
   setSuiClient,
   getSuiNodeUrl,
   getSuiClient,
-} from "./sui-sdk/client";
+} from "./sui-sdk/client.js";
 
 export {
   getVaults,
   getSingleAssetVaults,
   getDoubleAssetVaults,
-} from "./getVaults";
+} from "./getVaults.js";
 
 export {
   getVaultBalance,
@@ -18,47 +18,47 @@ export {
   getDoubleAssetVaultBalance,
   getVaultBalanceForActiveUsers,
   getXTokenVaultBalanceForActiveUsers,
-} from "./getVaultBalances";
+} from "./getVaultBalances.js";
 
 export {
   getAllVaults,
   getAllDoubleAssetVaults,
   getAllSingleAssetVaults,
-} from "./getAllVaults";
+} from "./getAllVaults.js";
 
-export { getAirdropShare } from "./getAirdropShare";
+export { getAirdropShare } from "./getAirdropShare.js";
 
 export {
   alphaLpBreakdown,
   cetusLpBreakdown,
   lastAutocompoundTime,
-} from "./vaultFunctions";
+} from "./vaultFunctions.js";
 
-export { getApr, getAprs, getApy, getApys } from "./getAprs";
+export { getApr, getAprs, getApy, getApys } from "./getAprs.js";
 
 export {
   getRebalanceHistory,
   getRebalanceHistories,
-} from "./getRebalanceHistory";
+} from "./getRebalanceHistory.js";
 
 export {
   getHoldersFromTransactions,
   getUserTokensFromTransactions,
   getUserTokensInUsdFromTransactions,
-} from "./getHoldersFromTransactions";
+} from "./getHoldersFromTransactions.js";
 
-export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime";
+export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime.js";
 
-export * from "./common/types";
+export * from "./common/types.js";
 
 // src/index.ts
-export * from "./graphql/fetchData";
-export * from "./graphql/parseData";
-export * from "./graphql/executeMutations";
+export * from "./graphql/fetchData.js";
+export * from "./graphql/parseData.js";
+export * from "./graphql/executeMutations.js";
 
-export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts";
+export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
 
-export { liquidityToTokens, multiTokensToUsd } from "./utils/userHoldings";
+export { liquidityToTokens, multiTokensToUsd } from "./utils/userHoldings.js";
 
 export {
   poolInfo,
@@ -66,8 +66,14 @@ export {
   getCetusInvestorTicksMap,
   poolCoinMap,
   poolCoinPairMap,
-} from "./common/maps";
+} from "./common/maps.js";
 
-export { coins } from "./common/coins";
+export { coins } from "./common/coins.js";
 
-export { getAlphaUnlocks } from "./getAlphaUnlocks";
+export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
+
+export { poolIdPoolNameMap } from "./common/maps.js";
+
+export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
+
+export { LiquidityChangeEventNode } from "./sui-sdk/events/types.js";

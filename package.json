@@ -1,22 +1,35 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.19",
-  "description": "AlphaFi SDK",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
+  "version": "0.0.21",
+  "description": "Official AlphaFi SDK to access AlphaFi data",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "scripts": {
-    "buildNoPrettier": "npm run lint && webpack && npm link",
-    "build": "npm run prettier && npm run lint && webpack && npm link",
-    "test": "jest",
+    "prebuild": "npm run pretty && npm run lint",
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:esm": "tsc --project tsconfig.esm.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "postbuild": "npm link",
+    "pretty": "prettier . --write",
     "lint": "eslint 'src/**/*.ts' --fix",
+    "cpx": "cpx 'src/**/*.graphql' dist/cjs && cpx 'src/**/*.graphql' dist/esm",
     "prettier": "prettier --write 'src/**/*.ts'",
-    "docs": "typedoc"
+    "gen": "node embed-graphql.js",
+    "docs": "typedoc",
+    "test:esm": "jest --config jest.config.esm.js",
+    "test:cjs": "jest --config jest.config.cjs.js",
+    "test": "npm run test:esm && npm run test:cjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "AlphaFi",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "7.24.8",
@@ -26,10 +39,13 @@
     "@types/bn.js": "^5.1.5",
     "@types/jest": "^29.5.12",
     "@types/node": "20.14.9",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",
     "babel-loader": "^9.1.3",
     "clean-webpack-plugin": "^4.0.0",
+    "cpx": "^1.5.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -47,7 +63,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.4",
-    "@cetusprotocol/cetus-sui-clmm-sdk": "^5.1.3",
+    "@cetusprotocol/cetus-sui-clmm-sdk": "^5.1.6",
     "@hop.ag/sdk": "^3.3.0",
     "@mysten/sui": "1.6.0",
     "bignumber.js": "^9.1.2",

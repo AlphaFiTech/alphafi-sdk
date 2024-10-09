@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
-import BigNumber from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 import BN from "bn.js";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 
 export function signedShiftRight(n0: BN, shiftBy: number, bitWidth: number) {
   const twoN0 = n0.toTwos(bitWidth).shrn(shiftBy);

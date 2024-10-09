@@ -1,6 +1,6 @@
-import { getSuiClient } from "../client";
+import { getSuiClient } from "../client.js";
 import { Decimal } from "decimal.js";
-import { getPoolExchangeRate } from "./getReceipts";
+import { getPoolExchangeRate } from "./getReceipts.js";
 
 export interface LockedAlphaObject {
   name: { type: string; value: string };

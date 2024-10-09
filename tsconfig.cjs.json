@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.esm.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "es2020",
+    "skipLibCheck": true,
+    "outDir": "./dist/cjs",
+    "rootDir": "./src",
+    // Add the baseUrl option
+    "baseUrl": "./", // Specifies the base directory for non-relative module names
+    "paths": {
+      "@mysten/sui/*": ["node_modules/@mysten/sui/dist/cjs/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/__tests__"]
+}

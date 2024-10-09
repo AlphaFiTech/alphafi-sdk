@@ -1,4 +1,4 @@
-import { PythPriceFeed } from "../common/pyth";
+import { PythPriceFeed } from "../common/pyth.js";
 
 // TODO: add more pairs
 export const pythPriceFeed: PythPriceFeed = {

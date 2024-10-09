@@ -1,12 +1,12 @@
-import { GET_RECEIPT_DATA } from "./queries";
-import client from "./client";
-import { poolInfo } from "../common/maps";
+import { GET_RECEIPT_DATA } from "./queries.js";
+import client from "./client.js";
+import { poolInfo } from "../common/maps.js";
 import { ApolloQueryResult } from "@apollo/client";
 import {
   ReceiptsResponse,
   ReceiptNode,
   ReceiptMoveObjectContents,
-} from "./types";
+} from "./types.js";
 
 export async function fetchReceiptsGql(): Promise<ReceiptMoveObjectContents[]> {
   let receiptNodes: ReceiptNode[] = [];

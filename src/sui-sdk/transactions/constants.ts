@@ -1,5 +1,5 @@
-import { TransactionFilter } from "@mysten/sui/dist/cjs/client";
-import { conf, CONF_ENV } from "../../common/constants";
+import { TransactionFilter } from "@mysten/sui/client";
+import { conf, CONF_ENV } from "../../common/constants.js";
 
 export const nonAlphaDepositFilters: TransactionFilter[] = (function () {
   const alphafi_cetus_pool_1filters = conf[CONF_ENV].ALPHA_PACKAGE_IDS.map(

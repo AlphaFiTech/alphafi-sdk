@@ -3,14 +3,14 @@ import {
   DoubleAssetPoolNames,
   PoolName,
   SingleAssetPoolNames,
-} from "../..";
+} from "../../index.js";
 import {
   coinNameTypeMap,
   poolCoinMap,
   poolCoinPairMap,
   poolInfo,
-} from "../../common/maps";
-import { getReceipts } from "./getReceipts";
+} from "../../common/maps.js";
+import { getReceipts } from "./getReceipts.js";
 
 export async function fetchUserVaults(
   address: string,

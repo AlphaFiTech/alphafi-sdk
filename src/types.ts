@@ -4,7 +4,7 @@ import {
   PoolName,
   SingleAssetPoolNames,
   AlphaFiVaultBalance,
-} from "./common/types";
+} from "./common/types.js";
 
 export type GetUserTokensFromTransactionsParams = {
   poolNames?: string[];

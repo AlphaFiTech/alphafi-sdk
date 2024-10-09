@@ -4,17 +4,18 @@
 /* data, protocol data, and portfolio data.
  */
 
-import { gql } from "@apollo/client/core";
-import userVaults from "./queries/userVaults.graphql";
-import userVaultBalances from "./queries/userVaultBalances.graphql";
-import pools from "./queries/pools.graphql";
-import investors from "./queries/investors.graphql";
-import cetusPools from "./queries/cetusPools.graphql";
-import autoCompoundEvents from "./queries/autoCompoundEvents.graphql";
-import nftHolders from "./queries/nftHolders.graphql";
-import receiptData from "./queries/receiptData.graphql";
-import lockedTableDataFragment from "./queries/lockedTableDataFragment.graphql";
-import lockedTableData from "./queries/lockedTableData.graphql";
+import { gql } from "@apollo/client";
+
+import { userVaults } from "./queries/userVaults.js";
+import { userVaultBalances } from "./queries/userVaultBalances.js";
+import { pools } from "./queries/pools.js";
+import { investors } from "./queries/investors.js";
+import { cetusPools } from "./queries/cetusPools.js";
+import { autoCompoundEvents } from "./queries/autoCompoundEvents.js";
+import { nftHolders } from "./queries/nftHolders.js";
+import { receiptData } from "./queries/receiptData.js";
+import { lockedTableDataFragment } from "./queries/lockedTableDataFragment.js";
+import { lockedTableData } from "./queries/lockedTableData.js";
 
 // Query to fetch user wallet data
 export const GET_USER_WALLET_DATA = gql`

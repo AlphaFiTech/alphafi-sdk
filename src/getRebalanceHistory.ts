@@ -1,8 +1,8 @@
-import { PoolName, RebalanceHistoryType } from "./common/types";
+import { PoolName, RebalanceHistoryType } from "./common/types.js";
 import {
   calculateRebalanceHistoryFromEvents,
   fetchRebalanceEvents,
-} from "./sui-sdk/events/fetchRebalanceEvents";
+} from "./sui-sdk/events/fetchRebalanceEvents.js";
 
 export async function getRebalanceHistory(
   poolName: PoolName,

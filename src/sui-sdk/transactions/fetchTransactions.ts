@@ -1,6 +1,6 @@
-import { getSuiClient } from "../client";
+import { getSuiClient } from "../client.js";
 import { SuiTransactionBlockResponse } from "@mysten/sui/client";
-import { FetchTransactionParams } from "./types";
+import { FetchTransactionParams } from "./types.js";
 
 export async function fetchTransactions(
   params: FetchTransactionParams,

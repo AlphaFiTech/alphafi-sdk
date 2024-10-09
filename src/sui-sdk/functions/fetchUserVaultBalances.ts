@@ -1,10 +1,10 @@
-import { poolInfo } from "../../common/maps";
+import { poolInfo } from "../../common/maps.js";
 import {
   AlphaFiVaultBalance,
   PoolName,
   SingleAssetPoolNames,
-} from "../../common/types";
-import { getSuiClient } from "../client";
+} from "../../common/types.js";
+import { getSuiClient } from "../client.js";
 import {
   getAlphaPortfolioAmount,
   getAlphaPortfolioAmountInUSD,
@@ -12,7 +12,7 @@ import {
   getDoubleAssetPortfolioAmountInUSD,
   getSingleAssetPortfolioAmount,
   getSingleAssetPortfolioAmountInUSD,
-} from "./getPortfolioAmounts";
+} from "./getPortfolioAmounts.js";
 
 export async function fetchUserVaultBalances(
   address: string,

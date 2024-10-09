@@ -2,29 +2,29 @@ import {
   SuiTransactionBlockResponse,
   TransactionFilter,
 } from "@mysten/sui/client";
-import { fetchTransactions } from "./sui-sdk/transactions/fetchTransactions";
+import { fetchTransactions } from "./sui-sdk/transactions/fetchTransactions.js";
 import {
   nonAlphaDepositFilters,
   alphaDepositFilters,
-} from "./sui-sdk/transactions/constants";
+} from "./sui-sdk/transactions/constants.js";
 import {
   GetUserTokensFromTransactionsParams,
   GetUserTokensInUsdFromTransactionsParams,
   UserUsdHoldings,
   LiquidityToUsdParams,
-} from "./types";
-import { getReceipts } from "./utils/getReceipts";
+} from "./types.js";
+import { getReceipts } from "./utils/getReceipts.js";
 import {
   getCetusSqrtPriceMap,
   getCetusInvestorTicksMap,
   getTokenPriceMap,
-} from "./common/maps";
-import { PoolName } from "./common/types";
+} from "./common/maps.js";
+import { PoolName } from "./common/types.js";
 import {
   parseTokensFromReceipts,
   liquidityToUsd,
   mergeDuplicateHoldings,
-} from "./utils/getHoldersFromTransactionsUtils";
+} from "./utils/getHoldersFromTransactionsUtils.js";
 
 // TODO: add functionality for Pool
 export async function getHoldersFromTransactions(params?: {

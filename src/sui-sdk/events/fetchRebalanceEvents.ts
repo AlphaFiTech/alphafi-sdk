@@ -3,15 +3,19 @@ import {
   getInvestorPoolMap,
   poolCoinPairMap,
   poolInfo,
-} from "../../common/maps";
-import { CoinName, PoolName, RebalanceHistoryType } from "../../common/types";
-import { fetchEvents } from "./fetchEvents";
+} from "../../common/maps.js";
+import {
+  CoinName,
+  PoolName,
+  RebalanceHistoryType,
+} from "../../common/types.js";
+import { fetchEvents } from "./fetchEvents.js";
 import {
   FetchRebalanceEventsParams,
   RebalanceEvent,
   RebalanceEventNode,
-} from "./types";
-import { coins } from "../../common/coins";
+} from "./types.js";
+import { coins } from "../../common/coins.js";
 import BN from "bn.js";
 
 export async function fetchRebalanceEvents(

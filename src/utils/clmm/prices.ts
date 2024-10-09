@@ -1,4 +1,4 @@
-import CetusClmmSDK, {
+import {
   SdkOptions,
   Pool,
   Percentage,
@@ -7,15 +7,16 @@ import CetusClmmSDK, {
   ClmmPoolUtil,
   TickMath,
   d,
+  CetusClmmSDK,
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import { Transaction } from "@mysten/sui/transactions";
-import { Coin } from "../../common/types";
-import { coins } from "../../common/coins";
-import { CetusSwapOptions, CreatePoolOptions } from "./types";
-import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config";
-import { getLatestPrice } from "../prices";
-import { SimpleCache } from "../simpleCache";
+import { Coin } from "../../common/types.js";
+import { coins } from "../../common/coins.js";
+import { CetusSwapOptions, CreatePoolOptions } from "./types.js";
+import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config.js";
+import { getLatestPrice } from "../prices.js";
+import { SimpleCache } from "../simpleCache.js";
 
 interface PoolData {
   pair: string;
@@ -207,7 +208,7 @@ export class CetusGateway {
     const matchedPools: Pool[] = [];
 
     pairs.forEach((pair) => {
-      const filteredPools: Pool[] = allPools.filter((pool) => {
+      const filteredPools: Pool[] = allPools.filter((pool: Pool) => {
         if (pair.coinA && pair.coinB) {
           return (
             (pool.coinTypeA === pair.coinA.type &&
@@ -377,21 +378,6 @@ export class CetusGateway {
       tick_upper: upperTick,
     });
 
-    // const paramss: CreatePoolParams = {
-    //   tick_spacing: 60,
-    //   initialize_sqrt_price: TickMath.priceToSqrtPriceX64(
-    //     d(2.36528),
-    //     9,
-    //     6,
-    //   ).toString(),
-    //   uri: "",
-    //   coinTypeA:
-    //     "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
-    //   coinTypeB:
-    //     "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
-    // };
-
-    // const txb = this.cetusSDK.Pool.creatPoolTransactionPayload(paramss);
     // build creatPoolPayload Payload
     const txb = this.cetusSDK.Pool.creatPoolTransactionPayload({
       coinTypeA: coins[options.coinNameA].type,

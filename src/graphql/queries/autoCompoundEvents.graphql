@@ -1,11 +1,11 @@
 query GetEvents($before: String, $eventType: String) {
-  events(last: 10, before: $before, filter:{eventType: $eventType}) {
+  events(last: 10, before: $before, filter: { eventType: $eventType }) {
     pageInfo {
       hasPreviousPage
       startCursor
     }
     nodes {
-      type{
+      type {
         repr
       }
       data

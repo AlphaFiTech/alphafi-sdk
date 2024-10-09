@@ -1,8 +1,8 @@
 // import { CONF_ENV, conf } from "../constants";
-// import { Coin, CoinName, CoinType } from "./types";
+// import { Coin, CoinName, CoinType } from "./types.js";
 
-import { conf, CONF_ENV } from "./constants";
-import { Coin, CoinName, CoinType } from "./types";
+import { conf, CONF_ENV } from "./constants.js";
+import { Coin, CoinName, CoinType } from "./types.js";
 
 export const coins: { [key in CoinName]: Coin } = {
   ALPHA: {
