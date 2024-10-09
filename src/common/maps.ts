@@ -453,27 +453,18 @@ export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
   return investorIdToPoolNameMap;
 }
 
-export const poolIdPoolNameMap: {
+export const poolIdPoolNameMap = ((): {
   [key: string]: PoolName;
-} = {
-  [conf[CONF_ENV].ALPHAFI_NAVI_SUI_POOL]: "NAVI-SUI",
-  [conf[CONF_ENV].ALPHAFI_NAVI_VSUI_POOL]: "NAVI-VSUI",
-  [conf[CONF_ENV].ALPHAFI_NAVI_WETH_POOL]: "NAVI-WETH",
-  [conf[CONF_ENV].ALPHAFI_NAVI_USDT_POOL]: "NAVI-USDT",
-  [conf[CONF_ENV].ALPHAFI_NAVI_WUSDC_POOL]: "NAVI-WUSDC",
-  [conf[CONF_ENV].ALPHA_POOL]: "ALPHA",
-  [conf[CONF_ENV].ALPHA_SUI_POOL]: "ALPHA-SUI",
-  [conf[CONF_ENV].HASUI_SUI_POOL]: "HASUI-SUI",
-  [conf[CONF_ENV].WUSDC_USDT_POOL]: "USDT-WUSDC",
-  [conf[CONF_ENV].USDY_WUSDC_POOL]: "USDY-WUSDC",
-  [conf[CONF_ENV].WUSDC_SUI_POOL]: "WUSDC-SUI",
-  [conf[CONF_ENV].WETH_WUSDC_POOL]: "WETH-WUSDC",
-  [conf[CONF_ENV].WUSDC_WBTC_POOL]: "WUSDC-WBTC",
-  [conf[CONF_ENV].NAVX_SUI_POOL]: "NAVX-SUI",
-  [conf[CONF_ENV].CETUS_SUI_POOL]: "CETUS-SUI",
-  [conf[CONF_ENV].BUCK_WUSDC_POOL]: "BUCK-WUSDC",
-  [conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL]: "NAVI-LOOP-SUI-VSUI",
-};
+} => {
+  const res: {
+    [key: string]: PoolName;
+  } = {};
+  Object.entries(poolInfo).map(([poolName, info]) => {
+    const poolId = info.poolId;
+    res[poolId] = poolName as PoolName;
+  });
+  return res;
+})();
 
 export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
   ALPHA: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
