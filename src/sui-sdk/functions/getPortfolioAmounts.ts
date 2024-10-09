@@ -236,7 +236,7 @@ export async function getSingleAssetPortfolioAmount(
       if (totalXTokens.gt(0)) {
         if (
           poolName == "NAVI-LOOP-SUI-VSUI" ||
-          poolName == "NAVI-LOOP-USDT-USDC"
+          poolName == "NAVI-LOOP-USDT-WUSDC"
         ) {
           const pool = await getPool(poolName, ignoreCache);
           const investor = (await getNaviInvestor(
@@ -276,7 +276,7 @@ export async function getSingleAssetPortfolioAmount(
                 tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
               );
             }
-            // TODO: Whenever NAVI-LOOP-USDT-USDC is released, change this else implementation
+            // TODO: Whenever NAVI-LOOP-USDT-WUSDC is released, change this else implementation
             else {
               portfolioAmount = Number(tokens);
             }

@@ -89,7 +89,11 @@ export class HopGateway {
     return trade.transaction;
   }
 }
-
+export async function getWUSDCPrice(): Promise<number | undefined> {
+  const { fetchPriceFromAlphaAPI } = await import("./prices.js");
+  const wusdcPrice = await fetchPriceFromAlphaAPI("USDC/USD");
+  return Number(wusdcPrice);
+}
 export async function getBlubPrice(): Promise<number | undefined> {
   // return 1;
   const hopGateway = new HopGateway(hopSDKOptions);

@@ -110,17 +110,17 @@ export async function getPoolExchangeRate(
     return cachedResponse;
   }
 
-  let pool = undefined;
+  let pool: PoolType | AlphaPoolType | undefined;
   try {
     if (poolName === "ALPHA") {
       pool = await getPool("ALPHA");
     } else if (
       poolName === "ALPHA-SUI" ||
-      poolName === "USDT-USDC" ||
-      poolName === "USDY-USDC" ||
+      poolName === "USDT-WUSDC" ||
+      poolName === "USDY-WUSDC" ||
       poolName === "HASUI-SUI" ||
-      poolName === "USDC-SUI" ||
-      poolName === "WETH-USDC"
+      poolName === "WUSDC-SUI" ||
+      poolName === "WETH-WUSDC"
     ) {
       pool = await getPool(poolName);
     } else {

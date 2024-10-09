@@ -20,4 +20,6 @@ export type PythPriceIdPair =
   | "WETH/USD"
   | "ALPHA/USD"
   | "USDY/USD"
-  | "NAVX/USD";
+  | "NAVX/USD"
+  | "BUCK/USD"
+  | "WUSDC/USD";

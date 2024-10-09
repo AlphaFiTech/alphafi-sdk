@@ -1,6 +1,11 @@
 import { PythPriceIdPair } from "../common/pyth.js";
 import { getAlphaPrice, getBUCKPrice, getUSDYPrice } from "./clmm/prices.js";
-import { getBlubPrice, getWsolPrice, getFudPrice } from "./hop.js";
+import {
+  getBlubPrice,
+  getWsolPrice,
+  getFudPrice,
+  getWUSDCPrice,
+} from "./hop.js";
 import { SimpleCache } from "./simpleCache.js";
 
 const debug = false;
@@ -35,6 +40,9 @@ export async function getLatestPrices(
     } else if (pair === ("BLUB/USD" as PythPriceIdPair)) {
       const blubPrice = await getBlubPrice();
       prices[i] = blubPrice ? `${blubPrice}` : undefined;
+    } else if (pair === ("WUSDC/USD" as PythPriceIdPair)) {
+      const wusdcPrice = await getWUSDCPrice();
+      prices[i] = wusdcPrice ? `${wusdcPrice}` : undefined;
     } else {
       pairsToFetch.push(pair);
       if (!indexMap.has(pair)) {
@@ -114,6 +122,11 @@ export async function getLatestPrice(
     if (fudPrice) {
       price = `${fudPrice}`;
     }
+  } else if (pair === ("WUSDC/USD" as PythPriceIdPair)) {
+    const wusdcPrice = await getWUSDCPrice();
+    if (wusdcPrice) {
+      price = `${wusdcPrice}`;
+    }
   } else {
     try {
       price = await fetchPriceFromAlphaAPI(pair);
@@ -143,7 +156,7 @@ interface PythPricePair {
 const pythCache = new SimpleCache<PythPricePair>(10000); // cache TTL = 10 seconds
 const pythPromiseCache = new SimpleCache<Promise<PythPricePair>>(10000);
 
-async function fetchPriceFromAlphaAPI(
+export async function fetchPriceFromAlphaAPI(
   pair: string,
 ): Promise<string | undefined> {
   let pythPricePair: PythPricePair | undefined = undefined;
