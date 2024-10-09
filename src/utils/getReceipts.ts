@@ -1,6 +1,6 @@
 import { SuiObjectResponse } from "@mysten/sui/client";
-import { getSuiClient } from "../sui-sdk/client";
-import { GetReceiptParams } from "./types";
+import { getSuiClient } from "../sui-sdk/client.js";
+import { GetReceiptParams } from "./types.js";
 const recieptTypes = {
   ALPHA:
     "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::Receipt",

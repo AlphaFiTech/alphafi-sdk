@@ -1,7 +1,7 @@
-//import { GET_AUTOCOMPOUND_EVENTS } from "./queries";
+//import { GET_AUTOCOMPOUND_EVENTS } from "./queries.js";
 //import { ApolloQueryResult } from "@apollo/client/core";
-//import client from "./client";
-import { getSuiClient } from "../sui-sdk/client";
+//import client from "./client.js";
+import { getSuiClient } from "../sui-sdk/client.js";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 
 // interface PageInfo {

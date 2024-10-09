@@ -1,24 +1,24 @@
-import { SuiObjectResponse } from "@mysten/sui/dist/cjs/client";
+import { SuiObjectResponse } from "@mysten/sui/client";
 import {
   AlphaReceiptFields,
   OtherReceiptFields,
   LiquidityToUsdParams,
-} from "../types";
+} from "../types.js";
 import {
   poolIdPoolNameMap,
   poolCoinPairMap,
   getPoolExchangeRateMap,
   poolCoinMap,
-} from "../common/maps";
-import Decimal from "decimal.js";
-import BN from "bn.js";
-import { PoolName, CoinName, DoubleAssetPoolNames } from "../common/types";
+} from "../common/maps.js";
+import { Decimal } from "decimal.js";
+import { BN } from "bn.js";
+import { PoolName, CoinName, DoubleAssetPoolNames } from "../common/types.js";
 import {
   ClmmPoolUtil,
   TickMath,
   CoinAmounts,
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
-import { coins } from "../common/coins";
+import { coins } from "../common/coins.js";
 
 export async function parseTokensFromReceipts(
   receipts: SuiObjectResponse[],

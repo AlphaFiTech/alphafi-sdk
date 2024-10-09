@@ -1,9 +1,9 @@
 import {
   calculateAprForPools,
   fetchAutoCompoundingEvents,
-} from "./sui-sdk/events/fetchAutoCompoundingEvents";
-import { PoolName } from "./common/types";
-import { poolInfo } from "./common/maps";
+} from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
+import { PoolName } from "./common/types.js";
+import { poolInfo } from "./common/maps.js";
 
 export async function getApr(poolName: PoolName): Promise<number> {
   const aprMap = await getAprs([poolName]);

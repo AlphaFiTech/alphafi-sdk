@@ -8,6 +8,8 @@ src/
 .#*
 node_modules/
 tsconfig.json
+tsconfig.cjs.json
+tsconfig.esm.json
 .envrc
 .eslintrc.json
 .prettierrc.json
@@ -17,9 +19,12 @@ apr.org
 babel.config.json
 events.csv
 jest.config.js
+jest.config.cjs.js
+jest.config.esm.js
 package.json
 typedoc.json
 webpack.config.js
 docs/.nojekyll
 __tests__
 .github
+embed-graphql.js

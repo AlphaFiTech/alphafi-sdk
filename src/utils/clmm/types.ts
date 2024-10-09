@@ -1,4 +1,4 @@
-import { CoinName, CoinPair } from "../../common/types";
+import { CoinName, CoinPair } from "../../common/types.js";
 import BN from "bn.js";
 
 export type CetusSwapOptions = SwapOptions;

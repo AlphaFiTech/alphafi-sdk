@@ -1,4 +1,4 @@
-import { getSuiClient } from "../client";
+import { getSuiClient } from "../client.js";
 import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
   AlphaLiquidityChangeEvent,
@@ -13,9 +13,9 @@ import {
   NaviLiquidityChangeEvent,
   RebalanceEvent,
   AutoCompoundingEventNode,
-} from "./types";
-import { poolInfo } from "../../common/maps";
-import { conf, CONF_ENV } from "../../common/constants";
+} from "./types.js";
+import { poolInfo } from "../../common/maps.js";
+import { conf, CONF_ENV } from "../../common/constants.js";
 
 export async function fetchEvents(
   params: FetchEventsParams,

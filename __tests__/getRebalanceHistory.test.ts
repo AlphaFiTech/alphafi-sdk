@@ -1,4 +1,4 @@
-import { getRebalanceHistory, getRebalanceHistories } from "../dist";
+import { getRebalanceHistory, getRebalanceHistories } from "..";
 
 describe("getRebalanceHistory", () => {
   it("should return the correct value", async () => {

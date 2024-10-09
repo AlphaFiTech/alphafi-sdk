@@ -5,7 +5,7 @@ import {
   withdraw,
   collectRewards,
   fetchProtocolData,
-} from "./index";
+} from "./index.js";
 
 /* Here’s how users of your SDK might use the higher-level APIs:
  */

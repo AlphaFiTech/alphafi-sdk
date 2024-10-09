@@ -1,7 +1,7 @@
-import { PythPriceIdPair } from "../common/pyth";
-import { getAlphaPrice, getBUCKPrice, getUSDYPrice } from "./clmm/prices";
-import { getBlubPrice, getWsolPrice, getFudPrice } from "./hop";
-import { SimpleCache } from "./simpleCache";
+import { PythPriceIdPair } from "../common/pyth.js";
+import { getAlphaPrice, getBUCKPrice, getUSDYPrice } from "./clmm/prices.js";
+import { getBlubPrice, getWsolPrice, getFudPrice } from "./hop.js";
+import { SimpleCache } from "./simpleCache.js";
 
 const debug = false;
 

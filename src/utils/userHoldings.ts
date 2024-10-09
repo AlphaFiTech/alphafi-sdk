@@ -5,22 +5,22 @@ import {
   getCetusSqrtPriceMap,
   poolCoinPairMap,
   poolCoinMap,
-} from "../common/maps";
+} from "../common/maps.js";
 import {
   DoubleAssetTokenHoldings,
   HoldingsObj,
   SingleAssetTokenHoldings,
   LiquidityToTokensParams,
-} from "../types";
-import Decimal from "decimal.js";
-import { DoubleAssetPoolNames, PoolName } from "../common/types";
+} from "../types.js";
+import { Decimal } from "decimal.js";
+import { DoubleAssetPoolNames, PoolName } from "../common/types.js";
 import {
   CoinAmounts,
   ClmmPoolUtil,
   TickMath,
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
-import { coins } from "../common/coins";
+import { coins } from "../common/coins.js";
 
 export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
   let holdings: HoldingsObj[] = [];
