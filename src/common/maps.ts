@@ -107,6 +107,7 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-HASUI": "HASUI",
   "NAVI-LOOP-SUI-VSUI": "SUI",
   "NAVI-LOOP-USDT-WUSDC": "USDT",
+  "NAVI-USDC": "USDC",
 };
 
 export const poolInfo: {
@@ -122,6 +123,19 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "NAVI-USDC": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_USDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "NAVI-LOOP-USDT-WUSDC": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,

@@ -487,6 +487,9 @@ export const conf = {
     USDT_COIN_TYPE:
       "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
 
+    USDC_COIN_TYPE:
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+
     WUSDC_COIN_TYPE:
       "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
 
@@ -589,11 +592,15 @@ export const conf = {
     ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL:
       "0xd013a1a0c6f2bad46045e3a1ba05932b4a32f15864021d7e0178d5c2fdcc85e3",
     ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL: "",
+    ALPHAFI_NAVI_USDC_POOL: "",
 
     // CETUS Pool Id's
 
     WUSDC_SUI_CETUS_POOL_ID:
       "0xcf994611fd4c48e277ce3ffd4d4364c914af2c3cbb05f7bf6facd371de688630",
+
+    USDC_SUI_CETUS_POOL_ID:
+      "0xb8d7d9e66a60c239e7a60110efcf8de6c705580ed924d0dde141f4a0e2c90105",
 
     CETUS_SUI_CETUS_POOL_ID:
       "0x2e041f3fd93646dcc877f783c1f2b7fa62d30271bdef1f21ef002cebf857bded",
@@ -721,6 +728,8 @@ export const conf = {
 
     NAVI_LOOP_USDT_WUSDC_INVESTOR: "",
 
+    NAVI_USDC_INVESTOR: "",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -790,6 +799,9 @@ export const conf = {
     SCA_SUI_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
 
+    NAVI_USDC_POOL_RECEIPT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+
     // Receipt Names
 
     ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
@@ -822,7 +834,9 @@ export const conf = {
 
     NAVI_USDT_POOL_RECEIPT_NAME: "AlphaFi-Navi USDT Receipt",
 
-    NAVI_WUSDC_POOL_RECEIPT_NAME: "AlphaFi-Navi WUSDC Receipt",
+    NAVI_WUSDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC Receipt",
+
+    NAVI_USDC_POOL_RECEIPT_NAME: "AlphaFi-Navi USDC(Native) Receipt",
 
     NAVI_HASUI_POOL_RECEIPT_NAME: "AlphaFi-Navi HASUI Receipt",
 
@@ -903,6 +917,9 @@ export const conf = {
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
     SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
+    NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
 
     //Rebalance Event Types
 
@@ -1019,6 +1036,9 @@ export const conf = {
     SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::LiquidityChangeEvent",
 
+    NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:
@@ -1043,6 +1063,9 @@ export const conf = {
 
     NAVI_WUSDC_POOL:
       "0xa02a98f9c88db51c6f5efaaf2261c81f34dd56d86073387e0ef1805ca22e39c8",
+
+    NAVI_USDC_POOL:
+      "0xa3582097b4c57630046c0c49a88bfc6b202a3ec0a9db5597c31765f7563755a8",
 
     NAVI_WUSDC_BORROW_POOL: "",
 

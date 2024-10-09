@@ -29,7 +29,8 @@ export type PoolName =
   | "WSOL-WUSDC"
   | "FUD-SUI"
   | "BLUB-SUI"
-  | "SCA-SUI";
+  | "SCA-SUI"
+  | "NAVI-USDC";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -40,7 +41,8 @@ export type SingleAssetPoolNames =
   | "NAVI-WUSDC"
   | "NAVI-HASUI"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDT-WUSDC";
+  | "NAVI-LOOP-USDT-WUSDC"
+  | "NAVI-USDC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -173,6 +175,7 @@ const NAVX_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT;
 const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
 const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
 const NAVI_WUSDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT;
+const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
 export type PoolReceipt =
   | typeof ALPHA_SUI_POOL_RECEIPT
   | typeof USDY_WUSDC_POOL_RECEIPT
@@ -187,7 +190,8 @@ export type PoolReceipt =
   | typeof NAVX_SUI_POOL_RECEIPT
   | typeof NAVI_WETH_POOL_RECEIPT
   | typeof NAVI_USDT_POOL_RECEIPT
-  | typeof NAVI_WUSDC_POOL_RECEIPT;
+  | typeof NAVI_WUSDC_POOL_RECEIPT
+  | typeof NAVI_USDC_POOL_RECEIPT;
 
 export type CoinAmounts = {
   coinA: BN;
