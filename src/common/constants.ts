@@ -592,7 +592,8 @@ export const conf = {
     ALPHAFI_NAVI_LOOP_SUI_VSUI_POOL:
       "0xd013a1a0c6f2bad46045e3a1ba05932b4a32f15864021d7e0178d5c2fdcc85e3",
     ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL: "",
-    ALPHAFI_NAVI_USDC_POOL: "",
+    ALPHAFI_NAVI_USDC_POOL:
+      "0x04378cf67d21b41399dc0b6653a5f73f8d3a03cc7643463e47e8d378f8b0bdfa",
 
     // CETUS Pool Id's
 
@@ -728,7 +729,8 @@ export const conf = {
 
     NAVI_LOOP_USDT_WUSDC_INVESTOR: "",
 
-    NAVI_USDC_INVESTOR: "",
+    NAVI_USDC_INVESTOR:
+      "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065",
 
     // Receipt Types
 
