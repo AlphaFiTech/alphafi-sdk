@@ -95,6 +95,8 @@ export const poolCoinPairMap: Record<
   "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
   "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
   "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
+  "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
+  "USDC-USDT": { coinA: "USDC", coinB: "USDT" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -123,6 +125,32 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "USDC-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_SUI_POOL,
+    investorId: conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
+  "USDC-USDT": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_USDT_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_USDT_POOL,
+    investorId: conf[CONF_ENV].USDC_USDT_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_USDT_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_USDT_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_USDT_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_USDT_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_USDC_POOL,
