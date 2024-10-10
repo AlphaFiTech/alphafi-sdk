@@ -72,7 +72,7 @@ describe("getNaviUsdcSingleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "NAVI-USDC";
+    const poolName: PoolName = "NAVI-WUSDC";
 
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -108,7 +108,7 @@ describe("getNaviUsdcSingleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "NAVI-LOOP-USDT-USDC";
+    const poolName: PoolName = "NAVI-LOOP-USDT-WUSDC";
 
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -122,7 +122,7 @@ describe("getUsdtUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "USDT-USDC";
+    const poolName: PoolName = "USDT-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -146,7 +146,7 @@ describe("getUsdyUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "USDY-USDC";
+    const poolName: PoolName = "USDY-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -170,7 +170,7 @@ describe("getUsdcSuiDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "USDC-SUI";
+    const poolName: PoolName = "WUSDC-SUI";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -182,7 +182,7 @@ describe("getUsdcWbtcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "USDC-WBTC";
+    const poolName: PoolName = "WUSDC-WBTC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -194,7 +194,7 @@ describe("getWethUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "WETH-USDC";
+    const poolName: PoolName = "WETH-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -218,7 +218,7 @@ describe("getBuckUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "BUCK-USDC";
+    const poolName: PoolName = "BUCK-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -242,7 +242,7 @@ describe("getAlphaUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "ALPHA-USDC";
+    const poolName: PoolName = "ALPHA-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
@@ -254,7 +254,7 @@ describe("getWsolUsdcDoubleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "WSOL-USDC";
+    const poolName: PoolName = "WSOL-WUSDC";
 
     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();
