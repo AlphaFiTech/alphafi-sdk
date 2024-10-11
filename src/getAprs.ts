@@ -4,7 +4,7 @@ import {
 } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 import { PoolName } from "./common/types.js";
 import { getInvestorPoolMap, poolInfo } from "./common/maps.js";
-import { AutoCompoundingEventNode } from "./index.js";
+import { AutoCompoundingEventNode } from "./sui-sdk/events/types.js";
 
 export async function getApr(poolName: PoolName): Promise<number> {
   const aprMap = await getAprs([poolName]);
@@ -30,7 +30,7 @@ export async function getAprs(
       filteredEvents.push(event as AutoCompoundingEventNode);
     }
   }
-  const aprMap = await calculateAprForPools(events);
+  const aprMap = await calculateAprForPools(filteredEvents);
 
   for (const pool of Object.keys(poolInfo)) {
     const poolName = pool as PoolName;
