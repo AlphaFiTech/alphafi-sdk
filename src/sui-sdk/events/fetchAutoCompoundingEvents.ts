@@ -107,8 +107,9 @@ export async function fetchAutoCompoundingEvents(
 
   for (const x of autoCompoundingEvents) {
     if (
+      investorPoolMap.get(x.investor_id) &&
       poolInfo[investorPoolMap.get(x.investor_id)!].parentProtocolName ==
-      "CETUS"
+        "CETUS"
     ) {
       if (
         "total_amount_a" in x &&

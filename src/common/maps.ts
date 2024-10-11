@@ -192,19 +192,19 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "NAVI-LOOP-USDT-USDC": {
-    parentProtocolName: "NAVI",
-    parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL,
-    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_USDT_WUSDC_LOOP_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: undefined,
-    liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "NAVI-LOOP-USDT-WUSDC": {
+  //   parentProtocolName: "NAVI",
+  //   parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
+  //   poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL,
+  //   investorId: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_INVESTOR,
+  //   receiptName: conf[CONF_ENV].NAVI_USDT_WUSDC_LOOP_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: undefined,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].NAVI_LOOP_USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   "NAVI-LOOP-SUI-VSUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_VSUI_POOL,
@@ -283,19 +283,19 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "NAVI-HASUI": {
-    parentProtocolName: "NAVI",
-    parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_HASUI_POOL,
-    investorId: conf[CONF_ENV].NAVI_HASUI_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: undefined,
-    liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "NAVI-HASUI": {
+  //   parentProtocolName: "NAVI",
+  //   parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,
+  //   poolId: conf[CONF_ENV].ALPHAFI_NAVI_HASUI_POOL,
+  //   investorId: conf[CONF_ENV].NAVI_HASUI_INVESTOR,
+  //   receiptName: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].NAVI_HASUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].NAVI_HASUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: undefined,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
     parentPoolId: conf[CONF_ENV].ALPHA_POOL,
@@ -320,19 +320,19 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "HASUI-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].HASUI_SUI_POOL,
-    investorId: conf[CONF_ENV].HASUI_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].HASUI_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "HASUI-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].HASUI_SUI_POOL,
+  //   investorId: conf[CONF_ENV].HASUI_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].HASUI_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   "USDT-WUSDC": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
@@ -346,19 +346,19 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "USDY-WUSDC": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].USDY_WUSDC_POOL,
-    investorId: conf[CONF_ENV].USDY_WUSDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].USDY_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].USDY_WUSDC_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].USDY_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "USDY-WUSDC": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].USDY_WUSDC_POOL,
+  //   investorId: conf[CONF_ENV].USDY_WUSDC_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].USDY_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].USDY_WUSDC_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].USDY_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   "WUSDC-SUI": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
@@ -411,19 +411,19 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "BUCK-WUSDC": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].BUCK_WUSDC_POOL,
-    investorId: conf[CONF_ENV].BUCK_WUSDC_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].BUCK_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].BUCK_WUSDC_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].BUCK_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "BUCK-WUSDC": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].BUCK_WUSDC_POOL,
+  //   investorId: conf[CONF_ENV].BUCK_WUSDC_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].BUCK_WUSDC_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].BUCK_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].BUCK_WUSDC_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].BUCK_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
@@ -463,45 +463,45 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].WSOL_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "FUD-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].FUD_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].FUD_SUI_POOL,
-    investorId: conf[CONF_ENV].FUD_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
-  "BLUB-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].BLUB_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].BLUB_SUI_POOL,
-    investorId: conf[CONF_ENV].BLUB_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
-  "SCA-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].SCA_SUI_POOL,
-    investorId: conf[CONF_ENV].SCA_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "FUD-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].FUD_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].FUD_SUI_POOL,
+  //   investorId: conf[CONF_ENV].FUD_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
+  // "BLUB-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].BLUB_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].BLUB_SUI_POOL,
+  //   investorId: conf[CONF_ENV].BLUB_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
+  // "SCA-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].SCA_SUI_POOL,
+  //   investorId: conf[CONF_ENV].SCA_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
 };
 
 export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
