@@ -215,7 +215,6 @@ async function calculateAprForInvestors(
 
   for (const investorId in investorEvents) {
     const investorEventList = investorEvents[investorId];
-
     // Push a promise that resolves to an object containing the investorId and the corresponding APR
     aprPromises.push(
       calculateAprForInvestor(investorEventList).then((apr) => ({
