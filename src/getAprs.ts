@@ -3,7 +3,8 @@ import {
   fetchAutoCompoundingEvents,
 } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 import { PoolName } from "./common/types.js";
-import { poolInfo } from "./common/maps.js";
+import { getInvestorPoolMap, poolInfo } from "./common/maps.js";
+import { AutoCompoundingEventNode } from "./index.js";
 
 export async function getApr(poolName: PoolName): Promise<number> {
   const aprMap = await getAprs([poolName]);
@@ -22,7 +23,13 @@ export async function getAprs(
     endTime: endTime,
     poolNames: poolNames,
   });
-
+  const investorPoolNameMap = await getInvestorPoolMap();
+  const filteredEvents: AutoCompoundingEventNode[] = [];
+  for (const event of events) {
+    if (investorPoolNameMap.get(event.investor_id)) {
+      filteredEvents.push(event as AutoCompoundingEventNode);
+    }
+  }
   const aprMap = await calculateAprForPools(events);
 
   for (const pool of Object.keys(poolInfo)) {
@@ -31,12 +38,7 @@ export async function getAprs(
       aprMap[poolName] = 0;
     }
   }
-  for (const pool of Object.keys(aprMap)) {
-    const poolName = pool as PoolName;
-    if (!(poolName in poolInfo)) {
-      delete aprMap[poolName];
-    }
-  }
+
   return aprMap;
 }
 
