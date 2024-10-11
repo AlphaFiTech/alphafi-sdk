@@ -164,7 +164,7 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "NAVI-LOOP-USDT-WUSDC": {
+  "NAVI-LOOP-USDT-USDC": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_WUSDC_POOL,
