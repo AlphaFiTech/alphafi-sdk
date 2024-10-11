@@ -32,7 +32,9 @@ export type PoolName =
   | "SCA-SUI"
   | "NAVI-USDC"
   | "USDC-SUI"
-  | "USDC-USDT";
+  | "USDC-USDT"
+  | "ALPHA-USDC"
+  | "USDC-WUSDC";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -63,7 +65,9 @@ export type DoubleAssetPoolNames =
   | "BLUB-SUI"
   | "SCA-SUI"
   | "USDC-SUI"
-  | "USDC-USDT";
+  | "USDC-USDT"
+  | "ALPHA-USDC"
+  | "USDC-WUSDC";
 
 export type CoinName =
   | "ALPHA"
