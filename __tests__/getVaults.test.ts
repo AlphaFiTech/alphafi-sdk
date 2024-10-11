@@ -21,7 +21,7 @@ describe("getVaults", () => {
 describe("getAllVaults", () => {
   it("should return the correct value", async () => {
     return getAllVaults().then((vaults) => {
-      expect(vaults?.length).toBe(24);
+      expect(vaults?.length).toBe(29);
     });
   });
 });
@@ -59,7 +59,7 @@ describe("getDoubleAssetVaults", () => {
 describe("getAllDoubleAssetVaults", () => {
   it("should return the correct value", async () => {
     return getAllDoubleAssetVaults().then((vaults) => {
-      expect(vaults?.length).toBe(15);
+      expect(vaults?.length).toBe(19);
     });
   });
 });
