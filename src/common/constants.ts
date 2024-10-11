@@ -582,8 +582,10 @@ export const conf = {
     USDC_USDT_POOL:
       "0xa213f04c6049f842a7ffe7d39e0c6138a863dc6e25416df950d23ddb27d75661",
 
-    ALPHA_USDC_POOL: "",
-    USDC_WUSDC_POOL: "",
+    ALPHA_USDC_POOL:
+      "0x4c0e42f1826170ad9283b321a7f9a453ef9f65aaa626f7d9ee5837726664ecdc",
+    USDC_WUSDC_POOL:
+      "0x568a47adf2b10219f0973a5600096822b38b4a460c699431afb6dad385614d66",
 
     // Alphafi-Navi Pools
 
@@ -729,9 +731,11 @@ export const conf = {
     USDC_USDT_CETUS_INVESTOR:
       "0xe553be450b7290025d5810da45102abdbaa211c5735e47f6740b4dd880edc0bd",
 
-    ALPHA_USDC_CETUS_INVESTOR: "",
+    ALPHA_USDC_CETUS_INVESTOR:
+      "0xb43d1defd5f76ef084d68d6b56e903b54d0a3b01be8bb920ed1fa84b42c32ee1",
 
-    USDC_WUSDC_CETUS_INVESTOR: "",
+    USDC_WUSDC_CETUS_INVESTOR:
+      "0x6cc5e671a2a6e9b8c8635ff1fb16ae62abd7834558c3a632d97f393c0f022972",
 
     // Navi Investor Ids
 
