@@ -31,6 +31,12 @@ export async function getAprs(
       aprMap[poolName] = 0;
     }
   }
+  for (const pool of Object.keys(aprMap)) {
+    const poolName = pool as PoolName;
+    if (!(poolName in poolInfo)) {
+      delete aprMap[poolName];
+    }
+  }
   return aprMap;
 }
 
