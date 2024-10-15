@@ -24,7 +24,7 @@ export type PoolName =
   | "BUCK-WUSDC"
   | "CETUS-SUI"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDT-WUSDC"
+  | "NAVI-LOOP-USDC-USDT"
   | "ALPHA-WUSDC"
   | "WSOL-WUSDC"
   | "FUD-SUI"
@@ -45,7 +45,7 @@ export type SingleAssetPoolNames =
   | "NAVI-WUSDC"
   | "NAVI-HASUI"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDT-WUSDC"
+  | "NAVI-LOOP-USDC-USDT"
   | "NAVI-USDC";
 
 export type DoubleAssetPoolNames =
