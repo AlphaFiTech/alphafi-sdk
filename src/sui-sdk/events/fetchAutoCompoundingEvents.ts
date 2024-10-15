@@ -139,6 +139,7 @@ export async function calculateAprForInvestor(
   let totalGrowth = 0;
   let totalTimeSpan = 0;
   let previousTimestamp = events[0].timestamp; // Start with the timestamp of the first event
+  let previousGrowthRate = 0;
 
   const investorPoolMap = await getInvestorPoolMap();
 
@@ -162,6 +163,18 @@ export async function calculateAprForInvestor(
           : Number(event.compound_amount_b) / Number(event.total_amount_b);
 
       growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
+      // if (
+      //   event.investor_id ===
+      //   "0xba6acd0350eab1c6bc433b6c869e5592fe0667ae96a3115f89d5c79dd78396ef"
+      // ) {
+      //   console.log(
+      //     `${event.compound_amount_a},${event.total_amount_a},${event.compound_amount_b},${event.total_amount_b},${event.timestamp},${event.free_balance_a},${event.free_balance_b}`,
+      //   );
+      // }
+      if (Math.abs(growthA - growthB) > 0.5) {
+        // skip row, fill with previous event
+        growthRate = previousGrowthRate;
+      }
     } else if ("total_amount" in event) {
       let compoundAmount: number = Number(event.compound_amount);
       let totalAmount: number = Number(event.total_amount);
@@ -183,6 +196,7 @@ export async function calculateAprForInvestor(
 
     // Accumulate the time-weighted growth
     totalGrowth += growthRate;
+    previousGrowthRate = growthRate;
 
     // Accumulate the total time span
     totalTimeSpan += timeDiff;
