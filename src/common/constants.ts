@@ -529,6 +529,10 @@ export const conf = {
       "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD",
     BLUB_COIN_TYPE:
       "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB",
+    DEEP_COIN_TYPE:
+      "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP",
+    ETH_COIN_TYPE:
+      "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH",
 
     // Alpha POOL Id's
 
@@ -587,6 +591,8 @@ export const conf = {
       "0x4c0e42f1826170ad9283b321a7f9a453ef9f65aaa626f7d9ee5837726664ecdc",
     USDC_WUSDC_POOL:
       "0x568a47adf2b10219f0973a5600096822b38b4a460c699431afb6dad385614d66",
+    USDC_ETH_POOL: "",
+    DEEP_SUI_POOL: "",
 
     // Alphafi-Navi Pools
 
@@ -673,6 +679,11 @@ export const conf = {
     USDC_WUSDC_CETUS_POOL_ID:
       "0x1efc96c99c9d91ac0f54f0ca78d2d9a6ba11377d29354c0a192c86f0495ddec7",
 
+    DEEP_SUI_CETUS_POOL_ID:
+      "0xe01243f37f712ef87e556afb9b1d03d0fae13f96d324ec912daffc339dfdcbd2",
+    USDC_ETH_CETUS_POOL_ID:
+      "0x9e59de50d9e5979fc03ac5bcacdb581c823dbd27d63a036131e17b391f2fac88",
+
     //Cetus Info Id's
 
     CETUS_REWARDER_GLOBAL_VAULT_ID:
@@ -738,6 +749,10 @@ export const conf = {
 
     USDC_WUSDC_CETUS_INVESTOR:
       "0x6cc5e671a2a6e9b8c8635ff1fb16ae62abd7834558c3a632d97f393c0f022972",
+
+    USDC_ETH_CETUS_INVESTOR: "",
+
+    DEEP_SUI_CETUS_INVESTOR: "",
 
     // Navi Investor Ids
 
@@ -849,6 +864,11 @@ export const conf = {
     USDC_WUSDC_POOL_RECEIPT:
       "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f::alphafi_cetus_pool_base_a::Receipt",
 
+    USDC_ETH_POOL_RECEIPT:
+      "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f::alphafi_cetus_pool_base_a::Receipt",
+    DEEP_SUI_POOL_RECEIPT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
+
     // Receipt Names
 
     ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
@@ -893,7 +913,7 @@ export const conf = {
 
     ALPHA_WUSDC_POOL_RECEIPT_NAME: "",
     WSOL_WUSDC_POOL_RECEIPT_NAME: "",
-    FUD_SUI_POOL_RECEIPT_NAME: "",
+    FUD_SUI_POOL_RECEIPT_NAME: "AlphaFi FUD-SUI Receipt",
     BLUB_SUI_POOL_RECEIPT_NAME: "",
     SCA_SUI_POOL_RECEIPT_NAME: "",
 
@@ -902,6 +922,9 @@ export const conf = {
 
     ALPHA_USDC_POOL_RECEIPT_NAME: "AlphaFi ALPHA-USDC(Native) Receipt",
     USDC_WUSDC_POOL_RECEIPT_NAME: "AlphaFi USDC(Native)-WUSDC Receipt",
+
+    USDC_ETH_POOL_RECEIPT_NAME: "AlphaFi USDC(Native)-ETH Receipt",
+    DEEP_SUI_POOL_RECEIPT_NAME: "AlphaFi DEEP-SUI Receipt",
 
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
@@ -986,6 +1009,12 @@ export const conf = {
     USDC_WUSDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::AutoCompoundingEvent",
 
+    USDC_ETH_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::AutoCompoundingEvent",
+
+    DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
+
     //Rebalance Event Types
 
     ALPHA_SUI_POOL_REBALANCE_EVENT:
@@ -1043,6 +1072,12 @@ export const conf = {
 
     USDC_WUSDC_POOL_REBALANCE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::RebalancePoolEvent",
+
+    USDC_ETH_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor_base_a::RebalancePoolEvent",
+
+    DEEP_SUI_POOL_REBALANCE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
 
     //Liquidity Change Event Types
     ALPHA_POOL_LIQUIDITY_CHANGE_EVENT:
@@ -1128,6 +1163,12 @@ export const conf = {
 
     USDC_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool_base_a::LiquidityChangeEvent",
+
+    USDC_ETH_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_pool_base_a::LiquidityChangeEvent",
+
+    DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
 
     // Wallets
 

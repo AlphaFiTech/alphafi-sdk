@@ -99,6 +99,8 @@ export const poolCoinPairMap: Record<
   "USDC-USDT": { coinA: "USDC", coinB: "USDT" },
   "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
   "USDC-WUSDC": { coinA: "USDC", coinB: "WUSDC" },
+  "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
+  "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -127,6 +129,32 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "USDC-ETH": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_ETH_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_ETH_POOL,
+    investorId: conf[CONF_ENV].USDC_ETH_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_ETH_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_ETH_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_ETH_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_ETH_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
+  "DEEP-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].DEEP_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].DEEP_SUI_POOL,
+    investorId: conf[CONF_ENV].DEEP_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].DEEP_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].DEEP_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].DEEP_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "ALPHA-USDC": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].ALPHA_USDC_CETUS_POOL_ID,
@@ -564,6 +592,8 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
   BUCK: "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
   FUD: conf[CONF_ENV].FUD_COIN_TYPE as CoinType,
   BLUB: conf[CONF_ENV].BLUB_COIN_TYPE as CoinType,
+  ETH: conf[CONF_ENV].ETH_COIN_TYPE as CoinType,
+  DEEP: conf[CONF_ENV].DEEP_COIN_TYPE as CoinType,
 };
 
 export const poolIdQueryPoolMap: { [key: string]: string } = {
