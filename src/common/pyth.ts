@@ -22,4 +22,6 @@ export type PythPriceIdPair =
   | "USDY/USD"
   | "NAVX/USD"
   | "BUCK/USD"
-  | "WUSDC/USD";
+  | "WUSDC/USD"
+  | "ETH/USD"
+  | "DEEP/USD";
