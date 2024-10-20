@@ -55,6 +55,7 @@ export * from "./common/types.js";
 export * from "./graphql/fetchData.js";
 export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
+export * from "./graphql/getMultiReceipts.js";
 
 export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
 
