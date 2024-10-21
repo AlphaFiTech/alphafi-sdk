@@ -90,8 +90,8 @@ export class HopGateway {
   }
 }
 export async function getWUSDCPrice(): Promise<number | undefined> {
-  const { fetchPriceFromAlphaAPI } = await import("./prices.js");
-  const wusdcPrice = await fetchPriceFromAlphaAPI("USDC/USD");
+  const { fetchPricesFromAlphaAPI } = await import("./prices.js");
+  const [wusdcPrice] = await fetchPricesFromAlphaAPI(["USDC/USD"]);
   return Number(wusdcPrice);
 }
 export async function getBlubPrice(): Promise<number | undefined> {

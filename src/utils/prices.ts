@@ -92,50 +92,13 @@ export async function getLatestPrice(
 ): Promise<string | undefined> {
   let price: string | undefined = undefined;
 
-  if (pair === ("ALPHA/USD" as PythPriceIdPair)) {
-    const alphaPrice = await getAlphaPrice();
-    if (alphaPrice) {
-      price = `${alphaPrice}`;
+  try {
+    [price] = await fetchPricesFromAlphaAPI([pair]);
+    if (!price) {
+      console.log(`Failed to get price for pair ${pair}`);
     }
-  } else if (pair === ("USDY/USD" as PythPriceIdPair)) {
-    const usdyPrice = await getUSDYPrice();
-    if (usdyPrice) {
-      price = `${usdyPrice}`;
-    }
-  } else if (pair === ("BUCK/USD" as PythPriceIdPair)) {
-    const buckPrice = await getBUCKPrice();
-    if (buckPrice) {
-      price = `${buckPrice}`;
-    }
-  } else if (pair === ("WSOL/USD" as PythPriceIdPair)) {
-    const wsolPrice = await getWsolPrice();
-    if (wsolPrice) {
-      price = `${wsolPrice}`;
-    }
-  } else if (pair === ("BLUB/USD" as PythPriceIdPair)) {
-    const blubPrice = await getBlubPrice();
-    if (blubPrice) {
-      price = `${blubPrice}`;
-    }
-  } else if (pair === ("FUD/USD" as PythPriceIdPair)) {
-    const fudPrice = await getFudPrice();
-    if (fudPrice) {
-      price = `${fudPrice}`;
-    }
-  } else if (pair === ("WUSDC/USD" as PythPriceIdPair)) {
-    const wusdcPrice = await getWUSDCPrice();
-    if (wusdcPrice) {
-      price = `${wusdcPrice}`;
-    }
-  } else {
-    try {
-      price = await fetchPriceFromAlphaAPI(pair);
-      if (!price) {
-        console.log(`Failed to get price for pair ${pair}`);
-      }
-    } catch (error) {
-      console.error(`Error in getPrice for pair ${pair}:`, error);
-    }
+  } catch (error) {
+    console.error(`Error in getPrice for pair ${pair}:`, error);
   }
   return price;
 }
@@ -155,58 +118,11 @@ interface PythPricePair {
 
 const pythCache = new SimpleCache<PythPricePair>(10000); // cache TTL = 10 seconds
 const pythPromiseCache = new SimpleCache<Promise<PythPricePair>>(10000);
-
-export async function fetchPriceFromAlphaAPI(
-  pair: string,
-): Promise<string | undefined> {
-  let pythPricePair: PythPricePair | undefined = undefined;
-
-  const priceCacheKey = generateCacheKey(pair as PythPriceIdPair);
-  if (debug) console.log(`Key generated for ${pair}: ${priceCacheKey}`);
-
-  const cachedResponse = pythCache.get(priceCacheKey);
-
-  if (cachedResponse) {
-    if (debug) console.log(`From CACHE for ${pair}`, cachedResponse);
-    pythPricePair = cachedResponse;
-  } else {
-    let cachedPromise = pythPromiseCache.get(priceCacheKey);
-
-    if (!cachedPromise) {
-      if (debug)
-        console.log(`https://api.alphafi.xyz/alpha/fetchPrice?pair=${pair}`);
-      cachedPromise = fetch(
-        `https://api.alphafi.xyz/alpha/fetchPrice?pair=${pair}`,
-      )
-        .then(async (response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = (await response.json()) as PythPricePair; // Parse the JSON response
-          if (debug) console.log(`From SERVER for ${pair}`, data);
-          pythCache.set(priceCacheKey, data); // Cache the response
-          pythPromiseCache.delete(priceCacheKey); // Remove the promise from the cache
-          return data;
-        })
-        .catch((error) => {
-          pythPromiseCache.delete(priceCacheKey); // Ensure the promise is removed on error
-          throw error;
-        });
-      pythPromiseCache.set(priceCacheKey, cachedPromise);
-    }
-    pythPricePair = await cachedPromise;
-  }
-
-  if (pythPricePair) {
-    return pythPricePair.price;
-  } else {
-    throw new Error(`Price not found for pair: ${pair}`);
-  }
-}
-
 const pythPromisesCache = new SimpleCache<Promise<PythPricePair[]>>(10000);
 
-async function fetchPricesFromAlphaAPI(pairs: string[]): Promise<string[]> {
+export async function fetchPricesFromAlphaAPI(
+  pairs: string[],
+): Promise<string[]> {
   const prices: (string | undefined)[] = new Array(pairs.length).fill(
     undefined,
   );
