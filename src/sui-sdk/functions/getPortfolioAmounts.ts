@@ -20,8 +20,8 @@ import { SimpleCache } from "../../utils/simpleCache.js";
 import { coins } from "../../common/coins.js";
 import { poolCoinMap, poolCoinPairMap } from "../../common/maps.js";
 import { PythPriceIdPair } from "../../common/pyth.js";
-import { getLatestPrice } from "../../utils/prices.js";
 import { getAlphaPrice } from "../../utils/clmm/prices.js";
+import { getLatestPrices } from "../../utils/prices.js";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,
@@ -173,11 +173,12 @@ export async function getDoubleAssetPortfolioAmountInUSD(
         ten.pow(coins[pool2 as CoinName].expo),
       );
       const tokens = poolName.split("-");
-      const priceOfCoin0 = await getLatestPrice(
-        `${tokens[0]}/USD` as PythPriceIdPair,
-      );
-      const priceOfCoin1 = await getLatestPrice(
-        `${tokens[1]}/USD` as PythPriceIdPair,
+      const [priceOfCoin0, priceOfCoin1] = await getLatestPrices(
+        [
+          `${tokens[0]}/USD` as PythPriceIdPair,
+          `${tokens[1]}/USD` as PythPriceIdPair,
+        ],
+        false,
       );
       if (priceOfCoin0 && priceOfCoin1) {
         const amount = amount0.mul(priceOfCoin0).add(amount1.mul(priceOfCoin1));
@@ -347,8 +348,11 @@ export async function getSingleAssetPortfolioAmountInUSD(
         ),
       ),
     );
-    const priceOfCoin = await getLatestPrice(
-      `${poolCoinMap[poolName as keyof typeof poolCoinMap]}/USD` as PythPriceIdPair,
+    const [priceOfCoin] = await getLatestPrices(
+      [
+        `${poolCoinMap[poolName as keyof typeof poolCoinMap]}/USD` as PythPriceIdPair,
+      ],
+      false,
     );
     if (priceOfCoin) {
       const amountInUSD = amount.mul(priceOfCoin);

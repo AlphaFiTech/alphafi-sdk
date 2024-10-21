@@ -13,9 +13,9 @@ import {
   SingleAssetPoolNames,
 } from "./types.js";
 import { PythPriceIdPair } from "./pyth.js";
-import { getLatestPrice } from "../utils/prices.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
+import { getLatestPrices } from "../utils/prices.js";
 
 export const cetusPoolMap: { [key: string]: string } = {
   "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
@@ -757,9 +757,10 @@ export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
   });
   const coins = Array.from(coinsSet);
   for (const coin of coins) {
-    const priceOfCoin = (await getLatestPrice(
-      `${coin}/USD` as PythPriceIdPair,
-    )) as string;
+    const [priceOfCoin] = await getLatestPrices(
+      [`${coin}/USD` as PythPriceIdPair],
+      false,
+    );
     coinNameToPriceMap.set(coin, priceOfCoin);
   }
 
