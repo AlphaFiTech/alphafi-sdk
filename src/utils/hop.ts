@@ -10,7 +10,7 @@ import { conf, CONF_ENV } from "../common/constants.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { getSuiNodeUrl } from "../sui-sdk/client.js";
 import { coins } from "../common/coins.js";
-import { getLatestPrice } from "./prices.js";
+import { getLatestPrices } from "./prices.js";
 import BN from "bn.js";
 
 export type HopSwapOptions = SwapOptions;
@@ -90,8 +90,7 @@ export class HopGateway {
   }
 }
 export async function getWUSDCPrice(): Promise<number | undefined> {
-  const { fetchPriceFromAlphaAPI } = await import("./prices.js");
-  const wusdcPrice = await fetchPriceFromAlphaAPI("USDC/USD");
+  const [wusdcPrice] = await getLatestPrices(["USDC/USD"], false);
   return Number(wusdcPrice);
 }
 export async function getBlubPrice(): Promise<number | undefined> {
@@ -107,7 +106,7 @@ export async function getBlubPrice(): Promise<number | undefined> {
   };
 
   const res = await hopGateway.getQuote(swapOptions);
-  const latestUSDCPrice = await getLatestPrice("USDC/USD");
+  const [latestUSDCPrice] = await getLatestPrices(["USDC/USD"], false);
   if (latestUSDCPrice) {
     return (
       Number(res.amount_out_with_fee) * Number(latestUSDCPrice) * 1e-6 * 1e-7
@@ -129,7 +128,7 @@ export async function getFudPrice(): Promise<number | undefined> {
   };
 
   const res = await hopGateway.getQuote(swapOptions);
-  const latestUSDCPrice = await getLatestPrice("USDC/USD");
+  const [latestUSDCPrice] = await getLatestPrices(["USDC/USD"], false);
   if (latestUSDCPrice) {
     return (
       Number(res.amount_out_with_fee) * Number(latestUSDCPrice) * 1e-6 * 1e-7
@@ -150,7 +149,7 @@ export async function getWsolPrice(): Promise<number | undefined> {
   };
 
   const res = await hopGateway.getQuote(swapOptions);
-  const latestUSDCPrice = await getLatestPrice("USDC/USD");
+  const [latestUSDCPrice] = await getLatestPrices(["USDC/USD"], false);
   if (latestUSDCPrice) {
     return Number(res.amount_out_with_fee) * Number(latestUSDCPrice) * 1e-6;
   } else {

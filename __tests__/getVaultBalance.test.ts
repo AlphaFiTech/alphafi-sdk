@@ -108,7 +108,7 @@ describe("getNaviUsdcSingleAssetVaultBalance", () => {
   it("should return the correct value", async () => {
     const address =
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "NAVI-LOOP-USDT-WUSDC";
+    const poolName: PoolName = "NAVI-LOOP-USDC-USDT";
 
     return getSingleAssetVaultBalance(address, poolName).then((balance) => {
       expect(balance).toBeDefined();

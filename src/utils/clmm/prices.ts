@@ -15,7 +15,7 @@ import { Coin } from "../../common/types.js";
 import { coins } from "../../common/coins.js";
 import { CetusSwapOptions, CreatePoolOptions } from "./types.js";
 import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config.js";
-import { getLatestPrice } from "../prices.js";
+import { getLatestPrices } from "../prices.js";
 import { SimpleCache } from "../simpleCache.js";
 
 interface PoolData {
@@ -136,7 +136,7 @@ export async function getAlphaPrice(
         inAmount: new BN(1_000_000_000),
       };
       const res = await cetusGateway.getPrice(swapOption);
-      const latestSuiPrice = await getLatestPrice("SUI/USD");
+      const [latestSuiPrice] = await getLatestPrices(["SUI/USD"], false);
       if (latestSuiPrice) {
         alphaPrice =
           res.estimatedAmountOut.toNumber() * Number(latestSuiPrice) * 1e-9;
@@ -165,7 +165,7 @@ export async function getUSDYPrice(): Promise<number | undefined> {
     inAmount: new BN(1_000_000),
   };
   const res = await cetusGateway.getPrice(swapOption);
-  const latestUSDCPrice = await getLatestPrice("USDC/USD");
+  const [latestUSDCPrice] = await getLatestPrices(["USDC/USD"], false);
   if (latestUSDCPrice) {
     return res.estimatedAmountOut.toNumber() * Number(latestUSDCPrice) * 1e-6;
   } else {
@@ -183,7 +183,7 @@ export async function getBUCKPrice(): Promise<number | undefined> {
     inAmount: new BN(1_000_000_000),
   };
   const res = await cetusGateway.getPrice(swapOption);
-  const latestUSDCPrice = await getLatestPrice("USDC/USD");
+  const [latestUSDCPrice] = await getLatestPrices(["USDC/USD"], false);
   if (latestUSDCPrice) {
     return res.estimatedAmountOut.toNumber() * Number(latestUSDCPrice) * 1e-6;
   } else {
