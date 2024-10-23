@@ -591,9 +591,12 @@ export const conf = {
       "0x4c0e42f1826170ad9283b321a7f9a453ef9f65aaa626f7d9ee5837726664ecdc",
     USDC_WUSDC_POOL:
       "0x568a47adf2b10219f0973a5600096822b38b4a460c699431afb6dad385614d66",
-    USDC_ETH_POOL: "",
-    DEEP_SUI_POOL: "",
-    BUCK_SUI_POOL: "",
+    USDC_ETH_POOL:
+      "0xc04f71f32a65ddf9ebf6fb69f39261457da28918bfda5d3760013f3ea782a594",
+    DEEP_SUI_POOL:
+      "0xff496f73a1f9bf7461882fbdad0c6c6c73d301d3137932f7fce2428244359eaa",
+    BUCK_SUI_POOL:
+      "0xeb44ecef39cc7873de0c418311557c6b8a60a0af4f1fe1fecece85d5fbe02ab5",
 
     // Alphafi-Navi Pools
 
@@ -755,11 +758,14 @@ export const conf = {
     USDC_WUSDC_CETUS_INVESTOR:
       "0x6cc5e671a2a6e9b8c8635ff1fb16ae62abd7834558c3a632d97f393c0f022972",
 
-    USDC_ETH_CETUS_INVESTOR: "",
+    USDC_ETH_CETUS_INVESTOR:
+      "0xb0bff60783536f9dc0b38e43150a73b73b8a4f1969446f7721e187821915bd00",
 
-    DEEP_SUI_CETUS_INVESTOR: "",
+    DEEP_SUI_CETUS_INVESTOR:
+      "0x5e195363175e4b5139749d901ddd5ef1ffc751777a7051b558c45fa12f24abc3",
 
-    BUCK_SUI_CETUS_INVESTOR: "",
+    BUCK_SUI_CETUS_INVESTOR:
+      "0x9b7c9b6086d3baf413bccdfbb6f60f04dedd5f5387dee531eef5b811afdfaedc",
 
     // Navi Investor Ids
 
