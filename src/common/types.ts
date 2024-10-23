@@ -36,7 +36,8 @@ export type PoolName =
   | "ALPHA-USDC"
   | "USDC-WUSDC"
   | "USDC-ETH"
-  | "DEEP-SUI";
+  | "DEEP-SUI"
+  | "BUCK-SUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -71,7 +72,8 @@ export type DoubleAssetPoolNames =
   | "ALPHA-USDC"
   | "USDC-WUSDC"
   | "USDC-ETH"
-  | "DEEP-SUI";
+  | "DEEP-SUI"
+  | "BUCK-SUI";
 
 export type CoinName =
   | "ALPHA"

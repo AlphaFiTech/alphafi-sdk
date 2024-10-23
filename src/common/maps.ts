@@ -101,6 +101,7 @@ export const poolCoinPairMap: Record<
   "USDC-WUSDC": { coinA: "USDC", coinB: "WUSDC" },
   "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
   "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
+  "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -129,6 +130,19 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "BUCK-SUI": {
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].BUCK_SUI_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].BUCK_SUI_POOL,
+    investorId: conf[CONF_ENV].BUCK_SUI_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].BUCK_SUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].BUCK_SUI_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].BUCK_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].BUCK_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].BUCK_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "USDC-ETH": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].USDC_ETH_CETUS_POOL_ID,
