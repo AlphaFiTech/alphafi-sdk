@@ -440,7 +440,7 @@ export const conf = {
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08",
 
     ALPHA_2_FIRST_PACKAGE_ID:
-      "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
+      "0x596639cb12dc5731890063eea58cc631bd6608f49bd338da96181f4265bf8f18",
 
     ALPHA_2_LATEST_PACKAGE_ID:
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
@@ -453,6 +453,11 @@ export const conf = {
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
     ],
 
+    ALPHA_3_FIRST_PACKAGE_ID: "",
+    ALPHA_3_LATEST_PACKAGE_ID: "",
+
+    ALPHA_3_MODULE_PACKAGE_IDS: [],
+    ALPHA_3_PACKAGE_IDS: [],
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
 
@@ -461,6 +466,8 @@ export const conf = {
 
     ALPHA_2_VERSION:
       "0xb89716c470af0d16505ff5621e2111f73ac97247c093948660548c3548845aa8", // new package for looping strategy
+
+    ALPHA_3_VERSION: "",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -617,6 +624,10 @@ export const conf = {
       "0xb90c7250627e0113df2e60d020df477cac14ca78108e3c5968230f3e7d4d8846",
     ALPHAFI_NAVI_USDC_POOL:
       "0x04378cf67d21b41399dc0b6653a5f73f8d3a03cc7643463e47e8d378f8b0bdfa",
+
+    //alphafi bucket pools
+
+    BUCKET_BUCK_POOL: "",
 
     // CETUS Pool Id's
 
@@ -795,6 +806,9 @@ export const conf = {
     NAVI_USDC_INVESTOR:
       "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065",
 
+    //ALPHAFI BUCKET INVESTORS
+    BUCKET_BUCK_INVESTOR: "",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -887,6 +901,8 @@ export const conf = {
     BUCK_SUI_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::Receipt",
 
+    BUCKET_BUCK_POOL_RECEIPT: "",
+
     // Receipt Names
 
     ALPHA_POOL_RECEIPT_NAME: "AlphaFi ALPHA Receipt",
@@ -944,6 +960,7 @@ export const conf = {
     USDC_ETH_POOL_RECEIPT_NAME: "AlphaFi USDC(Native)-ETH Receipt",
     DEEP_SUI_POOL_RECEIPT_NAME: "AlphaFi DEEP-SUI Receipt",
     BUCK_SUI_POOL_RECEIPT_NAME: "AlphaFi BUCK-SUI Receipt",
+    BUCKET_BUCK_POOL_RECEIPT_NAME: "",
 
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
@@ -1038,6 +1055,8 @@ export const conf = {
     BUCK_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::AutoCompoundingEvent",
 
+    BUCKET_BUCK_POOL_AUTO_COMPOUNDING_EVENT: "",
+
     //Rebalance Event Types
 
     ALPHA_SUI_POOL_REBALANCE_EVENT:
@@ -1104,6 +1123,8 @@ export const conf = {
 
     BUCK_SUI_POOL_REBALANCE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_investor::RebalancePoolEvent",
+
+    BUCKET_BUCK_POOL_REBALANCE_EVENT: "",
 
     //Liquidity Change Event Types
     ALPHA_POOL_LIQUIDITY_CHANGE_EVENT:
@@ -1200,10 +1221,20 @@ export const conf = {
     BUCK_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
 
+    BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT: "",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:
       "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a",
+
+    //constants for bucket
+
+    BUCKET_PROTOCOL:
+      "0x9e3dab13212b27f5434416939db5dec6a319d15b89a84fd074d03ece6350d3df",
+    FOUNTAIN:
+      "0xbdf91f558c2b61662e5839db600198eda66d502e4c10c4fc5c683f9caca13359",
+    FLASK: "0xc6ecc9731e15d182bc0a46ebe1754a779a4bfb165c201102ad51a36838a1a7b8",
 
     // Constants for Navi Protocol",
 
