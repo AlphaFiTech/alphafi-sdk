@@ -140,12 +140,13 @@ export async function calculateAprForInvestor(
   let totalTimeSpan = 0;
   let previousTimestamp = events[0].timestamp; // Start with the timestamp of the first event
   let previousGrowthRate = 0;
+  let previousTimeDiff = 0;
 
   const investorPoolMap = await getInvestorPoolMap();
 
   for (const event of events) {
     // Calculate the time difference from the previous event
-    const timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
+    let timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
 
     // Calculate growth rate
     let growthRate = 0;
@@ -162,10 +163,23 @@ export async function calculateAprForInvestor(
           ? 0
           : Number(event.compound_amount_b) / Number(event.total_amount_b);
 
+      // if (
+      //   event.investor_id ===
+      //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
+      // ) {
+      //   console.log(
+      //     event.compound_amount_a,
+      //     event.total_amount_a,
+      //     growthA,
+      //     event.compound_amount_b,
+      //     event.total_amount_b,
+      //     growthB,
+      //   );
+      // }
       growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
       // if (
       //   event.investor_id ===
-      //   "0xba6acd0350eab1c6bc433b6c869e5592fe0667ae96a3115f89d5c79dd78396ef"
+      //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
       // ) {
       //   console.log(
       //     `${event.compound_amount_a},${event.total_amount_a},${event.compound_amount_b},${event.total_amount_b},${event.timestamp},${event.free_balance_a},${event.free_balance_b}`,
@@ -174,6 +188,7 @@ export async function calculateAprForInvestor(
       if (Math.abs(growthA - growthB) > 0.5) {
         // skip row, fill with previous event
         growthRate = previousGrowthRate;
+        timeDiff = previousTimeDiff;
       }
     } else if ("total_amount" in event) {
       let compoundAmount: number = Number(event.compound_amount);
@@ -200,6 +215,7 @@ export async function calculateAprForInvestor(
 
     // Accumulate the total time span
     totalTimeSpan += timeDiff;
+    previousTimeDiff = timeDiff;
 
     // Update the previous timestamp to the current event's timestamp
     previousTimestamp = event.timestamp;
