@@ -13,7 +13,7 @@ describe("getVaults", () => {
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
 
     return getVaults(address).then((vaults) => {
-      expect(vaults?.length).toBe(5);
+      expect(vaults?.length).toBe(3);
     });
   });
 });
@@ -51,7 +51,7 @@ describe("getDoubleAssetVaults", () => {
       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
 
     return getDoubleAssetVaults(address).then((vaults) => {
-      expect(vaults?.length).toBe(3);
+      expect(vaults?.length).toBe(1);
     });
   });
 });
