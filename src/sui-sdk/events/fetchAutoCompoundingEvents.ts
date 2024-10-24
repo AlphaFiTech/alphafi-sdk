@@ -257,7 +257,7 @@ export async function calculateAprForInvestor(
     }
 
     // Accumulate the time-weighted growth
-    totalGrowth += growthRate;
+    totalGrowth = (totalGrowth + 1) * (1 + growthRate) - 1;
     previousGrowthRate = growthRate;
 
     // Accumulate the total time span
