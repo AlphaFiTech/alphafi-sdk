@@ -115,6 +115,10 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-LOOP-SUI-VSUI": "SUI",
   "NAVI-LOOP-USDC-USDT": "USDC",
   "NAVI-USDC": "USDC",
+  "BUCKET-BUCK": "BUCK",
+  "NAVI-USDY": "USDY",
+  "NAVI-AUSD": "AUSD",
+  "NAVI-ETH": "ETH",
 };
 
 export const poolInfo: {
@@ -130,6 +134,58 @@ export const poolInfo: {
     liquidityChangeEventType: string;
   };
 } = {
+  "NAVI-USDY": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDY_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_USDY_POOL,
+    investorId: conf[CONF_ENV].NAVI_USDY_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDY_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_USDY_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_USDY_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_USDY_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
+  "NAVI-AUSD": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_AUSD_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_AUSD_POOL,
+    investorId: conf[CONF_ENV].NAVI_AUSD_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_AUSD_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_AUSD_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_AUSD_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
+  "NAVI-ETH": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_ETH_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_ETH_POOL,
+    investorId: conf[CONF_ENV].NAVI_ETH_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_ETH_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_ETH_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_ETH_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
+  "BUCKET-BUCK": {
+    parentProtocolName: "BUCKET",
+    parentPoolId: conf[CONF_ENV].BUCKET_PROTOCOL,
+    poolId: conf[CONF_ENV].BUCKET_BUCK_POOL,
+    investorId: conf[CONF_ENV].BUCKET_BUCK_INVESTOR,
+    receiptName: conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].BUCKET_BUCK_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "BUCK-SUI": {
     parentProtocolName: "CETUS",
     parentPoolId: conf[CONF_ENV].BUCK_SUI_CETUS_POOL_ID,
@@ -609,6 +665,7 @@ export const coinNameTypeMap: { [key in CoinName]: CoinType } = {
   BLUB: conf[CONF_ENV].BLUB_COIN_TYPE as CoinType,
   ETH: conf[CONF_ENV].ETH_COIN_TYPE as CoinType,
   DEEP: conf[CONF_ENV].DEEP_COIN_TYPE as CoinType,
+  AUSD: conf[CONF_ENV].AUSD_COIN_TYPE as CoinType,
 };
 
 export const poolIdQueryPoolMap: { [key: string]: string } = {

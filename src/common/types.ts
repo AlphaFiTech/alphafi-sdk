@@ -3,7 +3,7 @@ import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
-export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI";
+export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI" | "BUCKET";
 
 export type PoolName =
   | "ALPHA"
@@ -37,7 +37,11 @@ export type PoolName =
   | "USDC-WUSDC"
   | "USDC-ETH"
   | "DEEP-SUI"
-  | "BUCK-SUI";
+  | "BUCK-SUI"
+  | "BUCKET-BUCK"
+  | "NAVI-USDY"
+  | "NAVI-AUSD"
+  | "NAVI-ETH";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -49,7 +53,11 @@ export type SingleAssetPoolNames =
   | "NAVI-HASUI"
   | "NAVI-LOOP-SUI-VSUI"
   | "NAVI-LOOP-USDC-USDT"
-  | "NAVI-USDC";
+  | "NAVI-USDC"
+  | "BUCKET-BUCK"
+  | "NAVI-USDY"
+  | "NAVI-AUSD"
+  | "NAVI-ETH";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -99,7 +107,8 @@ export type CoinName =
   | "FUD"
   | "BLUB"
   | "ETH"
-  | "DEEP";
+  | "DEEP"
+  | "AUSD";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
@@ -179,7 +188,8 @@ export type CoinType =
   | "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD"
   | "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
   | "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH"
-  | "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP";
+  | "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP"
+  | "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
@@ -196,6 +206,7 @@ const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
 const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
 const NAVI_WUSDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT;
 const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
+const BUCKET_BUCK_POOL_RECEIPT = conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT;
 export type PoolReceipt =
   | typeof ALPHA_SUI_POOL_RECEIPT
   | typeof USDY_WUSDC_POOL_RECEIPT
@@ -211,7 +222,8 @@ export type PoolReceipt =
   | typeof NAVI_WETH_POOL_RECEIPT
   | typeof NAVI_USDT_POOL_RECEIPT
   | typeof NAVI_WUSDC_POOL_RECEIPT
-  | typeof NAVI_USDC_POOL_RECEIPT;
+  | typeof NAVI_USDC_POOL_RECEIPT
+  | typeof BUCKET_BUCK_POOL_RECEIPT;
 
 export type CoinAmounts = {
   coinA: BN;

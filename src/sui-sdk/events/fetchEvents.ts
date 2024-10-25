@@ -44,6 +44,7 @@ export async function fetchEvents(
   }
 
   const suiClient = getSuiClient();
+  //const prevTS = 0;
 
   while (hasNextPage) {
     const result: PaginatedEvents = await suiClient.queryEvents({
@@ -99,6 +100,17 @@ export async function fetchEvents(
           total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
           total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
         };
+
+        // if (
+        //   eventNode.investor_id ===
+        //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
+        // ) {
+        //   console.log(
+        //     eventNode.timestamp,
+        //     (prevTS - eventNode.timestamp) / (1000 * 60),
+        //   );
+        //   prevTS = eventNode.timestamp;
+        // }
       } else if (
         isAutoCompoundingEvent(suiEvent.type) &&
         "compound_amount" in suiEventJson
