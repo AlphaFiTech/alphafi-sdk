@@ -3,7 +3,7 @@ import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
-export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI";
+export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI" | "BUCKET";
 
 export type PoolName =
   | "ALPHA"
@@ -36,7 +36,9 @@ export type PoolName =
   | "ALPHA-USDC"
   | "USDC-WUSDC"
   | "USDC-ETH"
-  | "DEEP-SUI";
+  | "DEEP-SUI"
+  | "BUCK-SUI"
+  | "BUCKET-BUCK";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -48,7 +50,8 @@ export type SingleAssetPoolNames =
   | "NAVI-HASUI"
   | "NAVI-LOOP-SUI-VSUI"
   | "NAVI-LOOP-USDC-USDT"
-  | "NAVI-USDC";
+  | "NAVI-USDC"
+  | "BUCKET-BUCK";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -71,7 +74,8 @@ export type DoubleAssetPoolNames =
   | "ALPHA-USDC"
   | "USDC-WUSDC"
   | "USDC-ETH"
-  | "DEEP-SUI";
+  | "DEEP-SUI"
+  | "BUCK-SUI";
 
 export type CoinName =
   | "ALPHA"
@@ -194,6 +198,7 @@ const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
 const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
 const NAVI_WUSDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT;
 const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
+const BUCKET_BUCK_POOL_RECEIPT = conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT;
 export type PoolReceipt =
   | typeof ALPHA_SUI_POOL_RECEIPT
   | typeof USDY_WUSDC_POOL_RECEIPT
@@ -209,7 +214,8 @@ export type PoolReceipt =
   | typeof NAVI_WETH_POOL_RECEIPT
   | typeof NAVI_USDT_POOL_RECEIPT
   | typeof NAVI_WUSDC_POOL_RECEIPT
-  | typeof NAVI_USDC_POOL_RECEIPT;
+  | typeof NAVI_USDC_POOL_RECEIPT
+  | typeof BUCKET_BUCK_POOL_RECEIPT;
 
 export type CoinAmounts = {
   coinA: BN;
