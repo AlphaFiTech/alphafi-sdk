@@ -5,6 +5,7 @@ import {
   getCetusSqrtPriceMap,
   poolCoinPairMap,
   poolCoinMap,
+  poolInfo,
 } from "../common/maps.js";
 import {
   DoubleAssetTokenHoldings,
@@ -13,7 +14,11 @@ import {
   LiquidityToTokensParams,
 } from "../types.js";
 import { Decimal } from "decimal.js";
-import { DoubleAssetPoolNames, PoolName } from "../common/types.js";
+import {
+  DoubleAssetPoolNames,
+  PoolName,
+  SingleAssetPoolNames,
+} from "../common/types.js";
 import {
   CoinAmounts,
   ClmmPoolUtil,
@@ -137,15 +142,14 @@ function doubleAssetliquidityToTokens(params: {
 
 function alphaLiquidityToTokens(liquidity: string) {
   const amount = new Decimal(liquidity).div(1e9);
-  return amount.toFixed(5).toString();
+  return amount.toFixed(5);
 }
 
 function singleAssetLiquidityToTokens(liquidity: string, pool: string) {
-  const singlePool = pool as Extract<
-    PoolName,
-    "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT"
-  >;
-  const coin = poolCoinMap[singlePool];
+  const singlePool = pool;
+  if (poolInfo[pool].parentProtocolName !== "NAVI")
+    throw new Error("only NAVI pools allowed");
+  const coin = poolCoinMap[singlePool as SingleAssetPoolNames];
   let amount = new Decimal(liquidity).div(Math.pow(10, 9 - coins[coin].expo));
   amount = amount.div(new Decimal(Math.pow(10, coins[coin].expo)));
   return amount.toFixed(5).toString();
@@ -225,10 +229,7 @@ export async function multiTokensToUsd(
   for (const tokenHolding of tokensHoldings) {
     if ("tokens" in tokenHolding) {
       // SingleAssetTokenHoldings
-      const singlePool = tokenHolding.poolName as Extract<
-        PoolName,
-        "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT"
-      >;
+      const singlePool = tokenHolding.poolName;
       const coin = poolCoinMap[singlePool];
       const priceOfCoin = tokenPriceMap.get(coin);
       if (priceOfCoin) {

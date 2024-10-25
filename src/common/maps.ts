@@ -631,6 +631,7 @@ export const poolIdPoolNameMap = ((): {
     const poolId = info.poolId;
     res[poolId] = poolName as PoolName;
   });
+  delete res[""]; //deletes unlaunched pools
   return res;
 })();
 
