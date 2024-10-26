@@ -1,7 +1,7 @@
 import { ApolloQueryResult, gql } from "@apollo/client/core";
 import client from "./client.js";
 import { getMultiReceiptsQuery } from "./queries/getMultiReceipts.js";
-import { Receipt } from "./types.js";
+import { ReceiptSDK } from "./types.js";
 
 type ReceiptType = {
   type: string;
@@ -33,7 +33,7 @@ const receiptTypes: { [key: string]: ReceiptType } = {
 
 export async function fetchMultiReceipts(
   address: string,
-): Promise<Map<string, Receipt[]>> {
+): Promise<Map<string, ReceiptSDK[]>> {
   const multiReceipts: any[] = [];
   let hasNextPage = true;
 
@@ -60,64 +60,18 @@ export async function fetchMultiReceipts(
         if (hasNextPage) receiptTypes[key].cursor = pageInfo.endCursor;
         else receiptTypes[key].cursor = "0";
         nodes.forEach((node: any) => {
-          // const res: Receipt = {
-          //   objectId: node.address,
-          //   version: node.version,
-          //   digest: node.digest,
-          //   content: {
-          //     type: node.contents.type.repr,
-          //     fields: {
-          //       id: {
-          //         id: node.contents.json.id,
-          //       },
-          //       image_url: node.contents.json.image_url,
-          //       name: node.contents.json.name,
-          //       owner: node.contents.json.owner,
-          //       pool_id: node.contents.json.pool_id,
-          //       xTokenBalance: node.contents.json.xTokenBalance,
-          //       unlocked_xtokens: node.contents.json.unlocked_xtokens,
-          //       locked_balance: node.contents.json.locked_balance
-          //         ? {
-          //             type: "string",
-          //             fields: {
-          //               head: node.contents.json.locked_balance.head,
-          //               id: { id: node.contents.json.locked_balance.id },
-          //               size: node.contents.json.locked_balance.size,
-          //               tail: node.contents.json.locked_balance.tail,
-          //             },
-          //           }
-          //         : undefined,
-          //       pending_rewards: {
-          //         type: "0x2::vec_map::VecMap<0x1::type_name::TypeName, u64>",
-          //         fields: node.contents.json.pending_rewards,
-          //       },
-          //       last_acc_reward_per_xtoken: {
-          //         type: "0x2::vec_map::VecMap<0x1::type_name::TypeName, u256>",
-          //         fields: node.contents.json.last_acc_reward_per_xtoken,
-          //       },
-          //     },
-          //     dataType: "moveObject",
-          //     hasPublicTransfer: node.hasPublicTransfer,
-          //   },
-          // };
-          multiReceipts.push(node.contents.fields);
+          multiReceipts.push(node);
         });
       }
     });
   }
-  console.log(multiReceipts);
-  const receiptMap: Map<string, Receipt[]> = new Map();
+  const receiptMap: Map<string, ReceiptSDK[]> = new Map();
   multiReceipts.forEach((receipt) => {
-    const name = receipt.content.fields.name;
+    const name = receipt.contents.json.name;
     let arr = receiptMap.get(name);
     if (!arr) arr = [];
     arr.push(receipt);
     receiptMap.set(name, arr);
   });
-  console.log(receiptMap);
   return receiptMap;
 }
-
-fetchMultiReceipts(
-  "0x5560f3edb5ed527c6a2c3db6c9042dd4bd9e2a41e1ae38e297306800bcf7365c",
-);

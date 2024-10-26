@@ -27,71 +27,45 @@ export interface PendingRewards {
   contents: KeyValue[];
 }
 
-export type Receipt = {
-  objectId: string;
+export type ReceiptSDK = {
+  address: string;
   version: string;
   digest: string;
-  content: {
-    dataType: string;
-    type: string;
-    hasPublicTransfer: boolean;
-    fields: {
-      id: { id: string };
-      image_url: string;
-      last_acc_reward_per_xtoken: {
-        type: string;
-        fields: {
-          contents: [
-            {
-              type: string;
-              fields: {
-                value: string;
-                key: {
-                  type: string;
-                  fields: {
-                    name: string;
-                  };
-                };
-              };
-            },
-          ];
-        };
-      };
-      locked_balance:
-        | {
-            type: string;
-            fields: {
-              head: string;
-              id: { id: string };
-              size: string;
-              tail: string;
-            };
-          }
-        | undefined;
-      name: string;
+  hasPublicTransfer: boolean;
+  contents: {
+    type: {
+      repr: string;
+    };
+    json: {
+      id: string;
       owner: string;
-      pending_rewards: {
-        type: string;
-        fields: {
-          contents: [
-            {
-              fields: {
-                key: {
-                  type: string;
-                  fields: {
-                    name: string;
-                  };
-                };
-                value: string;
-              };
-              type: string;
-            },
-          ];
-        };
-      };
+      name: string;
+      image_url: string;
       pool_id: string;
       xTokenBalance: string;
-      unlocked_xtokens: string | undefined;
+      last_acc_reward_per_xtoken: {
+        contents: {
+          key: {
+            name: string;
+          };
+          value: string;
+        }[];
+      };
+      locked_balance: {
+        head: string;
+        id: string;
+        size: string;
+        tail: string;
+      };
+      unlocked_xtokens: string;
+      pending_rewards: {
+        contents: {
+          key: {
+            name: string;
+          };
+          value: string;
+        }[];
+      };
     };
   };
 };

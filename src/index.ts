@@ -78,3 +78,5 @@ export { poolIdPoolNameMap } from "./common/maps.js";
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
 
 export { LiquidityChangeEventNode } from "./sui-sdk/events/types.js";
+
+export { ReceiptSDK } from "./graphql/types.js";
