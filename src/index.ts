@@ -65,6 +65,7 @@ export {
   getCetusSqrtPriceMap,
   getCetusInvestorTicksMap,
   getInvestorPoolMap,
+  getPoolExchangeRateMap,
   poolCoinMap,
   poolCoinPairMap,
 } from "./common/maps.js";
@@ -82,3 +83,5 @@ export {
   LiquidityChangeEventNode,
   AutoCompoundingEventNode,
 } from "./sui-sdk/events/types.js";
+
+export * from "./types.js";
