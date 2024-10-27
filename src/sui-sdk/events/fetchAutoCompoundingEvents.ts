@@ -133,141 +133,150 @@ export async function fetchAutoCompoundingEvents(
 export async function calculateAprForInvestor(
   events: AutoCompoundingEventNode[],
 ): Promise<number> {
-  // Sort events by timestamp to process them in order
-  events.sort((a, b) => a.timestamp - b.timestamp);
-
   let totalGrowth = 0;
   let totalTimeSpan = 0;
-  let previousTimestamp = events[0].timestamp; // Start with the timestamp of the first event
-  let previousGrowthRate = 0;
-  let previousTimeDiff = 0;
-  let prevCompoundA = 0n;
-  let prevCompoundB = 0n;
 
-  const investorPoolMap = await getInvestorPoolMap();
+  try {
+    // Sort events by timestamp to process them in order
+    events.sort((a, b) => a.timestamp - b.timestamp);
 
-  // const matchInvestor =
-  //   "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43";
-  // if (events && events.length > 0 && events[0].investor_id === matchInvestor) {
-  //   console.log(
-  //     "Compund A,Total A,Compound B,Total B,Freebalance A,Freebalance B,GrowthA,GrowthB,AvgGrowth,Timestamp,TimeDiff (Min)",
-  //   );
-  // }
-  for (const event of events) {
-    // Calculate the time difference from the previous event
-    let timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
+    let previousTimestamp = events[0].timestamp; // Start with the timestamp of the first event
+    let previousGrowthRate = 0;
+    let previousTimeDiff = 0;
+    let prevCompoundA = 0n;
+    let prevCompoundB = 0n;
 
-    // Calculate growth rate
-    let growthRate = 0;
-    if ("total_amount_a" in event && "total_amount_b" in event) {
-      let growthA = 0;
-      let growthB = 0;
+    const investorPoolMap = await getInvestorPoolMap();
 
-      if (Number(event.total_amount_a) === 0) {
-        prevCompoundA += event.compound_amount_a;
-      } else {
-        prevCompoundA = 0n;
+    // const matchInvestor =
+    //   "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43";
+    // if (events && events.length > 0 && events[0].investor_id === matchInvestor) {
+    //   console.log(
+    //     "Compund A,Total A,Compound B,Total B,Freebalance A,Freebalance B,GrowthA,GrowthB,AvgGrowth,Timestamp,TimeDiff (Min)",
+    //   );
+    // }
+    for (const event of events) {
+      // Calculate the time difference from the previous event
+      let timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
+
+      // Calculate growth rate
+      let growthRate = 0;
+      if ("total_amount_a" in event && "total_amount_b" in event) {
+        let growthA = 0;
+        let growthB = 0;
+
+        if (Number(event.total_amount_a) === 0) {
+          prevCompoundA += event.compound_amount_a;
+        } else {
+          prevCompoundA = 0n;
+        }
+        if (prevCompoundA > 0n) {
+          growthA =
+            Number(event.total_amount_a) === 0
+              ? 0
+              : Number(event.compound_amount_a + prevCompoundA) /
+                Number(event.total_amount_a - prevCompoundA);
+        } else {
+          growthA =
+            Number(event.total_amount_a) === 0
+              ? 0
+              : Number(event.compound_amount_a) / Number(event.total_amount_a);
+        }
+
+        if (Number(event.total_amount_b) === 0) {
+          prevCompoundB += event.compound_amount_b;
+        } else {
+          prevCompoundB = 0n;
+        }
+
+        if (prevCompoundB > 0n) {
+          growthB =
+            Number(event.total_amount_b) == 0
+              ? 0
+              : Number(event.compound_amount_b + prevCompoundB) /
+                Number(event.total_amount_b - prevCompoundB);
+        } else {
+          growthB =
+            Number(event.total_amount_b) == 0
+              ? 0
+              : Number(event.compound_amount_b) / Number(event.total_amount_b);
+        }
+
+        // if (
+        //   event.investor_id ===
+        //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
+        // ) {
+        //   console.log(
+        //     timeDiff / (1000 * 60),
+        //     event.timestamp,
+        //     event.timestamp - previousTimestamp,
+        //   );
+        // }
+        // if (
+        //   event.investor_id ===
+        //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
+        // ) {
+        //   console.log(
+        //     event.compound_amount_a,
+        //     event.total_amount_a,
+        //     growthA,
+        //     event.compound_amount_b,
+        //     event.total_amount_b,
+        //     growthB,
+        //   );
+        // }
+        growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
+        // if (event.investor_id === matchInvestor) {
+        //   console.log(
+        //     `${event.compound_amount_a},${event.total_amount_a},${event.compound_amount_b},${event.total_amount_b},${event.free_balance_a},${event.free_balance_b},${growthA},${growthB},${growthRate},${event.timestamp},${(event.timestamp - previousTimestamp) / (1000 * 60)}`,
+        //   );
+        // }
+        if (Math.abs(growthA - growthB) > 0.5) {
+          // skip row, fill with previous event
+          growthRate = previousGrowthRate;
+          timeDiff = previousTimeDiff;
+        }
+        if (growthRate > 0.005) {
+          growthRate = 0;
+        }
+      } else if ("total_amount" in event) {
+        let compoundAmount: number = Number(event.compound_amount);
+        let totalAmount: number = Number(event.total_amount);
+        if ("cur_total_debt" in event && "accrued_interest" in event) {
+          compoundAmount = Number(
+            event.compound_amount - event.accrued_interest,
+          );
+          totalAmount = Number(event.total_amount - event.cur_total_debt);
+        }
+        // NaviAutoCompoundingEvent
+        growthRate = isNaN(compoundAmount / totalAmount)
+          ? 0
+          : compoundAmount / totalAmount;
+        const poolName = investorPoolMap.get(
+          event.investor_id,
+        ) as SingleAssetPoolNames;
+        const coinName = poolCoinMap[poolName];
+
+        growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
       }
-      if (prevCompoundA > 0n) {
-        growthA =
-          Number(event.total_amount_a) === 0
-            ? 0
-            : Number(event.compound_amount_a + prevCompoundA) /
-              Number(event.total_amount_a - prevCompoundA);
-      } else {
-        growthA =
-          Number(event.total_amount_a) === 0
-            ? 0
-            : Number(event.compound_amount_a) / Number(event.total_amount_a);
-      }
 
-      if (Number(event.total_amount_b) === 0) {
-        prevCompoundB += event.compound_amount_b;
-      } else {
-        prevCompoundB = 0n;
-      }
+      // Accumulate the time-weighted growth
+      totalGrowth = (totalGrowth + 1) * (1 + growthRate) - 1;
+      previousGrowthRate = growthRate;
 
-      if (prevCompoundB > 0n) {
-        growthB =
-          Number(event.total_amount_b) == 0
-            ? 0
-            : Number(event.compound_amount_b + prevCompoundB) /
-              Number(event.total_amount_b - prevCompoundB);
-      } else {
-        growthB =
-          Number(event.total_amount_b) == 0
-            ? 0
-            : Number(event.compound_amount_b) / Number(event.total_amount_b);
-      }
+      // Accumulate the total time span
+      totalTimeSpan += timeDiff;
+      previousTimeDiff = timeDiff;
 
-      // if (
-      //   event.investor_id ===
-      //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
-      // ) {
-      //   console.log(
-      //     timeDiff / (1000 * 60),
-      //     event.timestamp,
-      //     event.timestamp - previousTimestamp,
-      //   );
-      // }
-      // if (
-      //   event.investor_id ===
-      //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
-      // ) {
-      //   console.log(
-      //     event.compound_amount_a,
-      //     event.total_amount_a,
-      //     growthA,
-      //     event.compound_amount_b,
-      //     event.total_amount_b,
-      //     growthB,
-      //   );
-      // }
-      growthRate = (growthA + growthB) / 2; // Averaging growth rates for token A and B
-      // if (event.investor_id === matchInvestor) {
-      //   console.log(
-      //     `${event.compound_amount_a},${event.total_amount_a},${event.compound_amount_b},${event.total_amount_b},${event.free_balance_a},${event.free_balance_b},${growthA},${growthB},${growthRate},${event.timestamp},${(event.timestamp - previousTimestamp) / (1000 * 60)}`,
-      //   );
-      // }
-      if (Math.abs(growthA - growthB) > 0.5) {
-        // skip row, fill with previous event
-        growthRate = previousGrowthRate;
-        timeDiff = previousTimeDiff;
-      }
-      if (growthRate > 0.005) {
-        growthRate = 0;
-      }
-    } else if ("total_amount" in event) {
-      let compoundAmount: number = Number(event.compound_amount);
-      let totalAmount: number = Number(event.total_amount);
-      if ("cur_total_debt" in event && "accrued_interest" in event) {
-        compoundAmount = Number(event.compound_amount - event.accrued_interest);
-        totalAmount = Number(event.total_amount - event.cur_total_debt);
-      }
-      // NaviAutoCompoundingEvent
-      growthRate = isNaN(compoundAmount / totalAmount)
-        ? 0
-        : compoundAmount / totalAmount;
-      const poolName = investorPoolMap.get(
-        event.investor_id,
-      ) as SingleAssetPoolNames;
-      const coinName = poolCoinMap[poolName];
-
-      growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
+      // Update the previous timestamp to the current event's timestamp
+      previousTimestamp = event.timestamp;
     }
-
-    // Accumulate the time-weighted growth
-    totalGrowth = (totalGrowth + 1) * (1 + growthRate) - 1;
-    previousGrowthRate = growthRate;
-
-    // Accumulate the total time span
-    totalTimeSpan += timeDiff;
-    previousTimeDiff = timeDiff;
-
-    // Update the previous timestamp to the current event's timestamp
-    previousTimestamp = event.timestamp;
+  } catch (error) {
+    console.error("Error calculating apr from events.");
+    if (events.length > 0) {
+      console.error("Investor-ID: ", events[0].investor_id);
+    }
   }
-
   const apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
 
   return apr;
