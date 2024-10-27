@@ -633,9 +633,12 @@ export const conf = {
       "0xb90c7250627e0113df2e60d020df477cac14ca78108e3c5968230f3e7d4d8846",
     ALPHAFI_NAVI_USDC_POOL:
       "0x04378cf67d21b41399dc0b6653a5f73f8d3a03cc7643463e47e8d378f8b0bdfa",
-    ALPHAFI_NAVI_USDY_POOL: "",
-    ALPHAFI_NAVI_AUSD_POOL: "",
-    ALPHAFI_NAVI_ETH_POOL: "",
+    ALPHAFI_NAVI_USDY_POOL:
+      "0xea3c2a2d29144bf8f22e412ca5e2954c5d3021d3259ff276e3b62424a624ad1f",
+    ALPHAFI_NAVI_AUSD_POOL:
+      "0x8ebe04b51e8a272d4db107ad19cfbc184d1dafeeaab0b61c26e613b804e7777a",
+    ALPHAFI_NAVI_ETH_POOL:
+      "0xc37ec956fdef6c217505e62444ab93f833c20923755d67d1c8588c9b093ae00e",
     //alphafi bucket pools
 
     BUCKET_BUCK_POOL:
@@ -823,9 +826,12 @@ export const conf = {
     NAVI_USDC_INVESTOR:
       "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065",
 
-    NAVI_USDY_INVESTOR: "",
-    NAVI_AUSD_INVESTOR: "",
-    NAVI_ETH_INVESTOR: "",
+    NAVI_USDY_INVESTOR:
+      "0xf43c62ca04c2f8d4583630872429ba6f5d8a7316ccb9552c86bb1fcf9dee3ce2",
+    NAVI_AUSD_INVESTOR:
+      "0x227226f22bd9e484e541005916904ca066db1d42b8a80351800ef37b26c6cd89",
+    NAVI_ETH_INVESTOR:
+      "0x145952d6e903db412c2bd1d8bb25875acd57a772764fba0a97b20e2f7bdcb09c",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -927,11 +933,11 @@ export const conf = {
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae::alphafi_bucket_pool_v1::Receipt",
 
     NAVI_USDY_POOL_RECEIPT:
-      "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
     NAVI_AUSD_POOL_RECEIPT:
-      "0xb84dd393b055dd0ab669557c53b0296a2e707eb650f7a5600db6fe01cfbe1c9e::alphafi_navi_pool_v2::Receipt", //todo
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
     NAVI_ETH_POOL_RECEIPT:
-      "0xb84dd393b055dd0ab669557c53b0296a2e707eb650f7a5600db6fe01cfbe1c9e::alphafi_navi_pool_v2::Receipt", //todo
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
 
     // Receipt Names
 
@@ -1092,8 +1098,10 @@ export const conf = {
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae::alphafi_bucket_investor_v1::AutoCompoundingEvent",
     NAVI_USDY_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_investor::AutoCompoundingEvent",
-    NAVI_AUSD_POOL_AUTO_COMPOUNDING_EVENT: "", //todo
-    NAVI_ETH_POOL_AUTO_COMPOUNDING_EVENT: "", //todo
+    NAVI_AUSD_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_investor_v2::AutoCompoundingEvent",
+    NAVI_ETH_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_investor_v2::AutoCompoundingEvent",
 
     //Rebalance Event Types
 
@@ -1264,8 +1272,10 @@ export const conf = {
 
     NAVI_USDY_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_navi_pool::LiquidityChangeEvent",
-    NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT: "", //todo
-    NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT: "", //todo
+    NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
+    NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
 
     // Wallets
 
