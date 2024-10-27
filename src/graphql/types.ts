@@ -27,7 +27,7 @@ export interface PendingRewards {
   contents: KeyValue[];
 }
 
-export type ReceiptSDK = {
+export type ReceiptGQL = {
   address: string;
   version: string;
   digest: string;

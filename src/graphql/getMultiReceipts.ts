@@ -1,7 +1,7 @@
 import { ApolloQueryResult, gql } from "@apollo/client/core";
 import client from "./client.js";
 import { getMultiReceiptsQuery } from "./queries/getMultiReceipts.js";
-import { ReceiptSDK } from "./types.js";
+import { ReceiptGQL } from "./types.js";
 
 type ReceiptType = {
   type: string;
@@ -57,39 +57,50 @@ const receiptTypes: { [key: string]: ReceiptType } = {
 
 export async function fetchMultiReceipts(
   address: string,
-): Promise<Map<string, ReceiptSDK[]>> {
+): Promise<Map<string, ReceiptGQL[]>> {
   const multiReceipts: any[] = [];
   let hasNextPage = true;
 
-  while (hasNextPage) {
-    const query = getMultiReceiptsQuery(receiptTypes);
-    const GET_RECEIPTS = gql`
-      ${query}
-    `;
+  try {
+    while (hasNextPage) {
+      const query = getMultiReceiptsQuery(receiptTypes);
+      const GET_RECEIPTS = gql`
+        ${query}
+      `;
 
-    const result: ApolloQueryResult<any> = await client.query({
-      query: GET_RECEIPTS,
-      variables: {
-        address: address,
-      },
-    });
-    const { data } = result;
-    const receipts = data.owner;
-    hasNextPage = false;
+      const result: ApolloQueryResult<any> = await client.query({
+        query: GET_RECEIPTS,
+        variables: {
+          address: address,
+        },
+      });
 
-    Object.keys(receipts).forEach((key) => {
-      if (key !== "__typename") {
-        const { pageInfo, nodes } = receipts[key];
-        hasNextPage = hasNextPage || pageInfo.hasNextPage;
-        if (hasNextPage) receiptTypes[key].cursor = pageInfo.endCursor;
-        else receiptTypes[key].cursor = "0";
-        nodes.forEach((node: any) => {
-          multiReceipts.push(node);
-        });
-      }
+      const { data } = result;
+      const receipts = data.owner;
+      hasNextPage = false;
+
+      Object.keys(receipts).forEach((key) => {
+        if (key !== "__typename") {
+          const { pageInfo, nodes } = receipts[key];
+          hasNextPage = hasNextPage || pageInfo.hasNextPage;
+          if (hasNextPage) receiptTypes[key].cursor = pageInfo.endCursor;
+          else receiptTypes[key].cursor = "0";
+          nodes.forEach((node: any) => {
+            multiReceipts.push(node);
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching receipts from GraphQL:", error);
+    throw error;
+  } finally {
+    Object.keys(receiptTypes).forEach((key) => {
+      receiptTypes[key].cursor = "";
     });
   }
-  const receiptMap: Map<string, ReceiptSDK[]> = new Map();
+
+  const receiptMap: Map<string, ReceiptGQL[]> = new Map();
   multiReceipts.forEach((receipt) => {
     const name = receipt.contents.json.name;
     let arr = receiptMap.get(name);
@@ -97,5 +108,6 @@ export async function fetchMultiReceipts(
     arr.push(receipt);
     receiptMap.set(name, arr);
   });
+
   return receiptMap;
 }
