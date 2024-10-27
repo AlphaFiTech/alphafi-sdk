@@ -27,6 +27,49 @@ export interface PendingRewards {
   contents: KeyValue[];
 }
 
+export type ReceiptSDK = {
+  address: string;
+  version: string;
+  digest: string;
+  hasPublicTransfer: boolean;
+  contents: {
+    type: {
+      repr: string;
+    };
+    json: {
+      id: string;
+      owner: string;
+      name: string;
+      image_url: string;
+      pool_id: string;
+      xTokenBalance: string;
+      last_acc_reward_per_xtoken: {
+        contents: {
+          key: {
+            name: string;
+          };
+          value: string;
+        }[];
+      };
+      locked_balance: {
+        head: string;
+        id: string;
+        size: string;
+        tail: string;
+      };
+      unlocked_xtokens: string;
+      pending_rewards: {
+        contents: {
+          key: {
+            name: string;
+          };
+          value: string;
+        }[];
+      };
+    };
+  };
+};
+
 export interface ReceiptMoveObjectContents {
   id: string;
   owner: string;

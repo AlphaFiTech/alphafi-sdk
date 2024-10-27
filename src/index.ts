@@ -55,6 +55,7 @@ export * from "./common/types.js";
 export * from "./graphql/fetchData.js";
 export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
+export * from "./graphql/getMultiReceipts.js";
 
 export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
 
@@ -83,5 +84,7 @@ export {
   LiquidityChangeEventNode,
   AutoCompoundingEventNode,
 } from "./sui-sdk/events/types.js";
+
+export { ReceiptSDK } from "./graphql/types.js";
 
 export * from "./types.js";
