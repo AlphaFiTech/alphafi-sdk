@@ -25,8 +25,32 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f::alphafi_cetus_pool_base_a::Receipt",
     cursor: "",
   } as ReceiptType,
+  cetusSuiV2PoolReceipts: {
+    type: "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
   naviPoolReceipts: {
     type: "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  naviLoopSuiVsuiPoolReceipts: {
+    type: "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  naviNativeUsdcUsdtPoolReceipts: {
+    type: "0xad4f82d9956085bdab812d46fb2ea4d95c35e9e936cb53d04a79d3989ef97774::alphafi_navi_native_usdc_usdt_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  bucketPoolReceipts: {
+    type: "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae::alphafi_bucket_pool_v1::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  naviUsdyPoolReceipts: {
+    type: "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  naviV2PoolReceipts: {
+    type: "0xb84dd393b055dd0ab669557c53b0296a2e707eb650f7a5600db6fe01cfbe1c9e::alphafi_navi_pool_v2::Receipt",
     cursor: "",
   } as ReceiptType,
 };
