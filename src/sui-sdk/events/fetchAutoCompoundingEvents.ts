@@ -135,6 +135,7 @@ export async function calculateAprForInvestor(
 ): Promise<number> {
   let totalGrowth = 0;
   let totalTimeSpan = 0;
+  let apr = 0;
 
   try {
     // Sort events by timestamp to process them in order
@@ -271,13 +272,14 @@ export async function calculateAprForInvestor(
       // Update the previous timestamp to the current event's timestamp
       previousTimestamp = event.timestamp;
     }
+
+    apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
   } catch (error) {
-    console.error("Error calculating apr from events.");
+    console.error("Error calculating apr from events.", error);
     if (events.length > 0) {
       console.error("Investor-ID: ", events[0].investor_id);
     }
   }
-  const apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
 
   return apr;
 }
