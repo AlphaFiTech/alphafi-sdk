@@ -85,6 +85,6 @@ export {
   AutoCompoundingEventNode,
 } from "./sui-sdk/events/types.js";
 
-export { ReceiptSDK } from "./graphql/types.js";
+export { ReceiptGQL } from "./graphql/types.js";
 
 export * from "./types.js";
