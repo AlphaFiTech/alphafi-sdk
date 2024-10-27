@@ -65,6 +65,7 @@ export {
   poolInfo,
   getCetusSqrtPriceMap,
   getCetusInvestorTicksMap,
+  getInvestorPoolMap,
   getPoolExchangeRateMap,
   poolCoinMap,
   poolCoinPairMap,
@@ -77,8 +78,12 @@ export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
 export { poolIdPoolNameMap } from "./common/maps.js";
 
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
+export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 
-export { LiquidityChangeEventNode } from "./sui-sdk/events/types.js";
+export {
+  LiquidityChangeEventNode,
+  AutoCompoundingEventNode,
+} from "./sui-sdk/events/types.js";
 
 export { ReceiptSDK } from "./graphql/types.js";
 
