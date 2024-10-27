@@ -55,6 +55,7 @@ export * from "./common/types.js";
 export * from "./graphql/fetchData.js";
 export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
+export * from "./graphql/getMultiReceipts.js";
 
 export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
 
@@ -64,6 +65,8 @@ export {
   poolInfo,
   getCetusSqrtPriceMap,
   getCetusInvestorTicksMap,
+  getInvestorPoolMap,
+  getPoolExchangeRateMap,
   poolCoinMap,
   poolCoinPairMap,
 } from "./common/maps.js";
@@ -75,5 +78,13 @@ export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
 export { poolIdPoolNameMap } from "./common/maps.js";
 
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
+export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 
-export { LiquidityChangeEventNode } from "./sui-sdk/events/types.js";
+export {
+  LiquidityChangeEventNode,
+  AutoCompoundingEventNode,
+} from "./sui-sdk/events/types.js";
+
+export { ReceiptSDK } from "./graphql/types.js";
+
+export * from "./types.js";

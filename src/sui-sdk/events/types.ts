@@ -42,6 +42,7 @@ export interface RebalanceEvent {
   amount_b_after: string;
 }
 
+//verify, this might be wrong, alphapool reward event is defined as alpha autocompounding event
 export interface AlphaAutoCompoundingEvent {
   amount: string;
   investor_id: string;
