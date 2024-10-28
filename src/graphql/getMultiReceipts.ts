@@ -50,7 +50,7 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     cursor: "",
   } as ReceiptType,
   naviV2PoolReceipts: {
-    type: "0xb84dd393b055dd0ab669557c53b0296a2e707eb650f7a5600db6fe01cfbe1c9e::alphafi_navi_pool_v2::Receipt",
+    type: "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
     cursor: "",
   } as ReceiptType,
 };
