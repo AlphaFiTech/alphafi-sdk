@@ -150,13 +150,20 @@ export async function calculateAprForInvestor(
     const investorPoolMap = await getInvestorPoolMap();
 
     // const matchInvestor =
-    //   "0x05fa099d1df7b5bfb2e420d5ee2d63508db17c40ce7c4e0ca0305cd5df974e43";
-    // if (events && events.length > 0 && events[0].investor_id === matchInvestor) {
+    //   "0x145952d6e903db412c2bd1d8bb25875acd57a772764fba0a97b20e2f7bdcb09c";
+    // if (
+    //   events &&
+    //   events.length > 0 &&
+    //   events[0].investor_id === matchInvestor
+    // ) {
     //   console.log(
     //     "Compund A,Total A,Compound B,Total B,Freebalance A,Freebalance B,GrowthA,GrowthB,AvgGrowth,Timestamp,TimeDiff (Min)",
     //   );
     // }
     for (const event of events) {
+      // if (event.investor_id === matchInvestor) {
+      //   console.log(event);
+      // }
       // Calculate the time difference from the previous event
       let timeDiff = event.timestamp - previousTimestamp; // / (1000 * 60 * 60 * 24);
 
