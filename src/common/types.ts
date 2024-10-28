@@ -41,7 +41,8 @@ export type PoolName =
   | "BUCKET-BUCK"
   | "NAVI-USDY"
   | "NAVI-AUSD"
-  | "NAVI-ETH";
+  | "NAVI-ETH"
+  | "NAVI-LOOP-HASUI-SUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -57,7 +58,8 @@ export type SingleAssetPoolNames =
   | "BUCKET-BUCK"
   | "NAVI-USDY"
   | "NAVI-AUSD"
-  | "NAVI-ETH";
+  | "NAVI-ETH"
+  | "NAVI-LOOP-HASUI-SUI";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
