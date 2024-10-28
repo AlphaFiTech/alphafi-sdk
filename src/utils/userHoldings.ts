@@ -90,10 +90,22 @@ export function liquidityToTokens(
     );
   } else if (params.poolName === "ALPHA") {
     holdingUSD = alphaLiquidityToTokens(params.liquidity);
-  } else {
+  } else if (poolInfo[params.poolName].parentProtocolName === "CETUS") {
     const [holdingA, holdingB] = doubleAssetliquidityToTokens(params);
     return [holdingA, holdingB];
+  } else if (poolInfo[params.poolName].parentProtocolName === "BUCKET") {
+    if (params.poolName in poolCoinMap) {
+      holdingUSD = singleAssetLiquidityToTokens(
+        params.liquidity,
+        params.poolName,
+      );
+    }
+  } else {
+    console.error(params.poolName);
+    throw new Error("Unexpected Parent Protocol");
   }
+  if (!holdingUSD)
+    throw new Error(`holdingsUsd undefined for poolName: ${params.poolName}`);
   return holdingUSD;
 }
 
@@ -147,12 +159,23 @@ function alphaLiquidityToTokens(liquidity: string) {
 
 function singleAssetLiquidityToTokens(liquidity: string, pool: string) {
   const singlePool = pool;
-  if (poolInfo[pool].parentProtocolName !== "NAVI")
-    throw new Error("only NAVI pools allowed");
-  const coin = poolCoinMap[singlePool as SingleAssetPoolNames];
-  let amount = new Decimal(liquidity).div(Math.pow(10, 9 - coins[coin].expo));
-  amount = amount.div(new Decimal(Math.pow(10, coins[coin].expo)));
-  return amount.toFixed(5).toString();
+  if (poolInfo[pool].parentProtocolName === "NAVI") {
+    const coin = poolCoinMap[singlePool as SingleAssetPoolNames];
+    let amount = new Decimal(liquidity).div(Math.pow(10, 9 - coins[coin].expo));
+    amount = amount.div(new Decimal(Math.pow(10, coins[coin].expo)));
+    return amount.toFixed(5);
+  } else if (
+    poolInfo[pool].parentProtocolName === "BUCKET" &&
+    pool in poolCoinMap
+  ) {
+    const coin = poolCoinMap[singlePool as SingleAssetPoolNames];
+    const amount = new Decimal(liquidity).div(
+      new Decimal(Math.pow(10, coins[coin].expo)),
+    );
+    return amount.toFixed(5);
+  } else {
+    throw new Error("Incorrect pool in argument");
+  }
 }
 
 function mergeDuplicateTokenHoldings(
