@@ -13,6 +13,8 @@ import {
   NaviLiquidityChangeEvent,
   RebalanceEvent,
   AutoCompoundingEventNode,
+  AlphaWithdrawV2Event,
+  WithdrawV2EventNode,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -76,7 +78,8 @@ export async function fetchEvents(
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
         | NaviLiquidityChangeEvent
-        | AlphaAutoCompoundingEvent;
+        | AlphaAutoCompoundingEvent
+        | AlphaWithdrawV2Event;
 
       let eventNode: EventNode;
 
@@ -187,7 +190,8 @@ export async function fetchEvents(
       } else if (
         isLiquidityChangeEvent(suiEvent.type) &&
         "amount" in suiEventJson &&
-        !("investor_id" in suiEventJson)
+        !("investor_id" in suiEventJson) &&
+        !("amount_withdrawn_from_locked" in suiEventJson)
       ) {
         // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
         eventNode = {
@@ -202,6 +206,28 @@ export async function fetchEvents(
           user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
           x_token_supply: suiEventJson.x_token_supply,
         } as LiquidityChangeEventNode;
+      } else if (
+        isWithdrawV2Event(suiEvent.type) &&
+        "amount_withdrawn_from_locked" in suiEventJson
+      ) {
+        // Handling Alpha WithdrawV2 Events
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          amount: suiEventJson.amount,
+          amount_withdrawn_from_locked:
+            suiEventJson.amount_withdrawn_from_locked,
+          amount_withdrawn_from_unlocked:
+            suiEventJson.amount_withdrawn_from_unlocked,
+          fee_collected: suiEventJson.fee_collected,
+          instant_withdraw_fee_collected:
+            suiEventJson.instant_withdraw_fee_collected,
+          pool_id: suiEventJson.pool_id,
+          sender: suiEventJson.sender,
+          tokens_invested: suiEventJson.tokens_invested,
+          user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
+          x_token_supply: suiEventJson.x_token_supply,
+        } as WithdrawV2EventNode;
       } else {
         throw new Error("Unknown event type");
       }
@@ -243,5 +269,14 @@ const isLiquidityChangeEvent = (eventType: string) => {
   const eventTypes: string[] = Object.values(poolInfo).map((info) => {
     return info.liquidityChangeEventType;
   });
+  return eventTypes.includes(eventType);
+};
+
+const isWithdrawV2Event = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo)
+    .map((info) => {
+      return info.withdrawV2Event;
+    })
+    .filter((type) => type !== undefined);
   return eventTypes.includes(eventType);
 };

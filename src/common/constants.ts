@@ -1287,6 +1287,10 @@ export const conf = {
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
     NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
 
+    // WithdrawV2 Events
+    ALPHA_POOL_WITHDRAW_V2_EVENT:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::WithdrawEventV2",
+
     // Wallets
 
     AIRDROP_WALLET_ADDRESS:

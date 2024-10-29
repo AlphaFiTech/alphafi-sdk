@@ -133,6 +133,7 @@ export const poolInfo: {
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
     liquidityChangeEventType: string;
+    withdrawV2Event?: string;
   };
 } = {
   "NAVI-LOOP-HASUI-SUI": {
@@ -418,6 +419,7 @@ export const poolInfo: {
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType: conf[CONF_ENV].ALPHA_POOL_LIQUIDITY_CHANGE_EVENT,
+    withdrawV2Event: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",
