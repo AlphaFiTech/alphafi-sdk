@@ -49,6 +49,10 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
     cursor: "",
   } as ReceiptType,
+  naviLoopHasuiSuiPoolReceipts: {
+    type: "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
 };
 
 export async function fetchMultiReceipts(
