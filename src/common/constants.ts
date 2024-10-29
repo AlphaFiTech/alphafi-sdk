@@ -639,7 +639,8 @@ export const conf = {
       "0x8ebe04b51e8a272d4db107ad19cfbc184d1dafeeaab0b61c26e613b804e7777a",
     ALPHAFI_NAVI_ETH_POOL:
       "0xc37ec956fdef6c217505e62444ab93f833c20923755d67d1c8588c9b093ae00e",
-    ALPHAFI_NAVI_LOOP_HASUI_SUI_POOL: "",
+    ALPHAFI_NAVI_LOOP_HASUI_SUI_POOL:
+      "0x4b22c2fc59c7697eea08c1cc1eadf231415d66b842875ba4730a8619efa38ced",
 
     //alphafi bucket pools
 
@@ -836,7 +837,8 @@ export const conf = {
       "0x227226f22bd9e484e541005916904ca066db1d42b8a80351800ef37b26c6cd89",
     NAVI_ETH_INVESTOR:
       "0x145952d6e903db412c2bd1d8bb25875acd57a772764fba0a97b20e2f7bdcb09c",
-    NAVI_LOOP_HASUI_SUI_INVESTOR: "",
+    NAVI_LOOP_HASUI_SUI_INVESTOR:
+      "0xa65eaadb556a80e4cb02fe35efebb2656d82d364897530f45dabc1e99d15a8a9",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -944,7 +946,7 @@ export const conf = {
     NAVI_ETH_POOL_RECEIPT:
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
     NAVI_LOOP_HASUI_SUI_RECEIPT:
-      "0x1380e8f665562eca122931a4552908d828ef74ff9c33d753b308f4087461a9cf::alphafi_navi_hasui_sui_pool::Receipt", //change
+      "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
 
     // Receipt Names
 
@@ -1110,7 +1112,8 @@ export const conf = {
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_investor_v2::AutoCompoundingEvent",
     NAVI_ETH_POOL_AUTO_COMPOUNDING_EVENT:
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_investor_v2::AutoCompoundingEvent",
-    NAVI_LOOP_HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT: "",
+    NAVI_LOOP_HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_investor::AutoCompoundingEvent",
 
     //Rebalance Event Types
 
@@ -1285,7 +1288,8 @@ export const conf = {
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
     NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
-    NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+    NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::LiquidityChangeEvent",
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
