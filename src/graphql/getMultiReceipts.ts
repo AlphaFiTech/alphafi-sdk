@@ -45,10 +45,6 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae::alphafi_bucket_pool_v1::Receipt",
     cursor: "",
   } as ReceiptType,
-  naviUsdyPoolReceipts: {
-    type: "0xbcdbe865d8b2e84bbc217c12edb9cbad14a71ff8a0a1d849263c6b4b377780f1::alphafi_navi_pool::Receipt",
-    cursor: "",
-  } as ReceiptType,
   naviV2PoolReceipts: {
     type: "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::Receipt",
     cursor: "",
