@@ -85,6 +85,19 @@ export interface AlphaLiquidityChangeEvent {
   x_token_supply: string;
 }
 
+export interface AlphaWithdrawV2Event {
+  amount: string;
+  amount_withdrawn_from_locked: string;
+  amount_withdrawn_from_unlocked: string;
+  fee_collected: string;
+  instant_withdraw_fee_collected: string;
+  pool_id: string;
+  sender: string;
+  tokens_invested: string;
+  user_total_x_token_balance: string;
+  x_token_supply: string;
+}
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
@@ -98,11 +111,13 @@ export type LiquidityChangeEventNode =
   | (NaviLiquidityChangeEvent & CommonEventAttributes)
   | (AlphaLiquidityChangeEvent & CommonEventAttributes);
 
+export type WithdrawV2EventNode = AlphaWithdrawV2Event & CommonEventAttributes;
+
 export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
-  | LiquidityChangeEventNode;
-// export type EventNode = AutoCompoundingEventNode | RebalanceEventNode;
+  | LiquidityChangeEventNode
+  | WithdrawV2EventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -113,6 +128,11 @@ export type FetchAutoCompoundingEventsParams = {
 export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchLiquidityChangeEventsParams = FetchAutoCompoundingEventsParams;
+
+export type FetchWithdrawV2EventsParams = {
+  startTime?: number;
+  endTime?: number;
+};
 
 export type FetchEventsParams = {
   eventTypes: string[];
