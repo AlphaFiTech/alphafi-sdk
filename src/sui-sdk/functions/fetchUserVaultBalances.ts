@@ -20,7 +20,7 @@ export async function fetchUserVaultBalances(
 ): Promise<AlphaFiVaultBalance | undefined> {
   const suiClient = getSuiClient();
 
-  let vaultBalance;
+  let vaultBalance: AlphaFiVaultBalance | undefined;
   if (poolInfo[poolName].parentProtocolName === "ALPHAFI") {
     const lockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
       suiClient,
@@ -83,7 +83,10 @@ export async function fetchUserVaultBalances(
       };
       vaultBalance = res;
     }
-  } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
+  } else if (
+    poolInfo[poolName].parentProtocolName === "NAVI" ||
+    poolInfo[poolName].parentProtocolName === "BUCKET"
+  ) {
     const portfolioAmount = await getSingleAssetPortfolioAmount(
       poolName as SingleAssetPoolNames,
       {
