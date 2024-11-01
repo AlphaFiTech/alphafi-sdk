@@ -410,6 +410,10 @@ export const conf = {
     FEE_ADDRESS:
       "0xee5360c5fa13555cbf355cb5015b865d742040e42ff90c324e11f0c63e504545",
 
+    // Important Timestamps
+    ALPHA_POOL_LAST_DEPOSIT_EVENT_TIME: 1724074240881,
+    NAVI_POOL_FIRST_LIQUIDITY_CHANGE_EVENT: 1724077830387,
+
     // constants for Alpha Protocol
 
     ALPHA_FIRST_PACKAGE_ID:
@@ -1294,6 +1298,76 @@ export const conf = {
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
       "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::WithdrawEventV2",
+
+    // After Transaction Event Types
+    ALPHA_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::BeforeAndAfterEvent",
+
+    ALPHA_SUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::AfterTransactionEvent",
+
+    USDT_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::AfterTransactionEvent",
+
+    USDY_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::AfterTransactionEvent",
+
+    HASUI_SUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::AfterTransactionEvent",
+
+    WUSDC_SUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::AfterTransactionEvent",
+
+    WUSDC_WBTC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x2793db7aa0e0209afc84f0adb1b258973cf1c9da55c35ee85c18f2ed4912bb6f::alphafi_cetus_pool_base_a::AfterTransactionEvent",
+
+    WETH_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::AfterTransactionEvent",
+
+    NAVX_SUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::AfterTransactionEvent",
+
+    BUCK_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::AfterTransactionEvent",
+
+    // verify and put
+    CETUS_SUI_POOL_AFTER_TRANSACTION_EVENT: "",
+
+    NAVI_SUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    NAVI_VSUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    NAVI_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT:
+      "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    // Cetus Events
+    CETUS_ADD_LIQUIDITY_EVENT:
+      "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::AddLiquidityEvent",
+    CETUS_REMOVE_LIQUIDITY_EVENT:
+      "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::RemoveLiquidityEvent",
+    CETUS_COLLECT_FEE_EVENT:
+      "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::CollectFeeEvent",
+    CETUS_COLLECT_REWARD_EVENT:
+      "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::CollectRewardEvent",
+    CETUS_SWAP_EVENT:
+      "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::SwapEvent",
+
+    // Navi Events
+    NAVI_POOL_DEPOSIT_EVENT:
+      "0xd899cf7d2b5db716bd2cf55599fb0d5ee38a3061e7b6bb6eebf73fa5bc4c81ca::pool::PoolDeposit",
+    NAVI_POOL_WITHDRAW_EVENT:
+      "0xd899cf7d2b5db716bd2cf55599fb0d5ee38a3061e7b6bb6eebf73fa5bc4c81ca::pool::PoolWithdraw",
 
     // Wallets
 

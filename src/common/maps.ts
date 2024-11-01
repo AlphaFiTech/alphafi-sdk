@@ -17,21 +17,20 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../utils/prices.js";
 
-export const cetusPoolMap: { [key: string]: string } = {
-  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
-  "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
-  "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
-  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
-  "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
-  "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
-  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
-  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
-  "VSUI-SUI": conf[CONF_ENV].VSUI_SUI_CETUS_POOL_ID,
-  "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
-  "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
-  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
-  "USDC-WUSDC": conf[CONF_ENV].USDC_WUSDC_CETUS_POOL_ID,
-};
+// {
+//   "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
+//   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
+//   "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
+//   "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
+//   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
+//   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
+//   "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
+//   "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
+//   "VSUI-SUI": conf[CONF_ENV].VSUI_SUI_CETUS_POOL_ID,
+//   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
+//   "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
+//   "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+// };
 
 export const cetusInvestorMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_CETUS_INVESTOR,
@@ -134,7 +133,8 @@ export const poolInfo: {
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
     liquidityChangeEventType: string;
-    withdrawV2Event?: string;
+    withdrawV2EventType?: string;
+    afterTransactionEventType?: string;
   };
 } = {
   "NAVI-LOOP-HASUI-SUI": {
@@ -344,6 +344,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -357,6 +359,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_VSUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -370,6 +374,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -383,6 +389,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVI-WUSDC": {
     parentProtocolName: "NAVI",
@@ -396,6 +404,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -409,6 +419,8 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -420,7 +432,9 @@ export const poolInfo: {
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType: conf[CONF_ENV].ALPHA_POOL_LIQUIDITY_CHANGE_EVENT,
-    withdrawV2Event: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
+    withdrawV2EventType: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].ALPHA_POOL_AFTER_TRANSACTION_EVENT,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",
@@ -434,6 +448,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].ALPHA_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].ALPHA_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "HASUI-SUI": {
     parentProtocolName: "CETUS",
@@ -447,6 +463,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].HASUI_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].HASUI_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "USDT-WUSDC": {
     parentProtocolName: "CETUS",
@@ -460,6 +478,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDT_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].USDT_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "USDY-WUSDC": {
     parentProtocolName: "CETUS",
@@ -473,6 +493,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDY_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDY_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].USDY_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "WUSDC-SUI": {
     parentProtocolName: "CETUS",
@@ -486,6 +508,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].WUSDC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].WUSDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].WUSDC_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "WETH-WUSDC": {
     parentProtocolName: "CETUS",
@@ -499,6 +523,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].WETH_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].WETH_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].WETH_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "WUSDC-WBTC": {
     parentProtocolName: "CETUS",
@@ -512,6 +538,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].WUSDC_WBTC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].WUSDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].WUSDC_WBTC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -525,6 +553,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].NAVX_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].NAVX_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "BUCK-WUSDC": {
     parentProtocolName: "CETUS",
@@ -538,6 +568,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCK_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCK_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].BUCK_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
   },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
@@ -551,6 +583,8 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    afterTransactionEventType:
+      conf[CONF_ENV].CETUS_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "ALPHA-WUSDC": {
     parentProtocolName: "CETUS",
@@ -784,7 +818,11 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
 export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
   const poolNameToSqrtPriceMap = new Map<PoolName, string>();
 
-  const cetusPools = Object.values(cetusPoolMap);
+  const cetusPools = Object.keys(poolInfo)
+    .filter((poolName) => poolInfo[poolName].parentProtocolName === "CETUS")
+    .map((poolName) => {
+      return parentPoolMap[poolName];
+    });
   const suiClient = getSuiClient();
   const res = await suiClient.multiGetObjects({
     ids: cetusPools,
@@ -795,8 +833,8 @@ export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
   for (const poolRawData of res) {
     const poolDetails = poolRawData.data as CetusPoolType;
     const poolId = poolDetails.objectId;
-    const pool = Object.keys(cetusPoolMap).find(
-      (key) => cetusPoolMap[key] === poolId,
+    const pool = Object.keys(parentPoolMap).find(
+      (key) => parentPoolMap[key] === poolId,
     );
     const sqrtPrice = poolDetails.content.fields.current_sqrt_price;
     poolNameToSqrtPriceMap.set(pool as PoolName, sqrtPrice);
@@ -855,3 +893,21 @@ export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
 
   return coinNameToPriceMap;
 }
+
+export const parentPoolMap: { [key: string]: string } = (() => {
+  const result: { [key: string]: string } = {};
+  Object.entries(poolInfo).map(([poolName, info]) => {
+    result[poolName] = info.parentPoolId;
+  });
+  return result;
+})();
+
+export const cetusPoolMap: { [key: string]: string } = (() => {
+  const result: { [key: string]: string } = Object.fromEntries(
+    Object.entries(parentPoolMap).filter(([poolName]) => {
+      if (poolInfo[poolName].parentProtocolName === "CETUS") return true;
+      return false;
+    }),
+  );
+  return result;
+})();

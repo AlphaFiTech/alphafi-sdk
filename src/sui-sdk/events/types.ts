@@ -98,6 +98,73 @@ export interface AlphaWithdrawV2Event {
   x_token_supply: string;
 }
 
+export interface CetusAfterTransactionEvent {
+  liquidity: string;
+  tokensInvested: string;
+  xtokenSupply: string;
+}
+export interface NaviAfterTransactionEvent {
+  amount: string;
+  tokensInvested: string;
+  xtokenSupply: string;
+}
+
+// only event sequence non zero are after transaction
+export interface AlphaBeforeAndAfterEvent {
+  tokensInvested: string;
+  xTokenSupply: string;
+}
+
+export type CetusAddLiquidityEvent = {
+  after_liquidity: string;
+  amount_a: string;
+  amount_b: string;
+  liquidity: string;
+  pool: string;
+  position: string;
+  tick_lower: { bits: number };
+  tick_upper: { bits: number };
+};
+export type CetusRemoveLiquidityEvent = {
+  after_liquidity: string;
+  amount_a: string;
+  amount_b: string;
+  liquidity: string;
+  pool: string;
+  position: string;
+  tick_lower: { bits: number };
+  tick_upper: { bits: number };
+};
+
+export type NaviPoolDepositEvent = {
+  amount: string;
+  pool: string;
+  sender: string;
+};
+export type NaviPoolWithdrawEvent = {
+  amount: string;
+  pool: string;
+  recipient: string;
+  sender: string;
+};
+
+export type AfterTransactionEventNode =
+  | (CetusAfterTransactionEvent &
+      CommonEventAttributes & {
+        poolName: PoolName | undefined;
+        id: { eventSeq: number; txDigest: string };
+      })
+  | (NaviAfterTransactionEvent &
+      CommonEventAttributes & {
+        poolName: PoolName | undefined;
+        id: { eventSeq: number; txDigest: string };
+      })
+  | (AlphaBeforeAndAfterEvent &
+      CommonEventAttributes & {
+        poolName: PoolName | undefined;
+        id: { eventSeq: number; txDigest: string };
+      });
+
 export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
@@ -117,7 +184,8 @@ export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
   | LiquidityChangeEventNode
-  | WithdrawV2EventNode;
+  | WithdrawV2EventNode
+  | AfterTransactionEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;

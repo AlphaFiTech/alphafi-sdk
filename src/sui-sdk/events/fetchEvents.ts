@@ -15,6 +15,7 @@ import {
   AutoCompoundingEventNode,
   AlphaWithdrawV2Event,
   WithdrawV2EventNode,
+  AfterTransactionEventNode,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -79,7 +80,8 @@ export async function fetchEvents(
         | AlphaLiquidityChangeEvent
         | NaviLiquidityChangeEvent
         | AlphaAutoCompoundingEvent
-        | AlphaWithdrawV2Event;
+        | AlphaWithdrawV2Event
+        | AfterTransactionEventNode;
 
       let eventNode: EventNode;
 
@@ -191,7 +193,8 @@ export async function fetchEvents(
         isLiquidityChangeEvent(suiEvent.type) &&
         "amount" in suiEventJson &&
         !("investor_id" in suiEventJson) &&
-        !("amount_withdrawn_from_locked" in suiEventJson)
+        !("amount_withdrawn_from_locked" in suiEventJson) &&
+        !("xtokenSupply" in suiEventJson)
       ) {
         // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
         eventNode = {
@@ -228,7 +231,62 @@ export async function fetchEvents(
           user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
           x_token_supply: suiEventJson.x_token_supply,
         } as WithdrawV2EventNode;
+      } else if (
+        isAfterTransactionEvent(suiEvent.type) &&
+        "tokensInvested" in suiEventJson &&
+        !("liquidity" in suiEventJson) &&
+        !("amount" in suiEventJson)
+      ) {
+        //handling alpha after transaction event
+        if (suiEvent.id.eventSeq === "0") continue;
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          poolName: "ALPHA",
+          id: {
+            eventSeq: Number(suiEvent.id.eventSeq),
+            txDigest: suiEvent.id.txDigest,
+          },
+          tokensInvested: suiEventJson.tokensInvested,
+          xTokenSupply: suiEventJson.xTokenSupply,
+        };
+      } else if (
+        isAfterTransactionEvent(suiEvent.type) &&
+        "tokensInvested" in suiEventJson &&
+        "liquidity" in suiEventJson
+      ) {
+        //handling  cetus after transaction event
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          poolName: undefined,
+          id: {
+            eventSeq: Number(suiEvent.id.eventSeq),
+            txDigest: suiEvent.id.txDigest,
+          },
+          tokensInvested: suiEventJson.tokensInvested,
+          xtokenSupply: suiEventJson.xtokenSupply,
+          liquidity: suiEventJson.liquidity,
+        };
+      } else if (
+        isAfterTransactionEvent(suiEvent.type) &&
+        "amount" in suiEventJson &&
+        "tokensInvested" in suiEventJson
+      ) {
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          poolName: undefined,
+          id: {
+            eventSeq: Number(suiEvent.id.eventSeq),
+            txDigest: suiEvent.id.txDigest,
+          },
+          tokensInvested: suiEventJson.tokensInvested,
+          xtokenSupply: suiEventJson.xtokenSupply,
+          amount: suiEventJson.amount,
+        };
       } else {
+        console.error("event: ", suiEvent, "json: ", suiEventJson);
         throw new Error("Unknown event type");
       }
 
@@ -275,7 +333,16 @@ const isLiquidityChangeEvent = (eventType: string) => {
 const isWithdrawV2Event = (eventType: string) => {
   const eventTypes: string[] = Object.values(poolInfo)
     .map((info) => {
-      return info.withdrawV2Event;
+      return info.withdrawV2EventType;
+    })
+    .filter((type) => type !== undefined);
+  return eventTypes.includes(eventType);
+};
+
+const isAfterTransactionEvent = (eventType: string) => {
+  const eventTypes: string[] = Object.values(poolInfo)
+    .map((info) => {
+      return info.afterTransactionEventType;
     })
     .filter((type) => type !== undefined);
   return eventTypes.includes(eventType);
