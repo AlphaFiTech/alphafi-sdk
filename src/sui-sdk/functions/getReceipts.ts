@@ -290,6 +290,7 @@ export async function getCetusPool(
       return cetusPool;
     } catch (e) {
       console.error(`getCetusPool failed for poolName: ${poolName}`);
+      console.error(e);
       return undefined;
     } finally {
       // Remove the promise from the cache after it resolves

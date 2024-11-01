@@ -30,6 +30,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
   "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
   "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+  "USDC-WUSDC": conf[CONF_ENV].USDC_WUSDC_CETUS_POOL_ID,
 };
 
 export const cetusInvestorMap: { [key: string]: string } = {
