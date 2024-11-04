@@ -17,21 +17,6 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../utils/prices.js";
 
-// {
-//   "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
-//   "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
-//   "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
-//   "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
-//   "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
-//   "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
-//   "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
-//   "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
-//   "VSUI-SUI": conf[CONF_ENV].VSUI_SUI_CETUS_POOL_ID,
-//   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
-//   "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
-//   "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
-// };
-
 export const cetusInvestorMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_CETUS_INVESTOR,
   "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_INVESTOR,
