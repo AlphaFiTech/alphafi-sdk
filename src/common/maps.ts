@@ -103,6 +103,7 @@ export const poolCoinPairMap: Record<
   "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
   "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
   "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
+  "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -137,6 +138,20 @@ export const poolInfo: {
     withdrawV2Event?: string;
   };
 } = {
+  "BLUEFIN-SUI-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "NAVI-LOOP-HASUI-SUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,
