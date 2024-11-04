@@ -30,6 +30,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
   "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
   "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+  "USDC-WUSDC": conf[CONF_ENV].USDC_WUSDC_CETUS_POOL_ID,
 };
 
 export const cetusInvestorMap: { [key: string]: string } = {
@@ -134,6 +135,7 @@ export const poolInfo: {
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
     liquidityChangeEventType: string;
+    withdrawV2Event?: string;
   };
 } = {
   "BLUEFIN-SUI-USDC": {
@@ -433,6 +435,7 @@ export const poolInfo: {
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType: conf[CONF_ENV].ALPHA_POOL_LIQUIDITY_CHANGE_EVENT,
+    withdrawV2Event: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",

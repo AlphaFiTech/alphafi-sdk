@@ -150,7 +150,19 @@ export async function calculateAprForInvestor(
     const investorPoolMap = await getInvestorPoolMap();
 
     // const matchInvestor =
-    //   "0x145952d6e903db412c2bd1d8bb25875acd57a772764fba0a97b20e2f7bdcb09c";
+    //       "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065"; // NAVI-USDC
+    // // "0xa65eaadb556a80e4cb02fe35efebb2656d82d364897530f45dabc1e99d15a8a9"; // HASUI
+    // ("0x227226f22bd9e484e541005916904ca066db1d42b8a80351800ef37b26c6cd89"); // AUSD
+    // // "0xf43c62ca04c2f8d4583630872429ba6f5d8a7316ccb9552c86bb1fcf9dee3ce2"; // USDY
+    // if (
+    //   events &&
+    //   events.length > 0 &&
+    //   events[0].investor_id === matchInvestor
+    // ) {
+    //   console.log(
+    //     "Compund Amount,Total Amount,GrowthRate,Timestamp,TimeDiff (Min)",
+    //   );
+    // }
     // if (
     //   events &&
     //   events.length > 0 &&
@@ -266,6 +278,11 @@ export async function calculateAprForInvestor(
         const coinName = poolCoinMap[poolName];
 
         growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
+        // if (event.investor_id === matchInvestor) {
+        //   console.log(
+        //     `${event.compound_amount},${event.total_amount},${growthRate},${event.timestamp},${(event.timestamp - previousTimestamp) / (1000 * 60)}`,
+        //   );
+        // }
       }
 
       // Accumulate the time-weighted growth

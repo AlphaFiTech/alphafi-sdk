@@ -7,8 +7,7 @@ import {
 
 export async function fetchLiquidityChangeEvents(
   params: FetchLiquidityChangeEventsParams,
-) {
-  // : Promise<LiquidityChangeEventNode[]>
+): Promise<LiquidityChangeEventNode[]> {
   const eventTypesSet = new Set<string>();
 
   if (params.poolNames) {
