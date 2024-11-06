@@ -21,7 +21,7 @@ describe("getVaults", () => {
 describe("getAllVaults", () => {
   it("should return the correct value", async () => {
     return getAllVaults().then((vaults) => {
-      expect(vaults?.length).toBe(38);
+      expect(vaults?.length).toBe(39);
     });
   });
 });
