@@ -3,7 +3,12 @@ import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
-export type ParentProtocolName = "ALPHAFI" | "CETUS" | "NAVI" | "BUCKET";
+export type ParentProtocolName =
+  | "ALPHAFI"
+  | "CETUS"
+  | "NAVI"
+  | "BUCKET"
+  | "BLUEFIN";
 
 export type PoolName =
   | "ALPHA"
@@ -42,7 +47,9 @@ export type PoolName =
   | "NAVI-USDY"
   | "NAVI-AUSD"
   | "NAVI-ETH"
-  | "NAVI-LOOP-HASUI-SUI";
+  | "NAVI-LOOP-HASUI-SUI"
+  | "BLUEFIN-SUI-USDC"
+  | "BLUEFIN-USDT-USDC";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -83,7 +90,9 @@ export type DoubleAssetPoolNames =
   | "USDC-WUSDC"
   | "USDC-ETH"
   | "DEEP-SUI"
-  | "BUCK-SUI";
+  | "BUCK-SUI"
+  | "BLUEFIN-SUI-USDC"
+  | "BLUEFIN-USDT-USDC";
 
 export type CoinName =
   | "ALPHA"
