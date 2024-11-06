@@ -598,8 +598,6 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-    afterTransactionEventType:
-      conf[CONF_ENV].CETUS_SUI_POOL_AFTER_TRANSACTION_EVENT,
   },
   "ALPHA-WUSDC": {
     parentProtocolName: "CETUS",
@@ -925,4 +923,9 @@ export const cetusPoolMap: { [key: string]: string } = (() => {
     }),
   );
   return result;
+})();
+
+export const defunctPoolsMap = (() => {
+  const defunctPools = conf[CONF_ENV].DEFUNCT_POOLS;
+  return new Set<string>(defunctPools);
 })();

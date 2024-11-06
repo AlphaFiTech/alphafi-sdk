@@ -370,6 +370,11 @@ export const conf = {
     SCALLOP_USDT_REWARDS_POOL:
       "0x2c9f934d67a5baa586ceec2cc24163a2f049a6af3d5ba36b84d8ac40f25c4080",
 
+    // Event-related Timestamps
+    // format: module_event_start/end
+    ALPHA_MODULE_DEPOSIT_EVENT_END_TIME: 1724074240881,
+    NAVI_MODULE_LIQUIDITY_CHANGE_START_EVENT: 1724077830387,
+
     //Hop Contants
 
     HOP_QUERY_WALLET:
@@ -409,10 +414,6 @@ export const conf = {
 
     FEE_ADDRESS:
       "0xee5360c5fa13555cbf355cb5015b865d742040e42ff90c324e11f0c63e504545",
-
-    // Important Timestamps
-    ALPHA_POOL_LAST_DEPOSIT_EVENT_TIME: 1724074240881,
-    NAVI_POOL_FIRST_LIQUIDITY_CHANGE_EVENT: 1724077830387,
 
     // constants for Alpha Protocol
 
@@ -559,6 +560,11 @@ export const conf = {
       "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH",
     AUSD_COIN_TYPE:
       "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+
+    // Defunct Pools
+    DEFUNCT_POOLS: [
+      "0xdc4f3d7b45b7b42487879ee7569633a3ed0a4980693934033b76e86398d1e235",
+    ],
 
     // Alpha POOL Id's
 
@@ -1034,6 +1040,11 @@ export const conf = {
     ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME: "AlphaFi-Bluefin SUI-USDC Receipt",
     ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME: "AlphaFi-Bluefin USDT-USDC Receipt",
 
+    // Event-related Timestamps
+    // format: module_event_start/end
+    ALPHA_MODULE_DEPOSIT_EVENT_END_TIME: 1724074240881,
+    NAVI_MODULE_LIQUIDITY_CHANGE_START_EVENT: 1724077830387,
+
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
@@ -1357,9 +1368,6 @@ export const conf = {
     BUCK_WUSDC_POOL_AFTER_TRANSACTION_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::AfterTransactionEvent",
 
-    // verify and put
-    CETUS_SUI_POOL_AFTER_TRANSACTION_EVENT: "",
-
     NAVI_SUI_POOL_AFTER_TRANSACTION_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
 
@@ -1519,4 +1527,8 @@ export const conf = {
 
     HOP_NETWORK: "mainnet",
   },
+};
+
+export const getConf = (conf_env: "production" | "testing") => {
+  return conf[conf_env];
 };
