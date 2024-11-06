@@ -647,6 +647,7 @@ export const conf = {
       "0xc37ec956fdef6c217505e62444ab93f833c20923755d67d1c8588c9b093ae00e",
     ALPHAFI_NAVI_LOOP_HASUI_SUI_POOL:
       "0x4b22c2fc59c7697eea08c1cc1eadf231415d66b842875ba4730a8619efa38ced",
+    ALPHAFI_NAVI_LOOP_USDT_USDC_POOL: "",
 
     //alphafi bucket pools
 
@@ -851,6 +852,8 @@ export const conf = {
     NAVI_LOOP_HASUI_SUI_INVESTOR:
       "0xa65eaadb556a80e4cb02fe35efebb2656d82d364897530f45dabc1e99d15a8a9",
 
+    NAVI_LOOP_USDT_USDC_INVESTOR: "",
+
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
       "0x646f400ef45a3c1c9cd94dd37b3a3388098427a5aff968206bbe6b8f119866e2",
@@ -964,6 +967,7 @@ export const conf = {
       "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
     ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT: "",
     ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT: "",
+    NAVI_LOOP_USDT_USDC_RECEIPT: "",
 
     // Receipt Names
 
@@ -1029,6 +1033,7 @@ export const conf = {
     NAVI_HASUI_SUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi HASUI-SUI Receipt",
     ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME: "AlphaFi-Bluefin SUI-USDC Receipt",
     ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME: "AlphaFi-Bluefin USDT-USDC Receipt",
+    NAVI_USDT_USDC_LOOP_RECEIPT_NAME: "AlphaFi-Navi USDT-USDC Receipt",
 
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
@@ -1135,6 +1140,7 @@ export const conf = {
       "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT: "",
     ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT: "",
+    NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT: "",
 
     //Rebalance Event Types
 
@@ -1317,6 +1323,7 @@ export const conf = {
       "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
     ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
+    NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
