@@ -92,7 +92,7 @@ export async function fetchMultiReceipts(
       });
     }
   } catch (error) {
-    console.error(
+    console.warn(
       "Error fetching receipts from GraphQL, now fetching from suiClient query",
     );
   } finally {
