@@ -92,8 +92,9 @@ export async function fetchMultiReceipts(
       });
     }
   } catch (error) {
-    console.error("Error fetching receipts from GraphQL:", error);
-    throw error;
+    console.warn(
+      "Error fetching receipts from GraphQL, now fetching from suiClient query",
+    );
   } finally {
     Object.keys(receiptTypes).forEach((key) => {
       receiptTypes[key].cursor = "";
