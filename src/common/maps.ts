@@ -939,7 +939,7 @@ export const cetusPoolMap: { [key: string]: string } = (() => {
   return result;
 })();
 
-export const defunctPoolsMap = (() => {
+export const defunctPoolsSet = (() => {
   const defunctPools = conf[CONF_ENV].DEFUNCT_POOLS;
   return new Set<string>(defunctPools);
 })();
