@@ -49,7 +49,8 @@ export type PoolName =
   | "NAVI-ETH"
   | "NAVI-LOOP-HASUI-SUI"
   | "BLUEFIN-SUI-USDC"
-  | "BLUEFIN-USDT-USDC";
+  | "BLUEFIN-USDT-USDC"
+  | "NAVI-LOOP-USDT-USDC";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -66,7 +67,8 @@ export type SingleAssetPoolNames =
   | "NAVI-USDY"
   | "NAVI-AUSD"
   | "NAVI-ETH"
-  | "NAVI-LOOP-HASUI-SUI";
+  | "NAVI-LOOP-HASUI-SUI"
+  | "NAVI-LOOP-USDT-USDC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
