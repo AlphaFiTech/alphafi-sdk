@@ -5,7 +5,7 @@ import { FetchWithdrawV2EventsParams, WithdrawV2EventNode } from "./types.js";
 export async function fetchWithdrawV2Events(
   params: FetchWithdrawV2EventsParams,
 ): Promise<WithdrawV2EventNode[]> {
-  const eventTypes = [poolInfo["ALPHA"].withdrawV2Event];
+  const eventTypes = [poolInfo["ALPHA"].withdrawV2EventType];
   const eventsPromises = eventTypes.map(async (eventType) => {
     if (!eventType) {
       console.error(`Event type not found: ${eventTypes}`);

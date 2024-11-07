@@ -69,7 +69,10 @@ export {
   getPoolExchangeRateMap,
   poolCoinMap,
   poolCoinPairMap,
+  defunctPoolsSet,
 } from "./common/maps.js";
+
+export { getConf } from "./common/constants.js";
 
 export { coins } from "./common/coins.js";
 
@@ -79,10 +82,14 @@ export { poolIdPoolNameMap } from "./common/maps.js";
 
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
 export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
+export { fetchWithdrawV2Events } from "./sui-sdk/events/fetchWithdrawV2Events.js";
+export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransactionEvents.js";
 
 export {
   LiquidityChangeEventNode,
   AutoCompoundingEventNode,
+  WithdrawV2EventNode,
+  AfterTransactionEventNode,
 } from "./sui-sdk/events/types.js";
 
 export { ReceiptGQL } from "./graphql/types.js";
