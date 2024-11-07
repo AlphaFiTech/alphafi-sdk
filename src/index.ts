@@ -69,7 +69,7 @@ export {
   getPoolExchangeRateMap,
   poolCoinMap,
   poolCoinPairMap,
-  defunctPoolsMap,
+  defunctPoolsSet,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
