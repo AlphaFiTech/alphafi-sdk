@@ -1536,6 +1536,6 @@ export const conf = {
   },
 };
 
-export const getConf = (conf_env: "production" | "testing") => {
-  return conf[conf_env];
+export const getConf = () => {
+  return conf[CONF_ENV];
 };
