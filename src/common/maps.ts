@@ -11,6 +11,7 @@ import {
   PoolReceipt,
   PoolType,
   SingleAssetPoolNames,
+  StrategyType,
 } from "./types.js";
 import { PythPriceIdPair } from "./pyth.js";
 import { getSuiClient } from "../sui-sdk/client.js";
@@ -110,6 +111,44 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-LOOP-USDT-USDC": "USDT",
 };
 
+// FUNCTION OVERLOADS!
+// verify if there is event_type anywhere else
+export function coinsInPool(
+  poolName: DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName };
+export function coinsInPool(
+  poolName: SingleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): CoinName;
+export function coinsInPool(
+  poolName: SingleAssetPoolNames | DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName } | CoinName {
+  // Special case for "NAVI-LOOP-SUI-VSUI"
+  if (poolName === "NAVI-LOOP-SUI-VSUI") {
+    if (
+      event &&
+      event.type ===
+        conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT &&
+      event.event_type === 0
+    ) {
+      return "SUI";
+    }
+    return "VSUI";
+  }
+  const singleAsset = poolCoinMap[poolName as SingleAssetPoolNames];
+  const doubleAsset = poolCoinPairMap[poolName as DoubleAssetPoolNames];
+  if (singleAsset) {
+    return singleAsset;
+  }
+  if (doubleAsset) {
+    return doubleAsset;
+  }
+  console.error("poolName: ", poolName);
+  throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
+}
+
 export const poolInfo: {
   [key: string]: {
     parentProtocolName: ParentProtocolName;
@@ -123,6 +162,7 @@ export const poolInfo: {
     liquidityChangeEventType: string;
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
+    strategyType?: StrategyType;
   };
 } = {
   "NAVI-LOOP-USDT-USDC": {
@@ -137,6 +177,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "BLUEFIN-USDT-USDC": {
     parentProtocolName: "BLUEFIN",
@@ -151,6 +192,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
   },
   "BLUEFIN-SUI-USDC": {
     parentProtocolName: "BLUEFIN",
@@ -165,6 +207,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
   },
   "NAVI-LOOP-HASUI-SUI": {
     parentProtocolName: "NAVI",
@@ -178,6 +221,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-USDY": {
     parentProtocolName: "NAVI",
@@ -191,6 +235,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDY_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "STABLE",
   },
   "NAVI-AUSD": {
     parentProtocolName: "NAVI",
@@ -204,6 +249,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "STABLE",
   },
   "NAVI-ETH": {
     parentProtocolName: "NAVI",
@@ -217,6 +263,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LENDING",
   },
   "BUCKET-BUCK": {
     parentProtocolName: "BUCKET",
@@ -230,6 +277,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
   },
   "BUCK-SUI": {
     parentProtocolName: "CETUS",
@@ -243,6 +291,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCK_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCK_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDC-ETH": {
     parentProtocolName: "CETUS",
@@ -256,6 +305,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_ETH_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "DEEP-SUI": {
     parentProtocolName: "CETUS",
@@ -269,6 +319,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].DEEP_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "ALPHA-USDC": {
     parentProtocolName: "CETUS",
@@ -282,6 +333,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDC-WUSDC": {
     parentProtocolName: "CETUS",
@@ -295,6 +347,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDC-SUI": {
     parentProtocolName: "CETUS",
@@ -308,6 +361,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDC-USDT": {
     parentProtocolName: "CETUS",
@@ -321,6 +375,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_USDT_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "NAVI-USDC": {
     parentProtocolName: "NAVI",
@@ -334,6 +389,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-LOOP-USDC-USDT": {
     parentProtocolName: "NAVI",
@@ -347,6 +403,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-LOOP-SUI-VSUI": {
     parentProtocolName: "NAVI",
@@ -360,6 +417,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-SUI": {
     parentProtocolName: "NAVI",
@@ -375,6 +433,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-VSUI": {
     parentProtocolName: "NAVI",
@@ -390,6 +449,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-WETH": {
     parentProtocolName: "NAVI",
@@ -405,6 +465,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WETH_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-USDT": {
     parentProtocolName: "NAVI",
@@ -420,6 +481,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-WUSDC": {
     parentProtocolName: "NAVI",
@@ -435,6 +497,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   "NAVI-HASUI": {
     parentProtocolName: "NAVI",
@@ -450,6 +513,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_HASUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LENDING",
   },
   ALPHA: {
     parentProtocolName: "ALPHAFI",
@@ -464,6 +528,7 @@ export const poolInfo: {
     withdrawV2EventType: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].ALPHA_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "STAKING",
   },
   "ALPHA-SUI": {
     parentProtocolName: "CETUS",
@@ -479,6 +544,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "HASUI-SUI": {
     parentProtocolName: "CETUS",
@@ -494,6 +560,7 @@ export const poolInfo: {
       conf[CONF_ENV].HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].HASUI_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDT-WUSDC": {
     parentProtocolName: "CETUS",
@@ -509,6 +576,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].USDT_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "USDY-WUSDC": {
     parentProtocolName: "CETUS",
@@ -524,6 +592,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDY_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].USDY_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "WUSDC-SUI": {
     parentProtocolName: "CETUS",
@@ -539,6 +608,7 @@ export const poolInfo: {
       conf[CONF_ENV].WUSDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WUSDC_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "WETH-WUSDC": {
     parentProtocolName: "CETUS",
@@ -554,6 +624,7 @@ export const poolInfo: {
       conf[CONF_ENV].WETH_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WETH_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "WUSDC-WBTC": {
     parentProtocolName: "CETUS",
@@ -569,6 +640,7 @@ export const poolInfo: {
       conf[CONF_ENV].WUSDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WUSDC_WBTC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "NAVX-SUI": {
     parentProtocolName: "CETUS",
@@ -584,6 +656,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "BUCK-WUSDC": {
     parentProtocolName: "CETUS",
@@ -599,6 +672,7 @@ export const poolInfo: {
       conf[CONF_ENV].BUCK_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].BUCK_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "CETUS-SUI": {
     parentProtocolName: "CETUS",
@@ -612,6 +686,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "ALPHA-WUSDC": {
     parentProtocolName: "CETUS",
@@ -625,6 +700,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].ALPHA_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "WSOL-WUSDC": {
     parentProtocolName: "CETUS",
@@ -638,6 +714,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].WSOL_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].WSOL_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "FUD-SUI": {
     parentProtocolName: "CETUS",
@@ -651,6 +728,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "BLUB-SUI": {
     parentProtocolName: "CETUS",
@@ -664,6 +742,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
   "SCA-SUI": {
     parentProtocolName: "CETUS",
@@ -677,6 +756,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LIQUIDITY-POOL",
   },
 };
 

@@ -123,6 +123,14 @@ export type CoinName =
   | "DEEP"
   | "AUSD";
 
+export type StrategyType =
+  | "LOOPING"
+  | "STABLE"
+  | "STAKING"
+  | "LIQUIDITY-POOL"
+  | "LENDING"
+  | "LIQUID-STAKING";
+
 /**
  * Represents a coin with its name, type, icon, and exponent.
  */
