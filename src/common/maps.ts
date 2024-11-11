@@ -277,7 +277,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
-    // add strategy type
+    strategyType: "STABLE",
   },
   "BUCK-SUI": {
     parentProtocolName: "CETUS",
