@@ -18,7 +18,16 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../utils/prices.js";
 
-export const stableCoins = ["USDT", "WUSDT", "USDC", "WUSDC", "USDY", "WUSDY", "AUSD", "BUCK"];
+export const stableCoins = [
+  "USDT",
+  "WUSDT",
+  "USDC",
+  "WUSDC",
+  "USDY",
+  "WUSDY",
+  "AUSD",
+  "BUCK",
+];
 
 export const cetusInvestorMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_CETUS_INVESTOR,
