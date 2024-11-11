@@ -70,7 +70,9 @@ export {
   poolCoinMap,
   poolCoinPairMap,
   defunctPoolsSet,
+  poolIdPoolNameMap,
   coinsInPool,
+  stableCoins,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
@@ -78,8 +80,6 @@ export { getConf } from "./common/constants.js";
 export { coins } from "./common/coins.js";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
-
-export { poolIdPoolNameMap } from "./common/maps.js";
 
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
 export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
