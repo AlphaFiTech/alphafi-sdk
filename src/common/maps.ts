@@ -190,36 +190,36 @@ export const poolInfo: {
   //     conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   //   strategyType: "LOOPING",
   // },
-  // "BLUEFIN-USDT-USDC": {
-  //   parentProtocolName: "BLUEFIN",
-  //   parentPoolId: conf[CONF_ENV].BLUEFIN_USDT_USDC_POOL,
-  //   poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL,
-  //   investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_INVESTOR,
-  //   receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME,
-  //   receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT,
-  //   autoCompoundingEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-  //   rebalanceEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
-  //   liquidityChangeEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  //   // add strategy type
-  // },
-  // "BLUEFIN-SUI-USDC": {
-  //   parentProtocolName: "BLUEFIN",
-  //   parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_USDC_POOL,
-  //   poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL,
-  //   investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_INVESTOR,
-  //   receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME,
-  //   receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT,
-  //   autoCompoundingEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-  //   rebalanceEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
-  //   liquidityChangeEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  //   // add strategy type
-  // },
+  "BLUEFIN-USDT-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_USDT_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
+  "BLUEFIN-SUI-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "NAVI-LOOP-HASUI-SUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,

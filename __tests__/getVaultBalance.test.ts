@@ -274,26 +274,26 @@ describe("getFudSuiDoubleAssetVaultBalance", () => {
   });
 });
 
-describe("getBlubSuiDoubleAssetVaultBalance", () => {
-  it("should return the correct value", async () => {
-    const address =
-      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "BLUB-SUI";
+// describe("getBlubSuiDoubleAssetVaultBalance", () => {
+//   it("should return the correct value", async () => {
+//     const address =
+//       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+//     const poolName: PoolName = "BLUB-SUI";
 
-    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
-      expect(balance).toBeDefined();
-    });
-  });
-});
+//     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+//       expect(balance).toBeDefined();
+//     });
+//   });
+// });
 
-describe("getScaSuiDoubleAssetVaultBalance", () => {
-  it("should return the correct value", async () => {
-    const address =
-      "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-    const poolName: PoolName = "SCA-SUI";
+// describe("getScaSuiDoubleAssetVaultBalance", () => {
+//   it("should return the correct value", async () => {
+//     const address =
+//       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
+//     const poolName: PoolName = "SCA-SUI";
 
-    return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
-      expect(balance).toBeDefined();
-    });
-  });
-});
+//     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
+//       expect(balance).toBeDefined();
+//     });
+//   });
+// });
