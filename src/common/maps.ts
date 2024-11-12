@@ -11,11 +11,23 @@ import {
   PoolReceipt,
   PoolType,
   SingleAssetPoolNames,
+  StrategyType,
 } from "./types.js";
 import { PythPriceIdPair } from "./pyth.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../utils/prices.js";
+
+export const stableCoins = [
+  "USDT",
+  "WUSDT",
+  "USDC",
+  "WUSDC",
+  "USDY",
+  "WUSDY",
+  "AUSD",
+  "BUCK",
+];
 
 export const cetusInvestorMap: { [key: string]: string } = {
   ALPHA: conf[CONF_ENV].ALPHA_CETUS_INVESTOR,
@@ -110,6 +122,44 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-LOOP-USDT-USDC": "USDT",
 };
 
+// FUNCTION OVERLOADS!
+// verify if there is event_type anywhere else
+export function coinsInPool(
+  poolName: DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName };
+export function coinsInPool(
+  poolName: SingleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): CoinName;
+export function coinsInPool(
+  poolName: SingleAssetPoolNames | DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName } | CoinName {
+  // Special case for "NAVI-LOOP-SUI-VSUI"
+  if (poolName === "NAVI-LOOP-SUI-VSUI") {
+    if (
+      event &&
+      event.type ===
+        conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT &&
+      event.event_type === 0
+    ) {
+      return "SUI";
+    }
+    return "VSUI";
+  }
+  const singleAsset = poolCoinMap[poolName as SingleAssetPoolNames];
+  const doubleAsset = poolCoinPairMap[poolName as DoubleAssetPoolNames];
+  if (singleAsset) {
+    return singleAsset;
+  }
+  if (doubleAsset) {
+    return doubleAsset;
+  }
+  console.error("poolName: ", poolName);
+  throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
+}
+
 export const poolInfo: {
   [key: string]: {
     parentProtocolName: ParentProtocolName;
@@ -123,6 +173,7 @@ export const poolInfo: {
     liquidityChangeEventType: string;
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
+    strategyType?: StrategyType;
   };
 } = {
   // "NAVI-LOOP-USDT-USDC": {
@@ -166,6 +217,50 @@ export const poolInfo: {
   //   liquidityChangeEventType:
   //     conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
   // },
+  "NAVI-LOOP-USDT-USDC": {
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_USDC_POOL,
+    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
+  },
+  "BLUEFIN-USDT-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_USDT_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
+  "BLUEFIN-SUI-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "NAVI-LOOP-HASUI-SUI": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_HASUI_POOL,
@@ -178,6 +273,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-USDY": {
     parentProtocolName: "NAVI",
@@ -347,6 +443,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-LOOP-SUI-VSUI": {
     parentProtocolName: "NAVI",
@@ -360,6 +457,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "LOOPING",
   },
   "NAVI-SUI": {
     parentProtocolName: "NAVI",
