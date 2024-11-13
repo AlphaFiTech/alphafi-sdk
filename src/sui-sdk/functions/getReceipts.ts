@@ -461,3 +461,68 @@ export async function fetchVoloExchangeRate(
 
   return NaviVoloDetails;
 }
+
+export async function multiGetNaviInvestor(
+  poolNames: SingleAssetPoolNames[],
+  ignoreCache: boolean = false,
+) {
+  const results: {
+    [poolName in SingleAssetPoolNames]?:
+      | (NaviInvestor & CommonInvestorFields)
+      | undefined;
+  } = {};
+  const missingPoolInvestorIds: string[] = [];
+  const missingPoolNames: SingleAssetPoolNames[] = [];
+
+  for (const poolName of poolNames) {
+    const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
+
+    if (ignoreCache) {
+      naviInvestorCache.delete(cacheKey);
+      naviInvestorPromiseCache.delete(cacheKey);
+    }
+
+    // Check if the investor is already cached
+    const cachedInvestor = naviInvestorCache.get(cacheKey);
+    if (cachedInvestor) {
+      results[poolName] = cachedInvestor;
+      continue;
+    } else {
+      // Add to missing list if not in cache
+      if (poolInfo[poolName.toUpperCase()].investorId) {
+        missingPoolNames.push(poolName);
+        missingPoolInvestorIds.push(
+          poolInfo[poolName.toUpperCase()].investorId,
+        );
+      }
+    }
+  }
+
+  try {
+    const suiClient = getSuiClient();
+    const objects = await suiClient.multiGetObjects({
+      ids: missingPoolInvestorIds,
+      options: { showContent: true },
+    });
+    for (let i = 0; i < objects.length; i++) {
+      const investor = objects[i].data as NaviInvestor & CommonInvestorFields;
+      const cacheKey = `investor_${missingPoolInvestorIds[i]}`;
+      naviInvestorCache.set(cacheKey, investor);
+      results[missingPoolNames[i]] = investor;
+    }
+    return results;
+  } catch (err) {
+    //improve
+    console.error(
+      "multiGetNaviInvestor failed for poolNames: ",
+      missingPoolNames.join(", "),
+    );
+    throw err;
+  }
+}
+
+/*
+for the missing pools, add a promise, each of those promises waits for there respective object from a map, that map is populated all at once, 
+problem with concurrency
+*/
+// ask how to deal with this kind of probem with high concurrency anf throughput

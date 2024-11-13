@@ -59,7 +59,12 @@ export * from "./graphql/getMultiReceipts.js";
 
 export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
 
-export { liquidityToTokens, multiTokensToUsd } from "./utils/userHoldings.js";
+export {
+  liquidityToTokens,
+  multiTokensToUsd,
+  multiXTokensToLiquidity,
+  multiLiquidityToTokens,
+} from "./utils/userHoldings.js";
 
 export {
   poolInfo,
