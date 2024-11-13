@@ -38,7 +38,9 @@ export async function getReceipts(
   }
 
   const nfts: Receipt[] = [];
-
+  if (poolInfo[poolName].receiptType === "") {
+    return nfts;
+  }
   let cachedPromise = receiptsPromiseCache.get(receiptsCacheKey);
   if (!cachedPromise) {
     cachedPromise = (async (): Promise<Receipt[]> => {

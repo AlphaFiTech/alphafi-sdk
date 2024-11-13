@@ -53,6 +53,14 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
     cursor: "",
   } as ReceiptType,
+  bluefinSuiUsdcPoolReceipts: {
+    type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  bluefinUsdtUsdcPoolReceipts: {
+    type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
 };
 
 export async function fetchMultiReceipts(
