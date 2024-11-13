@@ -177,20 +177,20 @@ export const poolInfo: {
     strategyType?: StrategyType;
   };
 } = {
-  "NAVI-LOOP-USDT-USDC": {
-    parentProtocolName: "NAVI",
-    parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_USDC_POOL,
-    investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: undefined,
-    liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    strategyType: "LOOPING",
-  },
+  // "NAVI-LOOP-USDT-USDC": {
+  //   parentProtocolName: "NAVI",
+  //   parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
+  //   poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_USDT_USDC_POOL,
+  //   investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
+  //   receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: undefined,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+  //   strategyType: "LOOPING",
+  // },
   "BLUEFIN-USDT-USDC": {
     parentProtocolName: "BLUEFIN",
     parentPoolId: conf[CONF_ENV].BLUEFIN_USDT_USDC_POOL,
@@ -710,32 +710,32 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
   },
-  "BLUB-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].BLUB_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].BLUB_SUI_POOL,
-    investorId: conf[CONF_ENV].BLUB_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
-  "SCA-SUI": {
-    parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
-    poolId: conf[CONF_ENV].SCA_SUI_POOL,
-    investorId: conf[CONF_ENV].SCA_SUI_CETUS_INVESTOR,
-    receiptName: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT,
-    autoCompoundingEventType:
-      conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "BLUB-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].BLUB_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].BLUB_SUI_POOL,
+  //   investorId: conf[CONF_ENV].BLUB_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].BLUB_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].BLUB_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].BLUB_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
+  // "SCA-SUI": {
+  //   parentProtocolName: "CETUS",
+  //   parentPoolId: conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
+  //   poolId: conf[CONF_ENV].SCA_SUI_POOL,
+  //   investorId: conf[CONF_ENV].SCA_SUI_CETUS_INVESTOR,
+  //   receiptName: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].SCA_SUI_POOL_RECEIPT,
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].SCA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: conf[CONF_ENV].SCA_SUI_POOL_REBALANCE_EVENT,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].SCA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
 };
 
 export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
