@@ -133,7 +133,6 @@ export async function fetchAfterTransactionEvents(params: {
             (pool) => poolCoinMap[pool as SingleAssetPoolNames] === coinName,
           );
           if (!poolName) {
-            console.log(poolCoinMap, "poolCoinMap"); //debug
             console.error("for event: ", otherEvent);
             throw new Error(`naviPoolName not found`);
           }

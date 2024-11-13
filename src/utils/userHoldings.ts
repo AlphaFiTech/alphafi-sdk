@@ -271,11 +271,7 @@ export async function multiTokensToUsd(
   });
 
   const usdHoldings: HoldingsObj[] = [];
-  const time1 = Date.now(); //debug
-  console.log("-- time 0", time1 - time0); //debug
   const prices = await getLatestTokenPricePairs(Array.from(pricePairs), false);
-  const time2 = Date.now(); //debug
-  console.log("-- time 1", time2 - time1); //debug
 
   for (const tokenHolding of tokensHoldings) {
     if ("tokens" in tokenHolding) {
@@ -311,8 +307,6 @@ export async function multiTokensToUsd(
       }
     }
   }
-  const time3 = Date.now(); //debug
-  console.log("-- time 2", time3 - time2); //debug
 
   return usdHoldings;
 }
