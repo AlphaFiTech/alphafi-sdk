@@ -257,7 +257,6 @@ function mergeDuplicateTokenHoldings(
 export async function multiTokensToUsd(
   tokensHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[],
 ): Promise<HoldingsObj[]> {
-  const time0 = Date.now();
   const pricePairs = new Set<PythPriceIdPair>();
   tokensHoldings.map((o) => {
     if ("tokens" in o) {
