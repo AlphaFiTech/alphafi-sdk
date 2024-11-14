@@ -16,7 +16,8 @@ import {
 import { PythPriceIdPair } from "./pyth.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
-import { getLatestPrices } from "../utils/prices.js";
+import { getLatestTokenPricePairs } from "../utils/prices.js";
+import { multiGetNaviInvestor } from "../sui-sdk/functions/getReceipts.js";
 
 export const stableCoins = [
   "USDT",
@@ -895,6 +896,53 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
     poolNameToConversionRateMap.set(poolIdPoolNameMap[poolId], conversionRate);
   }
 
+  // Looping pools
+  const loopingPoolNames = Object.keys(poolInfo).filter(
+    (poolName) => poolInfo[poolName].strategyType === "LOOPING",
+  );
+  const loopingPoolsMap: { [poolName: string]: PoolType } = {};
+  res
+    .filter((poolRawData) => {
+      const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
+      const poolId = poolDetails.objectId;
+      return poolInfo[poolIdPoolNameMap[poolId]].strategyType === "LOOPING"
+        ? true
+        : false;
+    })
+    .map((poolRawData) => {
+      const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
+      const poolId = poolDetails.objectId;
+      const poolName = poolIdPoolNameMap[poolId];
+      loopingPoolsMap[poolName] = poolRawData.data as PoolType;
+    });
+
+  const naviInvestors = await multiGetNaviInvestor(
+    loopingPoolNames as SingleAssetPoolNames[],
+    false,
+  );
+
+  for (const poolName of loopingPoolNames) {
+    const pool = loopingPoolsMap[poolName];
+    const investor = naviInvestors[poolName as SingleAssetPoolNames];
+    if (investor) {
+      const liquidity = new Decimal(investor.content.fields.tokensDeposited);
+      const debtToSupplyRatio = new Decimal(
+        investor.content.fields.current_debt_to_supply_ratio,
+      );
+      const tokensInvested = liquidity.mul(
+        new Decimal(1).minus(new Decimal(debtToSupplyRatio).div(1e20)),
+      );
+      const xTokenSupplyInPool = new Decimal(pool.content.fields.xTokenSupply);
+      const exchangeRate = tokensInvested.div(xTokenSupplyInPool);
+      poolNameToConversionRateMap.set(
+        poolName as PoolName,
+        exchangeRate.toString(),
+      );
+    } else {
+      console.error("investor not found for poolName: ", poolName);
+    }
+  }
+
   return poolNameToConversionRateMap;
 }
 
@@ -967,13 +1015,16 @@ export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
     coinsSet.add(coin2);
   });
   const coins = Array.from(coinsSet);
-  for (const coin of coins) {
-    const [priceOfCoin] = await getLatestPrices(
-      [`${coin}/USD` as PythPriceIdPair],
-      false,
-    );
-    coinNameToPriceMap.set(coin, priceOfCoin);
-  }
+  const pricePairs = coins.map((coinName) => {
+    return `${coinName}/USD` as PythPriceIdPair;
+  });
+  const prices = await getLatestTokenPricePairs(pricePairs, false);
+  Object.entries(prices).map(([pair, price]) => {
+    const coin = pair.split("/")[0] as CoinName;
+    if (price) {
+      coinNameToPriceMap.set(coin, price);
+    }
+  });
 
   return coinNameToPriceMap;
 }

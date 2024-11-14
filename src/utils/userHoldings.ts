@@ -1,11 +1,11 @@
 import {
   getPoolExchangeRateMap,
-  getTokenPriceMap,
   getCetusInvestorTicksMap,
   getCetusSqrtPriceMap,
   poolCoinPairMap,
   poolCoinMap,
   poolInfo,
+  coinsInPool,
 } from "../common/maps.js";
 import {
   DoubleAssetTokenHoldings,
@@ -26,6 +26,8 @@ import {
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import { coins } from "../common/coins.js";
+import { getLatestTokenPricePairs } from "./prices.js";
+import { PythPriceIdPair } from "../common/pyth.js";
 
 export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
   let holdings: HoldingsObj[] = [];
@@ -37,7 +39,6 @@ export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
     );
     const liquidity = new Decimal(holdingsObj.holding)
       .mul(conversion)
-      .toFixed(5)
       .toString();
     return {
       owner: holdingsObj.owner,
@@ -159,10 +160,20 @@ function alphaLiquidityToTokens(liquidity: string) {
 
 function singleAssetLiquidityToTokens(liquidity: string, pool: string) {
   const singlePool = pool;
-  if (poolInfo[pool].parentProtocolName === "NAVI") {
+  if (
+    poolInfo[pool].parentProtocolName === "NAVI" &&
+    poolInfo[pool].strategyType !== "LOOPING"
+  ) {
     const coin = poolCoinMap[singlePool as SingleAssetPoolNames];
     let amount = new Decimal(liquidity).div(Math.pow(10, 9 - coins[coin].expo));
     amount = amount.div(new Decimal(Math.pow(10, coins[coin].expo)));
+    return amount.toFixed(5);
+  } else if (
+    poolInfo[pool].parentProtocolName === "NAVI" &&
+    poolInfo[pool].strategyType === "LOOPING"
+  ) {
+    const coin = coinsInPool(pool as SingleAssetPoolNames);
+    const amount = new Decimal(liquidity).div(Math.pow(10, coins[coin].expo));
     return amount.toFixed(5);
   } else if (
     poolInfo[pool].parentProtocolName === "BUCKET" &&
@@ -246,15 +257,27 @@ function mergeDuplicateTokenHoldings(
 export async function multiTokensToUsd(
   tokensHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[],
 ): Promise<HoldingsObj[]> {
+  const pricePairs = new Set<PythPriceIdPair>();
+  tokensHoldings.map((o) => {
+    if ("tokens" in o) {
+      const thisCoins = coinsInPool(o.poolName);
+      pricePairs.add(`${thisCoins}/USD` as PythPriceIdPair);
+    } else if ("tokenAmountA" in o) {
+      const thisCoins = coinsInPool(o.poolName);
+      pricePairs.add(`${thisCoins.coinA}/USD` as PythPriceIdPair);
+      pricePairs.add(`${thisCoins.coinB}/USD` as PythPriceIdPair);
+    }
+  });
+
   const usdHoldings: HoldingsObj[] = [];
-  const tokenPriceMap = await getTokenPriceMap();
+  const prices = await getLatestTokenPricePairs(Array.from(pricePairs), false);
 
   for (const tokenHolding of tokensHoldings) {
     if ("tokens" in tokenHolding) {
       // SingleAssetTokenHoldings
       const singlePool = tokenHolding.poolName;
-      const coin = poolCoinMap[singlePool];
-      const priceOfCoin = tokenPriceMap.get(coin);
+      const coin = coinsInPool(singlePool);
+      const priceOfCoin = prices[`${coin}/USD`];
       if (priceOfCoin) {
         const amountInUSD = new Decimal(tokenHolding.tokens).mul(priceOfCoin);
         usdHoldings.push({
@@ -268,8 +291,9 @@ export async function multiTokensToUsd(
       const poolName = tokenHolding.poolName;
       const coin1 = poolCoinPairMap[poolName].coinA;
       const coin2 = poolCoinPairMap[poolName].coinB;
-      const priceOfCoin1 = tokenPriceMap.get(coin1);
-      const priceOfCoin2 = tokenPriceMap.get(coin2);
+      const priceOfCoin1 = prices[`${coin1}/USD`];
+      const priceOfCoin2 = prices[`${coin2}/USD`];
+
       if (priceOfCoin1 && priceOfCoin2) {
         const amount = new Decimal(tokenHolding.tokenAmountA)
           .mul(priceOfCoin1)
