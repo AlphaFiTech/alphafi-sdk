@@ -1,6 +1,6 @@
 src/
-*.ts
-*.tsx
+src/**/*.ts
+src/**/*.tsx
 *.spec.ts
 *.spec.tsx
 *~
@@ -21,7 +21,6 @@ events.csv
 jest.config.js
 jest.config.cjs.js
 jest.config.esm.js
-package.json
 typedoc.json
 webpack.config.js
 docs/.nojekyll
