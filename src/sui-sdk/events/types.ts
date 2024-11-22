@@ -3,6 +3,9 @@ import { PoolName } from "../../common/types.js";
 interface CommonEventAttributes {
   type: string;
   timestamp: number;
+  txDigest: string;
+  eventSeq: number;
+  transactionModule: string;
 }
 
 export interface CetusAutoCompoundingEvent {

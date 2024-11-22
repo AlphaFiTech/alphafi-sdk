@@ -104,6 +104,9 @@ export async function fetchEvents(
           investor_id: suiEventJson.investor_id,
           total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
           total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
 
         // if (
@@ -129,6 +132,9 @@ export async function fetchEvents(
           investor_id: suiEventJson.investor_id,
           location: suiEventJson.location,
           total_amount: BigInt(suiEventJson.total_amount.toString()),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
         if (
           "cur_total_debt" in suiEventJson &&
@@ -150,6 +156,9 @@ export async function fetchEvents(
           timestamp: Number(suiEvent.timestampMs),
           amount: suiEventJson.amount,
           investor_id: conf[CONF_ENV].ALPHA_POOL,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
       } else if (
         isRebalanceEvent(suiEvent.type) &&
@@ -167,6 +176,9 @@ export async function fetchEvents(
           amount_b_before: suiEventJson.amount_b_before.toString(),
           amount_a_after: suiEventJson.amount_a_after.toString(),
           amount_b_after: suiEventJson.amount_b_after.toString(),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
       } else if (
         isLiquidityChangeEvent(suiEvent.type) &&
@@ -188,7 +200,10 @@ export async function fetchEvents(
           total_amount_b: suiEventJson.total_amount_b,
           user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
           x_token_supply: suiEventJson.x_token_supply,
-        } as LiquidityChangeEventNode;
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
       } else if (
         isLiquidityChangeEvent(suiEvent.type) &&
         "amount" in suiEventJson &&
@@ -208,7 +223,10 @@ export async function fetchEvents(
           tokens_invested: suiEventJson.tokens_invested,
           user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
           x_token_supply: suiEventJson.x_token_supply,
-        } as LiquidityChangeEventNode;
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
       } else if (
         isWithdrawV2Event(suiEvent.type) &&
         "amount_withdrawn_from_locked" in suiEventJson
@@ -230,7 +248,10 @@ export async function fetchEvents(
           tokens_invested: suiEventJson.tokens_invested,
           user_total_x_token_balance: suiEventJson.user_total_x_token_balance,
           x_token_supply: suiEventJson.x_token_supply,
-        } as WithdrawV2EventNode;
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
       } else if (
         isAfterTransactionEvent(suiEvent.type) &&
         "tokensInvested" in suiEventJson &&
@@ -249,6 +270,9 @@ export async function fetchEvents(
           },
           tokensInvested: suiEventJson.tokensInvested,
           xTokenSupply: suiEventJson.xTokenSupply,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
       } else if (
         isAfterTransactionEvent(suiEvent.type) &&
@@ -267,6 +291,9 @@ export async function fetchEvents(
           tokensInvested: suiEventJson.tokensInvested,
           xtokenSupply: suiEventJson.xtokenSupply,
           liquidity: suiEventJson.liquidity,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
       } else if (
         isAfterTransactionEvent(suiEvent.type) &&
@@ -284,6 +311,9 @@ export async function fetchEvents(
           tokensInvested: suiEventJson.tokensInvested,
           xtokenSupply: suiEventJson.xtokenSupply,
           amount: suiEventJson.amount,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
         };
       } else {
         console.error("event: ", suiEvent, "json: ", suiEventJson);
