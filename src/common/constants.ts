@@ -657,7 +657,8 @@ export const conf = {
       "0xc37ec956fdef6c217505e62444ab93f833c20923755d67d1c8588c9b093ae00e",
     ALPHAFI_NAVI_LOOP_HASUI_SUI_POOL:
       "0x4b22c2fc59c7697eea08c1cc1eadf231415d66b842875ba4730a8619efa38ced",
-    ALPHAFI_NAVI_LOOP_USDT_USDC_POOL: "",
+    ALPHAFI_NAVI_LOOP_USDT_USDC_POOL:
+      "0xdd886dd4828a44b7ae48bb7eaceca1cecedd1dcc06174f66ee398dc0feb71451",
 
     //alphafi bucket pools
 
@@ -864,7 +865,8 @@ export const conf = {
     NAVI_LOOP_HASUI_SUI_INVESTOR:
       "0xa65eaadb556a80e4cb02fe35efebb2656d82d364897530f45dabc1e99d15a8a9",
 
-    NAVI_LOOP_USDT_USDC_INVESTOR: "",
+    NAVI_LOOP_USDT_USDC_INVESTOR:
+      "0xe512e692f4d48a79abcfd5970ccb44d6f7f149e81bb077ccd58b89d4ab557d0e",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -1163,7 +1165,8 @@ export const conf = {
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_investor::AutoCompoundingEvent",
-    NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT: "",
+    NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_investor::AutoCompoundingEvent",
 
     //Rebalance Event Types
 
@@ -1350,7 +1353,8 @@ export const conf = {
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
-    NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT: "",
+    NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc::LiquidityChangeEvent",
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
