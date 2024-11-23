@@ -86,7 +86,7 @@ export const conf = {
     ALPHA_5_FIRST_PACKAGE_ID:
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
     ALPHA_5_LATEST_PACKAGE_ID:
-      "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
+      "0x7d43ebc5ab6c2b6a9d239a3943317a36ce2ae845065bcf172c9b66143f614ebb",
 
     ALPHA_5_MODULE_PACKAGE_IDS: [
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
@@ -629,7 +629,8 @@ export const conf = {
       "0x999261245ded744dfc44fbe1506243ad0fcd7827bae20b80f8321c3ae494a493",
     NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS: "",
     NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS: "",
-    NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS: "",
+    NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS:
+      "0xc4056b0ab35b8e28caf9da260249d998931cb4d854804204a40e9afe6c019b21",
 
     // Wallets
 
@@ -759,6 +760,8 @@ export const conf = {
     HOP_FEE_BPS: 0,
 
     HOP_NETWORK: "mainnet",
+
+    TREASURY_ADDRESS: "",
   },
 
   production: {
@@ -886,11 +889,17 @@ export const conf = {
       "0xc4d202e7aec959d021b4ff73d3fafae49d4efecb6215c031c2cf3e635d81a459",
       "0x34ab711c006675e0b26c535d42e7feb78bad3be5b4243dcb6266e7a044fa1f9a",
     ],
-    ALPHA_5_FIRST_PACKAGE_ID: "",
-    ALPHA_5_LATEST_PACKAGE_ID: "",
+    ALPHA_5_FIRST_PACKAGE_ID:
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
+    ALPHA_5_LATEST_PACKAGE_ID:
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
 
-    ALPHA_5_MODULE_PACKAGE_IDS: [""],
-    ALPHA_5_PACKAGE_IDS: [],
+    ALPHA_5_MODULE_PACKAGE_IDS: [
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
+    ],
+    ALPHA_5_PACKAGE_IDS: [
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
+    ],
 
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
@@ -907,7 +916,8 @@ export const conf = {
     ALPHA_4_VERSION:
       "0xdce2e00eadac8928fe6b4d7d3ba33e2cdc3c8b4900fa7c5115bb8f3deee030ee",
 
-    ALPHA_5_VERSION: "",
+    ALPHA_5_VERSION:
+      "0xa8dce89491194eb551f46c2f9208642147df6e770198641f86891626d008b2a9",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -1408,7 +1418,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT:
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
     NAVI_LOOP_USDT_USDC_RECEIPT:
-      "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288::alphafi_navi_usdt_usdc_pool::Receipt", //change
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_pool::Receipt",
 
     // Receipt Names
 
