@@ -102,6 +102,7 @@ export const poolCoinPairMap: Record<
   "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
   "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
   "BLUEFIN-USDT-USDC": { coinA: "USDT", coinB: "USDC" },
+  "BLUEFIN-SUI-BUCK": { coinA: "SUI", coinB: "BUCK" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -177,6 +178,21 @@ export const poolInfo: {
     strategyType?: StrategyType;
   };
 } = {
+  "BLUEFIN-SUI-BUCK": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_BUCK_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "NAVI-LOOP-USDT-USDC": {
     parentProtocolName: "NAVI",
     parentPoolId: conf[CONF_ENV].NAVI_USDT_POOL,
