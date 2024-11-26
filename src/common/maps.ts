@@ -16,6 +16,7 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { Decimal } from "decimal.js";
 import { getLatestTokenPricePairs } from "../utils/prices.js";
 import { multiGetNaviInvestor } from "../sui-sdk/functions/getReceipts.js";
+import { coinsList } from "./coins.js";
 
 export const stableCoins = [
   "USDT",
@@ -28,55 +29,131 @@ export const stableCoins = [
   "BUCK",
 ];
 
-export const poolCoinPairMap: Record<
-  DoubleAssetPoolNames,
-  { coinA: CoinName; coinB: CoinName }
-> = {
-  "USDT-WUSDC": { coinA: "USDT", coinB: "WUSDC" },
-  "ALPHA-SUI": { coinA: "ALPHA", coinB: "SUI" },
-  "HASUI-SUI": { coinA: "HASUI", coinB: "SUI" },
-  "USDY-WUSDC": { coinA: "USDY", coinB: "WUSDC" },
-  "WUSDC-SUI": { coinA: "WUSDC", coinB: "SUI" },
-  "WETH-WUSDC": { coinA: "WETH", coinB: "WUSDC" },
-  "WUSDC-WBTC": { coinA: "WUSDC", coinB: "WBTC" },
-  "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
-  "BUCK-WUSDC": { coinA: "BUCK", coinB: "WUSDC" },
-  "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
-  "ALPHA-WUSDC": { coinA: "ALPHA", coinB: "WUSDC" },
-  "WSOL-WUSDC": { coinA: "WSOL", coinB: "WUSDC" },
-  "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
-  "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
-  "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
-  "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
-  "USDC-USDT": { coinA: "USDC", coinB: "USDT" },
-  "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
-  "USDC-WUSDC": { coinA: "USDC", coinB: "WUSDC" },
-  "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
-  "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
-  "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
-  "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
-  "BLUEFIN-USDT-USDC": { coinA: "USDT", coinB: "USDC" },
-  "BLUEFIN-SUI-BUCK": { coinA: "SUI", coinB: "BUCK" },
-  "BLUEFIN-AUSD-USDC": { coinA: "SUI", coinB: "AUSD" },
+// export const poolCoinPairMap: Record<
+//   DoubleAssetPoolNames,
+//   { coinA: CoinName; coinB: CoinName }
+// > = {
+//   "USDT-WUSDC": { coinA: "USDT", coinB: "WUSDC" },
+//   "ALPHA-SUI": { coinA: "ALPHA", coinB: "SUI" },
+//   "HASUI-SUI": { coinA: "HASUI", coinB: "SUI" },
+//   "USDY-WUSDC": { coinA: "USDY", coinB: "WUSDC" },
+//   "WUSDC-SUI": { coinA: "WUSDC", coinB: "SUI" },
+//   "WETH-WUSDC": { coinA: "WETH", coinB: "WUSDC" },
+//   "WUSDC-WBTC": { coinA: "WUSDC", coinB: "WBTC" },
+//   "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
+//   "BUCK-WUSDC": { coinA: "BUCK", coinB: "WUSDC" },
+//   "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
+//   "ALPHA-WUSDC": { coinA: "ALPHA", coinB: "WUSDC" },
+//   "WSOL-WUSDC": { coinA: "WSOL", coinB: "WUSDC" },
+//   "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
+//   "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
+//   "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
+//   "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
+//   "USDC-USDT": { coinA: "USDC", coinB: "USDT" },
+//   "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
+//   "USDC-WUSDC": { coinA: "USDC", coinB: "WUSDC" },
+//   "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
+//   "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
+//   "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
+//   "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
+//   "BLUEFIN-USDT-USDC": { coinA: "USDT", coinB: "USDC" },
+//   "BLUEFIN-SUI-BUCK": { coinA: "SUI", coinB: "BUCK" },
+//   "BLUEFIN-AUSD-USDC": { coinA: "SUI", coinB: "AUSD" },
+// };
+
+// export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
+//   ALPHA: "ALPHA",
+//   "NAVI-VSUI": "VSUI",
+//   "NAVI-SUI": "SUI",
+//   "NAVI-WETH": "WETH",
+//   "NAVI-WUSDC": "WUSDC",
+//   "NAVI-USDT": "USDT",
+//   "NAVI-HASUI": "HASUI",
+//   "NAVI-LOOP-SUI-VSUI": "SUI",
+//   "NAVI-LOOP-USDC-USDT": "USDC",
+//   "NAVI-USDC": "USDC",
+//   "BUCKET-BUCK": "BUCK",
+//   "NAVI-USDY": "USDY",
+//   "NAVI-AUSD": "AUSD",
+//   "NAVI-ETH": "ETH",
+//   "NAVI-LOOP-HASUI-SUI": "HASUI",
+//   "NAVI-LOOP-USDT-USDC": "USDT",
+// };
+
+export const doubleAssetPoolCoinMap: {
+  [key in string]: { coin1: CoinName; coin2: CoinName };
+} = {
+  "USDT-WUSDC": { coin1: "USDT", coin2: "WUSDC" },
+  "ALPHA-SUI": { coin1: "ALPHA", coin2: "SUI" },
+  "HASUI-SUI": { coin1: "HASUI", coin2: "SUI" },
+  "USDY-WUSDC": { coin1: "USDY", coin2: "WUSDC" },
+  "WUSDC-SUI": { coin1: "WUSDC", coin2: "SUI" },
+  "WETH-WUSDC": { coin1: "WETH", coin2: "WUSDC" },
+  "WUSDC-WBTC": { coin1: "WUSDC", coin2: "WBTC" },
+  "NAVX-SUI": { coin1: "NAVX", coin2: "SUI" },
+  "BUCK-WUSDC": { coin1: "BUCK", coin2: "WUSDC" },
+  "CETUS-SUI": { coin1: "CETUS", coin2: "SUI" },
+  "ALPHA-WUSDC": { coin1: "ALPHA", coin2: "WUSDC" },
+  "WSOL-WUSDC": { coin1: "WSOL", coin2: "WUSDC" },
+  "SCA-SUI": { coin1: "SCA", coin2: "SUI" },
+  "USDC-SUI": { coin1: "USDC", coin2: "SUI" },
+  "USDC-USDT": { coin1: "USDC", coin2: "USDT" },
+  "ALPHA-USDC": { coin1: "ALPHA", coin2: "USDC" },
+  "USDC-WUSDC": { coin1: "USDC", coin2: "WUSDC" },
+  "FUD-SUI": { coin1: "FUD", coin2: "SUI" },
+  "USDC-ETH": { coin1: "USDC", coin2: "ETH" },
+  "DEEP-SUI": { coin1: "DEEP", coin2: "SUI" },
+  "BUCK-SUI": { coin1: "BUCK", coin2: "SUI" },
+  "BLUEFIN-SUI-USDC": { coin1: "SUI", coin2: "USDC" },
+  "BLUEFIN-USDT-USDC": { coin1: "USDT", coin2: "USDC" },
+  "BLUEFIN-SUI-BUCK": { coin1: "SUI", coin2: "BUCK" },
+  "BLUEFIN-AUSD-USDC": { coin1: "AUSD", coin2: "USDC" },
 };
 
-export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
-  ALPHA: "ALPHA",
-  "NAVI-VSUI": "VSUI",
-  "NAVI-SUI": "SUI",
-  "NAVI-WETH": "WETH",
-  "NAVI-WUSDC": "WUSDC",
-  "NAVI-USDT": "USDT",
-  "NAVI-HASUI": "HASUI",
-  "NAVI-LOOP-SUI-VSUI": "SUI",
-  "NAVI-LOOP-USDC-USDT": "USDC",
-  "NAVI-USDC": "USDC",
-  "BUCKET-BUCK": "BUCK",
-  "NAVI-USDY": "USDY",
-  "NAVI-AUSD": "AUSD",
-  "NAVI-ETH": "ETH",
-  "NAVI-LOOP-HASUI-SUI": "HASUI",
-  "NAVI-LOOP-USDT-USDC": "USDT",
+export const singleAssetPoolCoinMap: {
+  [key in string]: { coin: CoinName };
+} = {
+  "NAVI-SUI": { coin: "SUI" },
+  "NAVI-VSUI": { coin: "VSUI" },
+  "NAVI-WETH": { coin: "WETH" },
+  "NAVI-USDT": { coin: "USDT" },
+  "NAVI-WUSDC": { coin: "WUSDC" },
+  "NAVI-USDC": { coin: "USDC" },
+  "NAVI-HASUI": { coin: "HASUI" },
+  "NAVI-LOOP-SUI-VSUI": { coin: "VSUI" },
+  "NAVI-LOOP-USDC-USDT": { coin: "USDC" },
+  "BUCKET-BUCK": { coin: "BUCK" },
+  "NAVI-USDY": { coin: "USDY" },
+  "NAVI-AUSD": { coin: "AUSD" },
+  "NAVI-ETH": { coin: "ETH" },
+  "NAVI-LOOP-HASUI-SUI": { coin: "HASUI" },
+  "NAVI-LOOP-USDT-USDC": { coin: "USDT" },
+};
+
+export const loopingPoolCoinMap: {
+  [key in string]: { supplyCoin: CoinName; borrowCoin: CoinName };
+} = {
+  "NAVI-LOOP-HASUI-SUI": { supplyCoin: "HASUI", borrowCoin: "SUI" },
+  "NAVI-LOOP-USDT-USDC": { supplyCoin: "USDT", borrowCoin: "USDC" },
+  "NAVI-LOOP-SUI-VSUI": { supplyCoin: "VSUI", borrowCoin: "SUI" },
+  "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
+};
+
+export const naviAssetMap: {
+  [key in string]: string;
+} = {
+  SUI: "0",
+  WUSDC: "1",
+  USDT: "2",
+  WETH: "3",
+  CETUS: "4",
+  VSUI: "5",
+  HASUI: "6",
+  NAVX: "7",
+  USDC: "10",
+  USDY: "12",
+  AUSD: "9",
+  ETH: "11",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -821,10 +898,12 @@ export function coinsInPool(
   poolName: DoubleAssetPoolNames,
   event?: { type: string; event_type?: number },
 ): { coinA: CoinName; coinB: CoinName };
+
 export function coinsInPool(
   poolName: SingleAssetPoolNames,
   event?: { type: string; event_type?: number },
 ): CoinName;
+
 export function coinsInPool(
   poolName: SingleAssetPoolNames | DoubleAssetPoolNames,
   event?: { type: string; event_type?: number },
@@ -841,13 +920,13 @@ export function coinsInPool(
     }
     return "VSUI";
   }
-  const singleAsset = poolCoinMap[poolName as SingleAssetPoolNames];
-  const doubleAsset = poolCoinPairMap[poolName as DoubleAssetPoolNames];
+  const singleAsset = singleAssetPoolCoinMap[poolName];
+  const doubleAsset = doubleAssetPoolCoinMap[poolName];
   if (singleAsset) {
-    return singleAsset;
+    return singleAsset.coin;
   }
   if (doubleAsset) {
-    return doubleAsset;
+    return { coinA: doubleAsset.coin1, coinB: doubleAsset.coin2 };
   }
   console.error("poolName: ", poolName);
   throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
@@ -1090,13 +1169,7 @@ export async function getCetusInvestorTicksMap(): Promise<{
 
 export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
   const coinNameToPriceMap = new Map<CoinName, string>();
-
-  const coinsSet = new Set<CoinName>(Object.values(poolCoinMap));
-  Object.values(poolCoinPairMap).map(({ coinA: coin1, coinB: coin2 }) => {
-    coinsSet.add(coin1);
-    coinsSet.add(coin2);
-  });
-  const coins = Array.from(coinsSet);
+  const coins = Object.keys(coinsList);
   const pricePairs = coins.map((coinName) => {
     return `${coinName}/USD` as PythPriceIdPair;
   });

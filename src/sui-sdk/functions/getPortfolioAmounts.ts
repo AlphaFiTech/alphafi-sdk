@@ -1,7 +1,6 @@
 import { SuiClient } from "@mysten/sui/client";
 import { Decimal } from "decimal.js";
 import {
-  CoinName,
   PoolName,
   DoubleAssetPoolNames,
   NaviInvestor,
@@ -17,8 +16,11 @@ import {
   fetchVoloExchangeRate,
 } from "./getReceipts.js";
 import { SimpleCache } from "../../utils/simpleCache.js";
-import { coins } from "../../common/coins.js";
-import { poolCoinMap, poolCoinPairMap } from "../../common/maps.js";
+import { coinsList } from "../../common/coins.js";
+import {
+  singleAssetPoolCoinMap,
+  doubleAssetPoolCoinMap,
+} from "../../common/maps.js";
 import { PythPriceIdPair } from "../../common/pyth.js";
 import { getAlphaPrice } from "../../utils/clmm/prices.js";
 import { getLatestPrices } from "../../utils/prices.js";
@@ -162,15 +164,14 @@ export async function getDoubleAssetPortfolioAmountInUSD(
     const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
     if (amounts !== undefined) {
       const ten = new Decimal(10);
-      const pool1 = poolCoinPairMap[poolName as DoubleAssetPoolNames]
-        .coinA as CoinName;
-      const pool2 = poolCoinPairMap[poolName as DoubleAssetPoolNames]
-        .coinB as CoinName;
+      const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+      const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+
       const amount0 = new Decimal(amounts[0]).div(
-        ten.pow(coins[pool1 as CoinName].expo),
+        ten.pow(coinsList[pool1].expo),
       );
       const amount1 = new Decimal(amounts[1]).div(
-        ten.pow(coins[pool2 as CoinName].expo),
+        ten.pow(coinsList[pool2].expo),
       );
       const tokens = poolName.split("-");
       const [priceOfCoin0, priceOfCoin1] = await getLatestPrices(
@@ -261,7 +262,10 @@ export async function getSingleAssetPortfolioAmount(
               .mul(tokensInvested)
               .div(xTokenSupplyInPool);
             const tokens = userTokens.div(
-              Math.pow(10, 9 - coins[poolCoinMap[poolName]].expo),
+              Math.pow(
+                10,
+                9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
+              ),
             );
             if (poolName == "NAVI-LOOP-SUI-VSUI") {
               // const { SevenKGateway } = await import("../");
@@ -294,8 +298,7 @@ export async function getSingleAssetPortfolioAmount(
             tokens = tokens.div(
               Math.pow(
                 10,
-                9 -
-                  coins[poolCoinMap[poolName as keyof typeof poolCoinMap]].expo,
+                9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
               ),
             );
             portfolioAmount = tokens.toNumber();
@@ -342,16 +345,11 @@ export async function getSingleAssetPortfolioAmountInUSD(
   if (amounts !== undefined) {
     const amount = new Decimal(amounts).div(
       new Decimal(
-        Math.pow(
-          10,
-          coins[poolCoinMap[poolName as keyof typeof poolCoinMap]].expo,
-        ),
+        Math.pow(10, coinsList[singleAssetPoolCoinMap[poolName].coin].expo),
       ),
     );
     const [priceOfCoin] = await getLatestPrices(
-      [
-        `${poolCoinMap[poolName as keyof typeof poolCoinMap]}/USD` as PythPriceIdPair,
-      ],
+      [`${singleAssetPoolCoinMap[poolName].coin}/USD` as PythPriceIdPair],
       false,
     );
     if (priceOfCoin) {

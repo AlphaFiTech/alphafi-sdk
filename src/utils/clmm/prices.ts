@@ -12,7 +12,7 @@ import {
 import BN from "bn.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { Coin } from "../../common/types.js";
-import { coins } from "../../common/coins.js";
+import { coinsList } from "../../common/coins.js";
 import { CetusSwapOptions, CreatePoolOptions } from "./types.js";
 import { cetusMainnetSDKOptions } from "../../common/cetus_mainnet_config.js";
 import { getLatestPrices } from "../prices.js";
@@ -129,7 +129,7 @@ export async function getAlphaPrice(
     cachedPromise = (async (): Promise<number> => {
       const cetusGateway = new CetusGateway(cetusMainnetSDKOptions);
       const swapOption: CetusSwapOptions = {
-        pair: { coinA: coins.ALPHA, coinB: coins.SUI },
+        pair: { coinA: coinsList.ALPHA, coinB: coinsList.SUI },
         senderAddress:
           "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
         slippage: 1,
@@ -158,7 +158,7 @@ export async function getAlphaPrice(
 export async function getUSDYPrice(): Promise<number | undefined> {
   const cetusGateway = new CetusGateway(cetusMainnetSDKOptions);
   const swapOption: CetusSwapOptions = {
-    pair: { coinA: coins.USDY, coinB: coins.USDC },
+    pair: { coinA: coinsList.USDY, coinB: coinsList.USDC },
     senderAddress:
       "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
     slippage: 1,
@@ -176,7 +176,7 @@ export async function getUSDYPrice(): Promise<number | undefined> {
 export async function getBUCKPrice(): Promise<number | undefined> {
   const cetusGateway = new CetusGateway(cetusMainnetSDKOptions);
   const swapOption: CetusSwapOptions = {
-    pair: { coinA: coins.BUCK, coinB: coins.USDC },
+    pair: { coinA: coinsList.BUCK, coinB: coinsList.USDC },
     senderAddress:
       "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
     slippage: 1,
@@ -320,14 +320,14 @@ export class CetusGateway {
   ): Promise<Transaction> {
     console.log(
       d(options.initializePrice),
-      coins[options.coinNameA].expo,
-      coins[options.coinNameB].expo,
+      coinsList[options.coinNameA].expo,
+      coinsList[options.coinNameB].expo,
     );
 
     const initializeSqrtPrice = TickMath.priceToSqrtPriceX64(
       d(options.initializePrice),
-      coins[options.coinNameA].expo,
-      coins[options.coinNameB].expo,
+      coinsList[options.coinNameA].expo,
+      coinsList[options.coinNameB].expo,
     ).toString();
 
     const current_tick_index = TickMath.sqrtPriceX64ToTickIndex(
@@ -366,8 +366,8 @@ export class CetusGateway {
       : options.amount;
 
     console.log({
-      coinTypeA: coins[options.coinNameA].type,
-      coinTypeB: coins[options.coinNameB].type,
+      coinTypeA: coinsList[options.coinNameA].type,
+      coinTypeB: coinsList[options.coinNameB].type,
       tick_spacing: options.tickSpacing,
       initialize_sqrt_price: `${initializeSqrtPrice}`,
       uri: options.imageUrl,
@@ -380,8 +380,8 @@ export class CetusGateway {
 
     // build creatPoolPayload Payload
     const txb = this.cetusSDK.Pool.creatPoolTransactionPayload({
-      coinTypeA: coins[options.coinNameA].type,
-      coinTypeB: coins[options.coinNameB].type,
+      coinTypeA: coinsList[options.coinNameA].type,
+      coinTypeB: coinsList[options.coinNameB].type,
       tick_spacing: options.tickSpacing,
       initialize_sqrt_price: `${initializeSqrtPrice}`,
       uri: options.imageUrl,

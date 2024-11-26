@@ -1,10 +1,7 @@
-// import { CONF_ENV, conf } from "../constants";
-// import { Coin, CoinName, CoinType } from "./types.js";
-
 import { conf, CONF_ENV } from "./constants.js";
 import { Coin, CoinName, CoinType } from "./types.js";
 
-export const coins: { [key in CoinName]: Coin } = {
+export const coinsList: { [key in CoinName]: Coin } = {
   ALPHA: {
     name: "ALPHA",
     type: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
@@ -17,15 +14,15 @@ export const coins: { [key in CoinName]: Coin } = {
     icon: "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg",
     expo: 9,
   },
-  WUSDC: {
-    name: "WUSDC",
-    type: "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
-    icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
-    expo: 6,
-  },
   USDC: {
     name: "USDC",
     type: "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
+    expo: 6,
+  },
+  WUSDC: {
+    name: "WUSDC",
+    type: "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
     icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
     expo: 6,
   },
@@ -97,7 +94,7 @@ export const coins: { [key in CoinName]: Coin } = {
   },
   WBTC: {
     name: "WBTC",
-    type: "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+    type: "0x27792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
     icon: "https://coinmeta.polymedia.app/img/coins/0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881-coin-COIN.webp",
     expo: 8,
   },
