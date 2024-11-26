@@ -5,11 +5,7 @@ import {
   PoolName,
   SingleAssetPoolNames,
 } from "../../index.js";
-import {
-  poolCoinMap,
-  poolCoinPairMap,
-  poolInfo,
-} from "../../common/maps.js";
+import { poolCoinMap, poolCoinPairMap, poolInfo } from "../../common/maps.js";
 import { getReceipts } from "./getReceipts.js";
 
 export async function fetchUserVaults(

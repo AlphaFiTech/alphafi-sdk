@@ -79,43 +79,48 @@ export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
   "NAVI-LOOP-USDT-USDC": "USDT",
 };
 
-// FUNCTION OVERLOADS!
-// verify if there is event_type anywhere else
-export function coinsInPool(
-  poolName: DoubleAssetPoolNames,
-  event?: { type: string; event_type?: number },
-): { coinA: CoinName; coinB: CoinName };
-export function coinsInPool(
-  poolName: SingleAssetPoolNames,
-  event?: { type: string; event_type?: number },
-): CoinName;
-export function coinsInPool(
-  poolName: SingleAssetPoolNames | DoubleAssetPoolNames,
-  event?: { type: string; event_type?: number },
-): { coinA: CoinName; coinB: CoinName } | CoinName {
-  // Special case for "NAVI-LOOP-SUI-VSUI"
-  if (poolName === "NAVI-LOOP-SUI-VSUI") {
-    if (
-      event &&
-      event.type ===
-        conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT &&
-      event.event_type === 0
-    ) {
-      return "SUI";
-    }
-    return "VSUI";
-  }
-  const singleAsset = poolCoinMap[poolName as SingleAssetPoolNames];
-  const doubleAsset = poolCoinPairMap[poolName as DoubleAssetPoolNames];
-  if (singleAsset) {
-    return singleAsset;
-  }
-  if (doubleAsset) {
-    return doubleAsset;
-  }
-  console.error("poolName: ", poolName);
-  throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
-}
+export const cetusPoolMap: { [key: string]: string } = {
+  "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
+  "USDC-SUI": conf[CONF_ENV].USDC_SUI_CETUS_POOL_ID,
+  "USDC-USDT": conf[CONF_ENV].USDC_USDT_CETUS_POOL_ID,
+  "CETUS-SUI": conf[CONF_ENV].CETUS_SUI_CETUS_POOL_ID,
+  "USDT-WUSDC": conf[CONF_ENV].USDT_WUSDC_CETUS_POOL_ID,
+  "USDY-WUSDC": conf[CONF_ENV].USDY_WUSDC_CETUS_POOL_ID,
+  "HASUI-SUI": conf[CONF_ENV].HASUI_SUI_CETUS_POOL_ID,
+  "ALPHA-SUI": conf[CONF_ENV].ALPHA_SUI_CETUS_POOL_ID,
+  "WETH-WUSDC": conf[CONF_ENV].WETH_WUSDC_CETUS_POOL_ID,
+  "WUSDC-WBTC": conf[CONF_ENV].WUSDC_WBTC_CETUS_POOL_ID,
+  "VSUI-SUI": conf[CONF_ENV].VSUI_SUI_CETUS_POOL_ID,
+  "NAVX-SUI": conf[CONF_ENV].NAVX_SUI_CETUS_POOL_ID,
+  "WUSDC-CETUS": conf[CONF_ENV].WUSDC_CETUS_CETUS_POOL_ID,
+  "BUCK-WUSDC": conf[CONF_ENV].BUCK_WUSDC_CETUS_POOL_ID,
+  "ALPHA-WUSDC": conf[CONF_ENV].ALPHA_WUSDC_CETUS_POOL_ID,
+  "WSOL-WUSDC": conf[CONF_ENV].WSOL_WUSDC_CETUS_POOL_ID,
+  "SCA-SUI": conf[CONF_ENV].SCA_SUI_CETUS_POOL_ID,
+  "ALPHA-USDC": conf[CONF_ENV].ALPHA_USDC_CETUS_POOL_ID,
+  "USDC-WUSDC": conf[CONF_ENV].USDC_WUSDC_CETUS_POOL_ID,
+  "FUD-SUI": conf[CONF_ENV].FUD_SUI_CETUS_POOL_ID,
+  "USDC-ETH": conf[CONF_ENV].USDC_ETH_CETUS_POOL_ID,
+  "DEEP-SUI": conf[CONF_ENV].DEEP_SUI_CETUS_POOL_ID,
+  "BUCK-SUI": conf[CONF_ENV].BUCK_SUI_CETUS_POOL_ID,
+  "USDC-BUCK": conf[CONF_ENV].USDC_BUCK_CETUS_POOL_ID,
+  "USDC-AUSD": conf[CONF_ENV].USDC_AUSD_CETUS_POOL_ID,
+};
+
+export const bluefinPoolMap: { [key: string]: string } = {
+  "SUI-USDC": conf[CONF_ENV].BLUEFIN_SUI_USDC_POOL,
+  "DEEP-SUI": conf[CONF_ENV].BLUEFIN_DEEP_SUI_POOL,
+  "USDT-USDC": conf[CONF_ENV].BLUEFIN_USDT_USDC_POOL,
+  "SUI-BUCK": conf[CONF_ENV].BLUEFIN_SUI_BUCK_POOL,
+  "AUSD-USDC": conf[CONF_ENV].BLUEFIN_AUSD_USDC_POOL,
+};
+
+export const loopingAccountAddresses: { [key: string]: string } = {
+  "NAVI-LOOP-USDC-USDT": conf[CONF_ENV].NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS,
+  "NAVI-LOOP-USDT-USDC": conf[CONF_ENV].NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS,
+  "NAVI-LOOP-SUI-VSUI": conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS,
+  "NAVI-LOOP-HASUI-SUI": conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS,
+};
 
 export const poolInfo: {
   [key: string]: {
@@ -136,6 +141,8 @@ export const poolInfo: {
   };
 } = {
   "BLUEFIN-AUSD-USDC": {
+    packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
+    packageNumber: 4,
     parentProtocolName: "BLUEFIN",
     parentPoolId: conf[CONF_ENV].BLUEFIN_AUSD_USDC_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL,
@@ -808,6 +815,44 @@ export const poolInfo: {
   // },
 };
 
+// FUNCTION OVERLOADS!
+// verify if there is event_type anywhere else
+export function coinsInPool(
+  poolName: DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName };
+export function coinsInPool(
+  poolName: SingleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): CoinName;
+export function coinsInPool(
+  poolName: SingleAssetPoolNames | DoubleAssetPoolNames,
+  event?: { type: string; event_type?: number },
+): { coinA: CoinName; coinB: CoinName } | CoinName {
+  // Special case for "NAVI-LOOP-SUI-VSUI"
+  if (poolName === "NAVI-LOOP-SUI-VSUI") {
+    if (
+      event &&
+      event.type ===
+        conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT &&
+      event.event_type === 0
+    ) {
+      return "SUI";
+    }
+    return "VSUI";
+  }
+  const singleAsset = poolCoinMap[poolName as SingleAssetPoolNames];
+  const doubleAsset = poolCoinPairMap[poolName as DoubleAssetPoolNames];
+  if (singleAsset) {
+    return singleAsset;
+  }
+  if (doubleAsset) {
+    return doubleAsset;
+  }
+  console.error("poolName: ", poolName);
+  throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
+}
+
 export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
   const investorIdToPoolNameMap = new Map<string, PoolName>();
 
@@ -1071,16 +1116,6 @@ export const parentPoolMap: { [key: string]: string } = (() => {
   Object.entries(poolInfo).map(([poolName, info]) => {
     result[poolName] = info.parentPoolId;
   });
-  return result;
-})();
-
-export const cetusPoolMap: { [key: string]: string } = (() => {
-  const result: { [key: string]: string } = Object.fromEntries(
-    Object.entries(parentPoolMap).filter(([poolName]) => {
-      if (poolInfo[poolName].parentProtocolName === "CETUS") return true;
-      return false;
-    }),
-  );
   return result;
 })();
 
