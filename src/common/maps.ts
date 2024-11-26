@@ -57,6 +57,7 @@ export const poolCoinPairMap: Record<
   "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
   "BLUEFIN-USDT-USDC": { coinA: "USDT", coinB: "USDC" },
   "BLUEFIN-SUI-BUCK": { coinA: "SUI", coinB: "BUCK" },
+  "BLUEFIN-AUSD-USDC": { coinA: "SUI", coinB: "AUSD" },
 };
 
 export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
@@ -134,6 +135,21 @@ export const poolInfo: {
     strategyType?: StrategyType;
   };
 } = {
+  "BLUEFIN-AUSD-USDC": {
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_AUSD_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "BLUEFIN-SUI-BUCK": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
