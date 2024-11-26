@@ -3,13 +3,6 @@ import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
-export type ParentProtocolName =
-  | "ALPHAFI"
-  | "CETUS"
-  | "NAVI"
-  | "BUCKET"
-  | "BLUEFIN";
-
 export type PoolName =
   | "ALPHA"
   | "HASUI-SUI"

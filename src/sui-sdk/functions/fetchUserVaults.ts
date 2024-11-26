@@ -1,11 +1,11 @@
 import {
   AlphaFiVault,
+  coins,
   DoubleAssetPoolNames,
   PoolName,
   SingleAssetPoolNames,
 } from "../../index.js";
 import {
-  coinNameTypeMap,
   poolCoinMap,
   poolCoinPairMap,
   poolInfo,
@@ -33,7 +33,7 @@ export async function fetchUserVaults(
             receiptName: name,
             receiptType: receipt[0].content.type,
             coinName: coin,
-            coinType: coinNameTypeMap[coin],
+            coinType: coins[coin].type,
           };
         } else if (poolInfo[pool].parentProtocolName === "CETUS") {
           const coinA = poolCoinPairMap[pool as DoubleAssetPoolNames].coinA;
@@ -44,9 +44,9 @@ export async function fetchUserVaults(
             receiptName: name,
             receiptType: receipt[0].content.type,
             coinNameA: coinA,
-            coinTypeA: coinNameTypeMap[coinA],
+            coinTypeA: coins[coinA].type,
             coinNameB: coinB,
-            coinTypeB: coinNameTypeMap[coinB],
+            coinTypeB: coins[coinB].type,
           };
         }
         if (res) vaultsArr.push(res);
