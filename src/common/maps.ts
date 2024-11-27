@@ -29,57 +29,6 @@ export const stableCoins = [
   "BUCK",
 ];
 
-// export const poolCoinPairMap: Record<
-//   DoubleAssetPoolNames,
-//   { coinA: CoinName; coinB: CoinName }
-// > = {
-//   "USDT-WUSDC": { coinA: "USDT", coinB: "WUSDC" },
-//   "ALPHA-SUI": { coinA: "ALPHA", coinB: "SUI" },
-//   "HASUI-SUI": { coinA: "HASUI", coinB: "SUI" },
-//   "USDY-WUSDC": { coinA: "USDY", coinB: "WUSDC" },
-//   "WUSDC-SUI": { coinA: "WUSDC", coinB: "SUI" },
-//   "WETH-WUSDC": { coinA: "WETH", coinB: "WUSDC" },
-//   "WUSDC-WBTC": { coinA: "WUSDC", coinB: "WBTC" },
-//   "NAVX-SUI": { coinA: "NAVX", coinB: "SUI" },
-//   "BUCK-WUSDC": { coinA: "BUCK", coinB: "WUSDC" },
-//   "CETUS-SUI": { coinA: "CETUS", coinB: "SUI" },
-//   "ALPHA-WUSDC": { coinA: "ALPHA", coinB: "WUSDC" },
-//   "WSOL-WUSDC": { coinA: "WSOL", coinB: "WUSDC" },
-//   "FUD-SUI": { coinA: "FUD", coinB: "SUI" },
-//   "BLUB-SUI": { coinA: "BLUB", coinB: "SUI" },
-//   "SCA-SUI": { coinA: "SCA", coinB: "SUI" },
-//   "USDC-SUI": { coinA: "USDC", coinB: "SUI" },
-//   "USDC-USDT": { coinA: "USDC", coinB: "USDT" },
-//   "ALPHA-USDC": { coinA: "ALPHA", coinB: "USDC" },
-//   "USDC-WUSDC": { coinA: "USDC", coinB: "WUSDC" },
-//   "USDC-ETH": { coinA: "USDC", coinB: "ETH" },
-//   "DEEP-SUI": { coinA: "DEEP", coinB: "SUI" },
-//   "BUCK-SUI": { coinA: "BUCK", coinB: "SUI" },
-//   "BLUEFIN-SUI-USDC": { coinA: "SUI", coinB: "USDC" },
-//   "BLUEFIN-USDT-USDC": { coinA: "USDT", coinB: "USDC" },
-//   "BLUEFIN-SUI-BUCK": { coinA: "SUI", coinB: "BUCK" },
-//   "BLUEFIN-AUSD-USDC": { coinA: "SUI", coinB: "AUSD" },
-// };
-
-// export const poolCoinMap: Record<SingleAssetPoolNames, CoinName> = {
-//   ALPHA: "ALPHA",
-//   "NAVI-VSUI": "VSUI",
-//   "NAVI-SUI": "SUI",
-//   "NAVI-WETH": "WETH",
-//   "NAVI-WUSDC": "WUSDC",
-//   "NAVI-USDT": "USDT",
-//   "NAVI-HASUI": "HASUI",
-//   "NAVI-LOOP-SUI-VSUI": "SUI",
-//   "NAVI-LOOP-USDC-USDT": "USDC",
-//   "NAVI-USDC": "USDC",
-//   "BUCKET-BUCK": "BUCK",
-//   "NAVI-USDY": "USDY",
-//   "NAVI-AUSD": "AUSD",
-//   "NAVI-ETH": "ETH",
-//   "NAVI-LOOP-HASUI-SUI": "HASUI",
-//   "NAVI-LOOP-USDT-USDC": "USDT",
-// };
-
 export const doubleAssetPoolCoinMap: {
   [key in string]: { coin1: CoinName; coin2: CoinName };
 } = {
