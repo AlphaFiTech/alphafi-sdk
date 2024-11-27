@@ -62,6 +62,7 @@ export const doubleAssetPoolCoinMap: {
 export const singleAssetPoolCoinMap: {
   [key in string]: { coin: CoinName };
 } = {
+  ALPHA: { coin: "ALPHA" },
   "NAVI-SUI": { coin: "SUI" },
   "NAVI-VSUI": { coin: "VSUI" },
   "NAVI-WETH": { coin: "WETH" },
@@ -1057,40 +1058,55 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
 }
 
 // Pagination needed for more than 50 pools
+// DEPRECATED
 export async function getCetusSqrtPriceMap(): Promise<Map<PoolName, string>> {
-  const poolNameToSqrtPriceMap = new Map<PoolName, string>();
+  const sqrtPriceMap = await getLiquidityPoolSqrtPriceMap();
+  return sqrtPriceMap;
+}
 
-  const cetusPools = Object.keys(poolInfo)
-    .filter((poolName) => poolInfo[poolName].parentProtocolName === "CETUS")
-    .map((poolName) => {
-      return parentPoolMap[poolName];
-    });
+// Pagination needed for more than 50 pools
+// DEPRECATED
+export async function getCetusInvestorTicksMap(): Promise<{
+  [pool in PoolName]?: { lower: string; upper: string };
+}> {
+  const investorTicksMap = getLiquidityPoolInvestorTicksMap();
+  return investorTicksMap;
+}
+
+export async function getLiquidityPoolSqrtPriceMap(): Promise<
+  Map<DoubleAssetPoolNames, string>
+> {
+  const poolNameToSqrtPriceMap = new Map<DoubleAssetPoolNames, string>();
+
+  const liquidityPools = Object.keys(poolInfo)
+    .filter((poolName) =>
+      ["CETUS", "BLUEFIN"].includes(poolInfo[poolName].parentProtocolName),
+    )
+    .map((poolName) => parentPoolMap[poolName]);
   const suiClient = getSuiClient();
   const res = await suiClient.multiGetObjects({
-    ids: cetusPools,
+    ids: liquidityPools,
     options: {
       showContent: true,
     },
   });
   for (const poolRawData of res) {
-    const poolDetails = poolRawData.data as CetusPoolType;
+    const poolDetails = poolRawData.data as CetusPoolType; // BLUEFIN pool type same as cetus pool type
     const poolId = poolDetails.objectId;
-    const pool = Object.keys(parentPoolMap).find(
+    const poolName = Object.keys(parentPoolMap).find(
       (key) => parentPoolMap[key] === poolId,
     );
     const sqrtPrice = poolDetails.content.fields.current_sqrt_price;
-    poolNameToSqrtPriceMap.set(pool as PoolName, sqrtPrice);
+    poolNameToSqrtPriceMap.set(poolName as DoubleAssetPoolNames, sqrtPrice);
   }
-
   return poolNameToSqrtPriceMap;
 }
 
-// Pagination needed for more than 50 pools
-export async function getCetusInvestorTicksMap(): Promise<{
-  [pool in PoolName]?: { lower: string; upper: string };
+export async function getLiquidityPoolInvestorTicksMap(): Promise<{
+  [pool in DoubleAssetPoolNames]?: { lower: string; upper: string };
 }> {
   const investorIdToTicksMap: {
-    [pool in PoolName]?: { lower: string; upper: string };
+    [pool in DoubleAssetPoolNames]?: { lower: string; upper: string };
   } = {};
 
   const investorPoolMap = await getInvestorPoolMap();
@@ -1103,11 +1119,11 @@ export async function getCetusInvestorTicksMap(): Promise<{
     },
   });
   for (const investorRawData of res) {
-    const investorDetails = investorRawData.data as CetusInvestor;
+    const investorDetails = investorRawData.data as CetusInvestor; // BLUEFIN investor same as cetus investor
     const lower_tick = investorDetails.content.fields.lower_tick;
     const upper_tick = investorDetails.content.fields.upper_tick;
     const pool = investorPoolMap.get(investorDetails.objectId) as string;
-    investorIdToTicksMap[pool as PoolName] = {
+    investorIdToTicksMap[pool as DoubleAssetPoolNames] = {
       lower: lower_tick,
       upper: upper_tick,
     };
