@@ -1,13 +1,7 @@
+import { AlphaFiVault, coinsList, PoolName } from "../../index.js";
 import {
-  AlphaFiVault,
-  DoubleAssetPoolNames,
-  PoolName,
-  SingleAssetPoolNames,
-} from "../../index.js";
-import {
-  coinNameTypeMap,
-  poolCoinMap,
-  poolCoinPairMap,
+  singleAssetPoolCoinMap,
+  doubleAssetPoolCoinMap,
   poolInfo,
 } from "../../common/maps.js";
 import { getReceipts } from "./getReceipts.js";
@@ -26,27 +20,27 @@ export async function fetchUserVaults(
           poolInfo[pool].parentProtocolName === "ALPHAFI" ||
           poolInfo[pool].parentProtocolName === "NAVI"
         ) {
-          const coin = poolCoinMap[pool as SingleAssetPoolNames];
+          const coin = singleAssetPoolCoinMap[pool].coin;
           res = {
             poolId: poolInfo[pool].poolId,
             poolName: pool as PoolName,
             receiptName: name,
             receiptType: receipt[0].content.type,
             coinName: coin,
-            coinType: coinNameTypeMap[coin],
+            coinType: coinsList[coin].type,
           };
         } else if (poolInfo[pool].parentProtocolName === "CETUS") {
-          const coinA = poolCoinPairMap[pool as DoubleAssetPoolNames].coinA;
-          const coinB = poolCoinPairMap[pool as DoubleAssetPoolNames].coinB;
+          const coinA = doubleAssetPoolCoinMap[pool].coin1;
+          const coinB = doubleAssetPoolCoinMap[pool].coin2;
           res = {
             poolId: poolInfo[pool].poolId,
             poolName: pool as PoolName,
             receiptName: name,
             receiptType: receipt[0].content.type,
             coinNameA: coinA,
-            coinTypeA: coinNameTypeMap[coinA],
+            coinTypeA: coinsList[coinA].type,
             coinNameB: coinB,
-            coinTypeB: coinNameTypeMap[coinB],
+            coinTypeB: coinsList[coinB].type,
           };
         }
         if (res) vaultsArr.push(res);

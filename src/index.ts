@@ -72,17 +72,22 @@ export {
   getCetusInvestorTicksMap,
   getInvestorPoolMap,
   getPoolExchangeRateMap,
-  poolCoinMap,
-  poolCoinPairMap,
   defunctPoolsSet,
   poolIdPoolNameMap,
   coinsInPool,
   stableCoins,
+  cetusPoolMap,
+  bluefinPoolMap,
+  loopingAccountAddresses,
+  doubleAssetPoolCoinMap,
+  singleAssetPoolCoinMap,
+  loopingPoolCoinMap,
+  naviAssetMap,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
 
-export { coins } from "./common/coins.js";
+export { coinsList } from "./common/coins.js";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
 

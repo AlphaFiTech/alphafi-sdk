@@ -1,7 +1,7 @@
-import { coins } from "../../common/coins.js";
+import { coinsList } from "../../common/coins.js";
 import {
   getInvestorPoolMap,
-  poolCoinMap,
+  singleAssetPoolCoinMap,
   poolInfo,
 } from "../../common/maps.js";
 import { PoolName, SingleAssetPoolNames } from "../../common/types.js";
@@ -9,7 +9,6 @@ import { fetchEvents } from "./fetchEvents.js";
 import {
   AutoCompoundingEventNode,
   FetchAutoCompoundingEventsParams,
-  //RebalanceEventNode,
 } from "./types.js";
 
 export async function fetchAutoCompoundingEvents(
@@ -275,9 +274,9 @@ export async function calculateAprForInvestor(
         const poolName = investorPoolMap.get(
           event.investor_id,
         ) as SingleAssetPoolNames;
-        const coinName = poolCoinMap[poolName];
+        const coinName = singleAssetPoolCoinMap[poolName].coin;
 
-        growthRate = growthRate * Math.pow(10, 9 - coins[coinName].expo);
+        growthRate = growthRate * Math.pow(10, 9 - coinsList[coinName].expo);
         // if (event.investor_id === matchInvestor) {
         //   console.log(
         //     `${event.compound_amount},${event.total_amount},${growthRate},${event.timestamp},${(event.timestamp - previousTimestamp) / (1000 * 60)}`,

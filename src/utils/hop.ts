@@ -9,7 +9,7 @@ import { SwapOptions } from "../common/types.js";
 import { conf, CONF_ENV } from "../common/constants.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { getSuiNodeUrl } from "../sui-sdk/client.js";
-import { coins } from "../common/coins.js";
+import { coinsList } from "../common/coins.js";
 import { getLatestPrices } from "./prices.js";
 import BN from "bn.js";
 
@@ -98,7 +98,7 @@ export async function getBlubPrice(): Promise<number | undefined> {
   const hopGateway = new HopGateway(hopSDKOptions);
 
   const swapOptions: HopSwapOptions = {
-    pair: { coinA: coins.BLUB, coinB: coins.USDC },
+    pair: { coinA: coinsList.BLUB, coinB: coinsList.USDC },
     senderAddress:
       "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
     inAmount: new BN(1_000_000_000),
@@ -120,7 +120,7 @@ export async function getFudPrice(): Promise<number | undefined> {
   const hopGateway = new HopGateway(hopSDKOptions);
 
   const swapOptions: HopSwapOptions = {
-    pair: { coinA: coins.FUD, coinB: coins.USDC },
+    pair: { coinA: coinsList.FUD, coinB: coinsList.USDC },
     senderAddress:
       "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
     inAmount: new BN(1_000_000_000_000),
@@ -141,7 +141,7 @@ export async function getWsolPrice(): Promise<number | undefined> {
   const hopGateway = new HopGateway(hopSDKOptions);
 
   const swapOptions: HopSwapOptions = {
-    pair: { coinA: coins.WSOL, coinB: coins.USDC },
+    pair: { coinA: coinsList.WSOL, coinB: coinsList.USDC },
     senderAddress:
       "0x4260738f0f7341adc79a8edaa62f8a4681ebd27c595aecab1f322f47bfc52c5e",
     inAmount: new BN(1_000_000_00),

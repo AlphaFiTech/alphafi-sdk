@@ -1,10 +1,10 @@
 import { SuiEvent, SuiTransactionBlockResponse } from "@mysten/sui/client";
-import { parentPoolMap, poolCoinMap, poolInfo } from "../../common/maps.js";
 import {
-  CoinName,
-  PoolName,
-  SingleAssetPoolNames,
-} from "../../common/types.js";
+  parentPoolMap,
+  singleAssetPoolCoinMap,
+  poolInfo,
+} from "../../common/maps.js";
+import { CoinName, PoolName } from "../../common/types.js";
 import { fetchEvents } from "./fetchEvents.js";
 import {
   AfterTransactionEventNode,
@@ -15,7 +15,7 @@ import {
 } from "./types.js";
 import { getSuiClient } from "../client.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
-import { coins } from "../../common/coins.js";
+import { coinsList } from "../../common/coins.js";
 
 export async function fetchAfterTransactionEvents(params: {
   startTime: number;
@@ -126,11 +126,11 @@ export async function fetchAfterTransactionEvents(params: {
             "0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
               ? "0x2::sui::SUI"
               : `0x${eventJson.pool}`;
-          const coinName = Object.keys(coins).find(
-            (coin) => coins[coin as CoinName].type === naviCoinId,
+          const coinName = Object.keys(coinsList).find(
+            (coin) => coinsList[coin as CoinName].type === naviCoinId,
           );
-          const poolName = Object.keys(poolCoinMap).find(
-            (pool) => poolCoinMap[pool as SingleAssetPoolNames] === coinName,
+          const poolName = Object.keys(singleAssetPoolCoinMap).find(
+            (pool) => singleAssetPoolCoinMap[pool].coin === coinName,
           );
           if (!poolName) {
             console.error("for event: ", otherEvent);
