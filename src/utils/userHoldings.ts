@@ -1,11 +1,11 @@
 import {
   getPoolExchangeRateMap,
-  getCetusInvestorTicksMap,
-  getCetusSqrtPriceMap,
   doubleAssetPoolCoinMap,
   singleAssetPoolCoinMap,
   poolInfo,
   coinsInPool,
+  getLiquidityPoolSqrtPriceMap,
+  getLiquidityPoolInvestorTicksMap,
 } from "../common/maps.js";
 import {
   DoubleAssetTokenHoldings,
@@ -47,8 +47,8 @@ export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
 }
 
 export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
-  const sqrtPriceCetusMap = await getCetusSqrtPriceMap();
-  const ticksCetusMap = await getCetusInvestorTicksMap();
+  const sqrtPriceCetusMap = await getLiquidityPoolSqrtPriceMap();
+  const ticksCetusMap = await getLiquidityPoolInvestorTicksMap();
   let tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] =
     holdings.map((holdingsObj) => {
       const tokens = liquidityToTokens({
@@ -87,7 +87,9 @@ export function liquidityToTokens(
     );
   } else if (params.poolName === "ALPHA") {
     holdingUSD = alphaLiquidityToTokens(params.liquidity);
-  } else if (poolInfo[params.poolName].parentProtocolName === "CETUS") {
+  } else if (
+    ["CETUS", "BLUEFIN"].includes(poolInfo[params.poolName].parentProtocolName)
+  ) {
     const [holdingA, holdingB] = doubleAssetliquidityToTokens(params);
     return [holdingA, holdingB];
   } else if (poolInfo[params.poolName].parentProtocolName === "BUCKET") {
@@ -150,7 +152,7 @@ function doubleAssetliquidityToTokens(params: {
   const amount2 = new Decimal(coinAmounts[1]).div(
     ten.pow(coinsList[coin2].expo),
   );
-  return [amount1.toFixed(5).toString(), amount2.toFixed(4).toString()];
+  return [amount1.toFixed(5).toString(), amount2.toFixed(5).toString()];
 }
 
 function alphaLiquidityToTokens(liquidity: string) {
