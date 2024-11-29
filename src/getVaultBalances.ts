@@ -195,3 +195,7 @@ export async function getDoubleAssetVaultBalance(
   const vaultBalance = await getVaultBalance(address, poolName);
   return vaultBalance as DoubleAssetVaultBalance;
 }
+
+export async function getAllVaultBalances(address: string) {
+  
+}

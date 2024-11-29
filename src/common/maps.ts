@@ -4,6 +4,7 @@ import {
   CetusInvestor,
   CetusPoolType,
   CoinName,
+  CommonInvestorFields,
   DoubleAssetPoolNames,
   PoolName,
   PoolReceipt,
@@ -1119,7 +1120,8 @@ export async function getLiquidityPoolInvestorTicksMap(): Promise<{
     },
   });
   for (const investorRawData of res) {
-    const investorDetails = investorRawData.data as CetusInvestor; // BLUEFIN investor same as cetus investor
+    const investorDetails = investorRawData.data as unknown as CetusInvestor &
+      CommonInvestorFields; // BLUEFIN investor same as cetus investor
     const lower_tick = investorDetails.content.fields.lower_tick;
     const upper_tick = investorDetails.content.fields.upper_tick;
     const pool = investorPoolMap.get(investorDetails.objectId) as string;

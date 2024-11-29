@@ -12,8 +12,8 @@ import {
   getPool,
   getPoolExchangeRate,
   getReceipts,
-  getNaviInvestor,
   fetchVoloExchangeRate,
+  getInvestor,
 } from "./getReceipts.js";
 import { SimpleCache } from "../../utils/simpleCache.js";
 import { coinsList } from "../../common/coins.js";
@@ -29,8 +29,8 @@ export async function getAlphaPortfolioAmount(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
 ) {
-  const receipts = await getReceipts(poolName, options.address);
-  const pool = await getPool(poolName);
+  const receipts = await getReceipts(poolName, options.address, false);
+  const pool = await getPool(poolName, false);
   if (!pool) {
     throw new Error("Pool not found");
   }
@@ -114,7 +114,7 @@ export async function getPortfolioAmount(
 
   if (!cachedPromise) {
     cachedPromise = (async () => {
-      const receipts = await getReceipts(poolName, options.address);
+      const receipts = await getReceipts(poolName, options.address, false);
       let totalXTokens = new Decimal(0);
       if (receipts) {
         receipts.forEach((receipt) => {
@@ -241,7 +241,7 @@ export async function getSingleAssetPortfolioAmount(
           poolName == "NAVI-LOOP-USDC-USDT"
         ) {
           const pool = await getPool(poolName, ignoreCache);
-          const investor = (await getNaviInvestor(
+          const investor = (await getInvestor(
             poolName,
             ignoreCache,
           )) as NaviInvestor & CommonInvestorFields;

@@ -245,33 +245,38 @@ export type CoinAmounts = {
 };
 
 export type CetusInvestor = {
-  objectId: string;
-  version: string;
-  digest: string;
-  type: string;
   content: {
-    dataType: string;
-    type: string;
-    hasPublicTransfer: boolean;
     fields: {
       free_balance_a: string;
       free_balance_b: string;
-      id: {
-        id: string;
-      };
       lower_tick: string;
-      performance_fee: string;
-      performance_fee_max_cap: string;
       upper_tick: string;
     };
   };
 };
 
+export type BluefinInvestor = CetusInvestor;
+
 export type NaviInvestor = {
   content: {
     fields: {
+      safe_borrow_percentage: string;
       tokensDeposited: string;
       current_debt_to_supply_ratio: string;
+    };
+  };
+};
+
+export type BucketInvestor = {
+  content: {
+    fields: {
+      tokensDeposited: string;
+      stake_proof: {
+        type: string;
+        fields: {
+          stake_amount: string;
+        };
+      };
     };
   };
 };
@@ -294,6 +299,12 @@ export type CommonInvestorFields = {
     };
   };
 };
+
+export type Investor =
+  | (CetusInvestor & CommonInvestorFields)
+  | (NaviInvestor & CommonInvestorFields)
+  | (BucketInvestor & CommonInvestorFields)
+  | (BluefinInvestor & CommonInvestorFields);
 
 export type CetusPoolType = {
   objectId: string;
@@ -356,70 +367,67 @@ export type Receipt = {
   objectId: string;
   version: string;
   digest: string;
-  type: string;
   content: {
     dataType: string;
     type: string;
     hasPublicTransfer: boolean;
     fields: {
-      creator: string;
       id: { id: string };
       image_url: string;
       last_acc_reward_per_xtoken: {
         type: string;
         fields: {
-          contents: [
-            {
-              type: string;
-              fields: {
-                value: string;
-                key: {
-                  type: string;
-                  fields: {
-                    name: string;
-                  };
+          contents: {
+            type: string;
+            fields: {
+              value: string;
+              key: {
+                type: string;
+                fields: {
+                  name: string;
                 };
               };
-            },
-          ];
+            };
+          }[];
         };
       };
-      locked_balance: {
-        type: string;
-        fields: {
-          head: string;
-          id: { id: string };
-          size: string;
-          tail: string;
-        };
-      };
+      locked_balance:
+        | {
+            type: string;
+            fields: {
+              head: string;
+              id: { id: string };
+              size: string;
+              tail: string;
+            };
+          }
+        | undefined;
       name: string;
       owner: string;
       pending_rewards: {
         type: string;
         fields: {
-          contents: [
-            {
-              fields: {
-                key: {
-                  type: string;
-                  fields: {
-                    name: string;
-                  };
+          contents: {
+            fields: {
+              key: {
+                type: string;
+                fields: {
+                  name: string;
                 };
-                value: string;
               };
-              type: string;
-            },
-          ];
+              value: string;
+            };
+            type: string;
+          }[];
         };
       };
       pool_id: string;
       xTokenBalance: string;
-      unlocked_xtokens: string;
+      unlocked_xtokens: string | undefined;
     };
   };
 };
+
 export type PoolType = {
   objectId: string;
   version: string;
