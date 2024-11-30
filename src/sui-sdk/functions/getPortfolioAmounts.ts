@@ -5,7 +5,12 @@ import {
   DoubleAssetPoolNames,
   NaviInvestor,
   CommonInvestorFields,
-  SingleAssetPoolNames,
+  poolInfo,
+  loopingPoolCoinMap,
+  getSuiClient,
+  LoopingDebt,
+  cetusPoolMap,
+  getParentPool,
 } from "../../index.js";
 import {
   getCoinAmountsFromLiquidity,
@@ -15,7 +20,6 @@ import {
   fetchVoloExchangeRate,
   getInvestor,
 } from "./getReceipts.js";
-import { SimpleCache } from "../../utils/simpleCache.js";
 import { coinsList } from "../../common/coins.js";
 import {
   singleAssetPoolCoinMap,
@@ -24,18 +28,21 @@ import {
 import { PythPriceIdPair } from "../../common/pyth.js";
 import { getAlphaPrice } from "../../utils/clmm/prices.js";
 import { getLatestPrices } from "../../utils/prices.js";
+import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import BN from "bn.js";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
+  ignoreCache: boolean,
 ) {
-  const receipts = await getReceipts(poolName, options.address, false);
-  const pool = await getPool(poolName, false);
+  const receipts = await getReceipts(poolName, options.address, ignoreCache);
+  const pool = await getPool(poolName, ignoreCache);
   if (!pool) {
     throw new Error("Pool not found");
   }
 
-  const exchangeRate = await getPoolExchangeRate(poolName);
+  const exchangeRate = await getPoolExchangeRate(poolName, ignoreCache);
   let totalXTokens = new Decimal(0);
   if (!exchangeRate) {
     return "0"; // if pool has 0 xtokens
@@ -64,7 +71,7 @@ export async function getAlphaPortfolioAmount(
     });
   }
   if (totalXTokens.gt(0)) {
-    const poolExchangeRate = await getPoolExchangeRate(poolName);
+    const poolExchangeRate = await getPoolExchangeRate(poolName, ignoreCache);
     if (poolExchangeRate) {
       const tokens = totalXTokens.div(1e9).mul(poolExchangeRate);
       return `${tokens}`;
@@ -79,8 +86,9 @@ export async function getAlphaPortfolioAmount(
 export async function getAlphaPortfolioAmountInUSD(
   poolName: PoolName,
   options: { suiClient: SuiClient; address: string; isLocked?: boolean },
+  ignoreCache: boolean,
 ) {
-  const tokens = await getAlphaPortfolioAmount(poolName, options);
+  const tokens = await getAlphaPortfolioAmount(poolName, options, ignoreCache);
   const priceOfAlpha = await getAlphaPrice();
   if (priceOfAlpha && tokens) {
     let amount = new Decimal(tokens);
@@ -89,79 +97,45 @@ export async function getAlphaPortfolioAmountInUSD(
   }
 }
 
-const portfolioAmountCache = new SimpleCache<[number, number]>();
-const portfolioAmountPromiseCache = new SimpleCache<
-  Promise<[number, number]>
->();
 export async function getPortfolioAmount(
   poolName: PoolName,
-  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
-  ignoreCache: boolean = false,
-): Promise<[number, number] | undefined> {
-  let portfolioAmount: [number, number] = [0, 0];
-  const portfolioAmountCacheKey = `getPortfolioAmount:${poolName}-${options.address}}`;
-  if (ignoreCache) {
-    portfolioAmountCache.delete(portfolioAmountCacheKey);
-    portfolioAmountPromiseCache.delete(portfolioAmountCacheKey);
-  }
-  const cachedResponse = portfolioAmountCache.get(portfolioAmountCacheKey);
-
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-
-  let cachedPromise = portfolioAmountPromiseCache.get(portfolioAmountCacheKey);
-
-  if (!cachedPromise) {
-    cachedPromise = (async () => {
-      const receipts = await getReceipts(poolName, options.address, false);
-      let totalXTokens = new Decimal(0);
-      if (receipts) {
-        receipts.forEach((receipt) => {
-          const xTokens = receipt.content.fields.xTokenBalance;
-          totalXTokens = totalXTokens.add(xTokens);
-        });
-      }
-
-      if (totalXTokens.gt(0)) {
-        const poolExchangeRate = await getPoolExchangeRate(poolName);
-        if (poolExchangeRate) {
-          const tokens = totalXTokens.mul(poolExchangeRate);
-          const poolTokenAmounts = await getCoinAmountsFromLiquidity(
-            poolName,
-            tokens.toNumber(),
-          );
-          portfolioAmount = poolTokenAmounts;
-        } else {
-          console.error(
-            `Could not get poolExchangeRate for poolName: ${poolName}`,
-          );
-        }
-      } else {
-        portfolioAmount = [0, 0];
-      }
-
-      portfolioAmountCache.set(portfolioAmountCacheKey, portfolioAmount);
-      portfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
-      return portfolioAmount;
-    })().catch((error) => {
-      portfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
-      throw error;
+  address: string,
+  ignoreCache: boolean,
+): Promise<[string, string] | undefined> {
+  let portfolioAmount: [string, string] = ["0", "0"];
+  const receipts = await getReceipts(poolName, address, ignoreCache);
+  let totalXTokens = new Decimal(0);
+  if (receipts) {
+    receipts.forEach((receipt) => {
+      const xTokens = receipt.content.fields.xTokenBalance;
+      totalXTokens = totalXTokens.add(xTokens);
     });
-
-    portfolioAmountPromiseCache.set(portfolioAmountCacheKey, cachedPromise);
   }
 
-  return cachedPromise;
+  if (totalXTokens.gt(0)) {
+    const poolExchangeRate = await getPoolExchangeRate(poolName, ignoreCache);
+    if (poolExchangeRate) {
+      const tokens = totalXTokens.mul(poolExchangeRate);
+      const poolTokenAmounts = await getCoinAmountsFromLiquidity(
+        poolName,
+        tokens.toString(),
+        ignoreCache,
+      );
+      portfolioAmount = poolTokenAmounts;
+    } else {
+      console.error(`Could not get poolExchangeRate for poolName: ${poolName}`);
+    }
+  }
+  return portfolioAmount;
 }
 
 export async function getDoubleAssetPortfolioAmountInUSD(
   poolName: PoolName,
-  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
-  ignoreCache: boolean = false,
+  address: string,
+  ignoreCache: boolean,
 ): Promise<string | undefined> {
   if ((poolName as DoubleAssetPoolNames) !== undefined) {
-    const amounts = await getPortfolioAmount(poolName, options, ignoreCache);
+    const amounts = await getPortfolioAmount(poolName, address, ignoreCache);
     if (amounts !== undefined) {
       const ten = new Decimal(10);
       const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
@@ -179,7 +153,7 @@ export async function getDoubleAssetPortfolioAmountInUSD(
           `${tokens[0]}/USD` as PythPriceIdPair,
           `${tokens[1]}/USD` as PythPriceIdPair,
         ],
-        false,
+        ignoreCache,
       );
       if (priceOfCoin0 && priceOfCoin1) {
         const amount = amount0.mul(priceOfCoin0).add(amount1.mul(priceOfCoin1));
@@ -194,163 +168,213 @@ export async function getDoubleAssetPortfolioAmountInUSD(
   }
 }
 
-const singleAssetPortfolioAmountCache = new SimpleCache<number>();
-const singleAssetPortfolioAmountPromiseCache = new SimpleCache<
-  Promise<number>
->();
+export async function getNaviLoopingPoolDebt(
+  poolName: PoolName,
+): Promise<string | undefined> {
+  const debt = (
+    (
+      await getSuiClient().getDynamicFieldObject({
+        parentId: poolInfo[poolName].investorId,
+        name: {
+          type: "vector<u8>",
+          value: "debt".split("").map((char) => char.charCodeAt(0)),
+        },
+      })
+    ).data as LoopingDebt
+  ).content.fields.value.toString();
+  return debt;
+}
+
 export async function getSingleAssetPortfolioAmount(
-  poolName: SingleAssetPoolNames,
-  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
-  ignoreCache: boolean = false,
+  poolName: PoolName,
+  address: string,
+  ignoreCache: boolean,
 ) {
   let portfolioAmount: number = 0;
-  const portfolioAmountCacheKey = `getPortfolioAmount:${poolName}-${options.address}}`;
-  if (ignoreCache) {
-    singleAssetPortfolioAmountCache.delete(portfolioAmountCacheKey);
-    singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey);
+  const receipts = await getReceipts(poolName, address, ignoreCache);
+  let totalXTokens = new Decimal(0);
+  if (receipts) {
+    receipts.forEach((receipt) => {
+      const xTokens = receipt.content.fields.xTokenBalance;
+      totalXTokens = totalXTokens.add(xTokens);
+    });
   }
-  const cachedResponse = singleAssetPortfolioAmountCache.get(
-    portfolioAmountCacheKey,
-  );
+  if (totalXTokens.gt(0)) {
+    let pool;
+    let investor;
+    if (poolInfo[poolName].parentProtocolName == "NAVI") {
+      pool = await getPool(poolName, ignoreCache);
+      investor = (await getInvestor(poolName, ignoreCache)) as NaviInvestor &
+        CommonInvestorFields;
+    }
+    if (
+      poolName == "NAVI-LOOP-USDC-USDT" ||
+      poolName == "NAVI-LOOP-USDT-USDC"
+    ) {
+      const supplyCoin = loopingPoolCoinMap[poolName].supplyCoin;
+      const borrowCoin = loopingPoolCoinMap[poolName].borrowCoin;
+      if (pool && investor) {
+        let tokensInvested = new Decimal(0);
+        const currentDebt = await getNaviLoopingPoolDebt(poolName);
 
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-
-  let cachedPromise = singleAssetPortfolioAmountPromiseCache.get(
-    portfolioAmountCacheKey,
-  );
-
-  if (!cachedPromise) {
-    cachedPromise = (async () => {
-      const receipts = await getReceipts(
-        poolName,
-        options.address,
-        ignoreCache,
-      );
-      let totalXTokens = new Decimal(0);
-      if (receipts) {
-        receipts.forEach((receipt) => {
-          const xTokens = receipt.content.fields.xTokenBalance;
-          totalXTokens = totalXTokens.add(xTokens);
-        });
-      }
-      if (totalXTokens.gt(0)) {
+        const currentSupply =
+          investor.content.fields.tokensDeposited.toString();
         if (
-          poolName == "NAVI-LOOP-SUI-VSUI" ||
-          poolName == "NAVI-LOOP-USDC-USDT"
+          cetusPoolMap[supplyCoin + "-" + borrowCoin] &&
+          currentDebt &&
+          currentSupply
         ) {
-          const pool = await getPool(poolName, ignoreCache);
-          const investor = (await getInvestor(
-            poolName,
-            ignoreCache,
-          )) as NaviInvestor & CommonInvestorFields;
-          if (pool && investor) {
-            const liquidity = new Decimal(
-              investor.content.fields.tokensDeposited,
-            );
-            const debtToSupplyRatio = new Decimal(
-              investor.content.fields.current_debt_to_supply_ratio,
-            );
-            const tokensInvested = liquidity.mul(
-              new Decimal(1).minus(new Decimal(debtToSupplyRatio).div(1e20)),
-            );
-            const xTokenSupplyInPool = new Decimal(
-              pool.content.fields.xTokenSupply,
-            );
-            const userTokens = totalXTokens
-              .mul(tokensInvested)
-              .div(xTokenSupplyInPool);
-            const tokens = userTokens.div(
-              Math.pow(
-                10,
-                9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
-              ),
-            );
-            if (poolName == "NAVI-LOOP-SUI-VSUI") {
-              // const { SevenKGateway } = await import("../");
-              // const sevenKInstance = new SevenKGateway();
-              // const numberOfTokensInSui = (await sevenKInstance.getQuote({
-              //   slippage: 1,
-              //   senderAddress: options.address,
-              //   pair: { coinA: coins["VSUI"], coinB: coins["SUI"] },
-              //   inAmount: new BN(tokens.toNumber()),
-              // })) as QuoteResponse;
-              const voloExchRate = await fetchVoloExchangeRate();
-              portfolioAmount = Number(
-                tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
-              );
-            }
-            // TODO: Whenever NAVI-LOOP-USDT-WUSDC is released, change this else implementation
-            else {
-              portfolioAmount = Number(tokens);
-            }
-          } else {
-            console.error(`Could not get object for poolName: ${poolName}`);
-          }
-        } else {
-          const poolExchangeRate = await getPoolExchangeRate(
-            poolName,
+          const cetusPool = await getParentPool(
+            supplyCoin + "-" + borrowCoin,
             ignoreCache,
           );
-          if (poolExchangeRate) {
-            let tokens = totalXTokens.mul(poolExchangeRate);
-            tokens = tokens.div(
-              Math.pow(
-                10,
-                9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
-              ),
+          if (cetusPool) {
+            const sqrtPrice = cetusPool?.content.fields.current_sqrt_price;
+            const price = TickMath.sqrtPriceX64ToPrice(
+              new BN(sqrtPrice!),
+              coinsList[supplyCoin].expo,
+              coinsList[borrowCoin].expo,
             );
-            portfolioAmount = tokens.toNumber();
+            const currentDebtInSupplyCoin = new Decimal(currentDebt).div(price);
+            tokensInvested = new Decimal(currentSupply).minus(
+              currentDebtInSupplyCoin,
+            );
           } else {
-            console.error(
-              `Could not get poolExchangeRate for poolName: ${poolName}`,
-            );
+            console.error(`couldnt fetch cetus pool`);
           }
+        } else if (
+          cetusPoolMap[borrowCoin + "-" + supplyCoin] &&
+          currentDebt !== undefined &&
+          currentSupply !== undefined
+        ) {
+          const cetusPool = await getParentPool(
+            borrowCoin + "-" + supplyCoin,
+            ignoreCache,
+          );
+          if (cetusPool) {
+            const sqrtPrice = cetusPool?.content.fields.current_sqrt_price;
+            const price = TickMath.sqrtPriceX64ToPrice(
+              new BN(sqrtPrice!),
+              coinsList[borrowCoin].expo,
+              coinsList[supplyCoin].expo,
+            );
+            const currentDebtInSupplyCoin = new Decimal(currentDebt).mul(price);
+            tokensInvested = new Decimal(currentSupply).minus(
+              currentDebtInSupplyCoin,
+            );
+          } else {
+            console.error(`couldnt fetch cetus pool`);
+          }
+        } else {
+          console.error(
+            `one or more of these are possibly undefined: currentDebt:${currentDebt}, currentSupply: ${currentSupply}, cetusPoolMap[supplyCoin+'-'+borrowCoin]:${cetusPoolMap[supplyCoin + "-" + borrowCoin]}, cetusPoolMap[borrowCoin+'-'+supplyCoin]: ${cetusPoolMap[borrowCoin + "-" + supplyCoin]}`,
+          );
+        }
+
+        const xTokenSupplyInPool = new Decimal(
+          pool.content.fields.xTokenSupply,
+        );
+        const userTokens = totalXTokens
+          .mul(tokensInvested)
+          .div(xTokenSupplyInPool);
+        const tokens = userTokens.div(
+          Math.pow(
+            10,
+            9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
+          ),
+        );
+        portfolioAmount = Number(tokens);
+      } else {
+        console.error(`Could not get object for poolName: ${poolName}`);
+      }
+    } else if (
+      poolName == "NAVI-LOOP-HASUI-SUI" ||
+      poolName == "NAVI-LOOP-SUI-VSUI"
+    ) {
+      if (pool && investor) {
+        const liquidity = new Decimal(investor.content.fields.tokensDeposited);
+        const debtToSupplyRatio = new Decimal(
+          investor.content.fields.current_debt_to_supply_ratio,
+        );
+        const tokensInvested = liquidity.mul(
+          new Decimal(1).minus(new Decimal(debtToSupplyRatio).div(1e20)),
+        );
+        const xTokenSupplyInPool = new Decimal(
+          pool.content.fields.xTokenSupply,
+        );
+        const userTokens = totalXTokens
+          .mul(tokensInvested)
+          .div(xTokenSupplyInPool);
+        const tokens = userTokens.div(
+          Math.pow(
+            10,
+            9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
+          ),
+        );
+        if (poolName == "NAVI-LOOP-SUI-VSUI") {
+          // const { SevenKGateway } = await import("../");
+          // const sevenKInstance = new SevenKGateway();
+          // const numberOfTokensInSui = (await sevenKInstance.getQuote({
+          //   slippage: 1,
+          //   senderAddress: options.address,
+          //   pair: { coinA: coins["VSUI"], coinB: coins["SUI"] },
+          //   inAmount: new BN(tokens.toNumber()),
+          // })) as QuoteResponse;
+          const voloExchRate = await fetchVoloExchangeRate();
+          portfolioAmount = Number(
+            tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
+          );
+        } else {
+          portfolioAmount = Number(tokens);
         }
       } else {
-        portfolioAmount = 0;
+        console.error(`Could not get object for poolName: ${poolName}`);
       }
-
-      singleAssetPortfolioAmountCache.set(
-        portfolioAmountCacheKey,
-        portfolioAmount,
-      );
-      singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
-      return portfolioAmount;
-    })().catch((error) => {
-      singleAssetPortfolioAmountPromiseCache.delete(portfolioAmountCacheKey); // Remove the promise from cache
-      throw error;
-    });
-
-    singleAssetPortfolioAmountPromiseCache.set(
-      portfolioAmountCacheKey,
-      cachedPromise,
-    );
+    } else {
+      const poolExchangeRate = await getPoolExchangeRate(poolName, ignoreCache);
+      if (poolExchangeRate) {
+        let tokens = totalXTokens.mul(poolExchangeRate);
+        if (poolInfo[poolName].parentProtocolName == "NAVI") {
+          tokens = tokens.div(
+            Math.pow(
+              10,
+              9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
+            ),
+          );
+        }
+        portfolioAmount = tokens.toNumber();
+      } else {
+        console.error(
+          `Could not get poolExchangeRate for poolName: ${poolName}`,
+        );
+      }
+    }
   }
-
-  return cachedPromise;
+  return portfolioAmount;
 }
 
 export async function getSingleAssetPortfolioAmountInUSD(
-  poolName: SingleAssetPoolNames,
-  options: { suiClient: SuiClient; address: string; isLocked?: boolean },
-  ignoreCache: boolean = false,
+  poolName: PoolName,
+  address: string,
+  ignoreCache: boolean,
 ): Promise<string | undefined> {
   const amounts = await getSingleAssetPortfolioAmount(
     poolName,
-    options,
+    address,
     ignoreCache,
   );
+
   if (amounts !== undefined) {
+    let coinName = singleAssetPoolCoinMap[poolName].coin;
+    if (poolName == "NAVI-LOOP-SUI-VSUI") {
+      coinName = "SUI";
+    }
     const amount = new Decimal(amounts).div(
-      new Decimal(
-        Math.pow(10, coinsList[singleAssetPoolCoinMap[poolName].coin].expo),
-      ),
+      new Decimal(Math.pow(10, coinsList[coinName].expo)),
     );
     const [priceOfCoin] = await getLatestPrices(
-      [`${singleAssetPoolCoinMap[poolName].coin}/USD` as PythPriceIdPair],
-      false,
+      [`${coinName}/USD` as PythPriceIdPair],
+      ignoreCache,
     );
     if (priceOfCoin) {
       const amountInUSD = amount.mul(priceOfCoin);
@@ -358,7 +382,7 @@ export async function getSingleAssetPortfolioAmountInUSD(
     }
   } else {
     console.error(
-      `getPortfolioAmountInUSD is not implemented for poolName: ${poolName}`,
+      `getSingleAssetPortfolioAmountInUSD is not implemented for poolName: ${poolName}`,
     );
   }
   return "0";

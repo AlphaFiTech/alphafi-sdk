@@ -18,6 +18,7 @@ export {
   getDoubleAssetVaultBalance,
   getVaultBalanceForActiveUsers,
   getXTokenVaultBalanceForActiveUsers,
+  getAllVaultBalances,
 } from "./getVaultBalances.js";
 
 export {

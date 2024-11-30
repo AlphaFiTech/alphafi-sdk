@@ -1030,7 +1030,6 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
 
   const naviInvestors = await multiGetNaviInvestor(
     loopingPoolNames as SingleAssetPoolNames[],
-    false,
   );
 
   for (const poolName of loopingPoolNames) {

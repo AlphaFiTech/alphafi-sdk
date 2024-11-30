@@ -14,16 +14,124 @@ import {
   BluefinInvestor,
   BucketInvestor,
   SingleAssetPoolNames,
+  fetchMultiReceipts,
+  ReceiptGQL,
+  cetusPoolMap,
+  bluefinPoolMap,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
-import { SimpleCache } from "../../utils/simpleCache.js";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../client.js";
+import { SimpleCache } from "../../utils/simpleCache.js";
 
-const receiptsCache = new SimpleCache<Receipt[]>();
-const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>();
+export function convertReceiptGQLToReceipt(receipts: ReceiptGQL[]): Receipt[] {
+  const res = receipts.map((receipt) => {
+    return {
+      objectId: receipt.address,
+      version: receipt.version,
+      digest: receipt.digest,
+      content: {
+        dataType: "moveObject", // Assuming a fixed value as it's not available in ReceiptA
+        type: receipt.contents.type.repr,
+        hasPublicTransfer: receipt.hasPublicTransfer,
+        fields: {
+          id: { id: receipt.contents.json.id },
+          image_url: receipt.contents.json.image_url,
+          last_acc_reward_per_xtoken: {
+            type: "unknown", // Assuming fixed value
+            fields: {
+              contents:
+                receipt.contents.json.last_acc_reward_per_xtoken.contents.map(
+                  (item) => ({
+                    type: "unknown", // Assuming fixed value
+                    fields: {
+                      value: item.value,
+                      key: {
+                        type: "unknown", // Assuming fixed value
+                        fields: {
+                          name: item.key.name,
+                        },
+                      },
+                    },
+                  }),
+                ),
+            },
+          },
+          locked_balance: receipt.contents.json.locked_balance
+            ? {
+                type: "unknown", // Assuming fixed value
+                fields: {
+                  head: receipt.contents.json.locked_balance.head,
+                  id: { id: receipt.contents.json.locked_balance.id },
+                  size: receipt.contents.json.locked_balance.size,
+                  tail: receipt.contents.json.locked_balance.tail,
+                },
+              }
+            : undefined,
+          name: receipt.contents.json.name,
+          owner: receipt.contents.json.owner,
+          pending_rewards: {
+            type: "unknown", // Assuming fixed value
+            fields: {
+              contents: receipt.contents.json.pending_rewards.contents.map(
+                (item) => ({
+                  type: "unknown", // Assuming fixed value
+                  fields: {
+                    key: {
+                      type: "unknown", // Assuming fixed value
+                      fields: {
+                        name: item.key.name,
+                      },
+                    },
+                    value: item.value,
+                  },
+                }),
+              ),
+            },
+          },
+          pool_id: receipt.contents.json.pool_id,
+          xTokenBalance: receipt.contents.json.xTokenBalance,
+          unlocked_xtokens: receipt.contents.json.unlocked_xtokens ?? undefined,
+        },
+      },
+    };
+  });
+  return res;
+}
+
+const receiptsCache = new SimpleCache<Receipt[]>(3600000);
+const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>(3600000);
+
+export async function getMultiReceipts(address: string) {
+  try {
+    const receiptMap = await fetchMultiReceipts(address);
+    for (const pool of Object.keys(poolInfo)) {
+      const cacheKey = `getReceipts-${poolInfo[pool].receiptName}-${address}`;
+      let receipt: Receipt[] = [];
+      if (receiptMap.has(poolInfo[pool].receiptName)) {
+        receipt = convertReceiptGQLToReceipt(
+          receiptMap.get(poolInfo[pool].receiptName) as ReceiptGQL[],
+        );
+      }
+      receiptsCache.set(cacheKey, receipt);
+    }
+  } catch (error) {
+    console.error("Error fetching receipts from graphQL:", error);
+    // get receipts individually
+    const pools = Object.keys(poolInfo);
+    const receiptPromises = pools.map((pool) => {
+      return getReceipts(pool, address, true);
+    });
+    const receipts = await Promise.all(receiptPromises);
+    receipts.forEach((receipt, index) => {
+      const cacheKey = `getReceipts-${poolInfo[pools[index]].receiptName}-${address}`;
+      receiptsCache.set(cacheKey, receipt);
+    });
+  }
+}
+
 export async function getReceipts(
   poolName: string,
   address: string,
@@ -94,42 +202,29 @@ export async function getReceipts(
   return cachedPromise;
 }
 
-const poolExchangeRateCache = new SimpleCache<Decimal>();
-
 export async function getPoolExchangeRate(
   poolName: PoolName,
-  ignoreCache: boolean = false,
+  ignoreCache: boolean,
 ): Promise<Decimal | undefined> {
-  const poolExchangeRateCacheKey = `getPoolExchangeRate-${poolName}`;
-  if (ignoreCache) {
-    poolExchangeRateCache.delete(poolExchangeRateCacheKey);
-  }
-  const cachedResponse = poolExchangeRateCache.get(poolExchangeRateCacheKey);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-
-  let pool: PoolType | AlphaPoolType | undefined;
+  let pool;
   try {
-    if (poolName === "ALPHA") {
-      pool = await getPool("ALPHA", ignoreCache);
-    } else if (
-      poolName === "ALPHA-SUI" ||
-      poolName === "USDT-WUSDC" ||
-      poolName === "USDY-WUSDC" ||
-      poolName === "HASUI-SUI" ||
-      poolName === "WUSDC-SUI" ||
-      poolName === "WETH-WUSDC"
-    ) {
-      pool = await getPool(poolName, ignoreCache);
-    } else {
-      pool = await getPool(poolName, ignoreCache);
-    }
+    pool = await getPool(poolName, ignoreCache);
     if (pool) {
       const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
       let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
       if (poolName == "ALPHA") {
         tokensInvested = new Decimal(pool.content.fields.alpha_bal);
+      } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
+        const investor = (await getInvestor(
+          poolName,
+          ignoreCache,
+        )) as CetusInvestor & CommonInvestorFields;
+        if (!investor) {
+          throw new Error(
+            `couldnt fetch investor object for pool: ${poolName}`,
+          );
+        }
+        tokensInvested = new Decimal(pool.content.fields.tokensInvested);
       }
 
       // Check for division by zero
@@ -138,15 +233,13 @@ export async function getPoolExchangeRate(
         return undefined;
       }
       const poolExchangeRate = tokensInvested.div(xTokenSupply);
-
-      poolExchangeRateCache.set(poolExchangeRateCacheKey, poolExchangeRate);
-
       return poolExchangeRate;
     }
   } catch (e) {
-    console.error(`getPoolExchangeRate failed for poolName: ${poolName}`);
+    console.log(
+      `getPoolExchangeRate failed for poolName: ${poolName}, with error ${e}`,
+    );
   }
-
   return undefined;
 }
 
@@ -154,6 +247,31 @@ const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
 const poolPromiseCache = new SimpleCache<
   Promise<PoolType | AlphaPoolType | undefined>
 >();
+
+export async function getMultiPool() {
+  let pools = Object.keys(poolInfo);
+  pools = pools.filter((pool) => {
+    return poolInfo[pool].poolId !== "";
+  });
+  const poolIds = pools.map((pool) => {
+    return poolInfo[pool].poolId;
+  });
+  try {
+    const o = await getSuiClient().multiGetObjects({
+      ids: poolIds,
+      options: {
+        showContent: true,
+      },
+    });
+    for (let i = 0; i < pools.length; i = i + 1) {
+      const poolData = o[i].data as AlphaPoolType | PoolType;
+      const cacheKey = `pool_${poolInfo[pools[i]].poolId}`;
+      poolCache.set(cacheKey, poolData);
+    }
+  } catch (e) {
+    console.error(`Error getting multiPools`);
+  }
+}
 
 export async function getPool(
   poolName: string,
@@ -208,65 +326,118 @@ export async function getPool(
   return poolPromise;
 }
 
-const parentPoolCache = new SimpleCache<CetusPoolType>();
-const parentPoolPromiseCache = new SimpleCache<
+const cetusPoolCache = new SimpleCache<CetusPoolType>();
+const cetusPoolPromiseCache = new SimpleCache<
   Promise<CetusPoolType | undefined>
 >();
+
+export async function getMultiParentPool() {
+  let pools = Object.keys(poolInfo);
+  pools = pools.filter((pool) => {
+    return poolInfo[pool].poolId !== "";
+  });
+  const poolIds = pools.map((pool) => {
+    return poolInfo[pool].parentPoolId;
+  });
+  try {
+    const o = await getSuiClient().multiGetObjects({
+      ids: poolIds,
+      options: {
+        showContent: true,
+      },
+    });
+    for (let i = 0; i < pools.length; i = i + 1) {
+      const poolData = o[i].data as CetusPoolType;
+      const cacheKey = `pool_${poolInfo[pools[i]].parentPoolId}`;
+      cetusPoolCache.set(cacheKey, poolData);
+    }
+  } catch (e) {
+    console.error(`Error getting multiPools`);
+  }
+}
 
 export async function getParentPool(
   poolName: string,
   ignoreCache: boolean,
 ): Promise<CetusPoolType | undefined> {
   const suiClient = getSuiClient();
-  const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].parentPoolId}`;
+  const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
   if (ignoreCache) {
-    parentPoolCache.delete(cacheKey);
-    parentPoolPromiseCache.delete(cacheKey);
+    cetusPoolCache.delete(cacheKey);
+    cetusPoolPromiseCache.delete(cacheKey);
   }
 
   // Check if the pool is already in the cache
-  const cachedPool = parentPoolCache.get(cacheKey);
+  const cachedPool = cetusPoolCache.get(cacheKey);
   if (cachedPool) {
     return cachedPool;
   }
 
   // Check if there is already a promise in the cache
-  let parentPoolPromise = parentPoolPromiseCache.get(cacheKey);
-  if (parentPoolPromise) {
-    return parentPoolPromise;
+  let cetusPoolPromise = cetusPoolPromiseCache.get(cacheKey);
+  if (cetusPoolPromise) {
+    return cetusPoolPromise;
   }
   // If not, create a new promise and cache it
-  parentPoolPromise = (async () => {
+  cetusPoolPromise = (async () => {
     try {
+      const id = poolInfo[poolName]
+        ? poolInfo[poolName].parentPoolId
+        : cetusPoolMap[poolName]
+          ? cetusPoolMap[poolName]
+          : bluefinPoolMap[poolName];
       const o = await suiClient.getObject({
-        id: poolInfo[poolName.toUpperCase()].parentPoolId,
+        id: id,
         options: {
           showContent: true,
         },
       });
-      const parentPool = o.data as CetusPoolType;
+      const cetusPool = o.data as CetusPoolType;
 
       // Cache the pool object
-      parentPoolCache.set(cacheKey, parentPool);
-      return parentPool;
+      cetusPoolCache.set(cacheKey, cetusPool);
+      return cetusPool;
     } catch (e) {
       console.error(`getCetusPool failed for poolName: ${poolName}`);
       return undefined;
     } finally {
       // Remove the promise from the cache after it resolves
-      parentPoolPromiseCache.delete(cacheKey);
+      cetusPoolPromiseCache.delete(cacheKey);
     }
   })();
 
   // Cache the promise
-  parentPoolPromiseCache.set(cacheKey, parentPoolPromise);
-  return parentPoolPromise;
+  cetusPoolPromiseCache.set(cacheKey, cetusPoolPromise);
+  return cetusPoolPromise;
 }
 
-const cetusInvestorCache = new SimpleCache<Investor>();
-const cetusInvestorPromiseCache = new SimpleCache<
-  Promise<Investor | undefined>
->();
+const investorCache = new SimpleCache<Investor>();
+const investorPromiseCache = new SimpleCache<Promise<Investor | undefined>>();
+
+export async function getMultiInvestor() {
+  let pools = Object.keys(poolInfo);
+  pools = pools.filter((pool) => {
+    return poolInfo[pool].investorId !== "";
+  });
+  const investorIds = pools.map((pool) => {
+    return poolInfo[pool].investorId;
+  });
+  try {
+    const o = await getSuiClient().multiGetObjects({
+      ids: investorIds,
+      options: {
+        showContent: true,
+      },
+    });
+    for (let i = 0; i < pools.length; i = i + 1) {
+      const investorData = o[i].data as Investor;
+      const cacheKey = `investor_${poolInfo[pools[i]].investorId}`;
+      investorCache.set(cacheKey, investorData);
+    }
+  } catch (e) {
+    console.error(`Error getting multiPools`);
+  }
+}
 
 export async function getInvestor(
   poolName: PoolName,
@@ -275,17 +446,17 @@ export async function getInvestor(
   const suiClient = getSuiClient();
   const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
   if (ignoreCache) {
-    cetusInvestorCache.delete(cacheKey);
-    cetusInvestorPromiseCache.delete(cacheKey);
+    investorCache.delete(cacheKey);
+    investorPromiseCache.delete(cacheKey);
   }
   // Check if the investor is already in the cache
-  const cachedInvestor = cetusInvestorCache.get(cacheKey);
+  const cachedInvestor = investorCache.get(cacheKey);
   if (cachedInvestor) {
     return cachedInvestor;
   }
 
   // Check if there is already a promise in the cache
-  let cetusInvestorPromise = cetusInvestorPromiseCache.get(cacheKey);
+  let cetusInvestorPromise = investorPromiseCache.get(cacheKey);
   if (cetusInvestorPromise) {
     return cetusInvestorPromise;
   }
@@ -310,77 +481,51 @@ export async function getInvestor(
       }
 
       // Cache the investor object
-      cetusInvestorCache.set(cacheKey, cetusInvestor);
+      investorCache.set(cacheKey, cetusInvestor);
       return cetusInvestor;
     } catch (e) {
       console.error(`getInvestor failed for pool: ${poolName}`);
       return undefined;
     } finally {
       // Remove the promise from the cache after it resolves
-      cetusInvestorPromiseCache.delete(cacheKey);
+      investorPromiseCache.delete(cacheKey);
     }
   })();
 
   // Cache the promise
-  cetusInvestorPromiseCache.set(cacheKey, cetusInvestorPromise);
+  investorPromiseCache.set(cacheKey, cetusInvestorPromise);
   return cetusInvestorPromise;
 }
 
-const naviVoloExchangeRateCache = new SimpleCache<NaviVoloData>();
-const naviVoloExchangeRatePromiseCache = new SimpleCache<
-  Promise<NaviVoloData>
->();
-
-export async function fetchVoloExchangeRate(
-  ignoreCache: boolean = false,
-): Promise<NaviVoloData> {
+export async function fetchVoloExchangeRate(): Promise<NaviVoloData> {
   const apiUrl = "https://open-api.naviprotocol.io/api/volo/stats";
-  let NaviVoloDetails: NaviVoloData;
-  if (ignoreCache) {
-    naviVoloExchangeRateCache.clear();
-    naviVoloExchangeRatePromiseCache.delete(apiUrl);
-  }
-
-  const cachedResponse = naviVoloExchangeRateCache.get(apiUrl);
-  if (cachedResponse) {
-    NaviVoloDetails = cachedResponse;
-  } else {
-    let cachedPromise = naviVoloExchangeRatePromiseCache.get(apiUrl);
-
-    if (!cachedPromise) {
-      cachedPromise = fetch(apiUrl)
-        .then(async (response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const data = (await response.json()) as NaviVoloData; // Parse the JSON response
-          naviVoloExchangeRateCache.set(apiUrl, data); // Cache the response
-          naviVoloExchangeRatePromiseCache.delete(apiUrl); // Remove the promise from the cache
-          return data;
-        })
-        .catch((error) => {
-          naviVoloExchangeRatePromiseCache.delete(apiUrl); // Ensure the promise is removed on error
-          throw error;
-        });
-      naviVoloExchangeRatePromiseCache.set(apiUrl, cachedPromise);
-      NaviVoloDetails = await cachedPromise;
-    }
-    return cachedPromise;
-  }
-
+  const NaviVoloDetails: NaviVoloData = await fetch(apiUrl)
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = (await response.json()) as NaviVoloData; // Parse the JSON response
+      return data;
+    })
+    .catch((error) => {
+      console.log("failed to fetch Navi-volo details", error);
+      throw error;
+    });
   return NaviVoloDetails;
 }
 
 export async function getCoinAmountsFromLiquidity(
   poolName: PoolName,
-  liquidity: number,
-): Promise<[number, number]> {
-  const cetus_pool = await getParentPool(poolName, false);
-  const cetusInvestor = (await getInvestor(poolName, false)) as CetusInvestor;
+  liquidity: string,
+  ignoreCache: boolean,
+): Promise<[string, string]> {
+  const clmmPool = await getParentPool(poolName, ignoreCache);
+  const investor = (await getInvestor(poolName, ignoreCache)) as CetusInvestor &
+    CommonInvestorFields;
 
   const upper_bound = 443636;
-  let lower_tick = Number(cetusInvestor!.content.fields.lower_tick);
-  let upper_tick = Number(cetusInvestor!.content.fields.upper_tick);
+  let lower_tick = Number(investor!.content.fields.lower_tick);
+  let upper_tick = Number(investor!.content.fields.upper_tick);
 
   if (lower_tick > upper_bound) {
     lower_tick = -~(lower_tick - 1);
@@ -388,78 +533,48 @@ export async function getCoinAmountsFromLiquidity(
   if (upper_tick > upper_bound) {
     upper_tick = -~(upper_tick - 1);
   }
-
-  if (cetus_pool) {
-    const liquidityInt = Math.floor(liquidity);
+  if (clmmPool) {
+    const liquidityInt = Math.floor(parseFloat(liquidity));
     const coin_amounts: CoinAmounts = ClmmPoolUtil.getCoinAmountFromLiquidity(
       new BN(`${liquidityInt}`),
-      new BN(cetus_pool.content.fields.current_sqrt_price),
+      new BN(clmmPool.content.fields.current_sqrt_price),
       TickMath.tickIndexToSqrtPriceX64(lower_tick),
       TickMath.tickIndexToSqrtPriceX64(upper_tick),
       true,
     );
-
-    return [coin_amounts.coinA.toNumber(), coin_amounts.coinB.toNumber()];
+    return [coin_amounts.coinA.toString(), coin_amounts.coinB.toString()];
   } else {
-    return [0, 0];
+    return ["0", "0"];
   }
 }
 
-export async function multiGetNaviInvestor(
-  poolNames: SingleAssetPoolNames[],
-  ignoreCache: boolean = false,
-) {
+export async function multiGetNaviInvestor(poolNames: SingleAssetPoolNames[]) {
   const results: {
     [poolName in SingleAssetPoolNames]?:
       | (NaviInvestor & CommonInvestorFields)
       | undefined;
   } = {};
-  const missingPoolInvestorIds: string[] = [];
-  const missingPoolNames: SingleAssetPoolNames[] = [];
+  const poolInvestorIds: string[] = [];
 
   for (const poolName of poolNames) {
-    const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
-
-    if (ignoreCache) {
-      cetusInvestorCache.delete(cacheKey);
-      cetusInvestorPromiseCache.delete(cacheKey);
-    }
-
-    // Check if the investor is already cached
-    const cachedInvestor = cetusInvestorCache.get(cacheKey) as NaviInvestor &
-      CommonInvestorFields;
-    if (cachedInvestor) {
-      results[poolName] = cachedInvestor;
-      continue;
-    } else {
-      // Add to missing list if not in cache
-      if (poolInfo[poolName.toUpperCase()].investorId) {
-        missingPoolNames.push(poolName);
-        missingPoolInvestorIds.push(
-          poolInfo[poolName.toUpperCase()].investorId,
-        );
-      }
-    }
+    poolInvestorIds.push(poolInfo[poolName.toUpperCase()].investorId);
   }
-
   try {
     const suiClient = getSuiClient();
     const objects = await suiClient.multiGetObjects({
-      ids: missingPoolInvestorIds,
+      ids: poolInvestorIds,
       options: { showContent: true },
     });
     for (let i = 0; i < objects.length; i++) {
       const investor = objects[i].data as NaviInvestor & CommonInvestorFields;
-      const cacheKey = `investor_${missingPoolInvestorIds[i]}`;
-      cetusInvestorCache.set(cacheKey, investor);
-      results[missingPoolNames[i]] = investor;
+      results[poolNames[i]] = investor;
     }
     return results;
   } catch (err) {
     //improve
     console.error(
       "multiGetNaviInvestor failed for poolNames: ",
-      missingPoolNames.join(", "),
+      poolNames.join(", "),
     );
     throw err;
   }

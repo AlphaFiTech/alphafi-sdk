@@ -357,6 +357,8 @@ export type CetusPoolType = {
   };
 };
 
+export type BluefinPoolType = CetusPoolType;
+
 export type AlphaReceipt = {
   lockedBalance: string;
   unlockedBalance: string;
@@ -672,3 +674,18 @@ export interface NaviVoloData {
   };
   code: number;
 }
+
+export type LoopingDebt = {
+  objectId: string;
+  version: string;
+  digest: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      name: [];
+      value: string;
+    };
+  };
+};
