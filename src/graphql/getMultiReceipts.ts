@@ -61,6 +61,10 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
     cursor: "",
   } as ReceiptType,
+  naviNativeUsdtUsdcPoolReceipts: {
+    type: "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
 };
 
 export async function fetchMultiReceipts(
