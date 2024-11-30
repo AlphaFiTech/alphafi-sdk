@@ -152,4 +152,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 6,
   },
+  NS: {
+    name: "NS",
+    type: "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
+    icon: "",
+    expo: 6,
+  },
 };
