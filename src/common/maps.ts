@@ -79,6 +79,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-ETH": { coin: "ETH" },
   "NAVI-LOOP-HASUI-SUI": { coin: "HASUI" },
   "NAVI-LOOP-USDT-USDC": { coin: "USDT" },
+  "NAVI-NS": { coin: "NS" },
 };
 
 export const loopingPoolCoinMap: {
@@ -105,6 +106,7 @@ export const naviAssetMap: {
   USDY: "12",
   AUSD: "9",
   ETH: "11",
+  NS: "13",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -133,6 +135,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "BUCK-SUI": conf[CONF_ENV].BUCK_SUI_CETUS_POOL_ID,
   "USDC-BUCK": conf[CONF_ENV].USDC_BUCK_CETUS_POOL_ID,
   "USDC-AUSD": conf[CONF_ENV].USDC_AUSD_CETUS_POOL_ID,
+  "NS-SUI": conf[CONF_ENV].NS_SUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -168,6 +171,21 @@ export const poolInfo: {
     strategyType?: StrategyType;
   };
 } = {
+  "NAVI-NS": {
+    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+    packageNumber: 3,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_NS_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_NS_POOL,
+    investorId: conf[CONF_ENV].NAVI_NS_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_NS_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_NS_POOL_RECEIPT,
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_NS_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_NS_POOL_LIQUIDITY_CHANGE_EVENT,
+  },
   "BLUEFIN-AUSD-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,

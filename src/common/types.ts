@@ -45,7 +45,8 @@ export type PoolName =
   | "BLUEFIN-USDT-USDC"
   | "NAVI-LOOP-USDT-USDC"
   | "BLUEFIN-SUI-BUCK"
-  | "BLUEFIN-AUSD-USDC";
+  | "BLUEFIN-AUSD-USDC"
+  | "NAVI-NS";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -63,7 +64,8 @@ export type SingleAssetPoolNames =
   | "NAVI-AUSD"
   | "NAVI-ETH"
   | "NAVI-LOOP-HASUI-SUI"
-  | "NAVI-LOOP-USDT-USDC";
+  | "NAVI-LOOP-USDT-USDC"
+  | "NAVI-NS";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -118,7 +120,8 @@ export type CoinName =
   | "BLUB"
   | "ETH"
   | "DEEP"
-  | "AUSD";
+  | "AUSD"
+  | "NS";
 
 export type StrategyType =
   | "LOOPING"
@@ -203,7 +206,8 @@ export type CoinType =
   | "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
   | "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH"
   | "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP"
-  | "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD";
+  | "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD"
+  | "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
