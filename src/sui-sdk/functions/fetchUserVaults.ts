@@ -12,7 +12,7 @@ export async function fetchUserVaults(
   const vaultsArr: AlphaFiVault[] = [];
   await Promise.all(
     Object.keys(poolInfo).map(async (pool) => {
-      const receipt = await getReceipts(pool, address);
+      const receipt = await getReceipts(pool, address, false);
       if (receipt.length > 0) {
         const name = receipt[0].content.fields.name;
         let res: AlphaFiVault | undefined = undefined;

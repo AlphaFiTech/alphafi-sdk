@@ -18,6 +18,7 @@ export {
   getDoubleAssetVaultBalance,
   getVaultBalanceForActiveUsers,
   getXTokenVaultBalanceForActiveUsers,
+  getAllVaultBalances,
 } from "./getVaultBalances.js";
 
 export {
@@ -57,7 +58,12 @@ export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
 export * from "./graphql/getMultiReceipts.js";
 
-export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
+export {
+  getReceipts,
+  getPool,
+  getParentPool,
+  getInvestor,
+} from "./sui-sdk/functions/getReceipts.js";
 
 export {
   liquidityToTokens,
