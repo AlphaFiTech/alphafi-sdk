@@ -28,6 +28,8 @@ export {
 
 export { withdrawTxb } from "./transactions/withdraw.js";
 
+export { claimRewardTxb } from "./transactions/collect_rewards.js";
+
 export {
   getAllVaults,
   getAllDoubleAssetVaults,
