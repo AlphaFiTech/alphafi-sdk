@@ -169,6 +169,7 @@ export const poolInfo: {
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
     strategyType?: StrategyType;
+    checkRatioEventType?: string;
   };
 } = {
   "NAVI-NS": {
@@ -235,6 +236,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT,
   },
   "BLUEFIN-USDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -285,6 +288,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-USDY": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -481,6 +486,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-LOOP-SUI-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_2_LATEST_PACKAGE_ID,
@@ -497,6 +504,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
