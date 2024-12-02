@@ -202,7 +202,6 @@ export async function getDoubleAssetVaultBalance(
 export async function getAllVaultBalances(
   address: string,
 ): Promise<Map<PoolName, AlphaFiVaultBalance>> {
-  // await getMultiReceipts(address);
   await getMultiLatestPrices();
   const pools = Object.keys(poolInfo);
   const res = new Map<PoolName, AlphaFiVaultBalance>();

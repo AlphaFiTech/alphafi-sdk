@@ -22,6 +22,13 @@ export {
 } from "./getVaultBalances.js";
 
 export {
+  depsoitDoubleAssetTxb,
+  depsoitSingleAssetTxb,
+} from "./transactions/deposit.js";
+
+export { withdrawTxb } from "./transactions/withdraw.js";
+
+export {
   getAllVaults,
   getAllDoubleAssetVaults,
   getAllSingleAssetVaults,
