@@ -15,9 +15,9 @@ import { bucketWithdrawTx } from "./bucket.js";
 import { withdrawAlphaTxb } from "./alpha.js";
 
 export async function withdrawTxb(
-  amount: string, // liquidity for doube-asset and xTokens for single-asset
   poolName: PoolName,
   address: string,
+  amount: string, // liquidity for doube-asset and xTokens for single-asset
   withdrawFromLocked?: boolean, // needed for withdraw from alpha-vault
 ) {
   let txb = new Transaction();
