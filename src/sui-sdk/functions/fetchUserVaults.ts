@@ -12,13 +12,14 @@ export async function fetchUserVaults(
   const vaultsArr: AlphaFiVault[] = [];
   await Promise.all(
     Object.keys(poolInfo).map(async (pool) => {
-      const receipt = await getReceipts(pool, address);
+      const receipt = await getReceipts(pool, address, false);
       if (receipt.length > 0) {
         const name = receipt[0].content.fields.name;
         let res: AlphaFiVault | undefined = undefined;
         if (
           poolInfo[pool].parentProtocolName === "ALPHAFI" ||
-          poolInfo[pool].parentProtocolName === "NAVI"
+          poolInfo[pool].parentProtocolName === "NAVI" ||
+          poolInfo[pool].parentProtocolName === "BUCKET"
         ) {
           const coin = singleAssetPoolCoinMap[pool].coin;
           res = {
@@ -29,7 +30,10 @@ export async function fetchUserVaults(
             coinName: coin,
             coinType: coinsList[coin].type,
           };
-        } else if (poolInfo[pool].parentProtocolName === "CETUS") {
+        } else if (
+          poolInfo[pool].parentProtocolName === "CETUS" ||
+          poolInfo[pool].parentProtocolName === "BLUEFIN"
+        ) {
           const coinA = doubleAssetPoolCoinMap[pool].coin1;
           const coinB = doubleAssetPoolCoinMap[pool].coin2;
           res = {

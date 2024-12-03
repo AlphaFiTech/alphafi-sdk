@@ -4,6 +4,7 @@ import {
   CetusInvestor,
   CetusPoolType,
   CoinName,
+  CommonInvestorFields,
   DoubleAssetPoolNames,
   PoolName,
   PoolReceipt,
@@ -168,6 +169,7 @@ export const poolInfo: {
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
     strategyType?: StrategyType;
+    checkRatioEventType?: string;
   };
 } = {
   "NAVI-NS": {
@@ -234,6 +236,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT,
   },
   "BLUEFIN-USDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -284,6 +288,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-USDY": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -480,6 +486,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-LOOP-SUI-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_2_LATEST_PACKAGE_ID,
@@ -496,6 +504,8 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
+    checkRatioEventType:
+      conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_CHECK_RATIO_EVENT,
   },
   "NAVI-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1047,7 +1057,6 @@ export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
 
   const naviInvestors = await multiGetNaviInvestor(
     loopingPoolNames as SingleAssetPoolNames[],
-    false,
   );
 
   for (const poolName of loopingPoolNames) {
@@ -1137,7 +1146,8 @@ export async function getLiquidityPoolInvestorTicksMap(): Promise<{
     },
   });
   for (const investorRawData of res) {
-    const investorDetails = investorRawData.data as CetusInvestor; // BLUEFIN investor same as cetus investor
+    const investorDetails = investorRawData.data as unknown as CetusInvestor &
+      CommonInvestorFields; // BLUEFIN investor same as cetus investor
     const lower_tick = investorDetails.content.fields.lower_tick;
     const upper_tick = investorDetails.content.fields.upper_tick;
     const pool = investorPoolMap.get(investorDetails.objectId) as string;
