@@ -3,6 +3,9 @@ import { PoolName } from "../../common/types.js";
 interface CommonEventAttributes {
   type: string;
   timestamp: number;
+  txDigest: string;
+  eventSeq: number;
+  transactionModule: string;
 }
 
 export interface CetusAutoCompoundingEvent {
@@ -148,6 +151,10 @@ export type NaviPoolWithdrawEvent = {
   sender: string;
 };
 
+export interface CheckRatioEvent {
+  ratio: string;
+}
+
 export type AfterTransactionEventNode =
   | (CetusAfterTransactionEvent &
       CommonEventAttributes & {
@@ -180,12 +187,15 @@ export type LiquidityChangeEventNode =
 
 export type WithdrawV2EventNode = AlphaWithdrawV2Event & CommonEventAttributes;
 
+export type CheckRatioEventNode = CheckRatioEvent & CommonEventAttributes;
+
 export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
   | LiquidityChangeEventNode
   | WithdrawV2EventNode
-  | AfterTransactionEventNode;
+  | AfterTransactionEventNode
+  | CheckRatioEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -201,6 +211,8 @@ export type FetchWithdrawV2EventsParams = {
   startTime?: number;
   endTime?: number;
 };
+
+export type FetchCheckRatioEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchEventsParams = {
   eventTypes: string[];
