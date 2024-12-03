@@ -126,8 +126,13 @@ Call this to deposit in Single Asset Vaults on AlphaFi Protocol.
 
 ```typescript
 import { depsoitSingleAssetTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await depsoitSingleAssetTxb(poolName, address, amount);
+const vaults: Transaction = await depsoitSingleAssetTxb(
+  poolName,
+  address,
+  amount,
+);
 ```
 
 ## `depsoitDoubleAssetTxb`
@@ -136,8 +141,9 @@ Call this to deposit in Double Asset Vaults on AlphaFi Protocol.
 
 ```typescript
 import { depsoitDoubleAssetTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await depsoitDoubleAssetTxb(
+const vaults: Transaction = await depsoitDoubleAssetTxb(
   poolName,
   address,
   amount,
@@ -151,6 +157,18 @@ Call this to withdraw from Vaults on AlphaFi Protocol.
 
 ```typescript
 import { withdrawTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await withdrawTxb(poolName, address, amount);
+const vaults: Transaction = await withdrawTxb(poolName, address, amount);
+```
+
+## `claimRewardTxb`
+
+Call this to withdraw from Vaults on AlphaFi Protocol.
+
+```typescript
+import { claimRewardTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await claimRewardTxb(address);
 ```
