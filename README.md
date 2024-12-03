@@ -119,3 +119,38 @@ import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 
 const vaults: string[] = await getAllDoubleAssetVaults();
 ```
+
+## `depsoitSingleAssetTxb`
+
+Call this to deposit in Single Asset Vaults on AlphaFi Protocol.
+
+```typescript
+import { depsoitSingleAssetTxb } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await depsoitSingleAssetTxb(poolName, address, amount);
+```
+
+## `depsoitDoubleAssetTxb`
+
+Call this to deposit in Double Asset Vaults on AlphaFi Protocol.
+
+```typescript
+import { depsoitDoubleAssetTxb } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await depsoitDoubleAssetTxb(
+  poolName,
+  address,
+  amount,
+  isAmountA,
+);
+```
+
+## `withdrawTxb`
+
+Call this to withdraw from Vaults on AlphaFi Protocol.
+
+```typescript
+import { withdrawTxb } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await withdrawTxb(poolName, address, amount);
+```
