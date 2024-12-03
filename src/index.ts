@@ -18,7 +18,17 @@ export {
   getDoubleAssetVaultBalance,
   getVaultBalanceForActiveUsers,
   getXTokenVaultBalanceForActiveUsers,
+  getAllVaultBalances,
 } from "./getVaultBalances.js";
+
+export {
+  depsoitDoubleAssetTxb,
+  depsoitSingleAssetTxb,
+} from "./transactions/deposit.js";
+
+export { withdrawTxb } from "./transactions/withdraw.js";
+
+export { claimRewardTxb } from "./transactions/collect_rewards.js";
 
 export {
   getAllVaults,
@@ -57,7 +67,12 @@ export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
 export * from "./graphql/getMultiReceipts.js";
 
-export { getReceipts, getPool } from "./sui-sdk/functions/getReceipts.js";
+export {
+  getReceipts,
+  getPool,
+  getParentPool,
+  getInvestor,
+} from "./sui-sdk/functions/getReceipts.js";
 
 export {
   liquidityToTokens,
@@ -72,17 +87,22 @@ export {
   getCetusInvestorTicksMap,
   getInvestorPoolMap,
   getPoolExchangeRateMap,
-  poolCoinMap,
-  poolCoinPairMap,
   defunctPoolsSet,
   poolIdPoolNameMap,
   coinsInPool,
   stableCoins,
+  cetusPoolMap,
+  bluefinPoolMap,
+  loopingAccountAddresses,
+  doubleAssetPoolCoinMap,
+  singleAssetPoolCoinMap,
+  loopingPoolCoinMap,
+  naviAssetMap,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
 
-export { coins } from "./common/coins.js";
+export { coinsList } from "./common/coins.js";
 
 export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
 

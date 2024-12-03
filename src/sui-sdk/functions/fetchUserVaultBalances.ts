@@ -17,37 +17,56 @@ import {
 export async function fetchUserVaultBalances(
   address: string,
   poolName: PoolName,
+  ignoreCache: boolean,
 ): Promise<AlphaFiVaultBalance | undefined> {
   const suiClient = getSuiClient();
 
   let vaultBalance: AlphaFiVaultBalance | undefined;
   if (poolInfo[poolName].parentProtocolName === "ALPHAFI") {
-    const lockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-      isLocked: true,
-    });
+    const lockedPortfolioAmount = await getAlphaPortfolioAmount(
+      "ALPHA",
+      {
+        suiClient,
+        address,
+        isLocked: true,
+      },
+      ignoreCache,
+    );
     const lockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
       "ALPHA",
       { suiClient, address, isLocked: true },
+      ignoreCache,
     );
-    const unlockedPortfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-      isLocked: false,
-    });
+    const unlockedPortfolioAmount = await getAlphaPortfolioAmount(
+      "ALPHA",
+      {
+        suiClient,
+        address,
+        isLocked: false,
+      },
+      ignoreCache,
+    );
     const unlockedPortfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
       "ALPHA",
       { suiClient, address, isLocked: false },
+      ignoreCache,
     );
-    const portfolioAmount = await getAlphaPortfolioAmount("ALPHA", {
-      suiClient,
-      address,
-    });
-    const portfolioAmountInUSD = await getAlphaPortfolioAmountInUSD("ALPHA", {
-      suiClient,
-      address,
-    });
+    const portfolioAmount = await getAlphaPortfolioAmount(
+      "ALPHA",
+      {
+        suiClient,
+        address,
+      },
+      ignoreCache,
+    );
+    const portfolioAmountInUSD = await getAlphaPortfolioAmountInUSD(
+      "ALPHA",
+      {
+        suiClient,
+        address,
+      },
+      ignoreCache,
+    );
     if (
       lockedPortfolioAmount !== undefined &&
       lockedPortfolioAmountInUSD !== undefined &&
@@ -67,13 +86,15 @@ export async function fetchUserVaultBalances(
       vaultBalance = res;
     }
   } else if (poolInfo[poolName].parentProtocolName === "CETUS") {
-    const portfolioAmount = await getPortfolioAmount(poolName as PoolName, {
-      suiClient,
+    const portfolioAmount = await getPortfolioAmount(
+      poolName as PoolName,
       address,
-    });
+      ignoreCache,
+    );
     const portfolioAmountInUSD = await getDoubleAssetPortfolioAmountInUSD(
       poolName as PoolName,
-      { suiClient, address },
+      address,
+      ignoreCache,
     );
     if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
       const res: AlphaFiVaultBalance = {
@@ -89,17 +110,13 @@ export async function fetchUserVaultBalances(
   ) {
     const portfolioAmount = await getSingleAssetPortfolioAmount(
       poolName as SingleAssetPoolNames,
-      {
-        suiClient,
-        address,
-      },
+      address,
+      ignoreCache,
     );
     const portfolioAmountInUSD = await getSingleAssetPortfolioAmountInUSD(
       poolName as SingleAssetPoolNames,
-      {
-        suiClient,
-        address,
-      },
+      address,
+      ignoreCache,
     );
     if (portfolioAmount !== undefined && portfolioAmountInUSD !== undefined) {
       const res: AlphaFiVaultBalance = {

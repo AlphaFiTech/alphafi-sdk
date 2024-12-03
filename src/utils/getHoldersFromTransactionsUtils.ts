@@ -6,19 +6,19 @@ import {
 } from "../types.js";
 import {
   poolIdPoolNameMap,
-  poolCoinPairMap,
+  doubleAssetPoolCoinMap,
   getPoolExchangeRateMap,
-  poolCoinMap,
+  singleAssetPoolCoinMap,
 } from "../common/maps.js";
 import { Decimal } from "decimal.js";
 import { BN } from "bn.js";
-import { PoolName, CoinName, DoubleAssetPoolNames } from "../common/types.js";
+import { PoolName, CoinName } from "../common/types.js";
 import {
   ClmmPoolUtil,
   TickMath,
   CoinAmounts,
 } from "@cetusprotocol/cetus-sui-clmm-sdk";
-import { coins } from "../common/coins.js";
+import { coinsList } from "../common/coins.js";
 
 export async function parseTokensFromReceipts(
   receipts: SuiObjectResponse[],
@@ -102,11 +102,15 @@ function doubleAssetliquidityToUSD(params: {
       coin_amounts.coinB.toNumber(),
     ];
     const ten = new Decimal(10);
-    const coin1 = poolCoinPairMap[pool as DoubleAssetPoolNames].coinA;
-    const coin2 = poolCoinPairMap[pool as DoubleAssetPoolNames].coinB;
+    const coin1 = doubleAssetPoolCoinMap[pool].coin1;
+    const coin2 = doubleAssetPoolCoinMap[pool].coin2;
 
-    const amount1 = new Decimal(coinAmounts[0]).div(ten.pow(coins[coin1].expo));
-    const amount2 = new Decimal(coinAmounts[1]).div(ten.pow(coins[coin2].expo));
+    const amount1 = new Decimal(coinAmounts[0]).div(
+      ten.pow(coinsList[coin1].expo),
+    );
+    const amount2 = new Decimal(coinAmounts[1]).div(
+      ten.pow(coinsList[coin2].expo),
+    );
     const priceOfCoin1 = tokenPriceMap.get(coin1);
     const priceOfCoin2 = tokenPriceMap.get(coin2);
     if (priceOfCoin1 && priceOfCoin2) {
@@ -144,9 +148,11 @@ function singleAssetLiquidityToUSD(
       PoolName,
       "NAVI-VSUI" | "NAVI-SUI" | "NAVI-WETH" | "NAVI-USDC" | "NAVI-USDT"
     >;
-    const coin = poolCoinMap[singlePool];
-    let amount = new Decimal(liquidity).div(Math.pow(10, 9 - coins[coin].expo));
-    amount = amount.div(new Decimal(Math.pow(10, coins[coin].expo)));
+    const coin = singleAssetPoolCoinMap[singlePool].coin;
+    let amount = new Decimal(liquidity).div(
+      Math.pow(10, 9 - coinsList[coin].expo),
+    );
+    amount = amount.div(new Decimal(Math.pow(10, coinsList[coin].expo)));
     const priceOfCoin = tokenPriceMap.get(coin);
     if (priceOfCoin) {
       const amountInUSD = amount.mul(priceOfCoin);

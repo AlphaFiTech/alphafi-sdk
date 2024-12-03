@@ -1,10 +1,7 @@
-// import { CONF_ENV, conf } from "../constants";
-// import { Coin, CoinName, CoinType } from "./types.js";
-
 import { conf, CONF_ENV } from "./constants.js";
 import { Coin, CoinName, CoinType } from "./types.js";
 
-export const coins: { [key in CoinName]: Coin } = {
+export const coinsList: { [key in CoinName]: Coin } = {
   ALPHA: {
     name: "ALPHA",
     type: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
@@ -17,15 +14,15 @@ export const coins: { [key in CoinName]: Coin } = {
     icon: "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg",
     expo: 9,
   },
-  WUSDC: {
-    name: "WUSDC",
-    type: "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
-    icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
-    expo: 6,
-  },
   USDC: {
     name: "USDC",
     type: "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
+    expo: 6,
+  },
+  WUSDC: {
+    name: "WUSDC",
+    type: "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
     icon: "https://coinmeta.polymedia.app/img/coins/0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf-coin-COIN.webp",
     expo: 6,
   },
@@ -97,7 +94,7 @@ export const coins: { [key in CoinName]: Coin } = {
   },
   WBTC: {
     name: "WBTC",
-    type: "0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+    type: "0x27792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
     icon: "https://coinmeta.polymedia.app/img/coins/0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881-coin-COIN.webp",
     expo: 8,
   },
@@ -152,6 +149,12 @@ export const coins: { [key in CoinName]: Coin } = {
   AUSD: {
     name: "AUSD",
     type: "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+    icon: "",
+    expo: 6,
+  },
+  NS: {
+    name: "NS",
+    type: "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
     icon: "",
     expo: 6,
   },
