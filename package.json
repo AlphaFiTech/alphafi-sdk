@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Official AlphaFi SDK to access AlphaFi data",
   "type": "module",
   "main": "dist/cjs/index.js",
