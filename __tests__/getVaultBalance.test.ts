@@ -3,6 +3,7 @@ import {
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
   PoolName,
+  getAllVaultBalances,
 } from "..";
 
 describe("getVaultBalance", () => {
@@ -226,26 +227,15 @@ describe("getFudSuiDoubleAssetVaultBalance", () => {
   });
 });
 
-// describe("getBlubSuiDoubleAssetVaultBalance", () => {
+// get Balances for All Vaults
+
+// describe("getAllVaultBalance", () => {
 //   it("should return the correct value", async () => {
 //     const address =
-//       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-//     const poolName: PoolName = "BLUB-SUI";
+//       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86s286378e15";
 
-//     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
-//       expect(balance).toBeDefined();
-//     });
-//   });
-// });
-
-// describe("getScaSuiDoubleAssetVaultBalance", () => {
-//   it("should return the correct value", async () => {
-//     const address =
-//       "0xbef197ee83f9c4962f46f271a50af25301585121e116173be25cd86286378e15";
-//     const poolName: PoolName = "SCA-SUI";
-
-//     return getDoubleAssetVaultBalance(address, poolName).then((balance) => {
-//       expect(balance).toBeDefined();
+//     return getAllVaultBalances(address).then((map) => {
+//       expect(map).toBeDefined();
 //     });
 //   });
 // });
