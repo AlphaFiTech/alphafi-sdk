@@ -11,7 +11,11 @@ export async function getAllVaults(): Promise<string[]> {
 export async function getAllSingleAssetVaults(): Promise<string[]> {
   const vaultsArr: string[] = [];
   for (const pool of Object.keys(poolInfo)) {
-    if (poolInfo[pool].parentProtocolName === "NAVI") {
+    if (
+      poolInfo[pool].parentProtocolName === "NAVI" ||
+      poolInfo[pool].parentProtocolName === "BUCKET" ||
+      poolInfo[pool].parentProtocolName === "ALPHAFI"
+    ) {
       vaultsArr.push(pool);
     }
   }
@@ -21,7 +25,10 @@ export async function getAllSingleAssetVaults(): Promise<string[]> {
 export async function getAllDoubleAssetVaults(): Promise<string[]> {
   const vaultsArr: string[] = [];
   for (const pool of Object.keys(poolInfo)) {
-    if (poolInfo[pool].parentProtocolName === "CETUS") {
+    if (
+      poolInfo[pool].parentProtocolName === "CETUS" ||
+      poolInfo[pool].parentProtocolName === "BLUEFIN"
+    ) {
       vaultsArr.push(pool);
     }
   }

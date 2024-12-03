@@ -75,6 +75,21 @@ const balance: DoubleAssetVaultBalance | undefined =
   await getDoubleAssetVaultBalance(address, poolName);
 ```
 
+## `getAllVaultBalances`
+
+Call this to get user balance for all vaults.
+
+```typescript
+import {
+  PoolName,
+  AlphaFiVaultBalance,
+  getAllVaultBalances,
+} from "@alphafi/alphafi-sdk";
+
+const balance: Map<PoolName, AlphaFiVaultBalance> =
+  await getAllVaultBalances(address);
+```
+
 ## `getAllVaults`
 
 Call this to get all Vaults on AlphaFi Protocol.

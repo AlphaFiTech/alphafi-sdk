@@ -18,7 +18,8 @@ export async function fetchUserVaults(
         let res: AlphaFiVault | undefined = undefined;
         if (
           poolInfo[pool].parentProtocolName === "ALPHAFI" ||
-          poolInfo[pool].parentProtocolName === "NAVI"
+          poolInfo[pool].parentProtocolName === "NAVI" ||
+          poolInfo[pool].parentProtocolName === "BUCKET"
         ) {
           const coin = singleAssetPoolCoinMap[pool].coin;
           res = {
@@ -29,7 +30,10 @@ export async function fetchUserVaults(
             coinName: coin,
             coinType: coinsList[coin].type,
           };
-        } else if (poolInfo[pool].parentProtocolName === "CETUS") {
+        } else if (
+          poolInfo[pool].parentProtocolName === "CETUS" ||
+          poolInfo[pool].parentProtocolName === "BLUEFIN"
+        ) {
           const coinA = doubleAssetPoolCoinMap[pool].coin1;
           const coinB = doubleAssetPoolCoinMap[pool].coin2;
           res = {
