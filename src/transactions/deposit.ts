@@ -14,7 +14,7 @@ import {
   depositBluefinType1Txb,
 } from "./bluefin.js";
 
-export async function depsoitSingleAssetTxb(
+export async function depositSingleAssetTxb(
   poolName: PoolName,
   address: string,
   amount: string,
@@ -30,7 +30,7 @@ export async function depsoitSingleAssetTxb(
   return txb;
 }
 
-export async function depsoitDoubleAssetTxb(
+export async function depositDoubleAssetTxb(
   poolName: PoolName,
   address: string,
   amount: string,

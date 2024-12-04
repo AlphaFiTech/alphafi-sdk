@@ -316,13 +316,12 @@ export const depositBluefinType1Txb = async (
 };
 
 export const withdrawBluefinSuiFirstTxb = async (
-  amount: string | number,
+  xTokens: string,
   poolName: PoolName,
   options: { address: string },
 ) => {
   const address = options.address;
   const txb = new Transaction();
-
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
@@ -363,7 +362,7 @@ export const withdrawBluefinSuiFirstTxb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
@@ -390,7 +389,7 @@ export const withdrawBluefinSuiFirstTxb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_SUI_BUCK_POOL),
@@ -408,13 +407,12 @@ export const withdrawBluefinSuiFirstTxb = async (
 };
 
 export const withdrawBluefinType1Txb = async (
-  amount: string | number,
+  xTokens: string,
   poolName: PoolName,
   options: { address: string },
 ) => {
   const address = options.address;
   const txb = new Transaction();
-
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
@@ -455,7 +453,7 @@ export const withdrawBluefinType1Txb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
@@ -483,7 +481,7 @@ export const withdrawBluefinType1Txb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_AUSD_USDC_POOL),
