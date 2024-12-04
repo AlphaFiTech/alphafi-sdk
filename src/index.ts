@@ -22,11 +22,17 @@ export {
 } from "./getVaultBalances.js";
 
 export {
-  depsoitDoubleAssetTxb,
-  depsoitSingleAssetTxb,
+  depositDoubleAssetTxb,
+  depositSingleAssetTxb,
 } from "./transactions/deposit.js";
 
-export { withdrawTxb } from "./transactions/withdraw.js";
+export {
+  withdrawTxb,
+  coinAmountToXTokensDoubleAsset,
+  coinAmountToXTokensSingleAsset,
+} from "./transactions/withdraw.js";
+
+export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
 export { claimRewardTxb } from "./transactions/collect_rewards.js";
 

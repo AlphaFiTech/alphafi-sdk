@@ -205,48 +205,42 @@ export async function getReceipts(
 export async function getPoolExchangeRate(
   poolName: PoolName,
   ignoreCache: boolean,
-): Promise<Decimal | undefined> {
+): Promise<Decimal> {
   let pool;
   try {
     pool = await getPool(poolName, ignoreCache);
-    if (pool) {
-      const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
-      let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
-      if (poolName == "ALPHA") {
-        tokensInvested = new Decimal(pool.content.fields.alpha_bal);
-      } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
-        const investor = (await getInvestor(
-          poolName,
-          ignoreCache,
-        )) as CetusInvestor & CommonInvestorFields;
-        if (!investor) {
-          throw new Error(
-            `couldnt fetch investor object for pool: ${poolName}`,
-          );
-        }
-        tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+    const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
+    let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+    if (poolName == "ALPHA") {
+      tokensInvested = new Decimal(pool.content.fields.alpha_bal);
+    } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
+      const investor = (await getInvestor(
+        poolName,
+        ignoreCache,
+      )) as CetusInvestor & CommonInvestorFields;
+      if (!investor) {
+        throw new Error(`couldnt fetch investor object for pool: ${poolName}`);
       }
-
-      // Check for division by zero
-      if (xTokenSupply.eq(0)) {
-        console.error("Division by zero error: tokensInvested is zero.");
-        return undefined;
-      }
-      const poolExchangeRate = tokensInvested.div(xTokenSupply);
-      return poolExchangeRate;
+      tokensInvested = new Decimal(pool.content.fields.tokensInvested);
     }
-  } catch (e) {
+
+    // Check for division by zero
+    if (xTokenSupply.eq(0)) {
+      console.error("Division by zero error: tokensInvested is zero.");
+      return new Decimal(0);
+    }
+    const poolExchangeRate = tokensInvested.div(xTokenSupply);
+    return poolExchangeRate;
+  } catch (err) {
     console.log(
-      `getPoolExchangeRate failed for poolName: ${poolName}, with error ${e}`,
+      `getPoolExchangeRate failed for poolName: ${poolName}, with error ${err}`,
     );
+    throw err;
   }
-  return undefined;
 }
 
 const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
-const poolPromiseCache = new SimpleCache<
-  Promise<PoolType | AlphaPoolType | undefined>
->();
+const poolPromiseCache = new SimpleCache<Promise<PoolType | AlphaPoolType>>();
 
 export async function getMultiPool() {
   let pools = Object.keys(poolInfo);
@@ -276,7 +270,7 @@ export async function getMultiPool() {
 export async function getPool(
   poolName: string,
   ignoreCache: boolean,
-): Promise<PoolType | AlphaPoolType | undefined> {
+): Promise<PoolType | AlphaPoolType> {
   const suiClient = getSuiClient();
   const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].poolId}`;
 
@@ -312,9 +306,9 @@ export async function getPool(
       // Cache the pool object
       poolCache.set(cacheKey, poolData);
       return poolData;
-    } catch (e) {
+    } catch (err) {
       console.error(`Error in getPool; poolName => ${poolName}`);
-      return undefined;
+      throw err;
     } finally {
       // Remove the promise from the cache after it resolves
       poolPromiseCache.delete(cacheKey);
@@ -327,9 +321,7 @@ export async function getPool(
 }
 
 const cetusPoolCache = new SimpleCache<CetusPoolType>();
-const cetusPoolPromiseCache = new SimpleCache<
-  Promise<CetusPoolType | undefined>
->();
+const cetusPoolPromiseCache = new SimpleCache<Promise<CetusPoolType>>();
 
 export async function getMultiParentPool() {
   let pools = Object.keys(poolInfo);
@@ -359,7 +351,7 @@ export async function getMultiParentPool() {
 export async function getParentPool(
   poolName: string,
   ignoreCache: boolean,
-): Promise<CetusPoolType | undefined> {
+): Promise<CetusPoolType> {
   const suiClient = getSuiClient();
   const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
   if (ignoreCache) {
@@ -397,9 +389,9 @@ export async function getParentPool(
       // Cache the pool object
       cetusPoolCache.set(cacheKey, cetusPool);
       return cetusPool;
-    } catch (e) {
+    } catch (err) {
       console.error(`getCetusPool failed for poolName: ${poolName}`);
-      return undefined;
+      throw err;
     } finally {
       // Remove the promise from the cache after it resolves
       cetusPoolPromiseCache.delete(cacheKey);
@@ -412,7 +404,7 @@ export async function getParentPool(
 }
 
 const investorCache = new SimpleCache<Investor>();
-const investorPromiseCache = new SimpleCache<Promise<Investor | undefined>>();
+const investorPromiseCache = new SimpleCache<Promise<Investor>>();
 
 export async function getMultiInvestor() {
   let pools = Object.keys(poolInfo);
@@ -442,7 +434,7 @@ export async function getMultiInvestor() {
 export async function getInvestor(
   poolName: PoolName,
   ignoreCache: boolean,
-): Promise<Investor | undefined> {
+): Promise<Investor> {
   const suiClient = getSuiClient();
   const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
   if (ignoreCache) {
@@ -483,9 +475,9 @@ export async function getInvestor(
       // Cache the investor object
       investorCache.set(cacheKey, cetusInvestor);
       return cetusInvestor;
-    } catch (e) {
+    } catch (err) {
       console.error(`getInvestor failed for pool: ${poolName}`);
-      return undefined;
+      throw err;
     } finally {
       // Remove the promise from the cache after it resolves
       investorPromiseCache.delete(cacheKey);
