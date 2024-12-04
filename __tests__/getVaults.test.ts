@@ -40,7 +40,7 @@ describe("getSingleAssetVaults", () => {
 describe("getAllSingleAssetVaults", () => {
   it("should return the correct value", async () => {
     return getAllSingleAssetVaults().then((vaults) => {
-      expect(vaults?.length).toBe(14);
+      expect(vaults?.length).toBe(16);
     });
   });
 });
@@ -59,7 +59,7 @@ describe("getDoubleAssetVaults", () => {
 describe("getAllDoubleAssetVaults", () => {
   it("should return the correct value", async () => {
     return getAllDoubleAssetVaults().then((vaults) => {
-      expect(vaults?.length).toBe(17);
+      expect(vaults?.length).toBe(21);
     });
   });
 });

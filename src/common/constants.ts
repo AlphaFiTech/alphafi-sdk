@@ -2338,6 +2338,19 @@ export const conf = {
     NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
 
+    // Check Ratio Events
+    NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT:
+      "0xad4f82d9956085bdab812d46fb2ea4d95c35e9e936cb53d04a79d3989ef97774::alphafi_navi_native_usdc_usdt_investor::CheckRatioEvent",
+
+    NAVI_LOOP_SUI_VSUI_POOL_CHECK_RATIO_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::CheckRatio",
+
+    NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT:
+      "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_investor::CheckRatio",
+
+    NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT:
+      "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_investor::CheckRatioEvent",
+
     // Cetus Events
     CETUS_ADD_LIQUIDITY_EVENT:
       "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::AddLiquidityEvent",
