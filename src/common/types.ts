@@ -46,7 +46,10 @@ export type PoolName =
   | "NAVI-LOOP-USDT-USDC"
   | "BLUEFIN-SUI-BUCK"
   | "BLUEFIN-AUSD-USDC"
-  | "NAVI-NS";
+  | "NAVI-NS"
+  | "BLUEFIN-SUI-AUSD"
+  | "BLUEFIN-ALPHA-USDC"
+  | "BLUEFIN-WBTC-USDC";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -93,7 +96,10 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-SUI-USDC"
   | "BLUEFIN-USDT-USDC"
   | "BLUEFIN-SUI-BUCK"
-  | "BLUEFIN-AUSD-USDC";
+  | "BLUEFIN-AUSD-USDC"
+  | "BLUEFIN-SUI-AUSD"
+  | "BLUEFIN-ALPHA-USDC"
+  | "BLUEFIN-WBTC-USDC";
 
 export type CoinName =
   | "ALPHA"
