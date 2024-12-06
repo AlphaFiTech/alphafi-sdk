@@ -176,6 +176,23 @@ import { Transaction } from "@mysten/sui/transactions";
 const vaults: Transaction = await withdrawTxb(xTokensAmount, poolName, address);
 ```
 
+## `withdrawAlphaTxb`
+
+Call this to withdraw from Alpha Vault on AlphaFi Protocol.
+xTokensAmount can be calculated using coinAmountToXTokensSingleAsset function.
+If you want to withdraw from locked alpha tokens then pass withdrawFromLocked as true, otherwise false.
+
+```typescript
+import { withdrawAlphaTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await withdrawAlphaTxb(
+  xTokensAmount,
+  withdrawFromLocked,
+  address,
+);
+```
+
 ## `coinAmountToXTokensSingleAsset`
 
 Call this to convert coin amount to xTokenAmount for any Single Asset pool on AlphaFi Protocol.
