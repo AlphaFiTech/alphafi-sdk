@@ -128,3 +128,5 @@ export {
 export { ReceiptGQL } from "./graphql/types.js";
 
 export * from "./types.js";
+
+export * from "./adminFunctions.js";
