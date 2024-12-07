@@ -61,6 +61,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-SUI-AUSD": { coin1: "SUI", coin2: "AUSD" },
   "BLUEFIN-ALPHA-USDC": { coin1: "ALPHA", coin2: "USDC" },
   "BLUEFIN-WBTC-USDC": { coin1: "WBTC", coin2: "USDC" },
+  "BLUEFIN-NAVX-VSUI": { coin1: "NAVX", coin2: "VSUI" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -140,7 +141,8 @@ export const cetusPoolMap: { [key: string]: string } = {
   "USDC-AUSD": conf[CONF_ENV].USDC_AUSD_CETUS_POOL_ID,
   "NS-SUI": conf[CONF_ENV].NS_SUI_CETUS_POOL_ID,
   "AUSD-SUI": conf[CONF_ENV].AUSD_SUI_CETUS_POOL_ID,
-  USDC_WBTC: conf[CONF_ENV].USDC_WBTC_CETUS_POOL_ID,
+  "USDC-WBTC": conf[CONF_ENV].USDC_WBTC_CETUS_POOL_ID,
+  "NAVX-VSUI": conf[CONF_ENV].NAVX_VSUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -152,6 +154,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUI-AUSD": conf[CONF_ENV].BLUEFIN_SUI_AUSD_POOL,
   "ALPHA-USDC": conf[CONF_ENV].BLUEFIN_ALPHA_USDC_POOL,
   "WBTC-USDC": conf[CONF_ENV].BLUEFIN_WBTC_USDC_POOL,
+  "NAVX-VSUI": conf[CONF_ENV].BLUEFIN_NAVX_VSUI_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -181,6 +184,24 @@ export const poolInfo: {
     checkRatioEventType?: string;
   };
 } = {
+  "BLUEFIN-NAVX-VSUI": {
+    packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
+    packageNumber: 4,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_NAVX_VSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_RECEIPT,
+    numberOfAssets: 2,
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "BLUEFIN-SUI-AUSD": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
