@@ -3,7 +3,7 @@ import { CoinStruct } from "@mysten/sui/client";
 import { getConf, getReceipts, getSuiClient, Receipt } from "../index.js";
 
 export const depositAlphaTxb = async (
-  amount: string | number,
+  amount: string,
   address: string,
 ): Promise<Transaction> => {
   const suiClient = getSuiClient();
