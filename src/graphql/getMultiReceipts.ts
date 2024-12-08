@@ -53,11 +53,11 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
     cursor: "",
   } as ReceiptType,
-  bluefinSuiUsdcPoolReceipts: {
+  bluefinSuiFirstPoolReceipts: {
     type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::Receipt",
     cursor: "",
   } as ReceiptType,
-  bluefinUsdtUsdcPoolReceipts: {
+  bluefinType1PoolReceipts: {
     type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
     cursor: "",
   } as ReceiptType,
@@ -65,20 +65,8 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_pool::Receipt",
     cursor: "",
   } as ReceiptType,
-  bluefinAlphaUsdcPoolReceipts: {
+  bluefinType2PoolReceipts: {
     type: "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::Receipt",
-    cursor: "",
-  } as ReceiptType,
-  bluefinSuiAusdPoolReceipts: {
-    type: "0xeea4b39278f417d8320a581b34af2f312c505f89d94a9e74a16c0964cc5ba0d1::alphafi_bluefin_sui_first_pool::Receipt",
-    cursor: "",
-  } as ReceiptType,
-  bluefinWbtcUsdcPoolReceipts: {
-    type: "0xeea4b39278f417d8320a581b34af2f312c505f89d94a9e74a16c0964cc5ba0d1::alphafi_bluefin_type_1_pool::Receipt",
-    cursor: "",
-  } as ReceiptType,
-  bluefinNavxVsuiPoolReceipts: {
-    type: "0x6220925f036da754633d17bccf08c184df49af39651341faacc1a7382dd01323::alphafi_bluefin_type_2_pool::Receipt",
     cursor: "",
   } as ReceiptType,
 };
