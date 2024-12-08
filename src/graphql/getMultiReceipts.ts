@@ -53,16 +53,20 @@ const receiptTypes: { [key: string]: ReceiptType } = {
     type: "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::Receipt",
     cursor: "",
   } as ReceiptType,
-  bluefinSuiUsdcPoolReceipts: {
+  bluefinSuiFirstPoolReceipts: {
     type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::Receipt",
     cursor: "",
   } as ReceiptType,
-  bluefinUsdtUsdcPoolReceipts: {
+  bluefinType1PoolReceipts: {
     type: "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
     cursor: "",
   } as ReceiptType,
   naviNativeUsdtUsdcPoolReceipts: {
     type: "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_pool::Receipt",
+    cursor: "",
+  } as ReceiptType,
+  bluefinType2PoolReceipts: {
+    type: "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::Receipt",
     cursor: "",
   } as ReceiptType,
 };
