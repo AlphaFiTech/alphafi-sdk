@@ -1134,7 +1134,7 @@ export function coinsInPool(
   throw new Error("Pool not found in poolCoinMap or poolCoinPairMap");
 }
 
-export async function getInvestorPoolMap(): Promise<Map<string, PoolName>> {
+export function getInvestorPoolMap(): Map<string, PoolName> {
   const investorIdToPoolNameMap = new Map<string, PoolName>();
 
   for (const poolName in poolInfo) {
