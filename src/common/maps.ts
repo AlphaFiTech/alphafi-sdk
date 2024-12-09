@@ -174,7 +174,7 @@ export const poolInfo: {
     investorId: string;
     receiptName: string;
     receiptType: PoolReceipt;
-    numberOfAssets: number;
+    assetType: string[];
     autoCompoundingEventType: string;
     rebalanceEventType: string | undefined;
     liquidityChangeEventType: string;
@@ -193,7 +193,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
+      "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -211,7 +214,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x2::sui::SUI",
+      "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -229,7 +235,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -247,7 +256,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x27792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -265,7 +277,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_NS_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_NS_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_NS_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_NS_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -281,7 +295,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -299,7 +316,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x2::sui::SUI",
+      "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -317,7 +337,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDT_USDC_LOOP_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -336,7 +358,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -354,7 +379,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x2::sui::SUI",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
@@ -372,7 +400,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xbde4ba4c2e274a60ce15c1cfff9e5c42e41654ac8b6d906a57efa4bd3c29f47d::hasui::HASUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -391,7 +421,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_USDY_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDY_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_USDY_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDY_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -407,7 +439,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_AUSD_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_AUSD_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_AUSD_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_AUSD_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -423,7 +457,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_ETH_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_ETH_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_ETH_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_ETH_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -439,7 +475,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].BUCKET_BUCK_INVESTOR,
     receiptName: conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].BUCKET_BUCK_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
@@ -455,7 +493,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].BUCK_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].BUCK_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].BUCK_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xce7ff77a83ea0cb6fd39bd8748e2ec89a3f41e8efdc3f4eb123e0ca37b184db2::buck::BUCK",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].BUCK_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].BUCK_SUI_POOL_REBALANCE_EVENT,
@@ -471,7 +512,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_ETH_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_ETH_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_ETH_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_ETH_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_ETH_POOL_REBALANCE_EVENT,
@@ -487,7 +531,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].DEEP_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].DEEP_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].DEEP_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].DEEP_SUI_POOL_REBALANCE_EVENT,
@@ -503,7 +550,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_USDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_USDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
@@ -519,7 +569,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_WUSDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_WUSDC_POOL_REBALANCE_EVENT,
@@ -535,7 +588,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
@@ -551,7 +607,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDC_USDT_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_USDT_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDC_USDT_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].USDC_USDT_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDC_USDT_POOL_REBALANCE_EVENT,
@@ -567,7 +626,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -583,7 +644,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_LOOP_USDC_USDT_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDC_USDT_LOOP_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_LOOP_USDC_USDT_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -602,7 +665,7 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_RECEIPT,
-    numberOfAssets: 1,
+    assetType: ["0x2::sui::SUI"],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -621,7 +684,7 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_SUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: ["0x2::sui::SUI"],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -639,7 +702,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_VSUI_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0x549e8b69270defbfafd4f94e17ec44cdbdd99820b33bda2278dea3b9a32d3f55::cert::CERT",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -657,7 +722,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_WETH_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -675,7 +742,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_USDT_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -693,7 +762,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVI_WUSDC_INVESTOR,
     receiptName: conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVI_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
@@ -728,7 +799,9 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_POOL,
     receiptName: conf[CONF_ENV].ALPHA_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_POOL_RECEIPT,
-    numberOfAssets: 1,
+    assetType: [
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+    ],
     autoCompoundingEventType: conf[CONF_ENV].ALPHA_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType: conf[CONF_ENV].ALPHA_POOL_LIQUIDITY_CHANGE_EVENT,
@@ -745,7 +818,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].ALPHA_SUI_POOL_REBALANCE_EVENT,
@@ -780,7 +856,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].USDT_WUSDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xc060006111016b8a020ad5b33834984a437aaa7d3c74c18e09a95d48aceab08c::coin::COIN",
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].USDT_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].USDT_WUSDC_POOL_REBALANCE_EVENT,
@@ -815,7 +894,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].WUSDC_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].WUSDC_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WUSDC_SUI_POOL_REBALANCE_EVENT,
@@ -833,7 +915,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].WETH_WUSDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xaf8cd5edc19c4512f4259f0bee101a40d41ebed738ade5874359610ef8eeced5::coin::COIN",
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].WETH_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WETH_WUSDC_POOL_REBALANCE_EVENT,
@@ -851,7 +936,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].WUSDC_WBTC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+      "0x27792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].WUSDC_WBTC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WUSDC_WBTC_POOL_REBALANCE_EVENT,
@@ -869,7 +957,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].NAVX_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].NAVX_SUI_POOL_REBALANCE_EVENT,
@@ -904,7 +995,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].CETUS_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].CETUS_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x6864a6f921804860930db6ddbe2e16acdf8504495ea7481637a1c8b9a8fe54b::cetus::CETUS",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
@@ -920,7 +1014,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].ALPHA_WUSDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHA_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].ALPHA_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].ALPHA_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].ALPHA_WUSDC_POOL_REBALANCE_EVENT,
@@ -936,7 +1033,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].WSOL_WUSDC_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].WSOL_WUSDC_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].WSOL_WUSDC_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0xb7844e289a8410e50fb3ca48d69eb9cf29e27d223ef90353fe1bd8e27ff8f3f8::coin::COIN",
+      "0x5d4b302506645c37ff133b98c4b50a5ae14841659738d6d733d59d0d217a93bf::coin::COIN",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].WSOL_WUSDC_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].WSOL_WUSDC_POOL_REBALANCE_EVENT,
@@ -952,7 +1052,10 @@ export const poolInfo: {
     investorId: conf[CONF_ENV].FUD_SUI_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT_NAME,
     receiptType: conf[CONF_ENV].FUD_SUI_POOL_RECEIPT,
-    numberOfAssets: 2,
+    assetType: [
+      "0x76cb819b01abed502bee8a702b4c2d547532c12f25001c9dea795a5e631c26f1::fud::FUD",
+      "0x2::sui::SUI",
+    ],
     autoCompoundingEventType:
       conf[CONF_ENV].FUD_SUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
