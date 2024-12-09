@@ -48,6 +48,8 @@ export * from "./transactions/cetus.js";
 
 export * from "./transactions/navi.js";
 
+export * from "./transactions/navi-looping.js";
+
 //
 export {
   getAllVaults,
