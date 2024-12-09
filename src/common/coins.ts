@@ -1,10 +1,9 @@
-import { conf, CONF_ENV } from "./constants.js";
-import { Coin, CoinName, CoinType } from "./types.js";
+import { Coin, CoinName } from "./types.js";
 
 export const coinsList: { [key in CoinName]: Coin } = {
   ALPHA: {
     name: "ALPHA",
-    type: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
+    type: "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
     icon: "https://7taj6jfau6n3dri7agspzfnva7qbj5sizz5xc3lb56nmxpsyoiba.arweave.net/_MCfJKCnm7HFHwGk_JW1B-AU9kjOe3FtYe-ay75YcgI",
     expo: 9,
   },
