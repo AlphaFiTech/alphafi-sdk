@@ -13,7 +13,7 @@ import {
 } from "../index.js";
 
 export async function bucketDepositTx(
-  amount: number,
+  amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();

@@ -185,22 +185,22 @@ export const poolInfo: {
     checkRatioEventType?: string;
   };
 } = {
-  "NAVI-NAVX": {
-    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
-    packageNumber: 3,
-    parentProtocolName: "NAVI",
-    parentPoolId: conf[CONF_ENV].NAVI_NAVX_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_NAVX_POOL,
-    investorId: conf[CONF_ENV].NAVI_NAVX_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_NAVX_POOL_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_NAVX_POOL_RECEIPT,
-    assetTypes: [conf[CONF_ENV].NAVX_COIN_TYPE],
-    autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_NAVX_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType: undefined,
-    liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_NAVX_POOL_LIQUIDITY_CHANGE_EVENT,
-  },
+  // "NAVI-NAVX": {
+  //   packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+  //   packageNumber: 3,
+  //   parentProtocolName: "NAVI",
+  //   parentPoolId: conf[CONF_ENV].NAVI_NAVX_POOL,
+  //   poolId: conf[CONF_ENV].ALPHAFI_NAVI_NAVX_POOL,
+  //   investorId: conf[CONF_ENV].NAVI_NAVX_INVESTOR,
+  //   receiptName: conf[CONF_ENV].NAVI_NAVX_POOL_RECEIPT_NAME,
+  //   receiptType: conf[CONF_ENV].NAVI_NAVX_POOL_RECEIPT,
+  //   assetTypes: [conf[CONF_ENV].NAVX_COIN_TYPE],
+  //   autoCompoundingEventType:
+  //     conf[CONF_ENV].NAVI_NAVX_POOL_AUTO_COMPOUNDING_EVENT,
+  //   rebalanceEventType: undefined,
+  //   liquidityChangeEventType:
+  //     conf[CONF_ENV].NAVI_NAVX_POOL_LIQUIDITY_CHANGE_EVENT,
+  // },
   "BLUEFIN-NAVX-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,

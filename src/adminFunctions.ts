@@ -14,7 +14,7 @@ export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
   const current_sqrt_price = parentPool.content.fields.current_sqrt_price;
   const tick = TickMath.sqrtPriceX64ToTickIndex(new BN(current_sqrt_price));
-  return tick;
+  return tick.toString();
 }
 
 export async function getPositionTicks(poolName: PoolName) {
@@ -29,7 +29,7 @@ export async function getPositionTicks(poolName: PoolName) {
   if (upperTick > upperBound) {
     upperTick = -~(upperTick - 1);
   }
-  return [lowerTick, upperTick];
+  return [lowerTick.toString(), upperTick.toString()];
 }
 
 export async function getTickToPrice(poolName: PoolName, tick: string) {
@@ -38,7 +38,7 @@ export async function getTickToPrice(poolName: PoolName, tick: string) {
   const coinBName = doubleAssetPoolCoinMap[poolName].coin2;
   const coinB = coinsList[coinBName];
   const price = TickMath.tickIndexToPrice(Number(tick), coinA.expo, coinB.expo);
-  return price;
+  return price.toString();
 }
 
 export async function getPriceToTick(poolName: PoolName, price: string) {
@@ -55,5 +55,5 @@ export async function getPriceToTick(poolName: PoolName, price: string) {
     coinB.expo,
     tickSpacing,
   );
-  return tick;
+  return tick.toString();
 }
