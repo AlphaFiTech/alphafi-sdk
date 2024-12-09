@@ -264,8 +264,8 @@ export async function getMultiPool() {
       const cacheKey = `pool_${poolInfo[pools[i]].poolId}`;
       poolCache.set(cacheKey, poolData);
     }
-  } catch (e) {
-    console.error(`Error getting multiPools`);
+  } catch (error) {
+    console.error(`Error getting multiPools - ${error}`);
   }
 }
 
@@ -295,7 +295,6 @@ export async function getPool(
   // If not, create a new promise and cache it
   poolPromise = (async () => {
     try {
-      console.log(poolName);
       const o = await suiClient.getObject({
         id: poolInfo[poolName].poolId,
         options: {
