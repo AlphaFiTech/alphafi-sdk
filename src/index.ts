@@ -72,6 +72,8 @@ export {
   getRebalanceHistories,
 } from "./getRebalanceHistory.js";
 
+export { getTVLs, fetchTVL } from "./getTVL.js";
+
 export {
   getHoldersFromTransactions,
   getUserTokensFromTransactions,

@@ -18,6 +18,8 @@ import {
   ReceiptGQL,
   cetusPoolMap,
   bluefinPoolMap,
+  Distributor,
+  getConf,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
@@ -122,7 +124,7 @@ export async function getMultiReceipts(address: string) {
     // get receipts individually
     const pools = Object.keys(poolInfo);
     const receiptPromises = pools.map((pool) => {
-      return getReceipts(pool, address, true);
+      return getReceipts(pool as PoolName, address, true);
     });
     const receipts = await Promise.all(receiptPromises);
     receipts.forEach((receipt, index) => {
@@ -133,7 +135,7 @@ export async function getMultiReceipts(address: string) {
 }
 
 export async function getReceipts(
-  poolName: string,
+  poolName: PoolName,
   address: string,
   ignoreCache: boolean,
 ): Promise<Receipt[]> {
@@ -293,6 +295,7 @@ export async function getPool(
   // If not, create a new promise and cache it
   poolPromise = (async () => {
     try {
+      console.log(poolName);
       const o = await suiClient.getObject({
         id: poolInfo[poolName].poolId,
         options: {
@@ -570,6 +573,60 @@ export async function multiGetNaviInvestor(poolNames: SingleAssetPoolNames[]) {
     );
     throw err;
   }
+}
+
+const distributorCache = new SimpleCache<Distributor>();
+const distributorPromiseCache = new SimpleCache<
+  Promise<Distributor | undefined>
+>();
+
+export async function getDistributor(
+  ignoreCache: boolean,
+): Promise<Distributor | undefined> {
+  const suiClient = getSuiClient();
+  const cacheKey = `distributor_${getConf().ALPHA_DISTRIBUTOR}`;
+  if (ignoreCache) {
+    distributorCache.delete(cacheKey);
+    distributorPromiseCache.delete(cacheKey);
+  }
+  // Check if the distributor is already in the cache
+  const cachedDistributor = distributorCache.get(cacheKey);
+  if (cachedDistributor) {
+    return cachedDistributor;
+  }
+
+  // Check if there is already a promise in the cache
+  let distributorPromise = distributorPromiseCache.get(cacheKey);
+  if (distributorPromise) {
+    return distributorPromise;
+  }
+
+  // If not, create a new promise and cache it
+  distributorPromise = (async () => {
+    try {
+      const o = await suiClient.getObject({
+        id: getConf().ALPHA_DISTRIBUTOR,
+        options: {
+          showContent: true,
+        },
+      });
+      const distributor = o.data as Distributor;
+
+      // Cache the distributor object
+      distributorCache.set(cacheKey, distributor);
+      return distributor;
+    } catch (e) {
+      console.error(`getDistributor failed`);
+      return undefined;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      distributorPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  distributorPromiseCache.set(cacheKey, distributorPromise);
+  return distributorPromise;
 }
 
 /*
