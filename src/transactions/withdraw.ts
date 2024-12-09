@@ -10,10 +10,12 @@ import {
 import {
   withdrawBluefinSuiFirstTxb,
   withdrawBluefinType1Txb,
+  withdrawBluefinType2Txb,
 } from "./bluefin.js";
 import { naviWithdrawTx } from "./navi.js";
 import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
+import { loopingWithdraw } from "./navi-looping.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -39,7 +41,11 @@ export async function withdrawTxb(
     }
   } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
     const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
-    if (coin1 === "SUI") {
+    if (poolName === "BLUEFIN-NAVX-VSUI" || poolName === "BLUEFIN-ALPHA-USDC") {
+      txb = await withdrawBluefinType2Txb(xTokensAmount, poolName, {
+        address,
+      });
+    } else if (coin1 === "SUI") {
       txb = await withdrawBluefinSuiFirstTxb(xTokensAmount, poolName, {
         address,
       });
@@ -49,7 +55,9 @@ export async function withdrawTxb(
       });
     }
   } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
-    txb = await naviWithdrawTx(xTokensAmount, poolName, { address });
+    if (poolInfo[poolName].strategyType === "LOOPING") {
+      txb = await loopingWithdraw(poolName, xTokensAmount, { address });
+    } else txb = await naviWithdrawTx(xTokensAmount, poolName, { address });
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   }

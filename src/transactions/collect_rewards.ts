@@ -5,6 +5,7 @@ import {
   getConf,
   getReceipts,
   poolInfo,
+  PoolName,
   singleAssetPoolCoinMap,
 } from "../index.js";
 
@@ -30,7 +31,7 @@ export async function claimRewardTxb(address: string) {
     if (poolInfo[poolName].poolId == "") {
       continue;
     }
-    const receipts = await getReceipts(poolName, address, true);
+    const receipts = await getReceipts(poolName as PoolName, address, true);
     if (poolName == "ALPHA") {
     } else {
       if (poolInfo[poolName].packageNumber == 5) {

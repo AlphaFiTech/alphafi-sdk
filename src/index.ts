@@ -48,6 +48,8 @@ export * from "./transactions/cetus.js";
 
 export * from "./transactions/navi.js";
 
+export * from "./transactions/navi-looping.js";
+
 //
 export {
   getAllVaults,
@@ -69,6 +71,8 @@ export {
   getRebalanceHistory,
   getRebalanceHistories,
 } from "./getRebalanceHistory.js";
+
+export { getTVLs, fetchTVL } from "./getTVL.js";
 
 export {
   getHoldersFromTransactions,
