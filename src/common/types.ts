@@ -131,7 +131,8 @@ export type CoinName =
   | "ETH"
   | "DEEP"
   | "AUSD"
-  | "NS";
+  | "NS"
+  | "BLUE";
 
 export type StrategyType =
   | "LOOPING"
@@ -217,7 +218,8 @@ export type CoinType =
   | "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH"
   | "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP"
   | "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD"
-  | "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS";
+  | "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS"
+  | "0xe1b45a0e641b9955a20aa0ad1c1f4ad86aad8afb07296d4085e349a50e90bdca::blue::BLUE";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
