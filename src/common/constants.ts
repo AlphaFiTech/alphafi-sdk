@@ -81,7 +81,7 @@ export const conf = {
     ALPHA_4_FIRST_PACKAGE_ID:
       "0xeea4b39278f417d8320a581b34af2f312c505f89d94a9e74a16c0964cc5ba0d1",
     ALPHA_4_LATEST_PACKAGE_ID:
-      "0x0e24d63a96c312372f92e7fd6816372ddcf4bb27da718c0a3c7ce97a3899cd20",
+      "0xf475d309f5726e1c25ea9ff9031caf733975eb426c563c9dd1ef0af82ac102ad",
 
     ALPHA_4_MODULE_PACKAGE_IDS: [
       "0xeea4b39278f417d8320a581b34af2f312c505f89d94a9e74a16c0964cc5ba0d1",
@@ -191,6 +191,8 @@ export const conf = {
       "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
     NS_COIN_TYPE:
       "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
+    BLUE_COIN_TYPE:
+      "0xe1b45a0e641b9955a20aa0ad1c1f4ad86aad8afb07296d4085e349a50e90bdca::blue::BLUE",
 
     // Alpha POOL Id's
 
@@ -1167,6 +1169,8 @@ export const conf = {
       "0x38282481e3a024c50254c31ebfc4710e003fe1b219c0aa31482a860bd58c4ab0",
     BLUEFIN_NAVX_VSUI_POOL:
       "0xa0b4fef70ccef039b94512d6384806979d4c201c5e12af9a4b0458454b80da35",
+    BLUEFIN_BLUE_SUI_POOL:
+      "0xd0d64d266b6a55e3972677f6cfd6854c50ae94e76750c56a3e7c3050d641a760",
 
     // constants for haedel
 
@@ -1531,6 +1535,9 @@ export const conf = {
 
     NS_COIN_TYPE:
       "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
+
+    BLUE_COIN_TYPE:
+      "0xe1b45a0e641b9955a20aa0ad1c1f4ad86aad8afb07296d4085e349a50e90bdca::blue::BLUE",
 
     // Defunct Pools
     DEFUNCT_POOLS: [
@@ -2568,6 +2575,8 @@ export const conf = {
       "0x38282481e3a024c50254c31ebfc4710e003fe1b219c0aa31482a860bd58c4ab0",
     BLUEFIN_NAVX_VSUI_POOL:
       "0xa0b4fef70ccef039b94512d6384806979d4c201c5e12af9a4b0458454b80da35",
+    BLUEFIN_BLUE_SUI_POOL:
+      "0xd0d64d266b6a55e3972677f6cfd6854c50ae94e76750c56a3e7c3050d641a760",
 
     // constants for haedel
 

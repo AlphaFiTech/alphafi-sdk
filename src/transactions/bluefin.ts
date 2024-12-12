@@ -84,7 +84,6 @@ export const depositBluefinSuiFirstTxb = async (
           arguments: [txb.object(receipt[0].objectId)],
         });
       }
-      console.log(poolinfo.poolId);
 
       if (poolName === "BLUEFIN-SUI-USDC") {
         txb.moveCall({
@@ -92,7 +91,7 @@ export const depositBluefinSuiFirstTxb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -107,7 +106,7 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["USDC-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
@@ -118,7 +117,7 @@ export const depositBluefinSuiFirstTxb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -133,7 +132,7 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_SUI_BUCK_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["BUCK-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
@@ -144,7 +143,7 @@ export const depositBluefinSuiFirstTxb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -159,7 +158,7 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_SUI_AUSD_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["AUSD-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
@@ -281,7 +280,7 @@ export const depositBluefinType1Txb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -296,7 +295,7 @@ export const depositBluefinType1Txb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["USDC-USDT"]),
             txb.object(cetusPoolMap["USDC-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -308,7 +307,7 @@ export const depositBluefinType1Txb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -323,7 +322,7 @@ export const depositBluefinType1Txb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_AUSD_USDC_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["USDC-AUSD"]),
             txb.object(cetusPoolMap["USDC-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -335,7 +334,7 @@ export const depositBluefinType1Txb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -350,7 +349,7 @@ export const depositBluefinType1Txb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_WBTC_USDC_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["USDC-WBTC"]),
             txb.object(cetusPoolMap["USDC-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -474,7 +473,7 @@ export const depositBluefinType2Txb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -489,7 +488,7 @@ export const depositBluefinType2Txb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_ALPHA_USDC_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["ALPHA-USDC"]),
             txb.object(cetusPoolMap["USDC-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -501,7 +500,7 @@ export const depositBluefinType2Txb = async (
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
-            coinsList["DEEP"].type,
+            coinsList["BLUE"].type,
             coinsList["SUI"].type,
           ],
           arguments: [
@@ -516,7 +515,7 @@ export const depositBluefinType2Txb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_NAVX_VSUI_POOL),
-            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["NAVX-VSUI"]),
             txb.object(cetusPoolMap["VSUI-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -569,7 +568,7 @@ export const withdrawBluefinSuiFirstTxb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -585,7 +584,7 @@ export const withdrawBluefinSuiFirstTxb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["USDC-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
@@ -596,7 +595,7 @@ export const withdrawBluefinSuiFirstTxb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -612,7 +611,7 @@ export const withdrawBluefinSuiFirstTxb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_SUI_BUCK_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["BUCK-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
@@ -623,7 +622,7 @@ export const withdrawBluefinSuiFirstTxb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -639,7 +638,7 @@ export const withdrawBluefinSuiFirstTxb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_SUI_AUSD_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["AUSD-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
@@ -687,7 +686,7 @@ export const withdrawBluefinType1Txb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -703,7 +702,7 @@ export const withdrawBluefinType1Txb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["USDC-USDT"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -715,7 +714,7 @@ export const withdrawBluefinType1Txb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -731,7 +730,7 @@ export const withdrawBluefinType1Txb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_AUSD_USDC_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["USDC-AUSD"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -743,7 +742,7 @@ export const withdrawBluefinType1Txb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -759,7 +758,7 @@ export const withdrawBluefinType1Txb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_WBTC_USDC_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["USDC-WBTC"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -808,7 +807,7 @@ export const withdrawBluefinType2Txb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -824,7 +823,7 @@ export const withdrawBluefinType2Txb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_ALPHA_USDC_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["ALPHA-USDC"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
@@ -836,7 +835,7 @@ export const withdrawBluefinType2Txb = async (
         typeArguments: [
           coinsList[pool1].type,
           coinsList[pool2].type,
-          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
           coinsList["SUI"].type,
         ],
         arguments: [
@@ -852,7 +851,7 @@ export const withdrawBluefinType2Txb = async (
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().BLUEFIN_NAVX_VSUI_POOL),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["NAVX-VSUI"]),
           txb.object(cetusPoolMap["VSUI-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
