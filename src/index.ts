@@ -95,7 +95,13 @@ export {
   getPool,
   getParentPool,
   getInvestor,
+  getMultiInvestor,
+  getMultiParentPool,
+  getMultiPool,
+  getMultiReceipts,
 } from "./sui-sdk/functions/getReceipts.js";
+
+export { getMultiLatestPrices, getLatestPrices } from "./utils/prices.js";
 
 export {
   liquidityToTokens,

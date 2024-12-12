@@ -636,9 +636,10 @@ export async function getAmounts(
 export async function getCoinAmountsFromLiquidity(
   poolName: PoolName,
   liquidity: string,
+  ignoreCache: boolean,
 ): Promise<[string, string]> {
-  const clmmPool = await getParentPool(poolName, true);
-  const investor = (await getInvestor(poolName, true)) as (
+  const clmmPool = await getParentPool(poolName, ignoreCache);
+  const investor = (await getInvestor(poolName, ignoreCache)) as (
     | CetusInvestor
     | BluefinInvestor
   ) &
