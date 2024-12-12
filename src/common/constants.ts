@@ -1170,7 +1170,7 @@ export const conf = {
     BLUEFIN_NAVX_VSUI_POOL:
       "0xa0b4fef70ccef039b94512d6384806979d4c201c5e12af9a4b0458454b80da35",
     BLUEFIN_BLUE_SUI_POOL:
-      "0xde705d4f3ded922b729d9b923be08e1391dd4caeff8496326123934d0fb1c312",
+      "0xd0d64d266b6a55e3972677f6cfd6854c50ae94e76750c56a3e7c3050d641a760",
 
     // constants for haedel
 
@@ -2576,7 +2576,7 @@ export const conf = {
     BLUEFIN_NAVX_VSUI_POOL:
       "0xa0b4fef70ccef039b94512d6384806979d4c201c5e12af9a4b0458454b80da35",
     BLUEFIN_BLUE_SUI_POOL:
-      "0xde705d4f3ded922b729d9b923be08e1391dd4caeff8496326123934d0fb1c312",
+      "0xd0d64d266b6a55e3972677f6cfd6854c50ae94e76750c56a3e7c3050d641a760",
 
     // constants for haedel
 
