@@ -85,7 +85,7 @@ export async function fetchUserVaultBalances(
       };
       vaultBalance = res;
     }
-  } else if (poolInfo[poolName].parentProtocolName === "CETUS") {
+  } else if (poolInfo[poolName].assetTypes.length === 2) {
     const portfolioAmount = await getPortfolioAmount(
       poolName as PoolName,
       address,
@@ -104,10 +104,7 @@ export async function fetchUserVaultBalances(
       };
       vaultBalance = res;
     }
-  } else if (
-    poolInfo[poolName].parentProtocolName === "NAVI" ||
-    poolInfo[poolName].parentProtocolName === "BUCKET"
-  ) {
+  } else if (poolInfo[poolName].assetTypes.length === 1) {
     const portfolioAmount = await getSingleAssetPortfolioAmount(
       poolName as SingleAssetPoolNames,
       address,
