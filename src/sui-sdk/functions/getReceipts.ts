@@ -358,7 +358,7 @@ export async function getParentPool(
   ignoreCache: boolean,
 ): Promise<CetusPoolType | BluefinPoolType> {
   const suiClient = getSuiClient();
-  const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
+  const cacheKey = `pool_${poolName}`;
   if (ignoreCache) {
     cetusPoolCache.delete(cacheKey);
     cetusPoolPromiseCache.delete(cacheKey);
