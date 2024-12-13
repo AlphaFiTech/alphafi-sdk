@@ -9,6 +9,7 @@ import {
 } from "./cetus.js";
 import {
   withdrawBluefinSuiFirstTxb,
+  withdrawBluefinSuiSecondTxb,
   withdrawBluefinType1Txb,
   withdrawBluefinType2Txb,
 } from "./bluefin.js";
@@ -41,12 +42,21 @@ export async function withdrawTxb(
     }
   } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
     const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
-    if (poolName === "BLUEFIN-NAVX-VSUI" || poolName === "BLUEFIN-ALPHA-USDC") {
+    const coin2 = doubleAssetPoolCoinMap[poolName].coin2;
+    if (
+      poolName === "BLUEFIN-NAVX-VSUI" ||
+      poolName === "BLUEFIN-ALPHA-USDC" ||
+      poolName === "BLUEFIN-BLUE-USDC"
+    ) {
       txb = await withdrawBluefinType2Txb(xTokensAmount, poolName, {
         address,
       });
     } else if (coin1 === "SUI") {
       txb = await withdrawBluefinSuiFirstTxb(xTokensAmount, poolName, {
+        address,
+      });
+    } else if (coin2 === "SUI") {
+      txb = await withdrawBluefinSuiSecondTxb(xTokensAmount, poolName, {
         address,
       });
     } else {
