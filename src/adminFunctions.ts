@@ -1,13 +1,15 @@
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import {
+  BluefinPoolType,
   CetusInvestor,
+  CetusPoolType,
   CommonInvestorFields,
   PoolName,
 } from "./common/types.js";
 import { getInvestor, getParentPool } from "./sui-sdk/functions/getReceipts.js";
 import BN from "bn.js";
 import { coinsList } from "./common/coins.js";
-import { doubleAssetPoolCoinMap } from "./common/maps.js";
+import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
 import { Decimal } from "decimal.js";
 
 export async function getCurrentTick(poolName: PoolName) {
@@ -47,7 +49,14 @@ export async function getPriceToTick(poolName: PoolName, price: string) {
   const coinBName = doubleAssetPoolCoinMap[poolName].coin2;
   const coinB = coinsList[coinBName];
   const parentPool = await getParentPool(poolName, false);
-  const tickSpacing = parentPool.content.fields.tick_spacing;
+  console.log(parentPool.content.fields);
+  let tickSpacing = 1;
+  if (poolInfo[poolName].parentProtocolName === "CETUS") {
+    tickSpacing = (parentPool as CetusPoolType).content.fields.tick_spacing;
+  } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
+    tickSpacing = (parentPool as BluefinPoolType).content.fields.ticks_manager
+      .fields.tick_spacing;
+  }
   const priceDecimal = new Decimal(price);
   const tick = TickMath.priceToInitializableTickIndex(
     priceDecimal,
