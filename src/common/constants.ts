@@ -1370,7 +1370,8 @@ export const conf = {
 
     HOP_NETWORK: "mainnet",
 
-    TREASURY_ADDRESS: "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
+    TREASURY_ADDRESS:
+      "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
 
     DEFUNCT_POOLS: [],
   },
