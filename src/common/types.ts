@@ -54,7 +54,9 @@ export type PoolName =
   | "NAVI-NAVX"
   | "BLUEFIN-BLUE-SUI"
   | "BLUEFIN-BLUE-USDC"
-  | "BLUEFIN-SEND-USDC";
+  | "BLUEFIN-SEND-USDC"
+  | "BLUEFIN-WBTC-SUI"
+  | "BLUEFIN-DEEP-SUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -109,7 +111,9 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-NAVX-VSUI"
   | "BLUEFIN-BLUE-SUI"
   | "BLUEFIN-BLUE-USDC"
-  | "BLUEFIN-SEND-USDC";
+  | "BLUEFIN-SEND-USDC"
+  | "BLUEFIN-WBTC-SUI"
+  | "BLUEFIN-DEEP-SUI";
 
 export type CoinName =
   | "ALPHA"
@@ -381,7 +385,52 @@ export type CetusPoolType = {
   };
 };
 
-export type BluefinPoolType = CetusPoolType;
+export type BluefinPoolType = {
+  objectId: string;
+  version: string;
+  digest: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      coin_a: string;
+      coin_b: string;
+      current_sqrt_price: string;
+      current_tick_index: {
+        fields: { bits: number };
+        type: string;
+      };
+      fee_growth_global_coin_a: string;
+      fee_growth_global_coin_b: string;
+      fee_rate: string;
+      icon_url: string;
+      id: { id: string };
+      is_paused: boolean;
+      liquidity: string;
+      name: string;
+      observation_manager: {
+        fields: {
+          observation_index: string;
+          observation: [];
+          observation_cardinality: string;
+          observation_cardinality_next: string;
+        };
+        type: string;
+      };
+      position_index: string;
+      protocol_fee_coin_a: string;
+      protocol_fee_coin_b: string;
+      protocol_fee_share: string;
+      reward_infos: [];
+      sequence_number: string;
+      ticks_manager: {
+        type: string;
+        fields: { bitmap: []; tick_spacing: number; ticks: [] };
+      };
+    };
+  };
+};
 
 export type AlphaReceipt = {
   lockedBalance: string;

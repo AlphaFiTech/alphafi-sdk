@@ -20,6 +20,7 @@ import {
   bluefinPoolMap,
   Distributor,
   getConf,
+  BluefinPoolType,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
@@ -322,8 +323,10 @@ export async function getPool(
   return poolPromise;
 }
 
-const cetusPoolCache = new SimpleCache<CetusPoolType>();
-const cetusPoolPromiseCache = new SimpleCache<Promise<CetusPoolType>>();
+const cetusPoolCache = new SimpleCache<CetusPoolType | BluefinPoolType>();
+const cetusPoolPromiseCache = new SimpleCache<
+  Promise<CetusPoolType | BluefinPoolType>
+>();
 
 export async function getMultiParentPool() {
   let pools = Object.keys(poolInfo);
@@ -353,9 +356,9 @@ export async function getMultiParentPool() {
 export async function getParentPool(
   poolName: string,
   ignoreCache: boolean,
-): Promise<CetusPoolType> {
+): Promise<CetusPoolType | BluefinPoolType> {
   const suiClient = getSuiClient();
-  const cacheKey = `pool_${cetusPoolMap[poolName.toUpperCase()]}`;
+  const cacheKey = `pool_${poolName}`;
   if (ignoreCache) {
     cetusPoolCache.delete(cacheKey);
     cetusPoolPromiseCache.delete(cacheKey);
@@ -386,7 +389,7 @@ export async function getParentPool(
           showContent: true,
         },
       });
-      const cetusPool = o.data as CetusPoolType;
+      const cetusPool = o.data as CetusPoolType | BluefinPoolType;
 
       // Cache the pool object
       cetusPoolCache.set(cacheKey, cetusPool);
