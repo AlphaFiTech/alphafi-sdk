@@ -152,6 +152,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "BLUE-SUI": conf[CONF_ENV].BLUE_SUI_CETUS_POOL_ID,
   "BLUE-USDC": conf[CONF_ENV].BLUE_USDC_CETUS_POOL_ID,
   "USDC-SEND": conf[CONF_ENV].USDC_SEND_CETUS_POOL_ID,
+  "WBTC-SUI": conf[CONF_ENV].WBTC_SUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
