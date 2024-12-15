@@ -1534,3 +1534,14 @@ export const defunctPoolsSet = (() => {
   const defunctPools = conf[CONF_ENV].DEFUNCT_POOLS;
   return new Set<string>(defunctPools);
 })();
+
+export const ignoredWalletsForDailyRevenue = [
+  "0x86ea77da52e41820e21f525a497a3d3760c41410bb76da121547a5ff674dec50",
+  "0xee5360c5fa13555cbf355cb5015b865d742040e42ff90c324e11f0c63e504545",
+  "0x3ce65c03642dfea704a031b28fffc850a6e3def8ee126ccc3a209f5314986279",
+  conf[CONF_ENV].TREASURY_ADDRESS,
+  "0xb0615e458f9b5f6e563515fa5192d1311fbc7fd4f93025b327510fbf72bc5c20",
+  "0x3ce65c03642dfea704a031b28fffc850a6e3def8ee126ccc3a209f5314986279",
+  "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
+  "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a",
+];

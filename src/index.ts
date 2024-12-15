@@ -127,6 +127,7 @@ export {
   singleAssetPoolCoinMap,
   loopingPoolCoinMap,
   naviAssetMap,
+  ignoredWalletsForDailyRevenue,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
