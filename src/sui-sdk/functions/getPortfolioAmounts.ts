@@ -2,7 +2,6 @@ import { SuiClient } from "@mysten/sui/client";
 import { Decimal } from "decimal.js";
 import {
   PoolName,
-  DoubleAssetPoolNames,
   NaviInvestor,
   CommonInvestorFields,
   poolInfo,
@@ -134,9 +133,9 @@ export async function getDoubleAssetPortfolioAmountInUSD(
   address: string,
   ignoreCache: boolean,
 ): Promise<string | undefined> {
-  if ((poolName as DoubleAssetPoolNames) !== undefined) {
+  if (poolInfo[poolName].assetTypes.length === 2) {
     const amounts = await getPortfolioAmount(poolName, address, ignoreCache);
-    if (amounts !== undefined) {
+    if (amounts) {
       const ten = new Decimal(10);
       const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
       const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
@@ -147,18 +146,12 @@ export async function getDoubleAssetPortfolioAmountInUSD(
       const amount1 = new Decimal(amounts[1]).div(
         ten.pow(coinsList[pool2].expo),
       );
-      const tokens = poolName.split("-");
       const [priceOfCoin0, priceOfCoin1] = await getLatestPrices(
-        [
-          `${tokens[0]}/USD` as PythPriceIdPair,
-          `${tokens[1]}/USD` as PythPriceIdPair,
-        ],
+        [`${pool1}/USD` as PythPriceIdPair, `${pool2}/USD` as PythPriceIdPair],
         ignoreCache,
       );
-      if (priceOfCoin0 && priceOfCoin1) {
-        const amount = amount0.mul(priceOfCoin0).add(amount1.mul(priceOfCoin1));
-        return amount.toString();
-      }
+      const amount = amount0.mul(priceOfCoin0).add(amount1.mul(priceOfCoin1));
+      return amount.toString();
     } else {
       console.error(
         `getPortfolioAmountInUSD is not implemented for poolName: ${poolName}`,

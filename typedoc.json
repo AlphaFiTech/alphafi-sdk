@@ -4,5 +4,6 @@
   "exclude": ["**/*.test.ts"],
   "includeVersion": true,
   "excludePrivate": true,
-  "excludeProtected": true
+  "excludeProtected": true,
+  "tsconfig": "tsconfig.cjs.json"
 }

@@ -13,7 +13,7 @@ import {
 } from "../index.js";
 
 export async function bucketDepositTx(
-  amount: number,
+  amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
@@ -98,7 +98,7 @@ export async function bucketDepositTx(
 }
 
 export async function bucketWithdrawTx(
-  xtokens: number,
+  xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
@@ -139,7 +139,7 @@ export async function bucketWithdrawTx(
         alpha_receipt,
         txb.object(C.ALPHA_POOL),
         txb.object(poolData.poolId),
-        txb.pure.u64(xtokens),
+        txb.pure.u64(xTokens),
         txb.object(poolData.investorId),
         txb.object(C.ALPHA_DISTRIBUTOR),
         txb.object(C.BUCKET_PROTOCOL),

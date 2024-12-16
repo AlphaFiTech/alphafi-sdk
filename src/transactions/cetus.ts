@@ -381,8 +381,8 @@ export const depositCetusTxb = async (
 };
 
 export const withdrawCetusAlphaSuiTxb = async (
-  amount: string | number,
-  poolName: string,
+  xTokens: string,
+  poolName: PoolName,
   options: { address: string },
 ) => {
   const address = options.address;
@@ -420,7 +420,7 @@ export const withdrawCetusAlphaSuiTxb = async (
         txb.object(poolinfo.poolId),
         txb.object(getConf().ALPHA_DISTRIBUTOR),
         txb.object(poolinfo.investorId),
-        txb.pure.u128(amount),
+        txb.pure.u128(xTokens),
         txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
         txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
         txb.object(cetusPoolMap["CETUS-SUI"]),
@@ -436,8 +436,8 @@ export const withdrawCetusAlphaSuiTxb = async (
 };
 
 export const withdrawCetusSuiTxb = async (
-  amount: string | number,
-  poolName: string,
+  xTokens: string,
+  poolName: PoolName,
   options: { address: string },
 ) => {
   const address = options.address;
@@ -476,7 +476,7 @@ export const withdrawCetusSuiTxb = async (
         txb.object(poolinfo.poolId),
         txb.object(getConf().ALPHA_DISTRIBUTOR),
         txb.object(poolinfo.investorId),
-        txb.pure.u128(amount),
+        txb.pure.u128(xTokens),
         txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
         txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
         txb.object(cetusPoolMap[poolName]),
@@ -491,8 +491,8 @@ export const withdrawCetusSuiTxb = async (
 };
 
 export const withdrawCetusTxb = async (
-  amount: string | number,
-  poolName: string,
+  xTokens: string,
+  poolName: PoolName,
   options: { address: string },
 ) => {
   const address = options.address;
@@ -536,7 +536,7 @@ export const withdrawCetusTxb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
           txb.object(cetusPoolMap[`${pool1}-SUI`]),
@@ -557,7 +557,7 @@ export const withdrawCetusTxb = async (
           txb.object(poolinfo.poolId),
           txb.object(getConf().ALPHA_DISTRIBUTOR),
           txb.object(poolinfo.investorId),
-          txb.pure.u128(amount),
+          txb.pure.u128(xTokens),
           txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
           txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
           txb.object(cetusPoolMap[`${pool2}-SUI`]),
@@ -582,44 +582,41 @@ export async function getLiquidity(
   const cetusInvestor = (await getInvestor(poolName, true)) as CetusInvestor &
     CommonInvestorFields;
   const cetus_pool = await getParentPool(poolName, true);
+  //TODO
+  //check if you calculate lower_tick, upper_tick like this only
+  const upper_bound = 443636;
+  let lower_tick = Number(cetusInvestor.content.fields.lower_tick);
+  let upper_tick = Number(cetusInvestor.content.fields.upper_tick);
 
-  if (cetusInvestor && cetus_pool) {
-    //TODO
-    //check if you calculate lower_tick, upper_tick like this only
-    const upper_bound = 443636;
-    let lower_tick = Number(cetusInvestor.content.fields.lower_tick);
-    let upper_tick = Number(cetusInvestor.content.fields.upper_tick);
-
-    if (lower_tick > upper_bound) {
-      lower_tick = -~(lower_tick - 1);
-    }
-    if (upper_tick > upper_bound) {
-      upper_tick = -~(upper_tick - 1);
-    }
-
-    // AlphaFi Mascot
-    //
-    //      a
-    //    ~~|~~
-    //     / \
-    //
-    /////////////////
-
-    const current_sqrt_price = new BN(
-      cetus_pool.content.fields.current_sqrt_price,
-    );
-
-    const liquidity = ClmmPoolUtil.estLiquidityAndcoinAmountFromOneAmounts(
-      lower_tick,
-      upper_tick,
-      new BN(`${Math.floor(parseFloat(amount))}`),
-      a2b,
-      false,
-      0.5,
-      current_sqrt_price,
-    );
-    return liquidity;
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
   }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+
+  // AlphaFi Mascot
+  //
+  //      a
+  //    ~~|~~
+  //     / \
+  //
+  /////////////////
+
+  const current_sqrt_price = new BN(
+    cetus_pool.content.fields.current_sqrt_price,
+  );
+
+  const liquidity = ClmmPoolUtil.estLiquidityAndcoinAmountFromOneAmounts(
+    lower_tick,
+    upper_tick,
+    new BN(`${Math.floor(parseFloat(amount))}`),
+    a2b,
+    false,
+    0.5,
+    current_sqrt_price,
+  );
+  return liquidity;
 }
 
 export async function getAmounts(
@@ -639,9 +636,10 @@ export async function getAmounts(
 export async function getCoinAmountsFromLiquidity(
   poolName: PoolName,
   liquidity: string,
+  ignoreCache: boolean,
 ): Promise<[string, string]> {
-  const clmmPool = await getParentPool(poolName, true);
-  const investor = (await getInvestor(poolName, true)) as (
+  const clmmPool = await getParentPool(poolName, ignoreCache);
+  const investor = (await getInvestor(poolName, ignoreCache)) as (
     | CetusInvestor
     | BluefinInvestor
   ) &

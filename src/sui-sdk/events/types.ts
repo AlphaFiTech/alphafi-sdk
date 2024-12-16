@@ -156,6 +156,10 @@ export type NaviPoolWithdrawEvent = {
   sender: string;
 };
 
+export interface CheckRatioEvent {
+  ratio: string;
+}
+
 export type AfterTransactionEventNode =
   | (CetusAfterTransactionEvent &
       CommonEventAttributes & {
@@ -188,6 +192,8 @@ export type LiquidityChangeEventNode =
 
 export type WithdrawV2EventNode = AlphaWithdrawV2Event & CommonEventAttributes;
 
+export type CheckRatioEventNode = CheckRatioEvent & CommonEventAttributes;
+
 export type RewardEventNode = RewardEvent & CommonEventAttributes;
 
 export type EventNode =
@@ -196,6 +202,7 @@ export type EventNode =
   | LiquidityChangeEventNode
   | WithdrawV2EventNode
   | AfterTransactionEventNode
+  | CheckRatioEventNode
   | RewardEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
@@ -212,6 +219,8 @@ export type FetchWithdrawV2EventsParams = {
   startTime?: number;
   endTime?: number;
 };
+
+export type FetchCheckRatioEventsParams = FetchAutoCompoundingEventsParams;
 
 export type FetchEventsParams = {
   eventTypes: string[];

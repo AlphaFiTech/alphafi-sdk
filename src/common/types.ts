@@ -46,7 +46,17 @@ export type PoolName =
   | "NAVI-LOOP-USDT-USDC"
   | "BLUEFIN-SUI-BUCK"
   | "BLUEFIN-AUSD-USDC"
-  | "NAVI-NS";
+  | "NAVI-NS"
+  | "BLUEFIN-SUI-AUSD"
+  | "BLUEFIN-ALPHA-USDC"
+  | "BLUEFIN-WBTC-USDC"
+  | "BLUEFIN-NAVX-VSUI"
+  | "NAVI-NAVX"
+  | "BLUEFIN-BLUE-SUI"
+  | "BLUEFIN-BLUE-USDC"
+  | "BLUEFIN-SEND-USDC"
+  | "BLUEFIN-WBTC-SUI"
+  | "BLUEFIN-DEEP-SUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -65,7 +75,8 @@ export type SingleAssetPoolNames =
   | "NAVI-ETH"
   | "NAVI-LOOP-HASUI-SUI"
   | "NAVI-LOOP-USDT-USDC"
-  | "NAVI-NS";
+  | "NAVI-NS"
+  | "NAVI-NAVX";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -93,7 +104,16 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-SUI-USDC"
   | "BLUEFIN-USDT-USDC"
   | "BLUEFIN-SUI-BUCK"
-  | "BLUEFIN-AUSD-USDC";
+  | "BLUEFIN-AUSD-USDC"
+  | "BLUEFIN-SUI-AUSD"
+  | "BLUEFIN-ALPHA-USDC"
+  | "BLUEFIN-WBTC-USDC"
+  | "BLUEFIN-NAVX-VSUI"
+  | "BLUEFIN-BLUE-SUI"
+  | "BLUEFIN-BLUE-USDC"
+  | "BLUEFIN-SEND-USDC"
+  | "BLUEFIN-WBTC-SUI"
+  | "BLUEFIN-DEEP-SUI";
 
 export type CoinName =
   | "ALPHA"
@@ -121,7 +141,9 @@ export type CoinName =
   | "ETH"
   | "DEEP"
   | "AUSD"
-  | "NS";
+  | "NS"
+  | "BLUE"
+  | "SEND";
 
 export type StrategyType =
   | "LOOPING"
@@ -207,7 +229,9 @@ export type CoinType =
   | "0xd0e89b2af5e4910726fbcd8b8dd37bb79b29e5f83f7491bca830e94f7f226d29::eth::ETH"
   | "0xdeeb7a4662eec9f2f3def03fb937a663dddaa2e215b8078a284d026b7946c270::deep::DEEP"
   | "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD"
-  | "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS";
+  | "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS"
+  | "0xe1b45a0e641b9955a20aa0ad1c1f4ad86aad8afb07296d4085e349a50e90bdca::blue::BLUE"
+  | "0xb45fcfcc2cc07ce0702cc2d229621e046c906ef14d9b25e8e4d25f6e8763fef7::send::SEND";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
@@ -361,7 +385,52 @@ export type CetusPoolType = {
   };
 };
 
-export type BluefinPoolType = CetusPoolType;
+export type BluefinPoolType = {
+  objectId: string;
+  version: string;
+  digest: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      coin_a: string;
+      coin_b: string;
+      current_sqrt_price: string;
+      current_tick_index: {
+        fields: { bits: number };
+        type: string;
+      };
+      fee_growth_global_coin_a: string;
+      fee_growth_global_coin_b: string;
+      fee_rate: string;
+      icon_url: string;
+      id: { id: string };
+      is_paused: boolean;
+      liquidity: string;
+      name: string;
+      observation_manager: {
+        fields: {
+          observation_index: string;
+          observation: [];
+          observation_cardinality: string;
+          observation_cardinality_next: string;
+        };
+        type: string;
+      };
+      position_index: string;
+      protocol_fee_coin_a: string;
+      protocol_fee_coin_b: string;
+      protocol_fee_share: string;
+      reward_infos: [];
+      sequence_number: string;
+      ticks_manager: {
+        type: string;
+        fields: { bitmap: []; tick_spacing: number; ticks: [] };
+      };
+    };
+  };
+};
 
 export type AlphaReceipt = {
   lockedBalance: string;
@@ -692,4 +761,118 @@ export type LoopingDebt = {
       value: string;
     };
   };
+};
+
+export type Distributor = {
+  objectId: string;
+  version: string;
+  digest: string;
+  type: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      airdrop_wallet: string;
+      airdrop_wallet_balance: string;
+      dust_wallet_address: string;
+      fee_wallet: string;
+      id: {
+        id: string;
+      };
+      next_halving_timestamp: string;
+      pool_allocator: Allocator;
+
+      // to-do
+      reward_unlock: {
+        fields: { contents: [] };
+        type: string;
+      };
+      start_timestamp: string;
+      target: string;
+      team_wallet_address: string;
+      team_wallet_balance: string;
+    };
+  };
+};
+
+export type Allocator = {
+  fields: {
+    id: {
+      id: string;
+    };
+    members: {
+      fields: {
+        contents: MemberType[];
+      };
+      type: string;
+    };
+    rewards: {
+      fields: {
+        id: {
+          id: string;
+        };
+        size: string;
+      };
+      type: string;
+    };
+    total_weights: {
+      fields: {
+        contents: TotalWeightType[];
+      };
+      type: string;
+    };
+  };
+  type: string;
+};
+
+export type TotalWeightType = {
+  fields: {
+    key: {
+      fields: {
+        name: string;
+      };
+      type: string;
+    };
+    value: string;
+  };
+  type: string;
+};
+
+export type MemberPoolDataType = {
+  fields: {
+    key: {
+      fields: {
+        name: string;
+      };
+      type: string;
+    };
+    value: {
+      fields: {
+        last_update_time: string;
+        pending_rewards: string;
+        weight: string;
+      };
+      type: string;
+    };
+  };
+  type: string;
+};
+
+export type MemberType = {
+  fields: {
+    key: string;
+    value: {
+      fields: {
+        pool_data: {
+          fields: {
+            contents: MemberPoolDataType[];
+          };
+          type: string;
+        };
+      };
+      type: string;
+    };
+  };
+  type: string;
 };

@@ -5,6 +5,7 @@ import {
   getConf,
   getReceipts,
   poolInfo,
+  PoolName,
   singleAssetPoolCoinMap,
 } from "../index.js";
 
@@ -30,7 +31,7 @@ export async function claimRewardTxb(address: string) {
     if (poolInfo[poolName].poolId == "") {
       continue;
     }
-    const receipts = await getReceipts(poolName, address, true);
+    const receipts = await getReceipts(poolName as PoolName, address, true);
     if (poolName == "ALPHA") {
     } else {
       if (poolInfo[poolName].packageNumber == 5) {
@@ -59,7 +60,8 @@ export async function claimRewardTxb(address: string) {
           const coinB = coinsList[coinBName];
           if (
             poolName == "BLUEFIN-SUI-USDC" ||
-            poolName === "BLUEFIN-SUI-BUCK"
+            poolName === "BLUEFIN-SUI-BUCK" ||
+            poolName === "BLUEFIN-SUI-AUSD"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
@@ -79,11 +81,32 @@ export async function claimRewardTxb(address: string) {
             });
           } else if (
             poolName == "BLUEFIN-USDT-USDC" ||
-            poolName === "BLUEFIN-AUSD-USDC"
+            poolName === "BLUEFIN-AUSD-USDC" ||
+            poolName === "BLUEFIN-WBTC-USDC"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
                 target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_all`,
+                typeArguments: [coinA.type, coinB.type],
+                arguments: [
+                  txb.object(getConf().ALPHA_4_VERSION),
+                  txb.object(getConf().VERSION),
+                  txb.object(receipt.objectId),
+                  alpha_receipt,
+                  txb.object(poolInfo[poolName].poolId),
+                  txb.object(poolInfo["ALPHA"].poolId),
+                  txb.object(getConf().ALPHA_DISTRIBUTOR),
+                  txb.object(getConf().CLOCK_PACKAGE_ID),
+                ],
+              });
+            });
+          } else if (
+            poolName === "BLUEFIN-ALPHA-USDC" ||
+            poolName === "BLUEFIN-NAVX-VSUI"
+          ) {
+            receipts.forEach((receipt) => {
+              alpha_receipt = txb.moveCall({
+                target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_2_pool::get_user_rewards_all`,
                 typeArguments: [coinA.type, coinB.type],
                 arguments: [
                   txb.object(getConf().ALPHA_4_VERSION),

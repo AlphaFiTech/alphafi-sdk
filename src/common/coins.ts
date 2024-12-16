@@ -1,10 +1,9 @@
-import { conf, CONF_ENV } from "./constants.js";
-import { Coin, CoinName, CoinType } from "./types.js";
+import { Coin, CoinName } from "./types.js";
 
 export const coinsList: { [key in CoinName]: Coin } = {
   ALPHA: {
     name: "ALPHA",
-    type: conf[CONF_ENV].ALPHA_COIN_TYPE as CoinType,
+    type: "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
     icon: "https://7taj6jfau6n3dri7agspzfnva7qbj5sizz5xc3lb56nmxpsyoiba.arweave.net/_MCfJKCnm7HFHwGk_JW1B-AU9kjOe3FtYe-ay75YcgI",
     expo: 9,
   },
@@ -155,6 +154,18 @@ export const coinsList: { [key in CoinName]: Coin } = {
   NS: {
     name: "NS",
     type: "0x5145494a5f5100e645e4b0aa950fa6b68f614e8c59e17bc5ded3495123a79178::ns::NS",
+    icon: "",
+    expo: 6,
+  },
+  BLUE: {
+    name: "BLUE",
+    type: "0xe1b45a0e641b9955a20aa0ad1c1f4ad86aad8afb07296d4085e349a50e90bdca::blue::BLUE",
+    icon: "",
+    expo: 9,
+  },
+  SEND: {
+    name: "SEND",
+    type: "0xb45fcfcc2cc07ce0702cc2d229621e046c906ef14d9b25e8e4d25f6e8763fef7::send::SEND",
     icon: "",
     expo: 6,
   },

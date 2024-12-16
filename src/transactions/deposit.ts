@@ -11,10 +11,13 @@ import {
 } from "./cetus.js";
 import {
   depositBluefinSuiFirstTxb,
+  depositBluefinSuiSecondTxb,
   depositBluefinType1Txb,
+  depositBluefinType2Txb,
 } from "./bluefin.js";
+import { loopingDeposit } from "./navi-looping.js";
 
-export async function depsoitSingleAssetTxb(
+export async function depositSingleAssetTxb(
   poolName: PoolName,
   address: string,
   amount: string,
@@ -22,15 +25,17 @@ export async function depsoitSingleAssetTxb(
   let txb = new Transaction();
   if (poolInfo[poolName].parentProtocolName === "ALPHAFI") {
     txb = await depositAlphaTxb(amount, address);
-  } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
-    txb = await naviDepositTx(Number(amount), poolName, { address });
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
-    txb = await bucketDepositTx(Number(amount), { address });
+    txb = await bucketDepositTx(amount, { address });
+  } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
+    if (poolInfo[poolName].strategyType === "LOOPING") {
+      txb = await loopingDeposit(poolName, amount, { address });
+    } else txb = await naviDepositTx(amount, poolName, { address });
   }
   return txb;
 }
 
-export async function depsoitDoubleAssetTxb(
+export async function depositDoubleAssetTxb(
   poolName: PoolName,
   address: string,
   amount: string,
@@ -51,8 +56,21 @@ export async function depsoitDoubleAssetTxb(
     }
   } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
     const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
-    if (coin1 === "SUI") {
+    const coin2 = doubleAssetPoolCoinMap[poolName].coin2;
+    if (
+      poolName === "BLUEFIN-NAVX-VSUI" ||
+      poolName === "BLUEFIN-ALPHA-USDC" ||
+      poolName === "BLUEFIN-BLUE-USDC"
+    ) {
+      txb = await depositBluefinType2Txb(amount, poolName, isAmountA, {
+        address,
+      });
+    } else if (coin1 === "SUI") {
       txb = await depositBluefinSuiFirstTxb(amount, poolName, isAmountA, {
+        address,
+      });
+    } else if (coin2 === "SUI") {
+      txb = await depositBluefinSuiSecondTxb(amount, poolName, isAmountA, {
         address,
       });
     } else {

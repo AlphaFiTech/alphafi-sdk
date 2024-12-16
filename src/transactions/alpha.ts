@@ -3,7 +3,7 @@ import { CoinStruct } from "@mysten/sui/client";
 import { getConf, getReceipts, getSuiClient, Receipt } from "../index.js";
 
 export const depositAlphaTxb = async (
-  amount: string | number,
+  amount: string,
   address: string,
 ): Promise<Transaction> => {
   const suiClient = getSuiClient();
@@ -89,7 +89,7 @@ export const depositAlphaTxb = async (
 };
 
 export const withdrawAlphaTxb = async (
-  amount: string | number,
+  xTokens: string,
   withdrawFromLocked: boolean,
   address: string,
 ): Promise<Transaction> => {
@@ -104,7 +104,7 @@ export const withdrawAlphaTxb = async (
         txb.object(receipt[0].objectId),
         txb.object(getConf().ALPHA_POOL),
         txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.pure.u64(amount),
+        txb.pure.u64(xTokens),
         txb.object(getConf().CLOCK_PACKAGE_ID),
         txb.pure.bool(withdrawFromLocked),
       ],

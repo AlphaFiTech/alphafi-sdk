@@ -21,15 +21,36 @@ export {
   getAllVaultBalances,
 } from "./getVaultBalances.js";
 
+// transactions
+
 export {
-  depsoitDoubleAssetTxb,
-  depsoitSingleAssetTxb,
+  depositDoubleAssetTxb,
+  depositSingleAssetTxb,
 } from "./transactions/deposit.js";
 
-export { withdrawTxb } from "./transactions/withdraw.js";
+export {
+  withdrawTxb,
+  coinAmountToXTokensDoubleAsset,
+  coinAmountToXTokensSingleAsset,
+} from "./transactions/withdraw.js";
+
+export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
 export { claimRewardTxb } from "./transactions/collect_rewards.js";
 
+export * from "./transactions/alpha.js";
+
+export * from "./transactions/bluefin.js";
+
+export * from "./transactions/bucket.js";
+
+export * from "./transactions/cetus.js";
+
+export * from "./transactions/navi.js";
+
+export * from "./transactions/navi-looping.js";
+
+//
 export {
   getAllVaults,
   getAllDoubleAssetVaults,
@@ -50,6 +71,8 @@ export {
   getRebalanceHistory,
   getRebalanceHistories,
 } from "./getRebalanceHistory.js";
+
+export { getTVLs, fetchTVL } from "./getTVL.js";
 
 export {
   getHoldersFromTransactions,
@@ -72,7 +95,13 @@ export {
   getPool,
   getParentPool,
   getInvestor,
+  getMultiInvestor,
+  getMultiParentPool,
+  getMultiPool,
+  getMultiReceipts,
 } from "./sui-sdk/functions/getReceipts.js";
+
+export { getMultiLatestPrices, getLatestPrices } from "./utils/prices.js";
 
 export {
   liquidityToTokens,
@@ -98,6 +127,7 @@ export {
   singleAssetPoolCoinMap,
   loopingPoolCoinMap,
   naviAssetMap,
+  ignoredWalletsForDailyRevenue,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
@@ -113,6 +143,7 @@ export {
 } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 export { fetchWithdrawV2Events } from "./sui-sdk/events/fetchWithdrawV2Events.js";
 export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransactionEvents.js";
+export { fetchCheckRatioEvents } from "./sui-sdk/events/fetchCheckRatioEvents.js";
 export { fetchRewardEvents } from "./sui-sdk/events/fetchRewardEvents.js";
 
 export {
@@ -126,3 +157,5 @@ export {
 export { ReceiptGQL } from "./graphql/types.js";
 
 export * from "./types.js";
+
+export * from "./adminFunctions.js";

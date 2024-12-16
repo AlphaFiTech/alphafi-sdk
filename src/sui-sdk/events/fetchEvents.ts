@@ -14,6 +14,7 @@ import {
   AutoCompoundingEventNode,
   AlphaWithdrawV2Event,
   AfterTransactionEventNode,
+  CheckRatioEvent,
   RewardEventNode,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
@@ -80,7 +81,8 @@ export async function fetchEvents(
         | NaviLiquidityChangeEvent
         | AlphaAutoCompoundingEvent
         | AlphaWithdrawV2Event
-        | AfterTransactionEventNode
+        | AfterTransactionEventNode // TODO: this needs to be changed to AfterTransactionEvent Eventually
+        | CheckRatioEvent
         | RewardEventNode;
 
       let eventNode: EventNode;
@@ -312,6 +314,16 @@ export async function fetchEvents(
           tokensInvested: suiEventJson.tokensInvested,
           xtokenSupply: suiEventJson.xtokenSupply,
           amount: suiEventJson.amount,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
+      } else if ("ratio" in suiEventJson) {
+        // Check Ratio - looping pools
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          ratio: suiEventJson.ratio,
           txDigest: suiEvent.id.txDigest,
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,

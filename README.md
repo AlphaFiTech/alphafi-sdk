@@ -6,6 +6,8 @@
 npm i @alphafi/alphafi-sdk
 ```
 
+## API Reference
+
 ## `getVaults`
 
 Call this to get all Vaults that a particular user has deposited in.
@@ -34,6 +36,36 @@ Call this to get all Double Asset Vaults that a particular user has deposited in
 import { getDoubleAssetVaults, AlphaFiVault } from "@alphafi/alphafi-sdk";
 
 const vaults: AlphaFiVault[] | undefined = await getDoubleAssetVaults(address);
+```
+
+## `getAllVaults`
+
+Call this to get all Vaults on AlphaFi Protocol.
+
+```typescript
+import { getAllVaults } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await getAllVaults();
+```
+
+## `getAllSingleAssetVaults`
+
+Call this to get all Single Asset Vaults on AlphaFi Protocol.
+
+```typescript
+import { getAllSingleAssetVaults } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await getAllSingleAssetVaults();
+```
+
+## `getAllDoubleAssetVaults`
+
+Call this to get all Double Asset Vaults on AlphaFi Protocol.
+
+```typescript
+import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
+
+const vaults: string[] = await getAllDoubleAssetVaults();
 ```
 
 ## `getAlphaVaultBalance`
@@ -90,32 +122,103 @@ const balance: Map<PoolName, AlphaFiVaultBalance> =
   await getAllVaultBalances(address);
 ```
 
-## `getAllVaults`
+## `claimRewardTxb`
 
-Call this to get all Vaults on AlphaFi Protocol.
+Call this to withdraw from Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllVaults } from "@alphafi/alphafi-sdk";
+import { claimRewardTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await getAllVaults();
+const vaults: Transaction = await claimRewardTxb(address);
 ```
 
-## `getAllSingleAssetVaults`
+## `depositSingleAssetTxb`
 
-Call this to get all Single Asset Vaults on AlphaFi Protocol.
+Call this to deposit in Single Asset Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllSingleAssetVaults } from "@alphafi/alphafi-sdk";
+import { depositSingleAssetTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await getAllSingleAssetVaults();
+const vaults: Transaction = await depositSingleAssetTxb(
+  poolName,
+  address,
+  amount,
+);
 ```
 
-## `getAllDoubleAssetVaults`
+## `depositDoubleAssetTxb`
 
-Call this to get all Double Asset Vaults on AlphaFi Protocol.
+Call this to deposit in Double Asset Vaults on AlphaFi Protocol.
 
 ```typescript
-import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
+import { depositDoubleAssetTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
-const vaults: string[] = await getAllDoubleAssetVaults();
+const vaults: Transaction = await depositDoubleAssetTxb(
+  poolName,
+  address,
+  amount,
+  isAmountA,
+);
+```
+
+## `withdrawTxb`
+
+Call this to withdraw from Vaults on AlphaFi Protocol.
+xTokensAmount can be calculated using coinAmountToXTokensSingleAsset or coinAmountToXTokensDoubleAsset function depending on whether the pool is singleAsset or doubleAsset.
+
+```typescript
+import { withdrawTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await withdrawTxb(xTokensAmount, poolName, address);
+```
+
+## `withdrawAlphaTxb`
+
+Call this to withdraw from Alpha Vault on AlphaFi Protocol.
+xTokensAmount can be calculated using coinAmountToXTokensSingleAsset function.
+If you want to withdraw from locked alpha tokens then pass withdrawFromLocked as true, otherwise false.
+
+```typescript
+import { withdrawAlphaTxb } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await withdrawAlphaTxb(
+  xTokensAmount,
+  withdrawFromLocked,
+  address,
+);
+```
+
+## `coinAmountToXTokensSingleAsset`
+
+Call this to convert coin amount to xTokenAmount for any Single Asset pool on AlphaFi Protocol.
+
+```typescript
+import { coinAmountToXTokensSingleAsset } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await coinAmountToXTokensSingleAsset(
+  amount,
+  poolName,
+);
+```
+
+## `coinAmountToXTokensDoubleAsset`
+
+Call this to convert coin amount to xTokenAmount for any Double Asset pool on AlphaFi Protocol.
+isAmountA parameter is true if you have passed amount of 1st coin, otherwise its false.
+
+```typescript
+import { coinAmountToXTokensDoubleAsset } from "@alphafi/alphafi-sdk";
+import { Transaction } from "@mysten/sui/transactions";
+
+const vaults: Transaction = await coinAmountToXTokensDoubleAsset(
+  amount,
+  poolName,
+  isAmountA,
+);
 ```
