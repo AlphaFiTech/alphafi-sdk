@@ -7,15 +7,14 @@ import {
   CetusLiquidityChangeEvent,
   EventNode,
   FetchEventsParams,
-  LiquidityChangeEventNode,
   NaviAutoCompoundingEvent,
   NaviLoopAutoCompoundingEvent,
   NaviLiquidityChangeEvent,
   RebalanceEvent,
   AutoCompoundingEventNode,
   AlphaWithdrawV2Event,
-  WithdrawV2EventNode,
   AfterTransactionEventNode,
+  RewardEventNode,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -81,7 +80,8 @@ export async function fetchEvents(
         | NaviLiquidityChangeEvent
         | AlphaAutoCompoundingEvent
         | AlphaWithdrawV2Event
-        | AfterTransactionEventNode;
+        | AfterTransactionEventNode
+        | RewardEventNode;
 
       let eventNode: EventNode;
 
@@ -209,7 +209,8 @@ export async function fetchEvents(
         "amount" in suiEventJson &&
         !("investor_id" in suiEventJson) &&
         !("amount_withdrawn_from_locked" in suiEventJson) &&
-        !("xtokenSupply" in suiEventJson)
+        !("xtokenSupply" in suiEventJson) &&
+        !("coin_type" in suiEventJson)
       ) {
         // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
         eventNode = {
@@ -311,6 +312,18 @@ export async function fetchEvents(
           tokensInvested: suiEventJson.tokensInvested,
           xtokenSupply: suiEventJson.xtokenSupply,
           amount: suiEventJson.amount,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
+      } else if ("coin_type" in suiEventJson) {
+        // Reward Event
+        eventNode = {
+          amount: suiEventJson.amount,
+          coin_type: { name: suiEventJson.coin_type.name },
+          sender: suiEvent.sender,
+          timestamp: Number(suiEvent.timestampMs),
+          type: suiEvent.type,
           txDigest: suiEvent.id.txDigest,
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,

@@ -296,12 +296,19 @@ export async function calculateAprForInvestor(
       previousTimestamp = event.timestamp;
     }
 
+    /*
+    NOTE: if there is only 1 event of this investor in the interval, this algorithm returns 0. 
+    Better way to handle this would be to get atleast 2 events, no matter if it is in 24 hours or not
+    */
     apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
   } catch (error) {
     console.error("Error calculating apr from events.", error);
     if (events.length > 0) {
       console.error("Investor-ID: ", events[0].investor_id);
     }
+  }
+  if (Number.isNaN(apr)) {
+    return 0;
   }
 
   return apr;

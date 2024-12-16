@@ -45,7 +45,6 @@ export interface RebalanceEvent {
   amount_b_after: string;
 }
 
-//verify, this might be wrong, alphapool reward event is defined as alpha autocompounding event
 export interface AlphaAutoCompoundingEvent {
   amount: string;
   investor_id: string;
@@ -139,6 +138,12 @@ export type CetusRemoveLiquidityEvent = {
   tick_upper: { bits: number };
 };
 
+export type RewardEvent = {
+  amount: string;
+  coin_type: { name: string };
+  sender: string;
+};
+
 export type NaviPoolDepositEvent = {
   amount: string;
   pool: string;
@@ -183,12 +188,15 @@ export type LiquidityChangeEventNode =
 
 export type WithdrawV2EventNode = AlphaWithdrawV2Event & CommonEventAttributes;
 
+export type RewardEventNode = RewardEvent & CommonEventAttributes;
+
 export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
   | LiquidityChangeEventNode
   | WithdrawV2EventNode
-  | AfterTransactionEventNode;
+  | AfterTransactionEventNode
+  | RewardEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;

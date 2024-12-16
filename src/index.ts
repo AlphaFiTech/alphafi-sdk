@@ -107,15 +107,20 @@ export { coinsList } from "./common/coins.js";
 export { getAlphaUnlocks } from "./getAlphaUnlocks.js";
 
 export { fetchLiquidityChangeEvents } from "./sui-sdk/events/fetchLiquidityChangeEvents.js";
-export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
+export {
+  fetchAutoCompoundingEvents,
+  calculateAprForPools,
+} from "./sui-sdk/events/fetchAutoCompoundingEvents.js";
 export { fetchWithdrawV2Events } from "./sui-sdk/events/fetchWithdrawV2Events.js";
 export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransactionEvents.js";
+export { fetchRewardEvents } from "./sui-sdk/events/fetchRewardEvents.js";
 
 export {
   LiquidityChangeEventNode,
   AutoCompoundingEventNode,
   WithdrawV2EventNode,
   AfterTransactionEventNode,
+  RewardEventNode,
 } from "./sui-sdk/events/types.js";
 
 export { ReceiptGQL } from "./graphql/types.js";
