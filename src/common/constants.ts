@@ -2383,10 +2383,11 @@ export const conf = {
     ALPHAFI_BLUEFIN_DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_second_investor::AutoCompoundingEvent",
 
-    // Reward Event Types
+    // Reward Event Types - called in updatePoolAsWell
     ALPHA_POOL_REWARD_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
 
+    // Reward Event Types - called in getReward
     ALPHA_SUI_POOL_REWARD_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_sui_pool::RewardEvent",
 
@@ -2462,33 +2463,53 @@ export const conf = {
     NAVI_USDY_POOL_REWARD_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::RewardEvent",
 
-    // user reward events
-    NAVI_LOOP_SUI_VSUI_POOL_USER_REWARD_EVENT:
-      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::RewardEvent",
+    NAVI_NAVX_POOL_REWARD_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::RewardEvent",
 
-    NAVI_LOOP_USDC_USDT_POOL_USER_REWARD_EVENT:
-      "0xad4f82d9956085bdab812d46fb2ea4d95c35e9e936cb53d04a79d3989ef97774::alphafi_navi_native_usdc_usdt_pool::RewardEvent",
+    ALPHAFI_BLUEFIN_SUI_AUSD_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::RewardEvent",
 
-    BUCKET_BUCK_POOL_USER_REWARD_EVENT:
+    ALPHAFI_BLUEFIN_BLUE_SUI_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_second_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_WBTC_SUI_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_second_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_DEEP_SUI_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_second_pool::RewardEvent",
+
+    NAVI_NS_POOL_REWARD_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::RewardEvent",
+
+    NAVI_AUSD_POOL_REWARD_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::RewardEvent",
+
+    NAVI_ETH_POOL_REWARD_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::RewardEvent",
+
+    BUCKET_BUCK_POOL_REWARD_EVENT:
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae::alphafi_bucket_pool_v1::RewardEvent",
 
-    NAVI_LOOP_HASUI_SUI_POOL_USER_REWARD_EVENT:
-      "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d::alphafi_navi_hasui_sui_pool::RewardEvent",
+    ALPHAFI_BLUEFIN_SEND_USDC_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
 
-    NAVI_LOOP_USDT_USDC_POOL_USER_REWARD_EVENT:
+    ALPHAFI_BLUEFIN_WBTC_USDC_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_USDT_USDC_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::RewardEvent",
+
+    ALPHAFI_BLUEFIN_SUI_USDC_POOL_REWARD_EVENT:
+      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::RewardEvent",
+
+    NAVI_LOOP_USDT_USDC_POOL_REWARD_EVENT:
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_pool::RewardEvent",
-
-    ALPHAFI_BLUEFIN_SUI_BUCK_POOL_USER_REWARD_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::RewardEvent",
-
-    ALPHAFI_BLUEFIN_AUSD_USDC_POOL_USER_REWARD_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
-
-    ALPHAFI_BLUEFIN_USDT_USDC_POOL_USER_REWARD_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::RewardEvent",
-
-    ALPHAFI_BLUEFIN_SUI_USDC_POOL_USER_REWARD_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_sui_first_pool::RewardEvent",
 
     //Rebalance Event Types
 
@@ -2654,7 +2675,8 @@ export const conf = {
     WSOL_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::LiquidityChangeEvent",
 
-    FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
+    FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_sui_pool::LiquidityChangeEvent",
 
     BLUB_SUI_POOL_LIQUIDITY_CHANGE_EVENT: "",
 

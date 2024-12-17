@@ -1,4 +1,4 @@
-  import { conf, CONF_ENV } from "./constants.js";
+import { conf, CONF_ENV } from "./constants.js";
 import {
   AlphaPoolType,
   CetusInvestor,
@@ -195,8 +195,7 @@ export const poolInfo: {
     liquidityChangeEventType: string;
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
-    rewardEventType?: string;
-    userRewardEventType?: string;
+    rewardEventType: string;
     strategyType?: StrategyType;
     checkRatioEventType?: string;
   };
@@ -217,6 +216,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-WBTC-SUI": {
@@ -235,6 +235,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SEND-USDC": {
@@ -253,6 +254,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-BLUE-SUI": {
@@ -271,6 +273,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-BLUE-USDC": {
@@ -289,6 +292,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "NAVI-NAVX": {
@@ -306,6 +310,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_NAVX_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_NAVX_POOL_REWARD_EVENT,
   },
   "BLUEFIN-NAVX-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -326,6 +331,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "BLUEFIN-SUI-AUSD": {
@@ -347,6 +353,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-ALPHA-USDC": {
@@ -368,6 +375,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "BLUEFIN-WBTC-USDC": {
@@ -389,6 +397,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-NS": {
@@ -408,6 +417,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_NS_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_NS_POOL_REWARD_EVENT,
   },
   "BLUEFIN-AUSD-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -428,8 +438,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SUI-BUCK": {
@@ -451,8 +460,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-LOOP-USDT-USDC": {
@@ -472,8 +480,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_REWARD_EVENT,
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT,
@@ -497,8 +504,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SUI-USDC": {
@@ -520,8 +526,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-LOOP-HASUI-SUI": {
@@ -541,8 +546,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_USER_REWARD_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT,
@@ -583,6 +587,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_AUSD_POOL_REWARD_EVENT,
   },
   "NAVI-ETH": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -601,6 +606,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_ETH_POOL_REWARD_EVENT,
   },
   "BUCKET-BUCK": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -619,7 +625,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_USER_REWARD_EVENT,
+    rewardEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REWARD_EVENT,
   },
   "BUCK-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -797,8 +803,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_USER_REWARD_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT,
@@ -818,8 +823,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
-    userRewardEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_USER_REWARD_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_CHECK_RATIO_EVENT,
