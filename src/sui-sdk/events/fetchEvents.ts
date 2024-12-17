@@ -15,6 +15,7 @@ import {
   AlphaWithdrawV2Event,
   AfterTransactionEventNode,
   CheckRatioEvent,
+  RewardEventNode,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -81,7 +82,8 @@ export async function fetchEvents(
         | AlphaAutoCompoundingEvent
         | AlphaWithdrawV2Event
         | AfterTransactionEventNode // TODO: this needs to be changed to AfterTransactionEvent Eventually
-        | CheckRatioEvent;
+        | CheckRatioEvent
+        | RewardEventNode;
 
       let eventNode: EventNode;
 
@@ -209,7 +211,8 @@ export async function fetchEvents(
         "amount" in suiEventJson &&
         !("investor_id" in suiEventJson) &&
         !("amount_withdrawn_from_locked" in suiEventJson) &&
-        !("xtokenSupply" in suiEventJson)
+        !("xtokenSupply" in suiEventJson) &&
+        !("coin_type" in suiEventJson)
       ) {
         // Handling NaviLiquidityChangeEvent and AlphaLiquidityChangeEvent
         eventNode = {
@@ -321,6 +324,18 @@ export async function fetchEvents(
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
           ratio: suiEventJson.ratio,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
+      } else if ("coin_type" in suiEventJson) {
+        // Reward Event
+        eventNode = {
+          amount: suiEventJson.amount,
+          coin_type: { name: suiEventJson.coin_type.name },
+          sender: suiEvent.sender,
+          timestamp: Number(suiEvent.timestampMs),
+          type: suiEvent.type,
           txDigest: suiEvent.id.txDigest,
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,
