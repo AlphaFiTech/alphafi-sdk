@@ -207,6 +207,7 @@ export const poolInfo: {
     liquidityChangeEventType: string;
     withdrawV2EventType?: string;
     afterTransactionEventType?: string;
+    rewardEventType: string;
     strategyType?: StrategyType;
     checkRatioEventType?: string;
   };
@@ -299,6 +300,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_DEEP_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-WBTC-SUI": {
@@ -317,6 +319,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SEND-USDC": {
@@ -335,6 +338,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SEND_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-BLUE-SUI": {
@@ -353,6 +357,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_SUI_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-BLUE-USDC": {
@@ -371,6 +376,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_BLUE_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "NAVI-NAVX": {
@@ -388,6 +394,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_NAVX_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_NAVX_POOL_REWARD_EVENT,
   },
   "BLUEFIN-NAVX-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -408,6 +415,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_NAVX_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "BLUEFIN-SUI-AUSD": {
@@ -429,6 +437,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_AUSD_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-ALPHA-USDC": {
@@ -450,6 +459,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     // add strategy type
   },
   "BLUEFIN-WBTC-USDC": {
@@ -471,6 +481,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_WBTC_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-NS": {
@@ -490,6 +501,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_NS_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_NS_POOL_REWARD_EVENT,
   },
   "BLUEFIN-AUSD-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -510,6 +522,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUSD_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SUI-BUCK": {
@@ -531,6 +544,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_BUCK_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-LOOP-USDT-USDC": {
@@ -550,6 +564,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_REWARD_EVENT,
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT,
@@ -573,6 +588,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_USDT_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "BLUEFIN-SUI-USDC": {
@@ -594,6 +610,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUI_USDC_POOL_REWARD_EVENT,
     // add strategy type
   },
   "NAVI-LOOP-HASUI-SUI": {
@@ -613,6 +630,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT,
@@ -634,6 +652,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDY_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_USDY_POOL_REWARD_EVENT,
   },
   "NAVI-AUSD": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -652,6 +671,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_AUSD_POOL_REWARD_EVENT,
   },
   "NAVI-ETH": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -670,6 +690,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_ETH_POOL_REWARD_EVENT,
   },
   "BUCKET-BUCK": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -688,6 +709,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].BUCKET_BUCK_POOL_REWARD_EVENT,
   },
   "BUCK-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -707,6 +729,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].BUCK_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].BUCK_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].BUCK_SUI_POOL_REWARD_EVENT,
   },
   "USDC-ETH": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -726,6 +749,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_ETH_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].USDC_ETH_POOL_REWARD_EVENT,
   },
   "DEEP-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -745,6 +769,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].DEEP_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].DEEP_SUI_POOL_REWARD_EVENT,
   },
   "ALPHA-USDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -764,6 +789,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHA_USDC_POOL_REWARD_EVENT,
   },
   "USDC-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -783,6 +809,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].USDC_WUSDC_POOL_REWARD_EVENT,
   },
   "USDC-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -802,6 +829,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].USDC_SUI_POOL_REWARD_EVENT,
   },
   "USDC-USDT": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -821,6 +849,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].USDC_USDT_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].USDC_USDT_POOL_REWARD_EVENT,
   },
   "NAVI-USDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -839,6 +868,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_USDC_POOL_REWARD_EVENT,
   },
   "NAVI-LOOP-USDC-USDT": {
     packageId: conf[CONF_ENV].ALPHA_2_LATEST_PACKAGE_ID,
@@ -857,6 +887,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT,
@@ -876,6 +907,7 @@ export const poolInfo: {
     rebalanceEventType: undefined,
     liquidityChangeEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: "",
     strategyType: "LOOPING",
     checkRatioEventType:
       conf[CONF_ENV].NAVI_LOOP_SUI_VSUI_POOL_CHECK_RATIO_EVENT,
@@ -897,6 +929,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_SUI_POOL_REWARD_EVENT,
   },
   "NAVI-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -917,6 +950,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_VSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_VSUI_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_VSUI_POOL_REWARD_EVENT,
   },
   "NAVI-WETH": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -937,6 +971,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WETH_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_WETH_POOL_REWARD_EVENT,
   },
   "NAVI-USDT": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -957,6 +992,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_USDT_POOL_REWARD_EVENT,
   },
   "NAVI-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -977,6 +1013,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVI_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVI_WUSDC_POOL_REWARD_EVENT,
   },
   // "NAVI-HASUI": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1013,6 +1050,7 @@ export const poolInfo: {
     withdrawV2EventType: conf[CONF_ENV].ALPHA_POOL_WITHDRAW_V2_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].ALPHA_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHA_POOL_REWARD_EVENT,
   },
   "ALPHA-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1034,6 +1072,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHA_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].ALPHA_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHA_SUI_POOL_REWARD_EVENT,
   },
   // "HASUI-SUI": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1072,6 +1111,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDT_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].USDT_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].USDT_WUSDC_POOL_REWARD_EVENT,
   },
   // "USDY-WUSDC": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1110,6 +1150,7 @@ export const poolInfo: {
       conf[CONF_ENV].WUSDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WUSDC_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].WUSDC_SUI_POOL_REWARD_EVENT,
   },
   "WETH-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1131,6 +1172,7 @@ export const poolInfo: {
       conf[CONF_ENV].WETH_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WETH_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].WETH_WUSDC_POOL_REWARD_EVENT,
   },
   "WUSDC-WBTC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1152,6 +1194,7 @@ export const poolInfo: {
       conf[CONF_ENV].WUSDC_WBTC_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].WUSDC_WBTC_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].WUSDC_WBTC_POOL_REWARD_EVENT,
   },
   "NAVX-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1173,6 +1216,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVX_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     afterTransactionEventType:
       conf[CONF_ENV].NAVX_SUI_POOL_AFTER_TRANSACTION_EVENT,
+    rewardEventType: conf[CONF_ENV].NAVX_SUI_POOL_REWARD_EVENT,
   },
   // "BUCK-WUSDC": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1209,6 +1253,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].CETUS_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].CETUS_SUI_POOL_REWARD_EVENT,
   },
   "ALPHA-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1228,6 +1273,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].ALPHA_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHA_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].ALPHA_WUSDC_POOL_REWARD_EVENT,
   },
   "WSOL-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1247,6 +1293,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].WSOL_WUSDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].WSOL_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].WSOL_WUSDC_POOL_REWARD_EVENT,
   },
   "FUD-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1266,6 +1313,7 @@ export const poolInfo: {
     rebalanceEventType: conf[CONF_ENV].FUD_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].FUD_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    rewardEventType: conf[CONF_ENV].FUD_SUI_POOL_REWARD_EVENT,
   },
   // "BLUB-SUI": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
