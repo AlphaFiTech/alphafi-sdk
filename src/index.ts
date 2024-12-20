@@ -41,7 +41,7 @@ export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
 export { claimRewardTxb } from "./transactions/collect_rewards.js";
 
-export { zapDepositTxb, getZapAmounts } from "./transactions/zapDeposit.js";
+// export { zapDepositTxb, getZapAmounts } from "./transactions/zapDeposit.js";
 
 //
 export {
