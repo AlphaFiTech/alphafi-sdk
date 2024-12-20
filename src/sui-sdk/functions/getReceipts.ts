@@ -5,7 +5,6 @@ import {
   NaviInvestor,
   CommonInvestorFields,
   CetusPoolType,
-  CoinAmounts,
   PoolName,
   PoolType,
   Receipt,
@@ -23,8 +22,6 @@ import {
   BluefinPoolType,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
-import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
-import BN from "bn.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../client.js";
 import { SimpleCache } from "../../utils/simpleCache.js";
@@ -509,40 +506,6 @@ export async function fetchVoloExchangeRate(): Promise<NaviVoloData> {
       throw error;
     });
   return NaviVoloDetails;
-}
-
-export async function getCoinAmountsFromLiquidity(
-  poolName: PoolName,
-  liquidity: string,
-  ignoreCache: boolean,
-): Promise<[string, string]> {
-  const clmmPool = await getParentPool(poolName, ignoreCache);
-  const investor = (await getInvestor(poolName, ignoreCache)) as CetusInvestor &
-    CommonInvestorFields;
-
-  const upper_bound = 443636;
-  let lower_tick = Number(investor!.content.fields.lower_tick);
-  let upper_tick = Number(investor!.content.fields.upper_tick);
-
-  if (lower_tick > upper_bound) {
-    lower_tick = -~(lower_tick - 1);
-  }
-  if (upper_tick > upper_bound) {
-    upper_tick = -~(upper_tick - 1);
-  }
-  if (clmmPool) {
-    const liquidityInt = Math.floor(parseFloat(liquidity));
-    const coin_amounts: CoinAmounts = ClmmPoolUtil.getCoinAmountFromLiquidity(
-      new BN(`${liquidityInt}`),
-      new BN(clmmPool.content.fields.current_sqrt_price),
-      TickMath.tickIndexToSqrtPriceX64(lower_tick),
-      TickMath.tickIndexToSqrtPriceX64(upper_tick),
-      true,
-    );
-    return [coin_amounts.coinA.toString(), coin_amounts.coinB.toString()];
-  } else {
-    return ["0", "0"];
-  }
 }
 
 export async function multiGetNaviInvestor(poolNames: SingleAssetPoolNames[]) {

@@ -2,7 +2,6 @@ import { Transaction } from "@mysten/sui/transactions";
 import { doubleAssetPoolCoinMap, poolInfo } from "../common/maps.js";
 import { PoolName } from "../common/types.js";
 import {
-  getLiquidity,
   withdrawCetusAlphaSuiTxb,
   withdrawCetusSuiTxb,
   withdrawCetusTxb,
@@ -17,6 +16,7 @@ import { naviWithdrawTx } from "./navi.js";
 import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
 import { loopingWithdraw } from "./navi-looping.js";
+import { getLiquidity } from "./deposit.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,

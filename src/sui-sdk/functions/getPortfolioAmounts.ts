@@ -10,9 +10,9 @@ import {
   LoopingDebt,
   cetusPoolMap,
   getParentPool,
+  getCoinAmountsFromLiquidity,
 } from "../../index.js";
 import {
-  getCoinAmountsFromLiquidity,
   getPool,
   getPoolExchangeRate,
   getReceipts,
