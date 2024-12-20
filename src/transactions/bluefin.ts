@@ -9,8 +9,8 @@ import {
 } from "../common/maps.js";
 import { PoolName, Receipt } from "../common/types.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
-import { getAmounts } from "./cetus.js";
 import { getSuiClient } from "../sui-sdk/client.js";
+import { getAmounts } from "./deposit.js";
 
 export const depositBluefinSuiFirstTxb = async (
   amount: string,

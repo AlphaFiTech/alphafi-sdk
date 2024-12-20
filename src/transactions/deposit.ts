@@ -1,6 +1,11 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { doubleAssetPoolCoinMap, poolInfo } from "../common/maps.js";
-import { PoolName } from "../common/types.js";
+import {
+  BluefinInvestor,
+  CetusInvestor,
+  CommonInvestorFields,
+  PoolName,
+} from "../common/types.js";
 import { depositAlphaTxb } from "./alpha.js";
 import { naviDepositTx } from "./navi.js";
 import { bucketDepositTx } from "./bucket.js";
@@ -16,6 +21,12 @@ import {
   depositBluefinType2Txb,
 } from "./bluefin.js";
 import { loopingDeposit } from "./navi-looping.js";
+import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
+import BN from "bn.js";
+import {
+  getInvestor,
+  getParentPool,
+} from "../sui-sdk/functions/getReceipts.js";
 
 export async function depositSingleAssetTxb(
   poolName: PoolName,
@@ -80,4 +91,100 @@ export async function depositDoubleAssetTxb(
     }
   }
   return txb;
+}
+
+export async function getLiquidity(
+  poolName: PoolName,
+  a2b: boolean,
+  amount: string,
+) {
+  const cetusInvestor = (await getInvestor(poolName, true)) as CetusInvestor &
+    CommonInvestorFields;
+  const cetus_pool = await getParentPool(poolName, true);
+  //TODO
+  //check if you calculate lower_tick, upper_tick like this only
+  const upper_bound = 443636;
+  let lower_tick = Number(cetusInvestor.content.fields.lower_tick);
+  let upper_tick = Number(cetusInvestor.content.fields.upper_tick);
+
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
+  }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+
+  // AlphaFi Mascot
+  //
+  //      a
+  //    ~~|~~
+  //     / \
+  //
+  /////////////////
+
+  const current_sqrt_price = new BN(
+    cetus_pool.content.fields.current_sqrt_price,
+  );
+
+  const liquidity = ClmmPoolUtil.estLiquidityAndcoinAmountFromOneAmounts(
+    lower_tick,
+    upper_tick,
+    new BN(`${Math.floor(parseFloat(amount))}`),
+    a2b,
+    false,
+    0.5,
+    current_sqrt_price,
+  );
+  return liquidity;
+}
+
+export async function getAmounts(
+  poolName: PoolName,
+  a2b: boolean,
+  amount: string,
+): Promise<[string, string] | undefined> {
+  const liquidity = await getLiquidity(poolName, a2b, amount);
+  if (liquidity) {
+    const numA = liquidity.coinAmountA.toString();
+    const numB = liquidity.coinAmountB.toString();
+
+    return [numA, numB];
+  }
+}
+
+export async function getCoinAmountsFromLiquidity(
+  poolName: PoolName,
+  liquidity: string,
+  ignoreCache: boolean,
+): Promise<[string, string]> {
+  const clmmPool = await getParentPool(poolName, ignoreCache);
+  const investor = (await getInvestor(poolName, ignoreCache)) as (
+    | CetusInvestor
+    | BluefinInvestor
+  ) &
+    CommonInvestorFields;
+
+  const upper_bound = 443636;
+  let lower_tick = Number(investor!.content.fields.lower_tick);
+  let upper_tick = Number(investor!.content.fields.upper_tick);
+
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
+  }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+  if (clmmPool) {
+    const liquidityInt = Math.floor(parseFloat(liquidity));
+    const coin_amounts = ClmmPoolUtil.getCoinAmountFromLiquidity(
+      new BN(`${liquidityInt}`),
+      new BN(clmmPool.content.fields.current_sqrt_price),
+      TickMath.tickIndexToSqrtPriceX64(lower_tick),
+      TickMath.tickIndexToSqrtPriceX64(upper_tick),
+      true,
+    );
+    return [coin_amounts.coinA.toString(), coin_amounts.coinB.toString()];
+  } else {
+    return ["0", "0"];
+  }
 }
