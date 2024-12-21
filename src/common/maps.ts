@@ -179,7 +179,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SEND-USDC": conf[CONF_ENV].BLUEFIN_SEND_USDC_POOL,
   "WBTC-SUI": conf[CONF_ENV].BLUEFIN_WBTC_SUI_POOL,
   "STSUI-SUI": conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
-  // "STSUI-USDC": conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
+  "STSUI-USDC": conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
   // "STSUI-ETH": conf[CONF_ENV].BLUEFIN_STSUI_ETH_POOL,
   // "STSUI-WSOL": conf[CONF_ENV].BLUEFIN_STSUI_WSOL_POOL,
 };
@@ -247,24 +247,24 @@ export const poolInfo: {
   //     conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
   //   // add strategy type
   // },
-  // "BLUEFIN-STSUI-USDC": {
-  //   packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
-  //   packageNumber: 4,
-  //   parentProtocolName: "BLUEFIN",
-  //   parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
-  //   poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL,
-  //   investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_INVESTOR,
-  //   receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT_NAME,
-  //   receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT,
-  //   assetTypes: [coinsList["STSUI"].type, conf[CONF_ENV].USDC_COIN_TYPE],
-  //   autoCompoundingEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
-  //   rebalanceEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_REBALANCE_EVENT,
-  //   liquidityChangeEventType:
-  //     conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-  //   // add strategy type
-  // },
+  "BLUEFIN-STSUI-USDC": {
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type, conf[CONF_ENV].USDC_COIN_TYPE],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "BLUEFIN-STSUI-SUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
