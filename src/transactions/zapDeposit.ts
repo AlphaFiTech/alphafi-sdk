@@ -7,6 +7,7 @@ import { CoinStruct } from "@mysten/sui/client";
 import { CoinName, PoolName, SwapOptions } from "../common/types.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import {
+  bluefinPoolMap,
   cetusPoolMap,
   doubleAssetPoolCoinMap,
   poolInfo,
@@ -263,6 +264,16 @@ export async function zapDepositTxb(
               );
             } else if (pool2 === "SUI") {
               txb = await depositBluefinSuiSecondTxb(
+                amountA,
+                amountB,
+                poolName,
+                { address },
+                txb,
+                coin1,
+                coin2,
+              );
+            } else if (coin1 === "STSUI") {
+              txb = await depositBluefinStsuiTxb(
                 amountA,
                 amountB,
                 poolName,
@@ -1099,6 +1110,89 @@ const depositBluefinSuiSecondTxb = async (
   } else {
     throw new Error(`No ${pool1} or ${pool2} Coins`);
   }
+  return txb;
+};
+
+const depositBluefinStsuiTxb = async (
+  amountA: string,
+  amountB: string,
+  poolName: PoolName,
+  options: { address: string },
+  transaction: Transaction | undefined = undefined,
+  coin1Arg: TransactionObjectArgument | undefined,
+  coin2Arg: TransactionObjectArgument | undefined,
+): Promise<Transaction> => {
+  const address = options.address;
+  let txb;
+  if (transaction) txb = transaction;
+  else txb = new Transaction();
+  poolName = poolName.toUpperCase() as PoolName;
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+
+  const receipt = await getReceipts(poolName, address, true);
+
+  amountA = (Number(amountA) * 0.999).toString();
+  amountB = (Number(amountB) * 0.999).toString();
+  let amounts = await getAmounts(poolName, true, amountA);
+  if (amounts === undefined || amounts[0] > amountA || amounts[1] > amountB) {
+    amounts = await getAmounts(poolName, false, amountB);
+  }
+  if (amounts && coin1Arg && coin2Arg) {
+    const [depositCoinA] = txb.splitCoins(coin1Arg, [amounts[0]]);
+    const [depositCoinB] = txb.splitCoins(coin2Arg, [amounts[1]]);
+    const poolinfo = poolInfo[poolName];
+    let someReceipt: any;
+    if (receipt.length == 0) {
+      [someReceipt] = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [poolinfo.receiptType],
+        arguments: [],
+      });
+    } else {
+      [someReceipt] = txb.moveCall({
+        target: `0x1::option::some`,
+        typeArguments: [receipt[0].content.type],
+        arguments: [txb.object(receipt[0].objectId)],
+      });
+    }
+
+    if (poolName === "BLUEFIN-STSUI-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_stsui_first_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_STSUI_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_STSUI_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(bluefinPoolMap["SUI-USDC"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
+          txb.pure.bool(true),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+
+    txb.transferObjects([coin1Arg, coin2Arg], address);
+  } else {
+    throw new Error(`No ${pool1} or ${pool2} Coins`);
+  }
+
   return txb;
 };
 
