@@ -76,6 +76,8 @@ export async function withdrawTxb(
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   }
+
+  txb.setSender(address);
   return txb;
 }
 
