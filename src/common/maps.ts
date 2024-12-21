@@ -71,6 +71,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-STSUI-USDC": { coin1: "STSUI", coin2: "USDC" },
   "BLUEFIN-STSUI-ETH": { coin1: "STSUI", coin2: "ETH" },
   "BLUEFIN-STSUI-WSOL": { coin1: "STSUI", coin2: "WSOL" },
+  "BLUEFIN-ALPHA-STSUI": { coin1: "ALPHA", coin2: "STSUI" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -182,6 +183,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "STSUI-USDC": conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
   // "STSUI-ETH": conf[CONF_ENV].BLUEFIN_STSUI_ETH_POOL,
   // "STSUI-WSOL": conf[CONF_ENV].BLUEFIN_STSUI_WSOL_POOL,
+  "ALPHA-STSUI": conf[CONF_ENV].BLUEFIN_ALPHA_STSUI_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -211,6 +213,24 @@ export const poolInfo: {
     checkRatioEventType?: string;
   };
 } = {
+  "BLUEFIN-ALPHA-STSUI": {
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_ALPHA_STSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_RECEIPT,
+    assetTypes: [coinsList["ALPHA"].type, coinsList["STSUI"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   // "BLUEFIN-STSUI-WSOL": {
   //   packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
   //   packageNumber: 4,
