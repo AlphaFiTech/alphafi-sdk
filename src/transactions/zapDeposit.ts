@@ -272,7 +272,7 @@ export async function zapDepositTxb(
                 coin1,
                 coin2,
               );
-            } else if (coin1 === "STSUI") {
+            } else if (pool1 === "STSUI") {
               txb = await depositBluefinStsuiTxb(
                 amountA,
                 amountB,
