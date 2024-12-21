@@ -1594,11 +1594,17 @@ export const conf = {
     ALPHA_5_PACKAGE_IDS: [
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
     ],
-    ALPHA_STSUI_FIRST_PACKAGE_ID: "",
-    ALPHA_STSUI_LATEST_PACKAGE_ID: "",
+    ALPHA_STSUI_FIRST_PACKAGE_ID:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+    ALPHA_STSUI_LATEST_PACKAGE_ID:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
 
-    ALPHA_STSUI_MODULE_PACKAGE_IDS: [""],
-    ALPHA_STSUI_PACKAGE_IDS: [],
+    ALPHA_STSUI_MODULE_PACKAGE_IDS: [
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+    ],
+    ALPHA_STSUI_PACKAGE_IDS: [
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+    ],
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
 
@@ -1617,7 +1623,8 @@ export const conf = {
     ALPHA_5_VERSION:
       "0xa8dce89491194eb551f46c2f9208642147df6e770198641f86891626d008b2a9",
 
-    ALPHA_STSUI_VERSION: "",
+    ALPHA_STSUI_VERSION:
+      "0xf62bf937f0f7c3681a14e7f159bb01733749256027b3b3850aafd3de5b27fdfb",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -2250,7 +2257,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_SUI_RECEIPT:
       "0xe304fb307fd32b77b7471d6e26bfa04c8a84d1342b5e5ea29bd79b75fffbdea5::alphafi_bluefin_stsui_sui_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::Receipt",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_ETH_RECEIPT:
       "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_WSOL_RECEIPT:
@@ -2494,7 +2501,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0xe304fb307fd32b77b7471d6e26bfa04c8a84d1342b5e5ea29bd79b75fffbdea5::alphafi_bluefin_stsui_sui_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_USDC_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_investor::AutoCompoundingEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_ETH_POOL_AUTO_COMPOUNDING_EVENT:
       "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_WSOL_POOL_AUTO_COMPOUNDING_EVENT:
@@ -2602,7 +2609,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_SUI_POOL_REBALANCE_EVENT:
       "0xe304fb307fd32b77b7471d6e26bfa04c8a84d1342b5e5ea29bd79b75fffbdea5::alphafi_bluefin_stsui_sui_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_STSUI_USDC_POOL_REBALANCE_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_investor::RebalancePoolEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_STSUI_ETH_POOL_REBALANCE_EVENT:
       "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_STSUI_WSOL_POOL_REBALANCE_EVENT:
@@ -2751,7 +2758,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0xe304fb307fd32b77b7471d6e26bfa04c8a84d1342b5e5ea29bd79b75fffbdea5::alphafi_bluefin_stsui_sui_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
-      "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_ETH_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_WSOL_POOL_LIQUIDITY_CHANGE_EVENT:
