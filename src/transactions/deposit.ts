@@ -15,6 +15,7 @@ import {
   depositCetusTxb,
 } from "./cetus.js";
 import {
+  depositBluefinStsuiTxb,
   depositBluefinSuiFirstTxb,
   depositBluefinSuiSecondTxb,
   depositBluefinType1Txb,
@@ -82,6 +83,10 @@ export async function depositDoubleAssetTxb(
       });
     } else if (coin2 === "SUI") {
       txb = await depositBluefinSuiSecondTxb(amount, poolName, isAmountA, {
+        address,
+      });
+    } else if (coin1 === "STSUI") {
+      txb = await depositBluefinStsuiTxb(amount, poolName, isAmountA, {
         address,
       });
     } else {
