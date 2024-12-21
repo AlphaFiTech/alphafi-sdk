@@ -7,6 +7,7 @@ import {
   withdrawCetusTxb,
 } from "./cetus.js";
 import {
+  withdrawBluefinStsuiTxb,
   withdrawBluefinSuiFirstTxb,
   withdrawBluefinSuiSecondTxb,
   withdrawBluefinType1Txb,
@@ -57,6 +58,10 @@ export async function withdrawTxb(
       });
     } else if (coin2 === "SUI") {
       txb = await withdrawBluefinSuiSecondTxb(xTokensAmount, poolName, {
+        address,
+      });
+    } else if (coin1 === "STSUI") {
+      txb = await withdrawBluefinStsuiTxb(xTokensAmount, poolName, {
         address,
       });
     } else {
