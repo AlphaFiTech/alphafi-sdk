@@ -60,7 +60,8 @@ export type PoolName =
   | "BLUEFIN-STSUI-SUI"
   | "BLUEFIN-STSUI-USDC"
   | "BLUEFIN-STSUI-ETH"
-  | "BLUEFIN-STSUI-WSOL";
+  | "BLUEFIN-STSUI-WSOL"
+  | "BLUEFIN-ALPHA-STSUI";
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -121,7 +122,8 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-STSUI-SUI"
   | "BLUEFIN-STSUI-USDC"
   | "BLUEFIN-STSUI-ETH"
-  | "BLUEFIN-STSUI-WSOL";
+  | "BLUEFIN-STSUI-WSOL"
+  | "BLUEFIN-ALPHA-STSUI";
 
 export type CoinName =
   | "ALPHA"
