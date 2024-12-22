@@ -1012,7 +1012,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-ALPHA"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(true),
+            txb.pure.bool(false),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -1729,7 +1729,7 @@ export const withdrawBluefinStsuiTxb = async (
           txb.object(bluefinPoolMap["SUI-ALPHA"]),
           txb.object(getConf().LST_INFO),
           txb.object(getConf().SUI_SYSTEM_STATE),
-          txb.pure.bool(true),
+          txb.pure.bool(false),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });

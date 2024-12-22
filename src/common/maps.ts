@@ -184,6 +184,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   // "STSUI-ETH": conf[CONF_ENV].BLUEFIN_STSUI_ETH_POOL,
   // "STSUI-WSOL": conf[CONF_ENV].BLUEFIN_STSUI_WSOL_POOL,
   "ALPHA-STSUI": conf[CONF_ENV].BLUEFIN_ALPHA_STSUI_POOL,
+  "SUI-ALPHA": conf[CONF_ENV].BLUEFIN_SUI_ALPHA_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {

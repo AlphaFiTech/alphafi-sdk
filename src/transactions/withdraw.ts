@@ -60,7 +60,7 @@ export async function withdrawTxb(
       txb = await withdrawBluefinSuiSecondTxb(xTokensAmount, poolName, {
         address,
       });
-    } else if (coin1 === "STSUI") {
+    } else if (coin1 === "STSUI" || coin2 === "STSUI") {
       txb = await withdrawBluefinStsuiTxb(xTokensAmount, poolName, {
         address,
       });

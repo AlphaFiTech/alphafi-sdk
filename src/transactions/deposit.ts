@@ -86,7 +86,7 @@ export async function depositDoubleAssetTxb(
       txb = await depositBluefinSuiSecondTxb(amount, poolName, isAmountA, {
         address,
       });
-    } else if (coin1 === "STSUI") {
+    } else if (coin1 === "STSUI" || coin2 === "STSUI") {
       txb = await depositBluefinStsuiTxb(amount, poolName, isAmountA, {
         address,
       });
