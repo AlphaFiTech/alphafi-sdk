@@ -1616,13 +1616,15 @@ export const conf = {
     ALPHA_STSUI_FIRST_PACKAGE_ID:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
     ALPHA_STSUI_LATEST_PACKAGE_ID:
-      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9",
 
     ALPHA_STSUI_MODULE_PACKAGE_IDS: [
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9",
     ],
     ALPHA_STSUI_PACKAGE_IDS: [
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9",
     ],
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
@@ -2282,11 +2284,11 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_ETH_RECEIPT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::Receipt",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_WSOL_RECEIPT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_pool::Receipt",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_ALPHA_STSUI_RECEIPT:
-      "0xc84ef454b9810e3546c03528a39071fba591b88c3d808759b36ec5372b08cb04::alphafi_bluefin_stsui_second_pool::Receipt", //c
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_pool::Receipt", //c
 
     // Receipt Names
 
