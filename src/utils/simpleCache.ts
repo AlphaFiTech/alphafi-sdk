@@ -64,9 +64,9 @@ export async function getObjectFromChain(
     getObjectPromiseCache.delete(cacheKey);
   }
   // Check if the distributor is already in the cache
-  const cachedDistributor = getObjectCache.get(cacheKey);
-  if (cachedDistributor) {
-    return cachedDistributor;
+  const cachedObject = getObjectCache.get(cacheKey);
+  if (cachedObject) {
+    return cachedObject;
   }
 
   // Check if there is already a promise in the cache
