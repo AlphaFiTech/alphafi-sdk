@@ -350,5 +350,6 @@ export async function claimRewardTxb(address: string) {
     arguments: [txb.object(getConf().VERSION), alpha_receipt],
   });
 
+  txb.setSender(address);
   return txb;
 }
