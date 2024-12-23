@@ -44,6 +44,7 @@ export async function depositSingleAssetTxb(
       txb = await loopingDeposit(poolName, amount, { address });
     } else txb = await naviDepositTx(amount, poolName, { address });
   }
+  txb.setGasBudget(1_000_000_000);
   txb.setSender(address);
   return txb;
 }
@@ -96,6 +97,7 @@ export async function depositDoubleAssetTxb(
       });
     }
   }
+  txb.setGasBudget(1_000_000_000);
   txb.setSender(address);
   return txb;
 }

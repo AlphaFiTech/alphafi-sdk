@@ -1,3 +1,6 @@
+import { GetObjectParams, SuiObjectResponse } from "@mysten/sui/client";
+import { getSuiClient } from "../sui-sdk/client.js";
+
 export class SimpleCache<T> {
   private cache: { [key: string]: { value: T; expiry: number } } = {};
   private defaultTTL: number;
@@ -46,3 +49,56 @@ export class SimpleCache<T> {
 
 // // Clear all cache entries
 // cache.clear();
+
+const getObjectCache = new SimpleCache<SuiObjectResponse>();
+const getObjectPromiseCache = new SimpleCache<Promise<SuiObjectResponse>>();
+
+export async function getObjectFromChain(
+  input: GetObjectParams,
+  ignoreCache: boolean,
+): Promise<SuiObjectResponse> {
+  const suiClient = getSuiClient();
+  const cacheKey = `getObject_${input.id}`;
+  if (ignoreCache) {
+    getObjectCache.delete(cacheKey);
+    getObjectPromiseCache.delete(cacheKey);
+  }
+  // Check if the distributor is already in the cache
+  const cachedObject = getObjectCache.get(cacheKey);
+  if (cachedObject) {
+    return cachedObject;
+  }
+
+  // Check if there is already a promise in the cache
+  let getObjectPromise = getObjectPromiseCache.get(cacheKey);
+  if (getObjectPromise) {
+    return getObjectPromise;
+  }
+
+  // If not, create a new promise and cache it
+  getObjectPromise = (async () => {
+    try {
+      const res = await suiClient.getObject(input);
+
+      // Cache the distributor object
+      getObjectCache.set(cacheKey, res);
+      return res;
+    } catch (err) {
+      console.error(`getDistributor failed`);
+      throw err;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      getObjectPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  getObjectPromiseCache.set(cacheKey, getObjectPromise);
+  return getObjectPromise;
+}
+
+// suiClient.getDynamicFields
+// suiClient.getDynamicFieldObject
+// suiClient.getOwnedObjects
+// suiClient.multiGetObjects
+// suiClient.getCoins
