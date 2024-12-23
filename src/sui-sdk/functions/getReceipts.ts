@@ -208,7 +208,7 @@ export async function getPoolExchangeRate(
   poolName: PoolName,
   ignoreCache: boolean,
 ): Promise<Decimal> {
-  let pool;
+  let pool: PoolType | AlphaPoolType;
   try {
     pool = await getPool(poolName, ignoreCache);
     const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
@@ -348,7 +348,7 @@ export async function getMultiParentPool() {
       cetusPoolCache.set(cacheKey, poolData);
     }
   } catch (e) {
-    console.error(`Error getting multiPools`);
+    console.error(`[getMultiParentPool] Error getting multiPools`);
   }
 }
 
@@ -431,7 +431,7 @@ export async function getMultiInvestor() {
       investorCache.set(cacheKey, investorData);
     }
   } catch (e) {
-    console.error(`Error getting multiPools`);
+    console.error(`[getMultiInvestor] Error getting multiPools`);
   }
 }
 
@@ -465,7 +465,7 @@ export async function getInvestor(
           showContent: true,
         },
       });
-      let cetusInvestor;
+      let cetusInvestor: Investor;
       if (poolInfo[poolName].parentProtocolName == "NAVI") {
         cetusInvestor = o.data as NaviInvestor & CommonInvestorFields;
       } else if (poolInfo[poolName].parentProtocolName == "BUCKET") {
@@ -596,6 +596,63 @@ export async function getDistributor(
   return distributorPromise;
 }
 
+export async function getPositionRanges(poolNames: PoolName[] = []) {
+  const res = new Map<PoolName, { lowerPrice: string; upperPrice: string }>();
+
+  for (const poolName of poolNames) {
+    if (
+      poolName == "ALPHA" ||
+      !["CETUS", "BLUEFIN"].includes(
+        poolInfo[poolName.toString()].parentProtocolName,
+      )
+    ) {
+      continue;
+    }
+    let investor: Investor;
+    if (poolInfo[poolName.toString()].parentProtocolName == "CETUS") {
+      investor = (await getInvestor(
+        poolName as PoolName,
+        false,
+      )) as CetusInvestor & CommonInvestorFields;
+    } else {
+      investor = (await getInvestor(
+        poolName as PoolName,
+        false,
+      )) as BluefinInvestor & CommonInvestorFields;
+    }
+    const coinAName = doubleAssetPoolCoinMap[poolName].coin1;
+    const coinA = coinsList[coinAName];
+    const coinBName = doubleAssetPoolCoinMap[poolName].coin2;
+    const coinB = coinsList[coinBName];
+    if (investor) {
+      const upperBound = 443636;
+      let lowerTick = Number(investor.content.fields.lower_tick);
+      let upperTick = Number(investor.content.fields.upper_tick);
+      if (lowerTick > upperBound) {
+        lowerTick = -~(lowerTick - 1);
+      }
+      if (upperTick > upperBound) {
+        upperTick = -~(upperTick - 1);
+      }
+      const lowerPrice = TickMath.tickIndexToPrice(
+        lowerTick,
+        coinA.expo,
+        coinB.expo,
+      );
+      const upperPrice = TickMath.tickIndexToPrice(
+        upperTick,
+        coinA.expo,
+        coinB.expo,
+      );
+      res.set(poolName, {
+        lowerPrice: lowerPrice.toString(),
+        upperPrice: upperPrice.toString(),
+      });
+    }
+  }
+  return res;
+}
+
 export async function getPositionRange(
   ignoreCache: boolean,
 ): Promise<Map<PoolName, { lowerPrice: string; upperPrice: string }>> {
@@ -610,7 +667,7 @@ export async function getPositionRange(
     ) {
       continue;
     }
-    let investor;
+    let investor: Investor;
     if (poolInfo[poolNameString].parentProtocolName == "CETUS") {
       investor = (await getInvestor(
         poolName as PoolName,

@@ -93,6 +93,7 @@ export {
   getMultiPool,
   getMultiReceipts,
   getPositionRange,
+  getPositionRanges,
 } from "./sui-sdk/functions/getReceipts.js";
 
 export { getMultiLatestPrices, getLatestPrices } from "./utils/prices.js";
