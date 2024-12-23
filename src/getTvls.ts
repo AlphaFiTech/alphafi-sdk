@@ -25,6 +25,23 @@ import { PythPriceIdPair } from "./common/pyth.js";
 import BN from "bn.js";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 
+export async function getTvls(
+  poolNames: PoolName[],
+): Promise<Map<PoolName, string>> {
+  const tvlMap = new Map<PoolName, string>();
+  await getMultiInvestor();
+  await getMultiLatestPrices();
+  await getMultiParentPool();
+  // Use Promise.all to handle multiple promises in parallel
+  await Promise.all(
+    poolNames.map(async (poolName) => {
+      const tvl = await fetchTVL(poolName, false);
+      tvlMap.set(poolName, tvl);
+    }),
+  );
+  return tvlMap;
+}
+
 export async function getTVLs(): Promise<Map<PoolName, string>> {
   const tvlMap = new Map<PoolName, string>();
   await getMultiInvestor();
