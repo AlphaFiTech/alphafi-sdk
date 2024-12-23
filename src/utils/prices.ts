@@ -1,5 +1,7 @@
+import { Decimal } from "decimal.js";
 import { PythPriceIdPair } from "../common/pyth.js";
 import { SimpleCache } from "./simpleCache.js";
+import { stSuiExchangeRate } from "@alphafi/stsui-sdk";
 
 const latestPriceCache = new SimpleCache<string>(5000);
 
@@ -30,6 +32,10 @@ export const coinsToGetFromPyth: PythPriceIdPair[] = [
   "DEEP/USD" as PythPriceIdPair,
   "AUSD/USD" as PythPriceIdPair,
   "USDY/USD" as PythPriceIdPair,
+  "NS/USD" as PythPriceIdPair,
+  "BLUE/USD" as PythPriceIdPair,
+  "SEND/USD" as PythPriceIdPair,
+  "STSUI/USD" as PythPriceIdPair,
 ];
 
 export async function getMultiLatestPrices() {
@@ -65,10 +71,18 @@ export async function getLatestPrices(
   if (pairsToFetch.length > 0) {
     try {
       const fetchedPrices = await fetchPricesFromAlphaAPI(pairsToFetch);
-      pairsToFetch.forEach((_pair, i) => {
+      for (let i = 0; i < pairsToFetch.length; i++) {
         const price = fetchedPrices[i];
+        if (pairsToFetch[i] === "STSUI/USD") {
+          // todo: remove this when stsui is listed somewhere
+          const suiPrice = await getLatestPrices(["SUI/USD"], false);
+          const stsuiExchangeRate = await stSuiExchangeRate();
+          price.price = new Decimal(suiPrice[0])
+            .mul(stsuiExchangeRate)
+            .toString();
+        }
         prices[pairsToFetchIndexes[i]] = price.price;
-      });
+      }
     } catch (error) {
       console.error(
         `Error in getLatestPrices for pairs ${pairsToFetch}:`,
