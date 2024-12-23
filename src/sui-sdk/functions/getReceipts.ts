@@ -599,57 +599,60 @@ export async function getDistributor(
 export async function getPositionRanges(poolNames: PoolName[] = []) {
   const res = new Map<PoolName, { lowerPrice: string; upperPrice: string }>();
 
-  for (const poolName of poolNames) {
-    if (
-      poolName == "ALPHA" ||
-      !["CETUS", "BLUEFIN"].includes(
-        poolInfo[poolName.toString()].parentProtocolName,
-      )
-    ) {
-      continue;
-    }
-    let investor: Investor;
-    if (poolInfo[poolName.toString()].parentProtocolName == "CETUS") {
-      investor = (await getInvestor(
-        poolName as PoolName,
-        false,
-      )) as CetusInvestor & CommonInvestorFields;
-    } else {
-      investor = (await getInvestor(
-        poolName as PoolName,
-        false,
-      )) as BluefinInvestor & CommonInvestorFields;
-    }
-    const coinAName = doubleAssetPoolCoinMap[poolName].coin1;
-    const coinA = coinsList[coinAName];
-    const coinBName = doubleAssetPoolCoinMap[poolName].coin2;
-    const coinB = coinsList[coinBName];
-    if (investor) {
-      const upperBound = 443636;
-      let lowerTick = Number(investor.content.fields.lower_tick);
-      let upperTick = Number(investor.content.fields.upper_tick);
-      if (lowerTick > upperBound) {
-        lowerTick = -~(lowerTick - 1);
+  // Use Promise.all to handle multiple promises in parallel
+  await Promise.all(
+    poolNames.map(async (poolName) => {
+      if (
+        poolName == "ALPHA" ||
+        !["CETUS", "BLUEFIN"].includes(
+          poolInfo[poolName.toString()].parentProtocolName,
+        )
+      ) {
+        return;
       }
-      if (upperTick > upperBound) {
-        upperTick = -~(upperTick - 1);
+      let investor: Investor;
+      if (poolInfo[poolName.toString()].parentProtocolName == "CETUS") {
+        investor = (await getInvestor(
+          poolName as PoolName,
+          false,
+        )) as CetusInvestor & CommonInvestorFields;
+      } else {
+        investor = (await getInvestor(
+          poolName as PoolName,
+          false,
+        )) as BluefinInvestor & CommonInvestorFields;
       }
-      const lowerPrice = TickMath.tickIndexToPrice(
-        lowerTick,
-        coinA.expo,
-        coinB.expo,
-      );
-      const upperPrice = TickMath.tickIndexToPrice(
-        upperTick,
-        coinA.expo,
-        coinB.expo,
-      );
-      res.set(poolName, {
-        lowerPrice: lowerPrice.toString(),
-        upperPrice: upperPrice.toString(),
-      });
-    }
-  }
+      const coinAName = doubleAssetPoolCoinMap[poolName].coin1;
+      const coinA = coinsList[coinAName];
+      const coinBName = doubleAssetPoolCoinMap[poolName].coin2;
+      const coinB = coinsList[coinBName];
+      if (investor) {
+        const upperBound = 443636;
+        let lowerTick = Number(investor.content.fields.lower_tick);
+        let upperTick = Number(investor.content.fields.upper_tick);
+        if (lowerTick > upperBound) {
+          lowerTick = -~(lowerTick - 1);
+        }
+        if (upperTick > upperBound) {
+          upperTick = -~(upperTick - 1);
+        }
+        const lowerPrice = TickMath.tickIndexToPrice(
+          lowerTick,
+          coinA.expo,
+          coinB.expo,
+        );
+        const upperPrice = TickMath.tickIndexToPrice(
+          upperTick,
+          coinA.expo,
+          coinB.expo,
+        );
+        res.set(poolName, {
+          lowerPrice: lowerPrice.toString(),
+          upperPrice: upperPrice.toString(),
+        });
+      }
+    }),
+  );
   return res;
 }
 
