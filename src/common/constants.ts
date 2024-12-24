@@ -979,7 +979,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x118ecdbb9d121fc2ca8fc4a20433b5a51ec797f0f2b62dd017884bd9693058e9::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x118ecdbb9d121fc2ca8fc4a20433b5a51ec797f0f2b62dd017884bd9693058e9::alphafi_bluefin_type_1_investor::AutoCompoundingEvent", //CHANGE
+      "0x7df55a5cb5d91bc52b20b8b12daadc7bdc64091767bc2325b5da9afadea13069::alphafi_bluefin_type_1_investor::AutoCompoundingEvent", //CHANGE
     //Rebalance Event Types
 
     ALPHA_SUI_POOL_REBALANCE_EVENT:

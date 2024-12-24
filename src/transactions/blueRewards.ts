@@ -5,6 +5,7 @@ import {
   coinsList,
   PoolName,
   cetusPoolMap,
+  getPool,
 } from "../index.js";
 import { Transaction, TransactionResult } from "@mysten/sui/transactions";
 export interface ClaimRewardResponse {
@@ -65,20 +66,51 @@ export async function pendingBlueRewardAmount(
   const { getReceipts } = await import("../index.js");
   try {
     const receipts = await getReceipts(poolName, userAddress, false);
+    const receipt = receipts[0];
+    const userXtokenBalance = receipt.content.fields.xTokenBalance;
+    let userBluePendingReward = new Decimal(0);
+    let curAcc = new Decimal(0);
+    let lastAcc = new Decimal(0);
     const userPendingRewardsAll =
-      receipts[0].content.fields.pending_rewards.fields.contents;
-
+      receipt.content.fields.pending_rewards.fields.contents;
     for (let i = 0; i < userPendingRewardsAll.length; i++) {
       if (
         userPendingRewardsAll[i].fields.key.fields.name ==
         coinsList["BLUE"].type.substring(2)
       ) {
-        return new Decimal(userPendingRewardsAll[i].fields.value)
-          .div(Math.pow(10, coinsList["BLUE"].expo))
-          .toString();
+        userBluePendingReward = new Decimal(
+          userPendingRewardsAll[i].fields.value,
+        );
+        break;
       }
     }
-    return "0";
+    const pool = await getPool(poolName, false);
+    const currAccForAllRewards =
+      pool!.content.fields.acc_rewards_per_xtoken.fields.contents;
+    currAccForAllRewards?.forEach((reward) => {
+      if (
+        reward.fields.key.fields.name == coinsList["BLUE"].type.substring(2)
+      ) {
+        curAcc = new Decimal(reward.fields.value);
+      }
+    });
+    const lastAccAll =
+      receipt.content.fields.last_acc_reward_per_xtoken.fields.contents;
+    lastAccAll.forEach((reward) => {
+      if (
+        reward.fields.key.fields.name == coinsList["BLUE"].type.substring(2)
+      ) {
+        lastAcc = new Decimal(reward.fields.value);
+      }
+    });
+
+    return curAcc
+      .minus(lastAcc)
+      .mul(userXtokenBalance)
+      .div(1e36)
+      .plus(userBluePendingReward)
+      .div(Math.pow(10, coinsList["BLUE"].expo))
+      .toString();
   } catch (e) {
     console.error("error in calculate pending blue rewards", e);
     return "0";
