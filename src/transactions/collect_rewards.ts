@@ -349,7 +349,6 @@ export async function claimRewardTxb(address: string) {
     target: `${getConf().ALPHA_LATEST_PACKAGE_ID}::alphapool::transfer_receipt_option`,
     arguments: [txb.object(getConf().VERSION), alpha_receipt],
   });
-
   txb.setSender(address);
   return txb;
 }
