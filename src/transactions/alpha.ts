@@ -109,6 +109,7 @@ export const withdrawAlphaTxb = async (
         txb.pure.bool(withdrawFromLocked),
       ],
     });
+    txb.setSender(address);
     return txb;
   } else {
     throw new Error("No receipt found!");
