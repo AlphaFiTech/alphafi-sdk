@@ -402,7 +402,6 @@ export async function calculateAprForPools(
 ): Promise<Record<PoolName, number>> {
   const aprMap: Record<string, number> = {};
   const investorPoolNameMap = await getInvestorPoolMap();
-  console.log(investorPoolNameMap);
 
   const investorAprMap = await calculateAprForInvestors(events);
   for (const investorId in investorAprMap) {
