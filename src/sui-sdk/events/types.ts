@@ -34,6 +34,17 @@ export interface NaviLoopAutoCompoundingEvent extends NaviAutoCompoundingEvent {
   accrued_interest: bigint;
 }
 
+export interface AutobalancingAutoCompoundingEvent {
+  blue_reward_amount: bigint;
+  current_liquidity: bigint;
+  fee_collected: bigint;
+  free_balance_a: bigint;
+  free_balance_b: bigint;
+  investor_id: string;
+  total_amount_a: bigint;
+  total_amount_b: bigint;
+}
+
 export interface RebalanceEvent {
   investor_id: string;
   lower_tick_after: string;
@@ -176,7 +187,8 @@ export type AutoCompoundingEventNode =
   | (CetusAutoCompoundingEvent & CommonEventAttributes)
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
   | (NaviLoopAutoCompoundingEvent & CommonEventAttributes)
-  | (AlphaAutoCompoundingEvent & CommonEventAttributes);
+  | (AlphaAutoCompoundingEvent & CommonEventAttributes)
+  | (AutobalancingAutoCompoundingEvent & CommonEventAttributes);
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
