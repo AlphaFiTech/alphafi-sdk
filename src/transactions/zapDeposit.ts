@@ -3,7 +3,7 @@ import {
   TransactionObjectArgument,
 } from "@mysten/sui/transactions";
 import BN from "bn.js";
-import { CoinStruct } from "@mysten/sui/client";
+import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { CoinName, PoolName, SwapOptions } from "../common/types.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import {
@@ -19,6 +19,7 @@ import { getConf } from "../common/constants.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getLatestPrices } from "../utils/prices.js";
 import { PythPriceIdPair } from "../common/pyth.js";
+import { mintTx, redeemTx } from "@alphafi/stsui-sdk";
 
 export async function zapDepositTxb(
   inputCoinName: CoinName,
@@ -85,102 +86,60 @@ export async function zapDepositTxb(
         inAmount: new BN(inputAmountToType2),
         slippage: slippage,
       };
+
       if (inputCoinName === coinTypeA) {
-        const quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
-        if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal;
-          const result = await swapGateway.getTransactionBlock(
-            swapOptionsI2B,
-            quoteResponse,
-            txb,
-          );
+        const result = await zapSwap(swapOptionsI2B, txb);
+        if (result) {
+          amountB = result.amountOut;
           txb = result.tx;
           if (result.coinOut) {
             coin2 = result.coinOut;
           }
         }
+
         amountA = inputAmountToType1.toString();
-        if (coinTypeA === "SUI") {
-          [coin1] = txb.splitCoins(txb.gas, [amountA]);
-        } else {
-          let currentCursor: string | null | undefined = null;
-          let coins1: CoinStruct[] = [];
-          do {
-            const response = await suiClient.getCoins({
-              owner: address,
-              coinType: coinsList[coinTypeA].type,
-              cursor: currentCursor,
-            });
-            coins1 = coins1.concat(response.data);
-            if (response.hasNextPage && response.nextCursor) {
-              currentCursor = response.nextCursor;
-            } else break;
-          } while (true);
-          [coin1] = txb.splitCoins(txb.object(coins1[0].coinObjectId), [0]);
-          txb.mergeCoins(
-            coin1,
-            coins1.map((c) => c.coinObjectId),
-          );
-        }
+        const res = await splitFromExisting(
+          coinTypeA,
+          amountA,
+          txb,
+          suiClient,
+          address,
+        );
+        txb = res.tx;
+        coin1 = res.coinOut;
       } else if (inputCoinName === coinTypeB) {
-        const quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
-        if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal;
-          const result = await swapGateway.getTransactionBlock(
-            swapOptionsI2A,
-            quoteResponse,
-            txb,
-          );
+        const result = await zapSwap(swapOptionsI2A, txb);
+        if (result) {
+          amountA = result.amountOut;
           txb = result.tx;
           if (result.coinOut) {
             coin1 = result.coinOut;
           }
         }
+
         amountB = inputAmountToType2.toString();
-        if (coinTypeB === "SUI") {
-          [coin2] = txb.splitCoins(txb.gas, [amountB]);
-        } else {
-          let currentCursor: string | null | undefined = null;
-          let coins2: CoinStruct[] = [];
-          do {
-            const response = await suiClient.getCoins({
-              owner: address,
-              coinType: coinsList[coinTypeB].type,
-              cursor: currentCursor,
-            });
-            coins2 = coins2.concat(response.data);
-            if (response.hasNextPage && response.nextCursor) {
-              currentCursor = response.nextCursor;
-            } else break;
-          } while (true);
-          [coin2] = txb.splitCoins(txb.object(coins2[0].coinObjectId), [0]);
-          txb.mergeCoins(
-            coin2,
-            coins2.map((c) => c.coinObjectId),
-          );
-        }
+        const res = await splitFromExisting(
+          coinTypeB,
+          amountB,
+          txb,
+          suiClient,
+          address,
+        );
+        txb = res.tx;
+        coin2 = res.coinOut;
       } else {
-        let quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
-        if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal;
-          const result = await swapGateway.getTransactionBlock(
-            swapOptionsI2A,
-            quoteResponse,
-            txb,
-          );
+        let result = await zapSwap(swapOptionsI2A, txb);
+        if (result) {
+          amountA = result.amountOut;
           txb = result.tx;
           if (result.coinOut) {
             coin1 = result.coinOut;
           }
         }
-        quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
-        if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal;
-          const result = await swapGateway.getTransactionBlock(
-            swapOptionsI2B,
-            quoteResponse,
-            txb,
-          );
+
+        result = await zapSwap(swapOptionsI2B, txb);
+        if (result) {
+          amountB = result.amountOut;
           txb = result.tx;
           if (result.coinOut) {
             coin2 = result.coinOut;
@@ -188,111 +147,105 @@ export async function zapDepositTxb(
         }
       }
 
-      if (amountA && amountB) {
-        if (coin1 && coin2) {
-          // fee charge
-          const fee_address = getConf().FEE_ADDRESS;
-          const feePercentage = 0.05;
-          const amountAFee = ((Number(amountA) * feePercentage) / 100).toFixed(
-            0,
-          );
-          const amountBFee = ((Number(amountB) * feePercentage) / 100).toFixed(
-            0,
-          );
-          const [feeCoinA] = txb.splitCoins(coin1, [amountAFee]);
-          const [feeCoinB] = txb.splitCoins(coin2, [amountBFee]);
-          txb.transferObjects([feeCoinA, feeCoinB], fee_address);
+      if (amountA && amountB && coin1 && coin2) {
+        // fee charge
+        const fee_address = getConf().FEE_ADDRESS;
+        const feePercentage = 0.05;
+        const amountAFee = ((Number(amountA) * feePercentage) / 100).toFixed(0);
+        const amountBFee = ((Number(amountB) * feePercentage) / 100).toFixed(0);
+        const [feeCoinA] = txb.splitCoins(coin1, [amountAFee]);
+        const [feeCoinB] = txb.splitCoins(coin2, [amountBFee]);
+        txb.transferObjects([feeCoinA, feeCoinB], fee_address);
 
-          const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
-          const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
-          if (poolInfo[poolName].parentProtocolName === "CETUS") {
-            if (pool1 === "CETUS" && pool2 === "SUI") {
-              txb = await depositCetusSuiTxb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else if (pool2 === "SUI") {
-              txb = await depositCetusAlphaSuiTxb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else {
-              txb = await depositCetus(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            }
-          } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
-            if (
-              poolName === "BLUEFIN-NAVX-VSUI" ||
-              poolName === "BLUEFIN-ALPHA-USDC" ||
-              poolName === "BLUEFIN-BLUE-USDC"
-            ) {
-              txb = await depositBluefinType2Txb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else if (pool1 === "SUI") {
-              txb = await depositBluefinSuiFirstTxb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else if (pool2 === "SUI") {
-              txb = await depositBluefinSuiSecondTxb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else if (pool1 === "STSUI" || pool2 === "STSUI") {
-              txb = await depositBluefinStsuiTxb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            } else {
-              txb = await depositBluefinType1Txb(
-                amountA,
-                amountB,
-                poolName,
-                { address },
-                txb,
-                coin1,
-                coin2,
-              );
-            }
+        const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+        const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+        if (poolInfo[poolName].parentProtocolName === "CETUS") {
+          if (pool1 === "CETUS" && pool2 === "SUI") {
+            txb = await depositCetusSuiTxb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else if (pool2 === "SUI") {
+            txb = await depositCetusAlphaSuiTxb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else {
+            txb = await depositCetus(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          }
+        } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
+          if (
+            poolName === "BLUEFIN-NAVX-VSUI" ||
+            poolName === "BLUEFIN-ALPHA-USDC" ||
+            poolName === "BLUEFIN-BLUE-USDC"
+          ) {
+            txb = await depositBluefinType2Txb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else if (pool1 === "SUI") {
+            txb = await depositBluefinSuiFirstTxb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else if (pool2 === "SUI") {
+            txb = await depositBluefinSuiSecondTxb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else if (pool1 === "STSUI" || pool2 === "STSUI") {
+            txb = await depositBluefinStsuiTxb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
+          } else {
+            txb = await depositBluefinType1Txb(
+              amountA,
+              amountB,
+              poolName,
+              { address },
+              txb,
+              coin1,
+              coin2,
+            );
           }
         }
       }
@@ -301,6 +254,93 @@ export async function zapDepositTxb(
     }
   }
   return undefined;
+}
+
+async function zapSwap(
+  swapOptions: SwapOptions,
+  txb: Transaction,
+): Promise<
+  | {
+      tx: Transaction;
+      coinOut: TransactionObjectArgument | undefined;
+      amountOut: string;
+    }
+  | undefined
+> {
+  if (
+    swapOptions.pair.coinA.name === "SUI" &&
+    swapOptions.pair.coinB.name === "STSUI"
+  ) {
+    const result = await mintTx(
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+      txb,
+    );
+    return result;
+  } else if (
+    swapOptions.pair.coinA.name === "STSUI" &&
+    swapOptions.pair.coinB.name === "SUI"
+  ) {
+    const result = await redeemTx(
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+      txb,
+      { address: swapOptions.senderAddress },
+    );
+    return result;
+  } else {
+    const swapGateway = new SevenKGateway();
+    const quoteResponse = await swapGateway.getQuote(swapOptions);
+    if (quoteResponse) {
+      const result = await swapGateway.getTransactionBlock(
+        swapOptions,
+        quoteResponse,
+        txb,
+      );
+      return {
+        tx: result.tx,
+        coinOut: result.coinOut,
+        amountOut: quoteResponse.returnAmountWithDecimal,
+      };
+    }
+  }
+}
+
+async function splitFromExisting(
+  coinType: CoinName,
+  amount: string,
+  txb: Transaction,
+  suiClient: SuiClient,
+  address: string,
+): Promise<{
+  tx: Transaction;
+  coinOut: TransactionObjectArgument;
+}> {
+  let coin: TransactionObjectArgument;
+  if (coinType === "SUI") {
+    [coin] = txb.splitCoins(txb.gas, [amount]);
+  } else {
+    let currentCursor: string | null | undefined = null;
+    let coins1: CoinStruct[] = [];
+    do {
+      const response = await suiClient.getCoins({
+        owner: address,
+        coinType: coinsList[coinType].type,
+        cursor: currentCursor,
+      });
+      coins1 = coins1.concat(response.data);
+      if (response.hasNextPage && response.nextCursor) {
+        currentCursor = response.nextCursor;
+      } else break;
+    } while (true);
+    [coin] = txb.splitCoins(txb.object(coins1[0].coinObjectId), [0]);
+    txb.mergeCoins(
+      coin,
+      coins1.map((c) => c.coinObjectId),
+    );
+  }
+  return {
+    tx: txb,
+    coinOut: coin,
+  };
 }
 
 const depositCetus = async (
