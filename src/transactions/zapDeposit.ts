@@ -57,7 +57,7 @@ export async function zapDepositTxb(
 
     const ratioQuote = await swapGateway.getQuote(swapOptions);
     if (ratioQuote) {
-      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal);
+      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal ? ratioQuote.returnAmountWithDecimal : 0);
       const totalAmount = amount2 + amount1InCoinType2;
 
       const inputAmountToType1 = Math.floor(
@@ -298,7 +298,7 @@ async function zapSwap(
       return {
         tx: result.tx,
         coinOut: result.coinOut,
-        amountOut: quoteResponse.returnAmountWithDecimal,
+        amountOut: quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0",
       };
     }
   }
@@ -1323,7 +1323,7 @@ export async function getZapAmounts(
 
     const ratioQuote = await swapGateway.getQuote(swapOptions);
     if (ratioQuote) {
-      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal);
+      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal ? ratioQuote.returnAmountWithDecimal : 0);
       const totalAmount = amount2 + amount1InCoinType2;
 
       const inputAmountToType1 = Math.floor(
@@ -1355,23 +1355,23 @@ export async function getZapAmounts(
       if (inputCoinName === coinTypeA) {
         const quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
         if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal;
+          amountB = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
         }
         amountA = inputAmountToType1.toString();
       } else if (inputCoinName === coinTypeB) {
         const quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
         if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal;
+          amountA = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
         }
         amountB = inputAmountToType2.toString();
       } else {
         let quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
         if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal;
+          amountA = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
         }
         quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
         if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal;
+          amountB = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
         }
       }
 
