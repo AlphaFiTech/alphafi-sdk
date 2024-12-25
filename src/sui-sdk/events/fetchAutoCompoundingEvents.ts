@@ -1,8 +1,10 @@
+import { Decimal } from "decimal.js";
 import { coinsList } from "../../common/coins.js";
 import {
   getInvestorPoolMap,
   singleAssetPoolCoinMap,
   poolInfo,
+  doubleAssetPoolCoinMap,
 } from "../../common/maps.js";
 import { PoolName, SingleAssetPoolNames } from "../../common/types.js";
 import { fetchEvents } from "./fetchEvents.js";
@@ -10,6 +12,7 @@ import {
   AutoCompoundingEventNode,
   FetchAutoCompoundingEventsParams,
 } from "./types.js";
+import { getLatestPrices } from "../../index.js";
 
 export async function fetchAutoCompoundingEvents(
   params: FetchAutoCompoundingEventsParams,
@@ -146,7 +149,47 @@ export async function calculateAprForInvestor(
     let prevCompoundA = 0n;
     let prevCompoundB = 0n;
 
-    const investorPoolMap = await getInvestorPoolMap();
+    const investorPoolMap = getInvestorPoolMap();
+
+    if (
+      events.length > 0 &&
+      investorPoolMap
+        .get(events[0].investor_id.toString())
+        ?.toString()
+        .includes("AUTOBALANCE")
+    ) {
+      let sumOfGrowths = new Decimal(0);
+      const poolName = investorPoolMap.get(events[0].investor_id.toString());
+      const c1 = doubleAssetPoolCoinMap[poolName!].coin1;
+      const c2 = doubleAssetPoolCoinMap[poolName!].coin2;
+      const [bluePrice, c1Price, c2Price] = await getLatestPrices(
+        ["BLUE/USD", `${c1}/USD`, `${c2}/USD`],
+        false,
+      );
+
+      for (const event of events) {
+        if ("blue_reward_amount" in event) {
+          const blueReward = new Decimal(event.blue_reward_amount.toString());
+          const totalAmountA = new Decimal(event.total_amount_a.toString());
+          const totalAmountB = new Decimal(event.total_amount_b.toString());
+          const blueRewardPrice = blueReward
+            .mul(bluePrice)
+            .div(Math.pow(10, coinsList["BLUE"].expo));
+          const baseAmountsPrice = totalAmountA
+            .mul(c1Price)
+            .div(Math.pow(10, coinsList[c1].expo))
+            .plus(
+              totalAmountB.mul(c2Price).div(Math.pow(10, coinsList[c2].expo)),
+            );
+          if (baseAmountsPrice.gt(0)) {
+            sumOfGrowths = sumOfGrowths.plus(
+              blueRewardPrice.div(baseAmountsPrice),
+            );
+          }
+        }
+      }
+      return sumOfGrowths.mul(36500).toDecimalPlaces(4).toNumber();
+    }
 
     // const matchInvestor =
     //       "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065"; // NAVI-USDC
@@ -180,7 +223,11 @@ export async function calculateAprForInvestor(
 
       // Calculate growth rate
       let growthRate = 0;
-      if ("total_amount_a" in event && "total_amount_b" in event) {
+      if (
+        "total_amount_a" in event &&
+        "total_amount_b" in event &&
+        "compound_amount_a" in event
+      ) {
         let growthA = 0;
         let growthB = 0;
 
@@ -355,6 +402,7 @@ export async function calculateAprForPools(
 ): Promise<Record<PoolName, number>> {
   const aprMap: Record<string, number> = {};
   const investorPoolNameMap = await getInvestorPoolMap();
+
   const investorAprMap = await calculateAprForInvestors(events);
   for (const investorId in investorAprMap) {
     const poolName = investorPoolNameMap.get(investorId);

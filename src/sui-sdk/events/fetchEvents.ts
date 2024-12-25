@@ -15,6 +15,7 @@ import {
   AlphaWithdrawV2Event,
   AfterTransactionEventNode,
   CheckRatioEvent,
+  AutobalancingAutoCompoundingEvent,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -74,6 +75,7 @@ export async function fetchEvents(
         | CetusAutoCompoundingEvent
         | NaviAutoCompoundingEvent
         | NaviLoopAutoCompoundingEvent
+        | AutobalancingAutoCompoundingEvent
         | RebalanceEvent
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
@@ -160,6 +162,39 @@ export async function fetchEvents(
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,
         };
+      } else if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "blue_reward_amount" in suiEventJson
+      ) {
+        // Handling CetusAutoCompoundingEvent
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          blue_reward_amount: BigInt(
+            suiEventJson.blue_reward_amount.toString(),
+          ),
+          current_liquidity: BigInt(suiEventJson.current_liquidity.toString()),
+          fee_collected: BigInt(suiEventJson.fee_collected.toString()),
+          free_balance_a: BigInt(suiEventJson.free_balance_a.toString()),
+          free_balance_b: BigInt(suiEventJson.free_balance_b.toString()),
+          investor_id: suiEventJson.investor_id,
+          total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
+          total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+        };
+
+        // if (
+        //   eventNode.investor_id ===
+        //   "0xd060e81548aee885bd3d37ae0caec181185be792bf45412e0d0acccd1e0174e6"
+        // ) {
+        //   console.log(
+        //     eventNode.timestamp,
+        //     (prevTS - eventNode.timestamp) / (1000 * 60),
+        //   );
+        //   prevTS = eventNode.timestamp;
+        // }
       } else if (
         isRebalanceEvent(suiEvent.type) &&
         "lower_tick_after" in suiEventJson
