@@ -3,7 +3,6 @@ import {
   coinsList,
   doubleAssetPoolCoinMap,
   getConf,
-  getReceipts,
   poolInfo,
   PoolName,
   singleAssetPoolCoinMap,
@@ -11,7 +10,8 @@ import {
 
 export async function claimRewardTxb(address: string) {
   const txb = new Transaction();
-  const alphaReceipt = await getReceipts("ALPHA", address, true);
+  const { getReceipts } = await import("../index.js");
+  const alphaReceipt = await getReceipts("ALPHA", address, false);
   let alpha_receipt: any;
   if (alphaReceipt.length == 0) {
     [alpha_receipt] = txb.moveCall({
@@ -31,7 +31,7 @@ export async function claimRewardTxb(address: string) {
     if (poolInfo[poolName].poolId == "") {
       continue;
     }
-    const receipts = await getReceipts(poolName as PoolName, address, true);
+    const receipts = await getReceipts(poolName as PoolName, address, false);
     if (poolName == "ALPHA") {
     } else {
       if (poolInfo[poolName].packageNumber == 5) {
@@ -52,7 +52,10 @@ export async function claimRewardTxb(address: string) {
             });
           });
         }
-      } else if (poolInfo[poolName].packageNumber == 4) {
+      } else if (
+        poolInfo[poolName].packageNumber == 4 ||
+        poolInfo[poolName].packageNumber == 6
+      ) {
         if (poolInfo[poolName].parentProtocolName == "BLUEFIN") {
           const coinAName = doubleAssetPoolCoinMap[poolName].coin1;
           const coinA = coinsList[coinAName];
@@ -82,7 +85,8 @@ export async function claimRewardTxb(address: string) {
           } else if (
             poolName == "BLUEFIN-USDT-USDC" ||
             poolName === "BLUEFIN-AUSD-USDC" ||
-            poolName === "BLUEFIN-WBTC-USDC"
+            poolName === "BLUEFIN-WBTC-USDC" ||
+            poolName === "BLUEFIN-SEND-USDC"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
@@ -102,7 +106,8 @@ export async function claimRewardTxb(address: string) {
             });
           } else if (
             poolName === "BLUEFIN-ALPHA-USDC" ||
-            poolName === "BLUEFIN-NAVX-VSUI"
+            poolName === "BLUEFIN-NAVX-VSUI" ||
+            poolName === "BLUEFIN-BLUE-USDC"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
@@ -110,6 +115,78 @@ export async function claimRewardTxb(address: string) {
                 typeArguments: [coinA.type, coinB.type],
                 arguments: [
                   txb.object(getConf().ALPHA_4_VERSION),
+                  txb.object(getConf().VERSION),
+                  txb.object(receipt.objectId),
+                  alpha_receipt,
+                  txb.object(poolInfo[poolName].poolId),
+                  txb.object(poolInfo["ALPHA"].poolId),
+                  txb.object(getConf().ALPHA_DISTRIBUTOR),
+                  txb.object(getConf().CLOCK_PACKAGE_ID),
+                ],
+              });
+            });
+          } else if (
+            poolName === "BLUEFIN-BLUE-SUI" ||
+            poolName === "BLUEFIN-WBTC-SUI" ||
+            poolName === "BLUEFIN-DEEP-SUI"
+          ) {
+            receipts.forEach((receipt) => {
+              alpha_receipt = txb.moveCall({
+                target: `${poolInfo[poolName].packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_all`,
+                typeArguments: [coinA.type, coinB.type],
+                arguments: [
+                  txb.object(getConf().ALPHA_4_VERSION),
+                  txb.object(getConf().VERSION),
+                  txb.object(receipt.objectId),
+                  alpha_receipt,
+                  txb.object(poolInfo[poolName].poolId),
+                  txb.object(poolInfo["ALPHA"].poolId),
+                  txb.object(getConf().ALPHA_DISTRIBUTOR),
+                  txb.object(getConf().CLOCK_PACKAGE_ID),
+                ],
+              });
+            });
+          } else if (poolName === "BLUEFIN-STSUI-SUI") {
+            receipts.forEach((receipt) => {
+              alpha_receipt = txb.moveCall({
+                target: `${poolInfo[poolName].packageId}::alphafi_bluefin_stsui_sui_pool::get_user_rewards_all`,
+                typeArguments: [coinA.type, coinB.type],
+                arguments: [
+                  txb.object(getConf().ALPHA_4_VERSION),
+                  txb.object(getConf().VERSION),
+                  txb.object(receipt.objectId),
+                  alpha_receipt,
+                  txb.object(poolInfo[poolName].poolId),
+                  txb.object(poolInfo["ALPHA"].poolId),
+                  txb.object(getConf().ALPHA_DISTRIBUTOR),
+                  txb.object(getConf().CLOCK_PACKAGE_ID),
+                ],
+              });
+            });
+          } else if (poolName === "BLUEFIN-STSUI-USDC") {
+            receipts.forEach((receipt) => {
+              alpha_receipt = txb.moveCall({
+                target: `${poolInfo[poolName].packageId}::alphafi_bluefin_stsui_first_pool::get_user_rewards_all`,
+                typeArguments: [coinA.type, coinB.type],
+                arguments: [
+                  txb.object(getConf().ALPHA_STSUI_VERSION),
+                  txb.object(getConf().VERSION),
+                  txb.object(receipt.objectId),
+                  alpha_receipt,
+                  txb.object(poolInfo[poolName].poolId),
+                  txb.object(poolInfo["ALPHA"].poolId),
+                  txb.object(getConf().ALPHA_DISTRIBUTOR),
+                  txb.object(getConf().CLOCK_PACKAGE_ID),
+                ],
+              });
+            });
+          } else if (poolName === "BLUEFIN-ALPHA-STSUI") {
+            receipts.forEach((receipt) => {
+              alpha_receipt = txb.moveCall({
+                target: `${poolInfo[poolName].packageId}::alphafi_bluefin_stsui_second_pool::get_user_rewards_all`,
+                typeArguments: [coinA.type, coinB.type],
+                arguments: [
+                  txb.object(getConf().ALPHA_STSUI_VERSION),
                   txb.object(getConf().VERSION),
                   txb.object(receipt.objectId),
                   alpha_receipt,
@@ -349,6 +426,6 @@ export async function claimRewardTxb(address: string) {
     target: `${getConf().ALPHA_LATEST_PACKAGE_ID}::alphapool::transfer_receipt_option`,
     arguments: [txb.object(getConf().VERSION), alpha_receipt],
   });
-  txb.setSender(address);
+
   return txb;
 }
