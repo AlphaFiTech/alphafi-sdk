@@ -19,7 +19,8 @@ import { getConf } from "../common/constants.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getLatestPrices } from "../utils/prices.js";
 import { PythPriceIdPair } from "../common/pyth.js";
-import { mintTx, redeemTx } from "@alphafi/stsui-sdk";
+import { mintTx, redeemTx, stSuiExchangeRate } from "@alphafi/stsui-sdk";
+import { Decimal } from "decimal.js";
 
 export async function zapDepositTxb(
   inputCoinName: CoinName,
@@ -57,7 +58,11 @@ export async function zapDepositTxb(
 
     const ratioQuote = await swapGateway.getQuote(swapOptions);
     if (ratioQuote) {
-      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal ? ratioQuote.returnAmountWithDecimal : 0);
+      const amount1InCoinType2 = Number(
+        ratioQuote.returnAmountWithDecimal
+          ? ratioQuote.returnAmountWithDecimal
+          : 0,
+      );
       const totalAmount = amount2 + amount1InCoinType2;
 
       const inputAmountToType1 = Math.floor(
@@ -256,6 +261,38 @@ export async function zapDepositTxb(
   return undefined;
 }
 
+async function zapGetQuote(
+  swapGateway: SevenKGateway,
+  swapOptions: SwapOptions,
+): Promise<string | undefined> {
+  if (
+    swapOptions.pair.coinA.name === "SUI" &&
+    swapOptions.pair.coinB.name === "STSUI"
+  ) {
+    const exchangeRate = new Decimal(await stSuiExchangeRate());
+    const amount = new Decimal(
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+    );
+    return amount.div(exchangeRate).toString();
+  } else if (
+    swapOptions.pair.coinA.name === "STSUI" &&
+    swapOptions.pair.coinB.name === "SUI"
+  ) {
+    const exchangeRate = new Decimal(await stSuiExchangeRate());
+    const amount = new Decimal(
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+    );
+    return amount.mul(exchangeRate).toString();
+  } else {
+    const quoteResponse = await swapGateway.getQuote(swapOptions);
+    if (quoteResponse) {
+      return quoteResponse.returnAmountWithDecimal
+        ? quoteResponse.returnAmountWithDecimal
+        : "0";
+    }
+  }
+}
+
 async function zapSwap(
   swapOptions: SwapOptions,
   txb: Transaction,
@@ -298,7 +335,9 @@ async function zapSwap(
       return {
         tx: result.tx,
         coinOut: result.coinOut,
-        amountOut: quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0",
+        amountOut: quoteResponse.returnAmountWithDecimal
+          ? quoteResponse.returnAmountWithDecimal
+          : "0",
       };
     }
   }
@@ -1323,7 +1362,11 @@ export async function getZapAmounts(
 
     const ratioQuote = await swapGateway.getQuote(swapOptions);
     if (ratioQuote) {
-      const amount1InCoinType2 = Number(ratioQuote.returnAmountWithDecimal ? ratioQuote.returnAmountWithDecimal : 0);
+      const amount1InCoinType2 = Number(
+        ratioQuote.returnAmountWithDecimal
+          ? ratioQuote.returnAmountWithDecimal
+          : 0,
+      );
       const totalAmount = amount2 + amount1InCoinType2;
 
       const inputAmountToType1 = Math.floor(
@@ -1355,23 +1398,31 @@ export async function getZapAmounts(
       if (inputCoinName === coinTypeA) {
         const quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
         if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
+          amountB = quoteResponse.returnAmountWithDecimal
+            ? quoteResponse.returnAmountWithDecimal
+            : "0";
         }
         amountA = inputAmountToType1.toString();
       } else if (inputCoinName === coinTypeB) {
         const quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
         if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
+          amountA = quoteResponse.returnAmountWithDecimal
+            ? quoteResponse.returnAmountWithDecimal
+            : "0";
         }
         amountB = inputAmountToType2.toString();
       } else {
         let quoteResponse = await swapGateway.getQuote(swapOptionsI2A);
         if (quoteResponse) {
-          amountA = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
+          amountA = quoteResponse.returnAmountWithDecimal
+            ? quoteResponse.returnAmountWithDecimal
+            : "0";
         }
         quoteResponse = await swapGateway.getQuote(swapOptionsI2B);
         if (quoteResponse) {
-          amountB = quoteResponse.returnAmountWithDecimal ? quoteResponse.returnAmountWithDecimal : "0";
+          amountB = quoteResponse.returnAmountWithDecimal
+            ? quoteResponse.returnAmountWithDecimal
+            : "0";
         }
       }
 
