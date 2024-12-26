@@ -59,11 +59,15 @@ export function setSuiNodeUrl(rpcNodeUrl: string) {
  *
  * @param rpcNodeUrl - The new RPC URL to be used for the SuiClient.
  */
-export function setSuiClient(rpcNodeUrl: string) {
-  if (suiNodeUrl !== rpcNodeUrl) {
+export function setSuiClient(rpcNodeUrl: string | SuiClient) {
+  if (suiNodeUrl !== rpcNodeUrl && typeof rpcNodeUrl === "string") {
     suiNodeUrl = rpcNodeUrl;
     suiClientInstance = new SuiClient({
       url: rpcNodeUrl,
     });
+  }
+
+  if (typeof rpcNodeUrl === "object") {
+    suiClientInstance = rpcNodeUrl;
   }
 }
