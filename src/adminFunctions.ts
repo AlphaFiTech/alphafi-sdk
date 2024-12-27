@@ -8,7 +8,7 @@ import {
   CoinName,
 } from "./common/types.js";
 import { getInvestor, getParentPool } from "./sui-sdk/functions/getReceipts.js";
-import BN from "bn.js";
+import * as BN from "bn.js";
 import { coinsList } from "./common/coins.js";
 import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
 import { Decimal } from "decimal.js";
