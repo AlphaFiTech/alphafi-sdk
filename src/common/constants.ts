@@ -1,4 +1,4 @@
-export const CONF_ENV = "production";
+export const CONF_ENV = "testing";
 
 export const conf = {
   testing: {

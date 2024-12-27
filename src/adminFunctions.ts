@@ -5,12 +5,15 @@ import {
   CetusPoolType,
   CommonInvestorFields,
   PoolName,
+  CoinName,
 } from "./common/types.js";
 import { getInvestor, getParentPool } from "./sui-sdk/functions/getReceipts.js";
 import BN from "bn.js";
 import { coinsList } from "./common/coins.js";
 import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
 import { Decimal } from "decimal.js";
+import { Transaction } from "@mysten/sui/transactions";
+import { conf, CONF_ENV } from "./common/constants.js";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
@@ -66,3 +69,33 @@ export async function getPriceToTick(poolName: PoolName, price: string) {
   );
   return tick.toString();
 }
+
+export const setWeights = async (
+  poolIdNames: string[],
+  weightsString: string[],
+  setWeightCoinType: CoinName,
+  adminCap: string,
+) => {
+  const poolIds: string[] = [];
+  const txb = new Transaction();
+  poolIdNames.forEach((poolName) => {
+    poolIds.push(poolInfo[poolName].poolId);
+  });
+
+  txb.moveCall({
+    target: `${conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID}::distributor::set_weights`,
+    typeArguments: [coinsList[setWeightCoinType].type],
+    arguments: [
+      txb.object(adminCap),
+      txb.object(conf[CONF_ENV].ALPHA_DISTRIBUTOR),
+      txb.object(conf[CONF_ENV].VERSION),
+      txb.pure.vector("id", poolIds),
+      txb.pure.vector("u64", weightsString),
+      txb.object(conf[CONF_ENV].CLOCK_PACKAGE_ID),
+    ],
+  });
+
+  // executeTransactionBlock(txb);
+  // dryRunTransactionBlock(txb);
+  return txb;
+};
