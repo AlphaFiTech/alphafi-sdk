@@ -214,6 +214,7 @@ export const poolInfo: {
     afterTransactionEventType?: string;
     strategyType?: StrategyType;
     checkRatioEventType?: string;
+    imageUrl?: string | undefined;
   };
 } = {
   "BLUEFIN-AUTOBALANCE-SUI-USDC": {

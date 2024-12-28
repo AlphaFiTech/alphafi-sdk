@@ -1,16 +1,29 @@
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import {
+  Allocator,
   BluefinPoolType,
   CetusInvestor,
   CetusPoolType,
   CommonInvestorFields,
+  MemberType,
+  PoolData,
   PoolName,
+  PoolWeightDistribution,
 } from "./common/types.js";
-import { getInvestor, getParentPool } from "./sui-sdk/functions/getReceipts.js";
+import {
+  getDistributor,
+  getInvestor,
+  getParentPool,
+} from "./sui-sdk/functions/getReceipts.js";
 import BN from "bn.js";
 import { coinsList } from "./common/coins.js";
-import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
+import {
+  doubleAssetPoolCoinMap,
+  poolIdPoolNameMap,
+  poolInfo,
+} from "./common/maps.js";
 import { Decimal } from "decimal.js";
+import { CoinName } from "@alphafi/stsui-sdk";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
@@ -65,4 +78,64 @@ export async function getPriceToTick(poolName: PoolName, price: string) {
     tickSpacing,
   );
   return tick.toString();
+}
+
+export async function getPoolsWeightDistribution(
+  coinTypetoSetWeight: CoinName,
+  ignoreCache: boolean,
+): Promise<PoolWeightDistribution> {
+  const distributor = await getDistributor(ignoreCache);
+  if (!distributor || !distributor.content.fields.pool_allocator) {
+    throw new Error("Distributor or pool allocator not found");
+  }
+  const allocator: Allocator = distributor.content.fields.pool_allocator;
+  const members: MemberType[] = allocator.fields.members.fields.contents;
+
+  const totalWeightArr = allocator.fields.total_weights.fields.contents;
+  let totalWeight = 0;
+  totalWeightArr.forEach((entry) => {
+    if (
+      entry.fields.key.fields.name ===
+      coinsList[coinTypetoSetWeight].type.substring(2)
+    ) {
+      totalWeight = Number(entry.fields.value);
+    }
+  });
+
+  const poolIdmap = poolIdPoolNameMap;
+
+  const poolDataArray: PoolData[] = [];
+
+  for (const member of members) {
+    const poolId = member.fields.key;
+    const poolName = poolIdmap[poolId];
+    if (!poolInfo[poolName]) {
+      continue;
+    }
+    const imageUrl = poolInfo[poolName].imageUrl;
+
+    let weight = 0;
+    if (member.fields.value.fields) {
+      const poolData = member.fields.value.fields.pool_data.fields.contents;
+      poolData.forEach((entry) => {
+        if (
+          entry.fields.key.fields.name ===
+          coinsList[coinTypetoSetWeight].type.substring(2)
+        ) {
+          weight = Number(entry.fields.value.fields.weight);
+        }
+      });
+    }
+
+    poolDataArray.push({
+      weight: weight,
+      imageUrl: imageUrl,
+      poolName: poolName,
+    });
+  }
+  return {
+    data: poolDataArray,
+    totalWeight: totalWeight,
+    coinType: coinTypetoSetWeight,
+  };
 }
