@@ -59,15 +59,22 @@ export function setSuiNodeUrl(rpcNodeUrl: string) {
  *
  * @param rpcNodeUrl - The new RPC URL to be used for the SuiClient.
  */
-export function setSuiClient(rpcNodeUrl: string | SuiClient) {
-  if (suiNodeUrl !== rpcNodeUrl && typeof rpcNodeUrl === "string") {
+export function setSuiClient(rpcNodeUrl: string) {
+  if (suiNodeUrl !== rpcNodeUrl) {
     suiNodeUrl = rpcNodeUrl;
     suiClientInstance = new SuiClient({
       url: rpcNodeUrl,
     });
   }
-
-  if (typeof rpcNodeUrl === "object") {
-    suiClientInstance = rpcNodeUrl;
-  }
 }
+
+/**
+ * Set a custom SuiClient instance.
+ * This function directly assigns the provided SuiClient instance to the global variable,
+ * allowing for direct manipulation of the client instance.
+ *
+ * @param suiClient - The custom SuiClient instance to be set.
+ */
+export const setCustomSuiClient = (suiClient: SuiClient) => {
+  suiClientInstance = suiClient;
+};
