@@ -9,6 +9,7 @@ import {
   PoolData,
   PoolName,
   PoolWeightDistribution,
+  CoinName,
 } from "./common/types.js";
 import {
   getDistributor,
@@ -23,7 +24,6 @@ import {
   poolInfo,
 } from "./common/maps.js";
 import { Decimal } from "decimal.js";
-import { CoinName } from "@alphafi/stsui-sdk";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
