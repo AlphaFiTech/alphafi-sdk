@@ -6,9 +6,15 @@ import {
   CommonInvestorFields,
   PoolName,
   CoinName,
+  MemberType,
+  Allocator,
 } from "./common/types.js";
-import { getInvestor, getParentPool } from "./sui-sdk/functions/getReceipts.js";
-import * as BN from "bn.js";
+import {
+  getDistributor,
+  getInvestor,
+  getParentPool,
+} from "./sui-sdk/functions/getReceipts.js";
+import BN from "bn.js";
 import { coinsList } from "./common/coins.js";
 import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
 import { Decimal } from "decimal.js";
@@ -99,3 +105,56 @@ export const setWeights = async (
   // dryRunTransactionBlock(txb);
   return txb;
 };
+export async function getPoolsWeightDistribution(
+  ignoreCache: boolean,
+  poolNames: string[],
+) {
+  const distributor = await getDistributor(ignoreCache);
+  if (!distributor || !distributor.content.fields.pool_allocator) {
+    throw new Error("Distributor or pool allocator not found");
+  }
+  const allocator: Allocator = distributor.content.fields.pool_allocator;
+  const members: MemberType[] = allocator.fields.members.fields.contents;
+
+  const totalWeightArr = allocator.fields.total_weights.fields.contents;
+  const totalWeight = Number(totalWeightArr[1].fields.value);
+
+  const results: {
+    poolName: string;
+    weight: number;
+    totalWeight: number;
+    currentWeightPercentage: string;
+  }[] = [];
+
+  for (const poolName of poolNames) {
+    const poolId = poolInfo[poolName]?.poolId;
+    if (!poolId) {
+      results.push({
+        poolName,
+        weight: 0,
+        totalWeight,
+        currentWeightPercentage: "0.00%",
+      });
+      continue;
+    }
+
+    const poolMember = members.find((member) => member.fields.key === poolId);
+
+    const weight =
+      Number(
+        poolMember?.fields.value.fields.pool_data.fields.contents.at(-1)?.fields
+          .value.fields.weight,
+      ) || 0;
+    const rawPercentage = totalWeight === 0 ? 0 : (weight / totalWeight) * 100;
+    const currentWeightPercentage = `${rawPercentage.toFixed(2)}%`;
+
+    results.push({
+      poolName,
+      weight,
+      totalWeight,
+      currentWeightPercentage,
+    });
+  }
+
+  return results;
+}
