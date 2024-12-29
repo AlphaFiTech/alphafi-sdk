@@ -16,7 +16,11 @@ import {
 } from "./sui-sdk/functions/getReceipts.js";
 import BN from "bn.js";
 import { coinsList } from "./common/coins.js";
-import { doubleAssetPoolCoinMap, poolInfo } from "./common/maps.js";
+import {
+  doubleAssetPoolCoinMap,
+  poolIdPoolNameMap,
+  poolInfo,
+} from "./common/maps.js";
 import { Decimal } from "decimal.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { conf, CONF_ENV } from "./common/constants.js";
@@ -105,10 +109,24 @@ export const setWeights = async (
   // dryRunTransactionBlock(txb);
   return txb;
 };
+
+export interface PoolData {
+  weight: number;
+  lastUpdateTime?: number;
+  pendingRewards?: string;
+  imageUrl?: string | undefined;
+  poolName: string;
+}
+export interface PoolWeightDistribution {
+  coinType: string;
+  totalWeight: number;
+  data: PoolData[];
+}
+
 export async function getPoolsWeightDistribution(
+  coinTypetoSetWeight: CoinName,
   ignoreCache: boolean,
-  poolNames: string[],
-) {
+): Promise<PoolWeightDistribution> {
   const distributor = await getDistributor(ignoreCache);
   if (!distributor || !distributor.content.fields.pool_allocator) {
     throw new Error("Distributor or pool allocator not found");
@@ -117,44 +135,50 @@ export async function getPoolsWeightDistribution(
   const members: MemberType[] = allocator.fields.members.fields.contents;
 
   const totalWeightArr = allocator.fields.total_weights.fields.contents;
-  const totalWeight = Number(totalWeightArr[1].fields.value);
+  let totalWeight = 0;
+  totalWeightArr.forEach((entry) => {
+    if (
+      entry.fields.key.fields.name ===
+      coinsList[coinTypetoSetWeight].type.substring(2)
+    ) {
+      totalWeight = Number(entry.fields.value);
+    }
+  });
 
-  const results: {
-    poolName: string;
-    weight: number;
-    totalWeight: number;
-    currentWeightPercentage: string;
-  }[] = [];
+  const poolIdmap = poolIdPoolNameMap;
 
-  for (const poolName of poolNames) {
-    const poolId = poolInfo[poolName]?.poolId;
-    if (!poolId) {
-      results.push({
-        poolName,
-        weight: 0,
-        totalWeight,
-        currentWeightPercentage: "0.00%",
-      });
+  const poolDataArray: PoolData[] = [];
+
+  for (const member of members) {
+    const poolId = member.fields.key;
+    const poolName = poolIdmap[poolId];
+    if (!poolInfo[poolName]) {
       continue;
     }
+    const imageUrl = poolInfo[poolName].imageUrl;
 
-    const poolMember = members.find((member) => member.fields.key === poolId);
+    let weight = 0;
+    if (member.fields.value.fields) {
+      const poolData = member.fields.value.fields.pool_data.fields.contents;
+      poolData.forEach((entry) => {
+        if (
+          entry.fields.key.fields.name ===
+          coinsList[coinTypetoSetWeight].type.substring(2)
+        ) {
+          weight = Number(entry.fields.value.fields.weight);
+        }
+      });
+    }
 
-    const weight =
-      Number(
-        poolMember?.fields.value.fields.pool_data.fields.contents.at(-1)?.fields
-          .value.fields.weight,
-      ) || 0;
-    const rawPercentage = totalWeight === 0 ? 0 : (weight / totalWeight) * 100;
-    const currentWeightPercentage = `${rawPercentage.toFixed(2)}%`;
-
-    results.push({
-      poolName,
-      weight,
-      totalWeight,
-      currentWeightPercentage,
+    poolDataArray.push({
+      weight: weight,
+      imageUrl: imageUrl,
+      poolName: poolName,
     });
   }
-
-  return results;
+  return {
+    data: poolDataArray,
+    totalWeight: totalWeight,
+    coinType: coinTypetoSetWeight,
+  };
 }
