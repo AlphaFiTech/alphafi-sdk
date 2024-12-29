@@ -317,7 +317,12 @@ async function zapSwap(
       swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
       txb,
     );
-    return { ...result, remainingLSTCoin: undefined };
+    return {
+      tx: result.tx,
+      coinOut: result.coinOut,
+      amountOut: result.amountOut,
+      remainingLSTCoin: undefined,
+    };
   } else if (
     swapOptions.pair.coinA.name === "STSUI" &&
     swapOptions.pair.coinB.name === "SUI"
@@ -327,7 +332,6 @@ async function zapSwap(
       txb,
       { address: swapOptions.senderAddress },
     );
-    console.log(swapOptions, result);
     return result;
   } else {
     const swapGateway = new SevenKGateway();
