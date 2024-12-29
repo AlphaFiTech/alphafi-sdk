@@ -67,3 +67,14 @@ export function setSuiClient(rpcNodeUrl: string) {
     });
   }
 }
+
+/**
+ * Set a custom SuiClient instance.
+ * This function directly assigns the provided SuiClient instance to the global variable,
+ * allowing for direct manipulation of the client instance.
+ *
+ * @param suiClient - The custom SuiClient instance to be set.
+ */
+export const setCustomSuiClient = (suiClient: SuiClient) => {
+  suiClientInstance = suiClient;
+};
