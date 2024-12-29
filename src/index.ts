@@ -97,9 +97,12 @@ export {
   getMultiParentPool,
   getMultiPool,
   getMultiReceipts,
+} from "./sui-sdk/functions/getReceipts.js";
+
+export {
   getPositionRange,
   getPositionRanges,
-} from "./sui-sdk/functions/getReceipts.js";
+} from "./sui-sdk/functions/getPositionRange.js";
 
 export { getMultiLatestPrices, getLatestPrices } from "./utils/prices.js";
 

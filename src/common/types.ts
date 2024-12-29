@@ -229,6 +229,19 @@ export type PoolReceipt =
   | typeof NAVI_USDC_POOL_RECEIPT
   | typeof BUCKET_BUCK_POOL_RECEIPT;
 
+export interface PoolData {
+  weight: number;
+  lastUpdateTime?: number;
+  pendingRewards?: string;
+  imageUrl?: string | undefined;
+  poolName: string;
+}
+export interface PoolWeightDistribution {
+  coinType: string;
+  totalWeight: number;
+  data: PoolData[];
+}
+
 export type CoinAmounts = {
   coinA: BN;
   coinB: BN;
