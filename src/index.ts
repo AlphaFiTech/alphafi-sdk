@@ -1,6 +1,7 @@
 export {
   setSuiNodeUrl,
   setSuiClient,
+  setCustomSuiClient,
   getSuiNodeUrl,
   getSuiClient,
 } from "./sui-sdk/client.js";
