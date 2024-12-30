@@ -1,13 +1,15 @@
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import {
+  Allocator,
   BluefinPoolType,
   CetusInvestor,
   CetusPoolType,
   CommonInvestorFields,
+  MemberType,
   PoolName,
   CoinName,
-  MemberType,
-  Allocator,
+  PoolWeightDistribution,
+  PoolData,
 } from "./common/types.js";
 import {
   getDistributor,
@@ -109,19 +111,6 @@ export const setWeights = async (
   // dryRunTransactionBlock(txb);
   return txb;
 };
-
-export interface PoolData {
-  weight: number;
-  lastUpdateTime?: number;
-  pendingRewards?: string;
-  imageUrl?: string | undefined;
-  poolName: string;
-}
-export interface PoolWeightDistribution {
-  coinType: string;
-  totalWeight: number;
-  data: PoolData[];
-}
 
 export async function getPoolsWeightDistribution(
   coinTypetoSetWeight: CoinName,
