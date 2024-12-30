@@ -3,69 +3,7 @@ import { conf, CONF_ENV } from "./constants.js";
 
 export type SuiNetwork = "mainnet" | "testnet" | "devnet" | "localnet";
 
-export type PoolName =
-  | "ALPHA"
-  | "HASUI-SUI"
-  | "USDY-WUSDC"
-  | "ALPHA-SUI"
-  | "USDT-WUSDC"
-  | "WUSDC-SUI"
-  | "WUSDC-WBTC"
-  | "WETH-WUSDC"
-  | "NAVX-SUI"
-  | "BUCK-WUSDC"
-  | "CETUS-SUI"
-  | "NAVI-SUI"
-  | "NAVI-VSUI"
-  | "NAVI-WETH"
-  | "NAVI-USDT"
-  | "NAVI-WUSDC"
-  | "NAVI-HASUI"
-  | "NAVI-LOOP-SUI-VSUI"
-  | "ALPHA-WUSDC"
-  | "WSOL-WUSDC"
-  | "FUD-SUI"
-  | "BLUB-SUI"
-  | "SCA-SUI"
-  | "NAVI-LOOP-USDC-USDT"
-  | "NAVI-USDC"
-  | "USDC-SUI"
-  | "USDC-USDT"
-  | "ALPHA-USDC"
-  | "USDC-WUSDC"
-  | "BUCKET-BUCK"
-  | "USDC-ETH"
-  | "DEEP-SUI"
-  | "BUCK-SUI"
-  | "NAVI-USDY"
-  | "NAVI-AUSD"
-  | "NAVI-ETH"
-  | "NAVI-LOOP-HASUI-SUI"
-  | "BLUEFIN-SUI-USDC"
-  | "BLUEFIN-USDT-USDC"
-  | "NAVI-LOOP-USDT-USDC"
-  | "BLUEFIN-SUI-BUCK"
-  | "BLUEFIN-AUSD-USDC"
-  | "NAVI-NS"
-  | "BLUEFIN-SUI-AUSD"
-  | "BLUEFIN-ALPHA-USDC"
-  | "BLUEFIN-WBTC-USDC"
-  | "BLUEFIN-NAVX-VSUI"
-  | "NAVI-NAVX"
-  | "BLUEFIN-BLUE-SUI"
-  | "BLUEFIN-BLUE-USDC"
-  | "BLUEFIN-SEND-USDC"
-  | "BLUEFIN-WBTC-SUI"
-  | "BLUEFIN-DEEP-SUI"
-  | "BLUEFIN-STSUI-SUI"
-  | "BLUEFIN-STSUI-USDC"
-  | "BLUEFIN-STSUI-ETH"
-  | "BLUEFIN-STSUI-WSOL"
-  | "BLUEFIN-ALPHA-STSUI"
-  | "BLUEFIN-AUTOBALANCE-USDT-USDC"
-  | "BLUEFIN-AUTOBALANCE-SUI-USDC"
-  | "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC"
-  | "BLUEFIN-SUIUSDT-USDC";
+export type PoolName = SingleAssetPoolNames | DoubleAssetPoolNames;
 
 export type SingleAssetPoolNames =
   | "ALPHA"
@@ -75,17 +13,20 @@ export type SingleAssetPoolNames =
   | "NAVI-USDT"
   | "NAVI-WUSDC"
   | "NAVI-HASUI"
-  | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDC-USDT"
   | "NAVI-USDC"
   | "BUCKET-BUCK"
   | "NAVI-USDY"
   | "NAVI-AUSD"
   | "NAVI-ETH"
+  | "NAVI-NS"
+  | "NAVI-NAVX"
+  | LoopingPoolNames;
+
+export type LoopingPoolNames =
   | "NAVI-LOOP-HASUI-SUI"
   | "NAVI-LOOP-USDT-USDC"
-  | "NAVI-NS"
-  | "NAVI-NAVX";
+  | "NAVI-LOOP-SUI-VSUI"
+  | "NAVI-LOOP-USDC-USDT";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -128,6 +69,9 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-STSUI-ETH"
   | "BLUEFIN-STSUI-WSOL"
   | "BLUEFIN-ALPHA-STSUI"
+  | AutoBalancePoolNames;
+
+export type AutoBalancePoolNames =
   | "BLUEFIN-AUTOBALANCE-USDT-USDC"
   | "BLUEFIN-AUTOBALANCE-SUI-USDC"
   | "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC"
@@ -288,6 +232,19 @@ export type PoolReceipt =
   | typeof NAVI_WUSDC_POOL_RECEIPT
   | typeof NAVI_USDC_POOL_RECEIPT
   | typeof BUCKET_BUCK_POOL_RECEIPT;
+
+export interface PoolData {
+  weight: number;
+  lastUpdateTime?: number;
+  pendingRewards?: string;
+  imageUrl?: string | undefined;
+  poolName: string;
+}
+export interface PoolWeightDistribution {
+  coinType: string;
+  totalWeight: number;
+  data: PoolData[];
+}
 
 export type CoinAmounts = {
   coinA: BN;
