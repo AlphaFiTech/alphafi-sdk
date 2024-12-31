@@ -262,7 +262,7 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    // add strategy type
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
   },
   "BLUEFIN-AUTOBALANCE-SUI-USDC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
@@ -283,7 +283,7 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    // add strategy type
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
   },
   "BLUEFIN-AUTOBALANCE-USDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
@@ -304,7 +304,7 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    // add strategy type
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
   },
   "BLUEFIN-ALPHA-STSUI": {
     packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
