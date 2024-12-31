@@ -33,4 +33,5 @@ export type PythPriceIdPair =
   | "NS/USD"
   | "BLUE/USD"
   | "SEND/USD"
-  | "STSUI/USD";
+  | "STSUI/USD"
+  | "SUIUSDT/USD";
