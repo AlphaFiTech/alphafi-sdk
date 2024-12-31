@@ -250,20 +250,35 @@ export async function getMultiPool() {
   const poolIds = pools.map((pool) => {
     return poolInfo[pool].poolId;
   });
-  try {
-    const o = await getSuiClient().multiGetObjects({
-      ids: poolIds,
-      options: {
-        showContent: true,
-      },
-    });
-    for (let i = 0; i < pools.length; i = i + 1) {
-      const poolData = o[i].data as AlphaPoolType | PoolType;
-      const cacheKey = `pool_${poolInfo[pools[i]].poolId}`;
-      poolCache.set(cacheKey, poolData);
+  const batchSize = 49; // Set the desired batch size
+
+  // Convert the receiptTypes object into an array of entries
+  // const entries = Object.entries(poolIds);
+
+  // Create an array to hold the batches
+  const batches: string[][] = [];
+  //const batches = [];
+  // Loop through the entries array and create batches
+  for (let i = 0; i < poolIds.length; i += batchSize) {
+    const batchEntries: string[] = poolIds.slice(i, i + batchSize);
+    batches.push(batchEntries); // Convert to object before pushing
+  }
+  for (const poolIdsBatch of batches) {
+    try {
+      const o = await getSuiClient().multiGetObjects({
+        ids: poolIdsBatch,
+        options: {
+          showContent: true,
+        },
+      });
+      for (let i = 0; i < poolIdsBatch.length; i = i + 1) {
+        const poolData = o[i].data as AlphaPoolType | PoolType;
+        const cacheKey = `pool_${poolInfo[poolIdsBatch[i]].poolId}`;
+        poolCache.set(cacheKey, poolData);
+      }
+    } catch (error) {
+      console.error(`Error getting multiPools - ${error}`);
     }
-  } catch (error) {
-    console.error(`Error getting multiPools - ${error}`);
   }
 }
 
@@ -416,20 +431,31 @@ export async function getMultiInvestor() {
   const investorIds = pools.map((pool) => {
     return poolInfo[pool].investorId;
   });
-  try {
-    const o = await getSuiClient().multiGetObjects({
-      ids: investorIds,
-      options: {
-        showContent: true,
-      },
-    });
-    for (let i = 0; i < pools.length; i = i + 1) {
-      const investorData = o[i].data as Investor;
-      const cacheKey = `investor_${poolInfo[pools[i]].investorId}`;
-      investorCache.set(cacheKey, investorData);
+  const batchSize = 49;
+  // Create an array to hold the batches
+  const batches: string[][] = [];
+  //const batches = [];
+  // Loop through the entries array and create batches
+  for (let i = 0; i < investorIds.length; i += batchSize) {
+    const batchEntries: string[] = investorIds.slice(i, i + batchSize);
+    batches.push(batchEntries); // Convert to object before pushing
+  }
+  for (const investorIdsBatch of batches) {
+    try {
+      const o = await getSuiClient().multiGetObjects({
+        ids: investorIdsBatch,
+        options: {
+          showContent: true,
+        },
+      });
+      for (let i = 0; i < investorIdsBatch.length; i = i + 1) {
+        const investorData = o[i].data as Investor;
+        const cacheKey = `investor_${poolInfo[investorIdsBatch[i]].investorId}`;
+        investorCache.set(cacheKey, investorData);
+      }
+    } catch (error) {
+      console.error(`Error getting multiPools - ${error}`);
     }
-  } catch (e) {
-    console.error(`[getMultiInvestor] Error getting multiPools`);
   }
 }
 
