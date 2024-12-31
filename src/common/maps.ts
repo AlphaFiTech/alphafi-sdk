@@ -28,7 +28,7 @@ export const stableCoins = [
   "WUSDY",
   "AUSD",
   "BUCK",
-  "SUIUSDT"
+  "SUIUSDT",
 ];
 
 export const doubleAssetPoolCoinMap: {
