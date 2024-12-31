@@ -144,7 +144,9 @@ export async function getPoolsWeightDistribution(
     if (!poolInfo[poolName]) {
       continue;
     }
-    const imageUrl = poolInfo[poolName].imageUrl;
+    const imageUrl1 = poolInfo[poolName].imageUrl1;
+    const imageUrl2 = poolInfo[poolName].imageUrl2;
+    const lockIcon = poolInfo[poolName].lockIcon;
 
     let weight = 0;
     if (member.fields.value.fields) {
@@ -161,10 +163,13 @@ export async function getPoolsWeightDistribution(
 
     poolDataArray.push({
       weight: weight,
-      imageUrl: imageUrl,
+      imageUrl1: imageUrl1,
+      imageUrl2: imageUrl2,
+      lockIcon: lockIcon,
       poolName: poolName,
     });
   }
+  console.log("poolDataArray", poolDataArray);
   return {
     data: poolDataArray,
     totalWeight: totalWeight,
