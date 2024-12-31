@@ -69,6 +69,30 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
+    } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC") {
+      blueBalance = txb.moveCall({
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards`,
+        typeArguments: [
+          coinsList["SUIUSDT"].type,
+          coinsList["USDC"].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(receipts[0].objectId),
+          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+          txb.object(pool.poolId),
+          txb.object(pool.investorId),
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-SUIUSDT"]),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
     }
 
     const blueCoin = txb.moveCall({

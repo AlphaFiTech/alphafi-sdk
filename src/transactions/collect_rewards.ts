@@ -86,7 +86,8 @@ export async function claimRewardTxb(address: string) {
             poolName == "BLUEFIN-USDT-USDC" ||
             poolName === "BLUEFIN-AUSD-USDC" ||
             poolName === "BLUEFIN-WBTC-USDC" ||
-            poolName === "BLUEFIN-SEND-USDC"
+            poolName === "BLUEFIN-SEND-USDC" ||
+            poolName === "BLUEFIN-SUIUSDT-USDC"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
