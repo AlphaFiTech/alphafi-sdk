@@ -115,7 +115,8 @@ export type StrategyType =
   | "STAKING"
   | "LIQUIDITY-POOL"
   | "LENDING"
-  | "LIQUID-STAKING";
+  | "LIQUID-STAKING"
+  | "AUTOBALANCE-LIQUIDITY-POOL";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
