@@ -6,10 +6,10 @@ import {
   CetusPoolType,
   CommonInvestorFields,
   MemberType,
-  PoolData,
   PoolName,
-  PoolWeightDistribution,
   CoinName,
+  PoolWeightDistribution,
+  PoolData,
 } from "./common/types.js";
 import {
   getDistributor,
@@ -24,6 +24,8 @@ import {
   poolInfo,
 } from "./common/maps.js";
 import { Decimal } from "decimal.js";
+import { Transaction } from "@mysten/sui/transactions";
+import { conf, CONF_ENV } from "./common/constants.js";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
@@ -80,6 +82,36 @@ export async function getPriceToTick(poolName: PoolName, price: string) {
   return tick.toString();
 }
 
+export const setWeights = async (
+  poolIdNames: string[],
+  weightsString: string[],
+  setWeightCoinType: CoinName,
+  adminCap: string,
+) => {
+  const poolIds: string[] = [];
+  const txb = new Transaction();
+  poolIdNames.forEach((poolName) => {
+    poolIds.push(poolInfo[poolName].poolId);
+  });
+
+  txb.moveCall({
+    target: `${conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID}::distributor::set_weights`,
+    typeArguments: [coinsList[setWeightCoinType].type],
+    arguments: [
+      txb.object(adminCap),
+      txb.object(conf[CONF_ENV].ALPHA_DISTRIBUTOR),
+      txb.object(conf[CONF_ENV].VERSION),
+      txb.pure.vector("id", poolIds),
+      txb.pure.vector("u64", weightsString),
+      txb.object(conf[CONF_ENV].CLOCK_PACKAGE_ID),
+    ],
+  });
+
+  // executeTransactionBlock(txb);
+  // dryRunTransactionBlock(txb);
+  return txb;
+};
+
 export async function getPoolsWeightDistribution(
   coinTypetoSetWeight: CoinName,
   ignoreCache: boolean,
@@ -112,7 +144,9 @@ export async function getPoolsWeightDistribution(
     if (!poolInfo[poolName]) {
       continue;
     }
-    const imageUrl = poolInfo[poolName].imageUrl;
+    const imageUrl1 = poolInfo[poolName].imageUrl1;
+    const imageUrl2 = poolInfo[poolName].imageUrl2;
+    const lockIcon = poolInfo[poolName].lockIcon;
 
     let weight = 0;
     if (member.fields.value.fields) {
@@ -129,7 +163,9 @@ export async function getPoolsWeightDistribution(
 
     poolDataArray.push({
       weight: weight,
-      imageUrl: imageUrl,
+      imageUrl1: imageUrl1,
+      imageUrl2: imageUrl2,
+      lockIcon: lockIcon,
       poolName: poolName,
     });
   }
