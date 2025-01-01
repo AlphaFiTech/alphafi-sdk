@@ -109,6 +109,7 @@ export const setWeights = async (
 
   // executeTransactionBlock(txb);
   // dryRunTransactionBlock(txb);
+  txb.setGasBudget(1000000000);
   return txb;
 };
 
