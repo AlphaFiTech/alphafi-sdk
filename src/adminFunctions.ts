@@ -169,7 +169,6 @@ export async function getPoolsWeightDistribution(
       poolName: poolName,
     });
   }
-  console.log("poolDataArray", poolDataArray);
   return {
     data: poolDataArray,
     totalWeight: totalWeight,
