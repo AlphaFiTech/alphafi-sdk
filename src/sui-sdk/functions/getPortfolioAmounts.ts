@@ -313,7 +313,7 @@ export async function getSingleAssetPortfolioAmount(
           //   pair: { coinA: coins["VSUI"], coinB: coins["SUI"] },
           //   inAmount: new BN(tokens.toNumber()),
           // })) as QuoteResponse;
-          const voloExchRate = await fetchVoloExchangeRate();
+          const voloExchRate = await fetchVoloExchangeRate(false);
           portfolioAmount = Number(
             tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
           );
