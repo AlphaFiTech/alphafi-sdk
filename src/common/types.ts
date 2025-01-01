@@ -238,7 +238,9 @@ export interface PoolData {
   weight: number;
   lastUpdateTime?: number;
   pendingRewards?: string;
-  imageUrl?: string | undefined;
+  imageUrl1?: string | undefined;
+  imageUrl2?: string | undefined;
+  lockIcon?: string | undefined;
   poolName: string;
 }
 export interface PoolWeightDistribution {
