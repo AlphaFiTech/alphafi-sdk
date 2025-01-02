@@ -1,5 +1,10 @@
-import { ApolloQueryResult, gql } from "@apollo/client/core";
-import client from "./client.js";
+import {
+  ApolloClient,
+  ApolloQueryResult,
+  gql,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client/core";
 import { getMultiReceiptsQuery } from "./queries/getMultiReceipts.js";
 import { ReceiptGQL } from "./types.js";
 import { poolInfo } from "../common/maps.js";
@@ -8,6 +13,27 @@ type ReceiptType = {
   type: string;
   cursor: string;
 };
+
+const client = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://sui-mainnet.mystenlabs.com/graphql",
+  }),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Owner: {
+        keyFields: (owner) => {
+          const objectKeys = Object.keys(owner)
+            .filter((k) => k !== "__typename")
+            .sort();
+          const uniqueKey = objectKeys.join(",");
+
+          // Return the final unique ID string
+          return `Owner:${uniqueKey}`;
+        },
+      },
+    },
+  }),
+});
 
 const getReceiptTypes = () => {
   const receiptTypes: { [key: string]: ReceiptType } = {};
@@ -81,6 +107,7 @@ export async function fetchMultiReceipts(
     } catch (error) {
       console.warn(
         "Error fetching receipts from GraphQL, now fetching from suiClient query",
+        error,
       );
     } finally {
       Object.keys(receiptTypes).forEach((key) => {
@@ -97,6 +124,5 @@ export async function fetchMultiReceipts(
     arr.push(receipt);
     receiptMap.set(name, arr);
   });
-
   return receiptMap;
 }

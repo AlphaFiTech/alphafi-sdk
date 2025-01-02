@@ -202,43 +202,6 @@ export async function getReceipts(
   return cachedPromise;
 }
 
-export async function getPoolExchangeRate(
-  poolName: PoolName,
-  ignoreCache: boolean,
-): Promise<Decimal> {
-  let pool: PoolType | AlphaPoolType;
-  try {
-    pool = await getPool(poolName, ignoreCache);
-    const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
-    let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
-    if (poolName == "ALPHA") {
-      tokensInvested = new Decimal(pool.content.fields.alpha_bal);
-    } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
-      const investor = (await getInvestor(
-        poolName,
-        ignoreCache,
-      )) as CetusInvestor & CommonInvestorFields;
-      if (!investor) {
-        throw new Error(`couldnt fetch investor object for pool: ${poolName}`);
-      }
-      tokensInvested = new Decimal(pool.content.fields.tokensInvested);
-    }
-
-    // Check for division by zero
-    if (xTokenSupply.eq(0)) {
-      console.error("Division by zero error: tokensInvested is zero.");
-      return new Decimal(0);
-    }
-    const poolExchangeRate = tokensInvested.div(xTokenSupply);
-    return poolExchangeRate;
-  } catch (err) {
-    console.log(
-      `getPoolExchangeRate failed for poolName: ${poolName}, with error ${err}`,
-    );
-    throw err;
-  }
-}
-
 const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
 const poolPromiseCache = new SimpleCache<Promise<PoolType | AlphaPoolType>>();
 
@@ -251,9 +214,6 @@ export async function getMultiPool() {
     return poolInfo[pool].poolId;
   });
   const batchSize = 49; // Set the desired batch size
-
-  // Convert the receiptTypes object into an array of entries
-  // const entries = Object.entries(poolIds);
 
   // Create an array to hold the batches
   const batches: string[][] = [];
@@ -273,7 +233,7 @@ export async function getMultiPool() {
       });
       for (let i = 0; i < poolIdsBatch.length; i = i + 1) {
         const poolData = o[i].data as AlphaPoolType | PoolType;
-        const cacheKey = `pool_${poolInfo[poolIdsBatch[i]].poolId}`;
+        const cacheKey = `pool_${poolIdsBatch[i]}`;
         poolCache.set(cacheKey, poolData);
       }
     } catch (error) {
@@ -287,7 +247,7 @@ export async function getPool(
   ignoreCache: boolean,
 ): Promise<PoolType | AlphaPoolType> {
   const suiClient = getSuiClient();
-  const cacheKey = `pool_${poolInfo[poolName.toUpperCase()].poolId}`;
+  const cacheKey = `pool_${poolInfo[poolName].poolId}`;
 
   if (ignoreCache) {
     poolCache.delete(cacheKey);
@@ -335,33 +295,47 @@ export async function getPool(
   return poolPromise;
 }
 
-const cetusPoolCache = new SimpleCache<CetusPoolType | BluefinPoolType>();
-const cetusPoolPromiseCache = new SimpleCache<
+const parentPoolCache = new SimpleCache<CetusPoolType | BluefinPoolType>();
+const parentPoolPromiseCache = new SimpleCache<
   Promise<CetusPoolType | BluefinPoolType>
 >();
 
 export async function getMultiParentPool() {
   let pools = Object.keys(poolInfo);
   pools = pools.filter((pool) => {
-    return poolInfo[pool].poolId !== "";
+    return poolInfo[pool].parentPoolId !== "";
   });
-  const poolIds = pools.map((pool) => {
+  const parentPoolIds = pools.map((pool) => {
     return poolInfo[pool].parentPoolId;
   });
-  try {
-    const o = await getSuiClient().multiGetObjects({
-      ids: poolIds,
-      options: {
-        showContent: true,
-      },
-    });
-    for (let i = 0; i < pools.length; i = i + 1) {
-      const poolData = o[i].data as CetusPoolType;
-      const cacheKey = `pool_${poolInfo[pools[i]].parentPoolId}`;
-      cetusPoolCache.set(cacheKey, poolData);
+  const poolsSet = new Set(parentPoolIds);
+  const poolIds = [...poolsSet];
+  const batchSize = 49;
+  // Create an array to hold the batches
+  const batches: string[][] = [];
+  //const batches = [];
+  // Loop through the entries array and create batches
+  for (let i = 0; i < poolIds.length; i += batchSize) {
+    const batchEntries: string[] = poolIds.slice(i, i + batchSize);
+    batches.push(batchEntries); // Convert to object before pushing
+  }
+
+  for (const parentPoolIdsBatch of batches) {
+    try {
+      const o = await getSuiClient().multiGetObjects({
+        ids: parentPoolIdsBatch,
+        options: {
+          showContent: true,
+        },
+      });
+      for (let i = 0; i < parentPoolIdsBatch.length; i = i + 1) {
+        const parentPoolData = o[i].data as CetusPoolType;
+        const cacheKey = `parentPool_${parentPoolIdsBatch[i]}`;
+        parentPoolCache.set(cacheKey, parentPoolData);
+      }
+    } catch (error) {
+      console.error(`Error getting multiParentPools - ${error}`);
     }
-  } catch (e) {
-    console.error(`[getMultiParentPool] Error getting multiPools`);
   }
 }
 
@@ -370,7 +344,102 @@ export async function getParentPool(
   ignoreCache: boolean,
 ): Promise<CetusPoolType | BluefinPoolType> {
   const suiClient = getSuiClient();
-  const cacheKey = `pool_${poolName}`;
+  const cacheKey = `parentPool_${poolInfo[poolName].parentPoolId}`;
+  if (ignoreCache) {
+    parentPoolCache.delete(cacheKey);
+    parentPoolPromiseCache.delete(cacheKey);
+  }
+
+  // Check if the pool is already in the cache
+  const cachedPool = parentPoolCache.get(cacheKey);
+  if (cachedPool) {
+    return cachedPool;
+  }
+
+  // Check if there is already a promise in the cache
+  let parentPoolPromise = parentPoolPromiseCache.get(cacheKey);
+  if (parentPoolPromise) {
+    return parentPoolPromise;
+  }
+  // If not, create a new promise and cache it
+  parentPoolPromise = (async () => {
+    try {
+      const id = poolInfo[poolName]
+        ? poolInfo[poolName].parentPoolId
+        : cetusPoolMap[poolName]
+          ? cetusPoolMap[poolName]
+          : bluefinPoolMap[poolName];
+      const o = await suiClient.getObject({
+        id: id,
+        options: {
+          showContent: true,
+        },
+      });
+      const parentPool = o.data as CetusPoolType | BluefinPoolType;
+
+      // Cache the pool object
+      parentPoolCache.set(cacheKey, parentPool);
+      return parentPool;
+    } catch (err) {
+      console.error(`getParentPool failed for poolName: ${poolName}`);
+      throw err;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      parentPoolPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  parentPoolPromiseCache.set(cacheKey, parentPoolPromise);
+  return parentPoolPromise;
+}
+
+const cetusPoolCache = new SimpleCache<CetusPoolType | BluefinPoolType>();
+const cetusPoolPromiseCache = new SimpleCache<
+  Promise<CetusPoolType | BluefinPoolType | undefined>
+>();
+
+export async function getMultiCetusPool() {
+  let pools = Object.keys(cetusPoolMap);
+  pools = pools.filter((pool) => {
+    return cetusPoolMap[pool] !== "";
+  });
+  const poolIds = pools.map((pool) => {
+    return cetusPoolMap[pool];
+  });
+  const batchSize = 49;
+  // Create an array to hold the batches
+  const batches: string[][] = [];
+  // Loop through the entries array and create batches
+  for (let i = 0; i < poolIds.length; i += batchSize) {
+    const batchEntries: string[] = poolIds.slice(i, i + batchSize);
+    batches.push(batchEntries); // Convert to object before pushing
+  }
+  for (const cetusPoolIdsBatch of batches) {
+    try {
+      const o = await getSuiClient().multiGetObjects({
+        ids: cetusPoolIdsBatch,
+        options: {
+          showContent: true,
+        },
+      });
+      for (let i = 0; i < pools.length; i = i + 1) {
+        const poolData = o[i].data as CetusPoolType;
+        const cacheKey = `cetusPool_${cetusPoolMap[pools[i]]}`;
+        cetusPoolCache.set(cacheKey, poolData);
+      }
+    } catch (e) {
+      console.error(`Error getting multiCetusPools`, e);
+    }
+  }
+}
+
+export async function getCetusPool(
+  poolName: string,
+  ignoreCache: boolean,
+): Promise<CetusPoolType | BluefinPoolType | undefined> {
+  const suiClient = getSuiClient();
+  const cacheKey = `cetusPool_${cetusPoolMap[poolName]}`;
   if (ignoreCache) {
     cetusPoolCache.delete(cacheKey);
     cetusPoolPromiseCache.delete(cacheKey);
@@ -390,25 +459,20 @@ export async function getParentPool(
   // If not, create a new promise and cache it
   cetusPoolPromise = (async () => {
     try {
-      const id = poolInfo[poolName]
-        ? poolInfo[poolName].parentPoolId
-        : cetusPoolMap[poolName]
-          ? cetusPoolMap[poolName]
-          : bluefinPoolMap[poolName];
       const o = await suiClient.getObject({
-        id: id,
+        id: cetusPoolMap[poolName],
         options: {
           showContent: true,
         },
       });
-      const cetusPool = o.data as CetusPoolType | BluefinPoolType;
+      const cetusPool = o.data as CetusPoolType;
 
       // Cache the pool object
       cetusPoolCache.set(cacheKey, cetusPool);
       return cetusPool;
-    } catch (err) {
+    } catch (e) {
       console.error(`getCetusPool failed for poolName: ${poolName}`);
-      throw err;
+      return undefined;
     } finally {
       // Remove the promise from the cache after it resolves
       cetusPoolPromiseCache.delete(cacheKey);
@@ -450,11 +514,11 @@ export async function getMultiInvestor() {
       });
       for (let i = 0; i < investorIdsBatch.length; i = i + 1) {
         const investorData = o[i].data as Investor;
-        const cacheKey = `investor_${poolInfo[investorIdsBatch[i]].investorId}`;
+        const cacheKey = `investor_${investorIdsBatch[i]}`;
         investorCache.set(cacheKey, investorData);
       }
     } catch (error) {
-      console.error(`Error getting multiPools - ${error}`);
+      console.error(`Error getting multiInvestor - ${error}`);
     }
   }
 }
@@ -464,7 +528,7 @@ export async function getInvestor(
   ignoreCache: boolean,
 ): Promise<Investor> {
   const suiClient = getSuiClient();
-  const cacheKey = `investor_${poolInfo[poolName.toUpperCase()].investorId}`;
+  const cacheKey = `investor_${poolInfo[poolName].investorId}`;
   if (ignoreCache) {
     investorCache.delete(cacheKey);
     investorPromiseCache.delete(cacheKey);
@@ -484,7 +548,7 @@ export async function getInvestor(
   cetusInvestorPromise = (async () => {
     try {
       const o = await suiClient.getObject({
-        id: poolInfo[poolName.toUpperCase()].investorId,
+        id: poolInfo[poolName].investorId,
         options: {
           showContent: true,
         },
@@ -515,55 +579,6 @@ export async function getInvestor(
   // Cache the promise
   investorPromiseCache.set(cacheKey, cetusInvestorPromise);
   return cetusInvestorPromise;
-}
-
-export async function fetchVoloExchangeRate(): Promise<NaviVoloData> {
-  const apiUrl = "https://open-api.naviprotocol.io/api/volo/stats";
-  const NaviVoloDetails: NaviVoloData = await fetch(apiUrl)
-    .then(async (response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = (await response.json()) as NaviVoloData; // Parse the JSON response
-      return data;
-    })
-    .catch((error) => {
-      console.log("failed to fetch Navi-volo details", error);
-      throw error;
-    });
-  return NaviVoloDetails;
-}
-
-export async function multiGetNaviInvestor(poolNames: SingleAssetPoolNames[]) {
-  const results: {
-    [poolName in SingleAssetPoolNames]?:
-      | (NaviInvestor & CommonInvestorFields)
-      | undefined;
-  } = {};
-  const poolInvestorIds: string[] = [];
-
-  for (const poolName of poolNames) {
-    poolInvestorIds.push(poolInfo[poolName.toUpperCase()].investorId);
-  }
-  try {
-    const suiClient = getSuiClient();
-    const objects = await suiClient.multiGetObjects({
-      ids: poolInvestorIds,
-      options: { showContent: true },
-    });
-    for (let i = 0; i < objects.length; i++) {
-      const investor = objects[i].data as NaviInvestor & CommonInvestorFields;
-      results[poolNames[i]] = investor;
-    }
-    return results;
-  } catch (err) {
-    //improve
-    console.error(
-      "multiGetNaviInvestor failed for poolNames: ",
-      poolNames.join(", "),
-    );
-    throw err;
-  }
 }
 
 const distributorCache = new SimpleCache<Distributor>();
@@ -620,6 +635,150 @@ export async function getDistributor(
   return distributorPromise;
 }
 
+export async function getPoolExchangeRate(
+  poolName: PoolName,
+  ignoreCache: boolean,
+): Promise<Decimal> {
+  let pool: PoolType | AlphaPoolType;
+  try {
+    pool = await getPool(poolName, ignoreCache);
+    const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
+    let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+    if (poolName == "ALPHA") {
+      tokensInvested = new Decimal(pool.content.fields.alpha_bal);
+    } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
+      const investor = (await getInvestor(
+        poolName,
+        ignoreCache,
+      )) as CetusInvestor & CommonInvestorFields;
+      if (!investor) {
+        throw new Error(`couldnt fetch investor object for pool: ${poolName}`);
+      }
+      tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+    }
+
+    // Check for division by zero
+    if (xTokenSupply.eq(0)) {
+      console.error("Division by zero error: tokensInvested is zero.");
+      return new Decimal(0);
+    }
+    const poolExchangeRate = tokensInvested.div(xTokenSupply);
+    return poolExchangeRate;
+  } catch (err) {
+    console.log(
+      `getPoolExchangeRate failed for poolName: ${poolName}, with error ${err}`,
+    );
+    throw err;
+  }
+}
+
+const naviVoloExchangeRateCache = new SimpleCache<NaviVoloData>();
+const naviVoloExchangeRatePromiseCache = new SimpleCache<
+  Promise<NaviVoloData>
+>();
+
+export async function fetchVoloExchangeRate(
+  ignoreCache: boolean,
+): Promise<NaviVoloData> {
+  const apiUrl = "https://open-api.naviprotocol.io/api/volo/stats";
+  let NaviVoloDetails: NaviVoloData;
+  if (ignoreCache) {
+    naviVoloExchangeRateCache.clear();
+    naviVoloExchangeRatePromiseCache.delete(apiUrl);
+  }
+
+  const cachedResponse = naviVoloExchangeRateCache.get(apiUrl);
+  if (cachedResponse) {
+    NaviVoloDetails = cachedResponse;
+  } else {
+    const default_volo_data: NaviVoloData = {
+      data: {
+        operatorBalance: "",
+        collectableFee: "",
+        pendingStakes: "",
+        poolTotalRewards: "0",
+        unstakeTicketSupply: "",
+        totalStaked: "",
+        activeStake: "",
+        calcTotalRewards: "",
+        currentEpoch: "",
+        validators: {},
+        exchangeRate: (1 / 0.973).toString(),
+        totalSupply: "",
+        apy: "",
+        sortedValidators: [""],
+        maxInstantUnstake: "",
+        maxNoFeeUnstake: "",
+      },
+      code: 0,
+    };
+    try {
+      let cachedPromise = naviVoloExchangeRatePromiseCache.get(apiUrl);
+
+      if (!cachedPromise) {
+        cachedPromise = fetch(apiUrl)
+          .then(async (response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = (await response.json()) as NaviVoloData; // Parse the JSON response
+            naviVoloExchangeRateCache.set(apiUrl, data); // Cache the response
+            naviVoloExchangeRatePromiseCache.delete(apiUrl); // Remove the promise from the cache
+            return data;
+          })
+          .catch((error) => {
+            naviVoloExchangeRatePromiseCache.delete(apiUrl); // Ensure the promise is removed on error
+            throw error;
+          });
+        naviVoloExchangeRatePromiseCache.set(apiUrl, cachedPromise);
+        NaviVoloDetails = await cachedPromise;
+        return cachedPromise;
+      } else {
+        NaviVoloDetails = default_volo_data;
+        return Promise.resolve(default_volo_data);
+      }
+    } catch (error) {
+      console.log("error in api", error);
+
+      NaviVoloDetails = default_volo_data;
+      return Promise.resolve(default_volo_data);
+    }
+  }
+
+  return NaviVoloDetails;
+}
+
+export async function multiGetNaviInvestor(poolNames: SingleAssetPoolNames[]) {
+  const results: {
+    [poolName in SingleAssetPoolNames]?:
+      | (NaviInvestor & CommonInvestorFields)
+      | undefined;
+  } = {};
+  const poolInvestorIds: string[] = [];
+
+  for (const poolName of poolNames) {
+    poolInvestorIds.push(poolInfo[poolName].investorId);
+  }
+  try {
+    const suiClient = getSuiClient();
+    const objects = await suiClient.multiGetObjects({
+      ids: poolInvestorIds,
+      options: { showContent: true },
+    });
+    for (let i = 0; i < objects.length; i++) {
+      const investor = objects[i].data as NaviInvestor & CommonInvestorFields;
+      results[poolNames[i]] = investor;
+    }
+    return results;
+  } catch (err) {
+    //improve
+    console.error(
+      "multiGetNaviInvestor failed for poolNames: ",
+      poolNames.join(", "),
+    );
+    throw err;
+  }
+}
 /*
 for the missing pools, add a promise, each of those promises waits for there respective object from a map, that map is populated all at once, 
 problem with concurrency

@@ -115,7 +115,8 @@ export type StrategyType =
   | "STAKING"
   | "LIQUIDITY-POOL"
   | "LENDING"
-  | "LIQUID-STAKING";
+  | "LIQUID-STAKING"
+  | "AUTOBALANCE-LIQUIDITY-POOL";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
@@ -237,7 +238,9 @@ export interface PoolData {
   weight: number;
   lastUpdateTime?: number;
   pendingRewards?: string;
-  imageUrl?: string | undefined;
+  imageUrl1?: string | undefined;
+  imageUrl2?: string | undefined;
+  lockIcon?: string | undefined;
   poolName: string;
 }
 export interface PoolWeightDistribution {
