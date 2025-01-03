@@ -52,7 +52,7 @@ export const conf = {
     ALPHA_2_FIRST_PACKAGE_ID:
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0x4ce3c7593590b3c1d64a9305ca8ba6a3b872176264d05317e16a5109d0205c40",
+      "0x2161b4c1cfb63830d8e5dcd74228afa7014882420a4747bf5380f676a8dee54d",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
@@ -1625,7 +1625,7 @@ export const conf = {
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
 
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0x4f7d530f5bf6359f9d6d9eafb5e144a174ccc8b875d65c2ea7cf16a8c692b721", // looping pools, cetus sui pool
+      "0x04750718b379422ec13cfce770cb1ea27a89d3a8911a4457d9d588cd5781bd6a", // looping pools, cetus sui pool
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
@@ -1646,6 +1646,7 @@ export const conf = {
       "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d",
       "0xb01692159686f46d9f7c97aac0defad8e0d09ee4dff213324e3f159f2cb5103a",
       "0x4f7d530f5bf6359f9d6d9eafb5e144a174ccc8b875d65c2ea7cf16a8c692b721",
+      "0x04750718b379422ec13cfce770cb1ea27a89d3a8911a4457d9d588cd5781bd6a",
     ],
 
     ALPHA_3_FIRST_PACKAGE_ID:
