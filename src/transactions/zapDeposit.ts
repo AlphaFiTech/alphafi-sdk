@@ -168,6 +168,10 @@ export async function zapDepositTxb(
 
         const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
         const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+        if (inputCoinName === "USDT") {
+          amountA = (Number(amountA) * 0.995).toString();
+          amountB = (Number(amountB) * 0.995).toString();
+        }
         if (poolInfo[poolName].parentProtocolName === "CETUS") {
           if (pool1 === "CETUS" && pool2 === "SUI") {
             txb = await depositCetusSuiTxb(
