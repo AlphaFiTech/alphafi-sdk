@@ -15,6 +15,7 @@ export async function fetchWithdrawV2Events(
       startTime: params.startTime,
       endTime: params.endTime,
       eventTypes: [eventType],
+      order: params.order,
     });
     return events;
   });

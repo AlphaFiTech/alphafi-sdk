@@ -26,6 +26,7 @@ export async function fetchEvents(
   const allEvents: EventNode[] = [];
   let hasNextPage = true;
   let startCursor: EventId | null | undefined = null;
+  const order = params.order ? params.order : "descending";
 
   if (params.eventTypes.length > 1) {
     console.warn(
@@ -52,7 +53,7 @@ export async function fetchEvents(
   while (hasNextPage) {
     const result: PaginatedEvents = await suiClient.queryEvents({
       cursor: startCursor,
-      order: "descending",
+      order: order,
       query: {
         MoveEventType: params.eventTypes[0],
       },

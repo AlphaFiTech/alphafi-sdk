@@ -21,6 +21,7 @@ export async function fetchAfterTransactionEvents(params: {
   startTime: number;
   endTime: number;
   poolNames?: PoolName[];
+  order?: "ascending" | "descending";
 }) {
   const eventTypesSet = new Set<string>();
   if (params.poolNames) {
@@ -46,6 +47,7 @@ export async function fetchAfterTransactionEvents(params: {
       startTime: params.startTime,
       endTime: params.endTime,
       eventTypes: [eventType],
+      order: params.order,
     });
     return events;
   });
