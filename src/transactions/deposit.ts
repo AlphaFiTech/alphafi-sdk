@@ -46,14 +46,6 @@ export async function depositSingleAssetTxb(
       txb = await naviDepositTx(amount, poolName, { address });
     }
   }
-  if (
-    poolInfo[poolName].parentProtocolName === "NAVI" &&
-    poolInfo[poolName].strategyType === "LOOPING"
-  ) {
-    txb.setGasBudget(1_000_000_000);
-  } else {
-    txb.setGasBudget(500_000_000);
-  }
   txb.setSender(address);
   return txb;
 }
@@ -106,7 +98,6 @@ export async function depositDoubleAssetTxb(
       });
     }
   }
-  txb.setGasBudget(300_000_000);
   txb.setSender(address);
   return txb;
 }
