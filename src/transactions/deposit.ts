@@ -50,7 +50,7 @@ export async function depositSingleAssetTxb(
     poolInfo[poolName].parentProtocolName === "NAVI" &&
     poolInfo[poolName].strategyType === "LOOPING"
   ) {
-    txb.setGasBudget(1_000_000_000);
+    // txb.setGasBudget(900_000_000);
   } else {
     txb.setGasBudget(500_000_000);
   }

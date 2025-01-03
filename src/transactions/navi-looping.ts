@@ -273,7 +273,7 @@ export async function naviUsdcUsdtLoopDepositTx(
     }
 
     txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_deposit`,
+      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_deposit_v2`,
       arguments: [
         txb.object(C.ALPHA_2_VERSION),
         txb.object(C.VERSION),
@@ -295,6 +295,9 @@ export async function naviUsdcUsdtLoopDepositTx(
         txb.object(cetusPoolMap["NAVX-SUI"]),
         txb.object(cetusPoolMap["USDC-SUI"]),
         txb.object(cetusPoolMap["USDC-USDT"]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.object(C.BLUEFIN_USDT_USDC_POOL),
+        txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -590,7 +593,7 @@ export async function naviUsdcUsdtLoopWithdrawTx(
     }
 
     const [usdcCoin] = txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_withdraw`,
+      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_withdraw_v2`,
       arguments: [
         txb.object(C.ALPHA_2_VERSION),
         txb.object(C.VERSION),
@@ -614,6 +617,9 @@ export async function naviUsdcUsdtLoopWithdrawTx(
         txb.object(cetusPoolMap["NAVX-SUI"]),
         txb.object(cetusPoolMap["USDC-SUI"]),
         txb.object(cetusPoolMap["USDC-USDT"]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.object(C.BLUEFIN_USDT_USDC_POOL),
+        txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
