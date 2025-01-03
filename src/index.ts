@@ -150,6 +150,7 @@ export { fetchAutoCompoundingEvents } from "./sui-sdk/events/fetchAutoCompoundin
 export { fetchWithdrawV2Events } from "./sui-sdk/events/fetchWithdrawV2Events.js";
 export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransactionEvents.js";
 export { fetchCheckRatioEvents } from "./sui-sdk/events/fetchCheckRatioEvents.js";
+export { fetchMultiCategoryEvents } from "./sui-sdk/events/fetchMultiCategoryEvents.js";
 
 export {
   LiquidityChangeEventNode,

@@ -109,7 +109,6 @@ export const withdrawAlphaTxb = async (
         txb.pure.bool(withdrawFromLocked),
       ],
     });
-    txb.setGasBudget(1_000_000_000);
     txb.setSender(address);
     return txb;
   } else {
