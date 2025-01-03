@@ -112,7 +112,7 @@ export async function getVaultBalance(
   multiGet?: MultiGetVaultBalancesParams,
 ): Promise<VaultBalance> {
   if (address && poolName && !multiGet) {
-    const vaultBalance = await fetchUserVaultBalances(address, poolName, false);
+    const vaultBalance = await fetchUserVaultBalances(address, poolName, true);
 
     return vaultBalance;
   } else if (!address && !poolName && multiGet) {
