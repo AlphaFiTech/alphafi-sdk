@@ -213,6 +213,7 @@ export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
   endTime?: number;
   poolNames?: PoolName[];
+  order?: "ascending" | "descending";
 };
 
 export type FetchRebalanceEventsParams = FetchAutoCompoundingEventsParams;
@@ -222,6 +223,7 @@ export type FetchLiquidityChangeEventsParams = FetchAutoCompoundingEventsParams;
 export type FetchWithdrawV2EventsParams = {
   startTime?: number;
   endTime?: number;
+  order?: "ascending" | "descending";
 };
 
 export type FetchCheckRatioEventsParams = FetchAutoCompoundingEventsParams;
@@ -230,4 +232,5 @@ export type FetchEventsParams = {
   eventTypes: string[];
   startTime?: number;
   endTime?: number;
+  order?: "ascending" | "descending";
 };

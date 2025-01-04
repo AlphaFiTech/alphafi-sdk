@@ -62,6 +62,7 @@ export async function fetchAutoCompoundingEvents(
         startTime: params.startTime,
         endTime: params.endTime,
         eventTypes: [eventType],
+        order: params.order,
       })
     ).filter((e) => {
       if (params.poolNames) {

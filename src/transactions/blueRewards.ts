@@ -18,7 +18,7 @@ export async function claimBlueRewardTxb(
 ): Promise<ClaimRewardResponse | undefined> {
   const { getReceipts } = await import("../index.js");
   try {
-    const receipts = await getReceipts(poolName, userAddress, false);
+    const receipts = await getReceipts(poolName, userAddress, true);
     const txb = new Transaction();
     const pool = poolInfo[poolName];
     let blueBalance: TransactionResult;
@@ -136,7 +136,7 @@ export async function pendingBlueRewardAmount(
 ): Promise<string> {
   const { getReceipts } = await import("../index.js");
   try {
-    const receipts = await getReceipts(poolName, userAddress, false);
+    const receipts = await getReceipts(poolName, userAddress, true);
     const receipt = receipts[0];
     const userXtokenBalance = receipt.content.fields.xTokenBalance;
     let userBluePendingReward = new Decimal(0);

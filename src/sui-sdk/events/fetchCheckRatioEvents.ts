@@ -33,6 +33,7 @@ export async function fetchCheckRatioEvents(
       startTime: params.startTime,
       endTime: params.endTime,
       eventTypes: [eventType],
+      order: params.order,
     });
     return events;
   });

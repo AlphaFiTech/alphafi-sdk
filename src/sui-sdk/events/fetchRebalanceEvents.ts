@@ -41,6 +41,7 @@ export async function fetchRebalanceEvents(
         startTime: params.startTime,
         endTime: params.endTime,
         eventTypes: [eventType],
+        order: params.order,
       })
     ).filter((e) => {
       if (params.poolNames) {
