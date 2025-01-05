@@ -77,6 +77,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-SUI-USDC": { coin1: "SUI", coin2: "USDC" },
   "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC": { coin1: "SUIUSDT", coin2: "USDC" },
   "BLUEFIN-SUIUSDT-USDC": { coin1: "SUIUSDT", coin2: "USDC" },
+  "BLUEFIN-AUTOBALANCE-DEEP-BLUE": { coin1: "DEEP", coin2: "BLUE" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -168,6 +169,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   // "STSUI-ETH": conf[CONF_ENV].STSUI_ETH_CETUS_POOL_ID,
   // "STSUI-WSOL": conf[CONF_ENV].STSUI_WSOL_CETUS_POOL_ID,
   "USDC-SUIUSDT": conf[CONF_ENV].USDC_SUIUSDT_CETUS_POOL_ID,
+  "BLUE-DEEP": conf[CONF_ENV].BLUE_DEEP_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -192,6 +194,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "ALPHA-STSUI": conf[CONF_ENV].BLUEFIN_ALPHA_STSUI_POOL,
   "SUI-ALPHA": conf[CONF_ENV].BLUEFIN_SUI_ALPHA_POOL,
   "SUIUSDT-USDC": conf[CONF_ENV].BLUEFIN_SUIUSDT_USDC_POOL,
+  "DEEP-BLUE": conf[CONF_ENV].BLUEFIN_DEEP_BLUE_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -224,6 +227,27 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-AUTOBALANCE-DEEP-BLUE": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_DEEP_BLUE_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_RECEIPT,
+    assetTypes: [coinsList["DEEP"].type, coinsList["BLUE"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
+  },
   "BLUEFIN-SUIUSDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
