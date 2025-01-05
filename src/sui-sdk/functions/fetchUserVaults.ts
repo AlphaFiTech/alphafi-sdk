@@ -1,4 +1,9 @@
-import { AlphaFiVault, coinsList, PoolName } from "../../index.js";
+import {
+  AlphaFiVault,
+  coinsList,
+  getMultiReceipts,
+  PoolName,
+} from "../../index.js";
 import {
   singleAssetPoolCoinMap,
   doubleAssetPoolCoinMap,
@@ -10,6 +15,7 @@ export async function fetchUserVaults(
   address: string,
 ): Promise<AlphaFiVault[]> {
   const vaultsArr: AlphaFiVault[] = [];
+  await getMultiReceipts(address);
   await Promise.all(
     Object.keys(poolInfo).map(async (pool) => {
       const receipt = await getReceipts(pool as PoolName, address, false);
