@@ -3,6 +3,8 @@ import {
   coinsList,
   doubleAssetPoolCoinMap,
   getConf,
+  getMultiReceipts,
+  getReceipts,
   poolInfo,
   PoolName,
   singleAssetPoolCoinMap,
@@ -10,7 +12,7 @@ import {
 
 export async function claimRewardTxb(address: string) {
   const txb = new Transaction();
-  const { getReceipts } = await import("../index.js");
+  await getMultiReceipts(address);
   const alphaReceipt = await getReceipts("ALPHA", address, false);
   let alpha_receipt: any;
   if (alphaReceipt.length == 0) {
