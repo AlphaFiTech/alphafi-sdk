@@ -27,6 +27,13 @@ import {
 } from "./utils/userHoldings.js";
 import { getMultiLatestPrices } from "./utils/prices.js";
 import { poolInfo } from "./common/maps.js";
+import {
+  getMultiCetusPool,
+  getMultiInvestor,
+  getMultiParentPool,
+  getMultiPool,
+  getMultiReceipts,
+} from "./index.js";
 
 export async function getXTokenVaultBalanceForActiveUsers(
   params: GetVaultBalanceForActiveUsersParams,
@@ -112,8 +119,15 @@ export async function getVaultBalance(
   multiGet?: MultiGetVaultBalancesParams,
 ): Promise<VaultBalance> {
   if (address && poolName && !multiGet) {
-    const vaultBalance = await fetchUserVaultBalances(address, poolName, true);
-
+    await Promise.all([
+      getMultiLatestPrices(),
+      getMultiCetusPool(),
+      getMultiInvestor(),
+      getMultiParentPool(),
+      getMultiReceipts(address),
+      getMultiPool(),
+    ]);
+    const vaultBalance = await fetchUserVaultBalances(address, poolName, false);
     return vaultBalance;
   } else if (!address && !poolName && multiGet) {
     // multirun
@@ -202,7 +216,6 @@ export async function getDoubleAssetVaultBalance(
 export async function getAllVaultBalances(
   address: string,
 ): Promise<Map<PoolName, AlphaFiVaultBalance>> {
-  await getMultiLatestPrices();
   const pools = Object.keys(poolInfo);
   const res = new Map<PoolName, AlphaFiVaultBalance>();
   const promises = pools.map(async (pool) => {
