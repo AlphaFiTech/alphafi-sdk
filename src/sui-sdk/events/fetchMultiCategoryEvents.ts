@@ -1,12 +1,7 @@
 import { fetchWithdrawV2Events } from "./fetchWithdrawV2Events.js";
 import { fetchAutoCompoundingEvents } from "./fetchAutoCompoundingEvents.js";
 import { fetchLiquidityChangeEvents } from "./fetchLiquidityChangeEvents.js";
-import { EventNode } from "./types.js";
-
-export type EventCategory =
-  | "AutoCompounding"
-  | "LiquidityChange"
-  | "WithdrawV2";
+import { EventCategory, EventNode } from "./types.js";
 
 export async function fetchMultiCategoryEvents(params: {
   eventCategories: EventCategory[];

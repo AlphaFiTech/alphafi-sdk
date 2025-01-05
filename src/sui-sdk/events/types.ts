@@ -234,3 +234,14 @@ export type FetchEventsParams = {
   endTime?: number;
   order?: "ascending" | "descending";
 };
+
+export type EventCategory =
+  | "AutoCompounding"
+  | "LiquidityChange"
+  | "WithdrawV2";
+
+export const eventCategories: EventCategory[] = [
+  "AutoCompounding",
+  "LiquidityChange",
+  "WithdrawV2",
+];
