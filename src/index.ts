@@ -158,6 +158,7 @@ export {
   WithdrawV2EventNode,
   AfterTransactionEventNode,
   EventNode,
+  eventCategories,
 } from "./sui-sdk/events/types.js";
 
 export { ReceiptGQL } from "./graphql/types.js";
