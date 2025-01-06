@@ -648,8 +648,7 @@ export const depositBluefinType1Txb = async (
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
-      }
-      if (poolName === "BLUEFIN-SUIUSDT-USDC") {
+      } else if (poolName === "BLUEFIN-SUIUSDT-USDC") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
           typeArguments: [

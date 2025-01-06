@@ -545,7 +545,7 @@ const depositCetusAlphaSuiTxb = async (
     }
 
     txb.moveCall({
-      target: `${getConf().ALPHA_LATEST_PACKAGE_ID}::alphafi_cetus_sui_pool::user_deposit`,
+      target: `${poolinfo.packageId}::alphafi_cetus_sui_pool::user_deposit`,
       typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
       arguments: [
         txb.object(getConf().VERSION),
@@ -558,7 +558,7 @@ const depositCetusAlphaSuiTxb = async (
         txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
         txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
         txb.object(cetusPoolMap["CETUS-SUI"]),
-        txb.object(poolinfo.parentPoolId),
+        txb.object(cetusPoolMap[poolName]),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
@@ -765,6 +765,31 @@ const depositBluefinSuiFirstTxb = async (
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
+    } else if (poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
     }
 
     txb.transferObjects([coin1Arg, coin2Arg], address);
@@ -929,6 +954,138 @@ const depositBluefinType1Txb = async (
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
+    } else if (poolName === "BLUEFIN-STSUI-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_4_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_STSUI_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-STSUI"]),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
+        typeArguments: [
+          coinsList["USDT"].type,
+          coinsList["USDC"].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-USDT"]),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-SUIUSDT-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_4_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-SUIUSDT"]),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
+        typeArguments: [
+          coinsList["SUIUSDT"].type,
+          coinsList["USDC"].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["USDC-SUIUSDT"]),
+          txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-BLUE") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit`,
+        typeArguments: [
+          coinsList["DEEP"].type,
+          coinsList["BLUE"].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_DEEP_BLUE_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+          txb.object(cetusPoolMap["BLUE-DEEP"]),
+          txb.object(cetusPoolMap["BLUE-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
     }
 
     txb.transferObjects([coin1Arg, coin2Arg], address);
@@ -1062,6 +1219,60 @@ const depositBluefinType2Txb = async (
           txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
           txb.object(cetusPoolMap["BLUE-USDC"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-STSUI-ETH") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_2_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_4_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_STSUI_ETH_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+          txb.object(cetusPoolMap["STSUI-ETH"]),
+          txb.object(cetusPoolMap["ETH-SUI"]),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (poolName === "BLUEFIN-STSUI-WSOL") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_type_2_pool::user_deposit`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_4_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+          txb.object(getConf().BLUEFIN_STSUI_WSOL_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+          txb.object(cetusPoolMap["STSUI-WSOL"]),
+          txb.object(cetusPoolMap["WSOL-SUI"]),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
