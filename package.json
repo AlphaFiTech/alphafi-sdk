@@ -62,7 +62,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@7kprotocol/sdk-ts": "^2.1.0",
+    "@7kprotocol/sdk-ts": "^2.2.0",
     "@alphafi/stsui-sdk": "^0.0.12",
     "@apollo/client": "^3.11.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "5.1.6",
