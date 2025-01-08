@@ -26,6 +26,7 @@ import {
 import { Decimal } from "decimal.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { conf, CONF_ENV } from "./common/constants.js";
+import { getSuiClient } from "./index.js";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
@@ -99,19 +100,37 @@ export const setWeights = async (
   poolIdNames: string[],
   weightsString: string[],
   setWeightCoinType: CoinName,
-  adminCap: string,
+  address: string,
 ) => {
   const poolIds: string[] = [];
   const txb = new Transaction();
   poolIdNames.forEach((poolName) => {
     poolIds.push(poolInfo[poolName].poolId);
   });
+  const adminCap = await getSuiClient().getOwnedObjects({
+    owner: address,
+    filter: {
+      StructType:
+        "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::distributor::AdminCap",
+    },
+    options: {
+      showContent: true,
+    },
+  });
+  if (!adminCap.data || adminCap.data.length === 0) {
+    throw new Error("No adminCap data found.");
+  }
 
+  if (!adminCap.data[0].data) {
+    throw new Error("adminCap.data[0].data is undefined.");
+  }
+
+  const objectId = adminCap.data[0].data.objectId;
   txb.moveCall({
     target: `${conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID}::distributor::set_weights`,
     typeArguments: [coinsList[setWeightCoinType].type],
     arguments: [
-      txb.object(adminCap),
+      txb.object(objectId),
       txb.object(conf[CONF_ENV].ALPHA_DISTRIBUTOR),
       txb.object(conf[CONF_ENV].VERSION),
       txb.pure.vector("id", poolIds),
