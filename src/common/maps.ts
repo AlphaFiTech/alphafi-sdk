@@ -78,6 +78,8 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC": { coin1: "SUIUSDT", coin2: "USDC" },
   "BLUEFIN-SUIUSDT-USDC": { coin1: "SUIUSDT", coin2: "USDC" },
   "BLUEFIN-AUTOBALANCE-DEEP-BLUE": { coin1: "DEEP", coin2: "BLUE" },
+  "BLUEFIN-AUTOBALANCE-DEEP-SUI": { coin1: "DEEP", coin2: "SUI" },
+  "BLUEFIN-AUTOBALANCE-BLUE-SUI": { coin1: "BLUE", coin2: "SUI" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -227,6 +229,48 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-AUTOBALANCE-DEEP-SUI": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_DEEP_SUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_RECEIPT,
+    assetTypes: [coinsList["DEEP"].type, coinsList["SUI"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
+  },
+  "BLUEFIN-AUTOBALANCE-BLUE-SUI": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_BLUE_SUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_RECEIPT,
+    assetTypes: [coinsList["BLUE"].type, coinsList["SUI"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
+  },
   "BLUEFIN-AUTOBALANCE-DEEP-BLUE": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
