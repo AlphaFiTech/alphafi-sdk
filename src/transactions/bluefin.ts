@@ -376,8 +376,7 @@ export const depositBluefinSuiSecondTxb = async (
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
-      }
-      else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
+      } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit`,
           typeArguments: [
@@ -401,8 +400,7 @@ export const depositBluefinSuiSecondTxb = async (
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
-      }
-      else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
+      } else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit`,
           typeArguments: [
@@ -1370,31 +1368,54 @@ export const withdrawBluefinSuiSecondTxb = async (
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
     if (poolName.toString().includes("AUTOBALANCE")) {
-      if(poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI")
-      txb.moveCall({
-        target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_withdraw`,
-        typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
-          coinsList["BLUE"].type,
-        ],
-        arguments: [
-          txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-          txb.object(receipt[0].objectId),
-          txb.object(poolinfo.poolId),
-          txb.object(getConf().ALPHA_DISTRIBUTOR),
-          txb.object(poolinfo.investorId),
-          txb.pure.u128(xTokens),
-          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-          txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-          txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
-          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
-          txb.object(cetusPoolMap["DEEP-SUI"]),
-          txb.object(getConf().CLOCK_PACKAGE_ID),
-        ],
-      }); 
-    }
-    else{
+      if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_withdraw`,
+          typeArguments: [
+            coinsList[pool1].type,
+            coinsList[pool2].type,
+            coinsList["BLUE"].type,
+          ],
+          arguments: [
+            txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+            txb.object(receipt[0].objectId),
+            txb.object(poolinfo.poolId),
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(poolinfo.investorId),
+            txb.pure.u128(xTokens),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+            txb.object(cetusPoolMap["DEEP-SUI"]),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+      } else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_withdraw`,
+          typeArguments: [
+            coinsList[pool1].type,
+            coinsList[pool2].type,
+            coinsList["DEEP"].type,
+          ],
+          arguments: [
+            txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+            txb.object(receipt[0].objectId),
+            txb.object(poolinfo.poolId),
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(poolinfo.investorId),
+            txb.pure.u128(xTokens),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
+            txb.object(cetusPoolMap["BLUE-SUI"]),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+      }
+    } else {
       let alpha_receipt: any;
       if (alphaReceipt.length == 0) {
         [alpha_receipt] = txb.moveCall({
@@ -1517,11 +1538,10 @@ export const withdrawBluefinSuiSecondTxb = async (
           ],
         });
       }
-    } 
     }
-    else {
-      throw new Error("No receipt found!");
-    }
+  } else {
+    throw new Error("No receipt found!");
+  }
   return txb;
 };
 
