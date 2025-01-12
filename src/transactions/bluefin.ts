@@ -1386,7 +1386,7 @@ export const withdrawBluefinSuiSecondTxb = async (
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
             txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
-            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["DEEP-SUI"]),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
