@@ -76,7 +76,7 @@ export async function zapDepositTxb(
         inAmount: new BN(inputCoinAmount),
         slippage: slippage,
       };
-      const result = await zapSwap(swapOptionsI2B, txb);
+      const result = await zapSwap(swapOptionsI2B, txb, poolName);
       if (result) {
         amountB = result.amountOut;
         txb = result.tx;
@@ -113,7 +113,7 @@ export async function zapDepositTxb(
         inAmount: new BN(inputCoinAmount),
         slippage: slippage,
       };
-      const result = await zapSwap(swapOptionsI2A, txb);
+      const result = await zapSwap(swapOptionsI2A, txb, poolName);
       if (result) {
         amountA = result.amountOut;
         txb = result.tx;
@@ -135,7 +135,7 @@ export async function zapDepositTxb(
       slippage: slippage,
     };
 
-    const ratioQuote = await zapGetQuote(swapGateway, swapOptions);
+    const ratioQuote = await zapGetQuote(swapGateway, swapOptions, poolName);
     if (ratioQuote === undefined) {
       console.error("Error fetching ratioQuote for zap");
       return undefined;
@@ -171,7 +171,7 @@ export async function zapDepositTxb(
     };
 
     if (inputCoinName === coinTypeA) {
-      const result = await zapSwap(swapOptionsI2B, txb);
+      const result = await zapSwap(swapOptionsI2B, txb, poolName);
       if (result) {
         amountB = result.amountOut;
         txb = result.tx;
@@ -195,7 +195,7 @@ export async function zapDepositTxb(
         coin1 = res.coinOut;
       }
     } else if (inputCoinName === coinTypeB) {
-      const result = await zapSwap(swapOptionsI2A, txb);
+      const result = await zapSwap(swapOptionsI2A, txb, poolName);
       if (result) {
         amountA = result.amountOut;
         txb = result.tx;
@@ -219,7 +219,7 @@ export async function zapDepositTxb(
         coin2 = res.coinOut;
       }
     } else {
-      let result = await zapSwap(swapOptionsI2A, txb);
+      let result = await zapSwap(swapOptionsI2A, txb, poolName);
       if (result) {
         amountA = result.amountOut;
         txb = result.tx;
@@ -228,7 +228,7 @@ export async function zapDepositTxb(
         }
       }
 
-      result = await zapSwap(swapOptionsI2B, txb);
+      result = await zapSwap(swapOptionsI2B, txb, poolName);
       if (result) {
         amountB = result.amountOut;
         txb = result.tx;
@@ -252,8 +252,8 @@ export async function zapDepositTxb(
     const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
     const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
-    amountA = (Number(amountA) * 0.999).toString();
-    amountB = (Number(amountB) * 0.999).toString();
+    amountA = (Number(amountA) * 0.995).toString();
+    amountB = (Number(amountB) * 0.995).toString();
 
     if (poolInfo[poolName].parentProtocolName === "CETUS") {
       if (pool1 === "CETUS" && pool2 === "SUI") {
@@ -352,6 +352,7 @@ export async function zapDepositTxb(
 async function zapGetQuote(
   swapGateway: SevenKGateway,
   swapOptions: SwapOptions,
+  poolName: PoolName,
 ): Promise<string | undefined> {
   if (
     swapOptions.pair.coinA.name === "SUI" &&
@@ -372,7 +373,10 @@ async function zapGetQuote(
     );
     return amount.mul(exchangeRate).toString();
   } else {
-    const quoteResponse = await swapGateway.getQuote(swapOptions);
+    const quoteResponse = await swapGateway.getQuote(
+      swapOptions,
+      poolInfo[poolName].parentProtocolName.toLowerCase(),
+    );
     if (quoteResponse) {
       return quoteResponse.returnAmountWithDecimal
         ? quoteResponse.returnAmountWithDecimal
@@ -384,6 +388,7 @@ async function zapGetQuote(
 async function zapSwap(
   swapOptions: SwapOptions,
   txb: Transaction,
+  poolName: PoolName,
 ): Promise<
   | {
       tx: Transaction;
@@ -422,7 +427,10 @@ async function zapSwap(
   } else {
     console.log("7k swap", swapOptions);
     const swapGateway = new SevenKGateway();
-    const quoteResponse = await swapGateway.getQuote(swapOptions);
+    const quoteResponse = await swapGateway.getQuote(
+      swapOptions,
+      poolInfo[poolName].parentProtocolName.toLowerCase(),
+    );
     if (quoteResponse) {
       const result = await swapGateway.getTransactionBlock(
         swapOptions,
@@ -1669,7 +1677,7 @@ export async function getZapAmounts(
       slippage: slippage,
     };
 
-    const ratioQuote = await zapGetQuote(swapGateway, swapOptions);
+    const ratioQuote = await zapGetQuote(swapGateway, swapOptions, poolName);
     if (ratioQuote) {
       const amount1InCoinType2 = Number(ratioQuote);
       const totalAmount = amount2 + amount1InCoinType2;
@@ -1701,14 +1709,14 @@ export async function getZapAmounts(
         slippage: slippage,
       };
       if (inputCoinName === coinTypeA) {
-        amountB = await zapGetQuote(swapGateway, swapOptionsI2B);
+        amountB = await zapGetQuote(swapGateway, swapOptionsI2B, poolName);
         amountA = inputAmountToType1.toString();
       } else if (inputCoinName === coinTypeB) {
-        amountA = await zapGetQuote(swapGateway, swapOptionsI2A);
+        amountA = await zapGetQuote(swapGateway, swapOptionsI2A, poolName);
         amountB = inputAmountToType2.toString();
       } else {
-        amountA = await zapGetQuote(swapGateway, swapOptionsI2A);
-        amountB = await zapGetQuote(swapGateway, swapOptionsI2B);
+        amountA = await zapGetQuote(swapGateway, swapOptionsI2A, poolName);
+        amountB = await zapGetQuote(swapGateway, swapOptionsI2B, poolName);
       }
 
       if (amountA && amountB) {
