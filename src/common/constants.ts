@@ -110,7 +110,7 @@ export const conf = {
     ALPHA_BLUEFIN_AUTOBALANCE_FIRST_PACKAGE_ID:
       "0x7df55a5cb5d91bc52b20b8b12daadc7bdc64091767bc2325b5da9afadea13069",
     ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID:
-      "0xc012446520ad4e8e813cedb6f283756fdf604289b4a2b6ac13b5138afcfd7933",
+      "0xf9c862b14b6bce80856f2b5079d3a7fce57a7c81d49f98749909bdcdf61036c1",
 
     ALPHA_BLUEFIN_AUTOBALANCE_MODULE_PACKAGE_IDS: [
       "0x7df55a5cb5d91bc52b20b8b12daadc7bdc64091767bc2325b5da9afadea13069",
@@ -2768,9 +2768,9 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_AUTO_COMPOUNDING_EVENT:
       "0x754afbce8c72c8e491e3b9d536aa9d9766fdbc68650224ce01072189b235eee3::alphafi_bluefin_type_1_investor::AutoCompoundingEvent", //CHANGE
     ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x754afbce8c72c8e491e3b9d536aa9d9766fdbc68650224ce01072189b235eee3::alphafi_bluefin_sui_second_investor::AutoCompoundingEvent", //CHANGE
+      "0x0c3fe368a5234c423f55d99badd45f1c09f0f4a468ee0403fb455d276a5dac62::alphafi_bluefin_sui_second_investor::AutoCompoundingEvent", //CHANGE
     ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x754afbce8c72c8e491e3b9d536aa9d9766fdbc68650224ce01072189b235eee3::alphafi_bluefin_sui_second_investor::AutoCompoundingEvent", //CHANGE
+      "0x0c3fe368a5234c423f55d99badd45f1c09f0f4a468ee0403fb455d276a5dac62::alphafi_bluefin_sui_second_investor::AutoCompoundingEvent", //CHANGE
 
     //Rebalance Event Types
 

@@ -163,10 +163,11 @@ export async function calculateAprForInvestor(
       const poolName = investorPoolMap.get(events[0].investor_id.toString());
       const c1 = doubleAssetPoolCoinMap[poolName!].coin1;
       const c2 = doubleAssetPoolCoinMap[poolName!].coin2;
-      const [bluePrice, c1Price, c2Price] = await getLatestPrices(
-        ["BLUE/USD", `${c1}/USD`, `${c2}/USD`],
+      const [c1Price, c2Price] = await getLatestPrices(
+        [`${c1}/USD`, `${c2}/USD`],
         false,
       );
+      const [bluePrice] = await getLatestPrices(["BLUE/USD"], false);
 
       for (const event of events) {
         if ("blue_reward_amount" in event) {
