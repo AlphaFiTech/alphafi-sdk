@@ -19,13 +19,14 @@ export class SevenKGateway {
     setSuiClient(suiClient);
   }
 
-  async getQuote(options: sevenKSwapOptions) {
+  async getQuote(options: sevenKSwapOptions, excludedPools?: string[]) {
     const { pair, inAmount } = options;
     if (inAmount) {
       const quoteResponse = await getQuote({
         tokenIn: pair.coinA.type,
         tokenOut: pair.coinB.type,
         amountIn: inAmount.toString(),
+        excludedPools: excludedPools,
       });
       return quoteResponse;
     }
