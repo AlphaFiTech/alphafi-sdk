@@ -373,10 +373,9 @@ async function zapGetQuote(
     );
     return amount.mul(exchangeRate).toString();
   } else {
-    const quoteResponse = await swapGateway.getQuote(
-      swapOptions,
-      poolInfo[poolName].parentProtocolName.toLowerCase(),
-    );
+    const quoteResponse = await swapGateway.getQuote(swapOptions, [
+      poolInfo[poolName].parentPoolId,
+    ]);
     if (quoteResponse) {
       return quoteResponse.returnAmountWithDecimal
         ? quoteResponse.returnAmountWithDecimal
@@ -402,7 +401,6 @@ async function zapSwap(
     swapOptions.pair.coinA.name === "SUI" &&
     swapOptions.pair.coinB.name === "STSUI"
   ) {
-    console.log("mintTx called");
     const result = await mintTx(
       swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
       txb,
@@ -417,7 +415,6 @@ async function zapSwap(
     swapOptions.pair.coinA.name === "STSUI" &&
     swapOptions.pair.coinB.name === "SUI"
   ) {
-    console.log("redeemTx called");
     const result = await redeemTx(
       swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
       txb,
@@ -425,12 +422,10 @@ async function zapSwap(
     );
     return result;
   } else {
-    console.log("7k swap", swapOptions);
     const swapGateway = new SevenKGateway();
-    const quoteResponse = await swapGateway.getQuote(
-      swapOptions,
-      poolInfo[poolName].parentProtocolName.toLowerCase(),
-    );
+    const quoteResponse = await swapGateway.getQuote(swapOptions, [
+      poolInfo[poolName].parentPoolId,
+    ]);
     if (quoteResponse) {
       const result = await swapGateway.getTransactionBlock(
         swapOptions,

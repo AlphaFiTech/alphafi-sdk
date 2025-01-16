@@ -3,7 +3,6 @@ import {
   getQuote,
   QuoteResponse,
   setSuiClient,
-  SourceDex,
 } from "@7kprotocol/sdk-ts";
 import {
   Transaction,
@@ -20,33 +19,14 @@ export class SevenKGateway {
     setSuiClient(suiClient);
   }
 
-  async getQuote(options: sevenKSwapOptions, ignoreSource?: string) {
+  async getQuote(options: sevenKSwapOptions, excludedPools?: string[]) {
     const { pair, inAmount } = options;
-    let sources: SourceDex[] = [
-      "suiswap",
-      "turbos",
-      "cetus",
-      "bluemove",
-      "kriya",
-      "kriya_v3",
-      "aftermath",
-      "deepbook",
-      "deepbook_v3",
-      "flowx",
-      "bluefin",
-      "springsui",
-      "obric",
-      "stsui",
-    ];
-    if (ignoreSource)
-      sources = sources.filter((source) => source !== ignoreSource);
-
     if (inAmount) {
       const quoteResponse = await getQuote({
         tokenIn: pair.coinA.type,
         tokenOut: pair.coinB.type,
         amountIn: inAmount.toString(),
-        sources: sources,
+        excludedPools: excludedPools,
       });
       return quoteResponse;
     }
