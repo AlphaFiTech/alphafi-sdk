@@ -166,7 +166,11 @@ export async function claimRewardTxb(address: string) {
                 ],
               });
             });
-          } else if (poolName === "BLUEFIN-STSUI-USDC") {
+          } else if (
+            poolName === "BLUEFIN-STSUI-USDC" ||
+            poolName === "BLUEFIN-STSUI-WSOL" ||
+            poolName === "BLUEFIN-STSUI-ETH"
+          ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
                 target: `${poolInfo[poolName].packageId}::alphafi_bluefin_stsui_first_pool::get_user_rewards_all`,

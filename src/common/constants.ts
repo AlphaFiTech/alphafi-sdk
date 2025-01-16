@@ -2151,6 +2151,10 @@ export const conf = {
       "0x7df346f8ef98ad20869ff6d2fc7c43c00403a524987509091b39ce61dde00957",
     BLUE_DEEP_CETUS_POOL_ID:
       "0x63fc1f6213038a07b77716b1ab44e90eb1bcf8ad02ea5c6a70c53f8fdc27a2ad",
+    ETH_SUI_CETUS_POOL_ID:
+      "0x7079378d20cb521acc9a77c0d69da0e4b65cc07b2a1666868c95444939c3929e",
+    WSOL_SUI_CETUS_POOL_ID:
+      "0xf45b01f23e9951e37733b76c8cc7d22dcd23141aa246a86e17595a7aca610e1d",
 
     //Cetus Info Id's
 
@@ -2750,9 +2754,9 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_ETH_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_WSOL_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_SUIUSDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
@@ -3185,8 +3189,10 @@ export const conf = {
       "0x73549e0918d10727e324ebeed11ab81ab46f8fadb11078a0641f117d9097b725",
     BLUEFIN_STSUI_USDC_POOL:
       "0x151d6959cb2a6d1a5b6cfec6d1eae690af0318e46e5fb3ec45dd4e3b67eebeda",
-    BLUEFIN_STSUI_ETH_POOL: "",
-    BLUEFIN_STSUI_WSOL_POOL: "",
+    BLUEFIN_STSUI_ETH_POOL:
+      "0x38e058d059d2bd6d00d2c85a7b0656a232cada12441fb406cd3ab29c6822b550",
+    BLUEFIN_STSUI_WSOL_POOL:
+      "0x1236ad7cce4e8d432221c1ff8084fc062614c4834927d6086ed2dc79c4dc504c",
     BLUEFIN_ALPHA_STSUI_POOL:
       "0xd4051b5dc76ca354e48813268aa79de38b274878ef6a9d274066ae5a47f46cc6",
     BLUEFIN_SUI_ALPHA_POOL:
@@ -3195,6 +3201,10 @@ export const conf = {
       "0x0bd95d012d60190a6713ae51f2d833b24ae70c5fb07fcfb41db40f25549878b1",
     BLUEFIN_DEEP_BLUE_POOL:
       "0x4b8271fc4819078e44ee9a0506a824b77464789d57ace355d0562a4776c51840",
+    BLUEFIN_SUI_ETH_POOL:
+      "0x788e945ce279153de07a6d392406487539060ee3d28046beb35c3024559ef863",
+    BLUEFIN_SUI_WSOL_POOL:
+      "0x934b80a8fd75a1686ae90d09441774cc04d46916fc3ccb8bfe84a74f046802af",
 
     // stsui
     LST_INFO:
