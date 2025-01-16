@@ -2754,9 +2754,9 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_USDC_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_ETH_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_WSOL_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x2db488439eb7c31010515a6534ea185a99e17b287ef01b618a74cdd134552f4e::alphafi_bluefin_type_2_investor::AutoCompoundingEvent",
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_ALPHA_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_SUIUSDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
