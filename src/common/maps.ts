@@ -407,8 +407,8 @@ export const poolInfo: {
     imageUrl2: "https://images.alphafi.xyz/adminweb/stsui.svg",
   },
   "BLUEFIN-STSUI-WSOL": {
-    packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
-    packageNumber: 4,
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
     parentProtocolName: "BLUEFIN",
     parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_WSOL_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_WSOL_POOL,
@@ -425,8 +425,8 @@ export const poolInfo: {
     // add strategy type
   },
   "BLUEFIN-STSUI-ETH": {
-    packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
-    packageNumber: 4,
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
     parentProtocolName: "BLUEFIN",
     parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_ETH_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_ETH_POOL,
