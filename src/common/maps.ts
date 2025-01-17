@@ -103,6 +103,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-LOOP-USDT-USDC": { coin: "USDT" },
   "NAVI-NS": { coin: "NS" },
   "NAVI-NAVX": { coin: "NAVX" },
+  "NAVI-STSUI": { coin: "STSUI" },
 };
 
 export const loopingPoolCoinMap: {
@@ -130,6 +131,7 @@ export const naviAssetMap: {
   AUSD: "9",
   ETH: "11",
   NS: "13",
+  STSUI: "20",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -166,7 +168,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "BLUE-USDC": conf[CONF_ENV].BLUE_USDC_CETUS_POOL_ID,
   "USDC-SEND": conf[CONF_ENV].USDC_SEND_CETUS_POOL_ID,
   "WBTC-SUI": conf[CONF_ENV].WBTC_SUI_CETUS_POOL_ID,
-  // "STSUI-SUI": conf[CONF_ENV].STSUI_SUI_CETUS_POOL_ID,
+  "STSUI-SUI": conf[CONF_ENV].STSUI_SUI_CETUS_POOL_ID,
   // "USDC-STSUI": conf[CONF_ENV].USDC_STSUI_CETUS_POOL_ID,
   // "STSUI-ETH": conf[CONF_ENV].STSUI_ETH_CETUS_POOL_ID,
   // "STSUI-WSOL": conf[CONF_ENV].STSUI_WSOL_CETUS_POOL_ID,
@@ -233,6 +235,24 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "NAVI-STSUI": {
+    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+    packageNumber: 3,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_STSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_STSUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_STSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_STSUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_STSUI_POOL_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+  },
   "BLUEFIN-AUTOBALANCE-DEEP-SUI": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
