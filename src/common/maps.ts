@@ -80,6 +80,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-DEEP-BLUE": { coin1: "DEEP", coin2: "BLUE" },
   "BLUEFIN-AUTOBALANCE-DEEP-SUI": { coin1: "DEEP", coin2: "SUI" },
   "BLUEFIN-AUTOBALANCE-BLUE-SUI": { coin1: "BLUE", coin2: "SUI" },
+  "BLUEFIN-STSUI-BUCK": { coin1: "STSUI", coin2: "BUCK" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -103,6 +104,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-LOOP-USDT-USDC": { coin: "USDT" },
   "NAVI-NS": { coin: "NS" },
   "NAVI-NAVX": { coin: "NAVX" },
+  "NAVI-STSUI": { coin: "STSUI" },
 };
 
 export const loopingPoolCoinMap: {
@@ -130,6 +132,7 @@ export const naviAssetMap: {
   AUSD: "9",
   ETH: "11",
   NS: "13",
+  STSUI: "20",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -166,7 +169,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "BLUE-USDC": conf[CONF_ENV].BLUE_USDC_CETUS_POOL_ID,
   "USDC-SEND": conf[CONF_ENV].USDC_SEND_CETUS_POOL_ID,
   "WBTC-SUI": conf[CONF_ENV].WBTC_SUI_CETUS_POOL_ID,
-  // "STSUI-SUI": conf[CONF_ENV].STSUI_SUI_CETUS_POOL_ID,
+  "STSUI-SUI": conf[CONF_ENV].STSUI_SUI_CETUS_POOL_ID,
   // "USDC-STSUI": conf[CONF_ENV].USDC_STSUI_CETUS_POOL_ID,
   // "STSUI-ETH": conf[CONF_ENV].STSUI_ETH_CETUS_POOL_ID,
   // "STSUI-WSOL": conf[CONF_ENV].STSUI_WSOL_CETUS_POOL_ID,
@@ -233,6 +236,42 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-STSUI-BUCK": {
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_BUCK_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type, conf[CONF_ENV].BUCK_COIN_TYPE],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
+  "NAVI-STSUI": {
+    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+    packageNumber: 3,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_STSUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_STSUI_POOL,
+    investorId: conf[CONF_ENV].NAVI_STSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_STSUI_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_STSUI_POOL_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+  },
   "BLUEFIN-AUTOBALANCE-DEEP-SUI": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
@@ -1922,4 +1961,5 @@ export const ignoredWalletsForDailyRevenue = [
   "0x6b3a7df97bcad34c277106fef70444fa26e2bfbcd711c9c26f824869a66bb70a",
   "0xff9c536c8f78e28ad4c9f0d916ea98980c3c3be32b91461eaa8fbd6ac0b737aa",
   "0x6a498c57c18306e0af942442a5d20e5b2940939b4937ed52f4b17e3fa99972f5",
+  "0xbdaee7c803e5db14b6571d78d05e152057b72bace936566b8403b760d5d228e8",
 ];
