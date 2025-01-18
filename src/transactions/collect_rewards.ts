@@ -169,7 +169,9 @@ export async function claimRewardTxb(address: string) {
           } else if (
             poolName === "BLUEFIN-STSUI-USDC" ||
             poolName === "BLUEFIN-STSUI-WSOL" ||
-            poolName === "BLUEFIN-STSUI-ETH"
+            poolName === "BLUEFIN-STSUI-ETH" ||
+            poolName === "BLUEFIN-STSUI-BUCK" ||
+            poolName === "BLUEFIN-STSUI-MUSD"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({

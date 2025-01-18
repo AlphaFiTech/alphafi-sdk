@@ -181,4 +181,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 6,
   },
+  MUSD: {
+    name: "MUSD",
+    type: "0xe44df51c0b21a27ab915fa1fe2ca610cd3eaa6d9666fe5e62b988bf7f0bd8722::musd::MUSD",
+    icon: "",
+    expo: 9,
+  },
 };
