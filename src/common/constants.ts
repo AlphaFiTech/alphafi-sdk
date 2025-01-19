@@ -2164,7 +2164,8 @@ export const conf = {
       "0x7079378d20cb521acc9a77c0d69da0e4b65cc07b2a1666868c95444939c3929e",
     WSOL_SUI_CETUS_POOL_ID:
       "0xf45b01f23e9951e37733b76c8cc7d22dcd23141aa246a86e17595a7aca610e1d",
-    MUSD_SUI_CETUS_POOL_ID: "",
+    MUSD_SUI_CETUS_POOL_ID:
+      "0x7da922f6ebc9a5a83668fd1078f257d636a61ff78c7c55aeeca42e1efdf007fc",
 
     //Cetus Info Id's
 
@@ -3253,8 +3254,10 @@ export const conf = {
       "0x934b80a8fd75a1686ae90d09441774cc04d46916fc3ccb8bfe84a74f046802af",
     BLUEFIN_STSUI_BUCK_POOL:
       "0x0bc35f5b7e7b77dadc62c2630e9efafb1beb4122fd5393bf3b99586abf3ca8b1",
-    BLUEFIN_STSUI_MUSD_POOL: "",
-    BLUEFIN_SUI_MUSD_POOL: "",
+    BLUEFIN_STSUI_MUSD_POOL:
+      "0x0da4bcb1669ae3b6ce80f024e3a2076e2c4e2cc899d4724fce94da0f729bc968",
+    BLUEFIN_SUI_MUSD_POOL:
+      "0x66e1ed3181accbd954c74b5276a85f34ef71a5c2ad3e40b0ab2c3bcc8324632a",
 
     // stsui
     LST_INFO:
