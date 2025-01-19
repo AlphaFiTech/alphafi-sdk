@@ -81,6 +81,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-DEEP-SUI": { coin1: "DEEP", coin2: "SUI" },
   "BLUEFIN-AUTOBALANCE-BLUE-SUI": { coin1: "BLUE", coin2: "SUI" },
   "BLUEFIN-STSUI-BUCK": { coin1: "STSUI", coin2: "BUCK" },
+  "BLUEFIN-STSUI-MUSD": { coin1: "STSUI", coin2: "MUSD" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -177,6 +178,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "BLUE-DEEP": conf[CONF_ENV].BLUE_DEEP_CETUS_POOL_ID,
   "ETH-SUI": conf[CONF_ENV].ETH_SUI_CETUS_POOL_ID,
   "WSOL-SUI": conf[CONF_ENV].WSOL_SUI_CETUS_POOL_ID,
+  "MUSD-SUI": conf[CONF_ENV].MUSD_SUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -204,6 +206,8 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "DEEP-BLUE": conf[CONF_ENV].BLUEFIN_DEEP_BLUE_POOL,
   "SUI-ETH": conf[CONF_ENV].BLUEFIN_SUI_ETH_POOL,
   "SUI-WSOL": conf[CONF_ENV].BLUEFIN_SUI_WSOL_POOL,
+  "SUI-MUSD": conf[CONF_ENV].BLUEFIN_SUI_MUSD_POOL,
+  "STSUI-MUSD": conf[CONF_ENV].BLUEFIN_STSUI_MUSD_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -236,6 +240,24 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-STSUI-MUSD": {
+    packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
+    packageNumber: 6,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_MUSD_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type, coinsList["MUSD"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "BLUEFIN-STSUI-BUCK": {
     packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
     packageNumber: 6,
