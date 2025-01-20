@@ -118,4 +118,10 @@ export const pythPriceFeed: PythPriceFeed = {
       "0xfdf28a46570252b25fd31cb257973f865afc5ca2f320439e45d95e0394bc7382",
     name: "BUCK",
   },
+  "MUSD/USD": {
+    symbol: "Crypto.USDT/USD",
+    priceId:
+      "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
+    name: "USDT",
+  },
 };
