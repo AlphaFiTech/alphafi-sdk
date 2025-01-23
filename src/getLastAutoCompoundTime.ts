@@ -5,7 +5,7 @@ export async function getLastAutoCompoundTime(
   poolName: PoolName,
 ): Promise<string> {
   const endTime = Date.now();
-  const startTime = endTime - 2 * 60 * 60 * 1000; // timestamp for 2 hours ago
+  const startTime = endTime - 3 * 60 * 60 * 1000; // timestamp for 3 hours ago
   const events = await fetchAutoCompoundingEvents({
     startTime: startTime,
     endTime: endTime,
