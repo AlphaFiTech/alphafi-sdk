@@ -166,7 +166,7 @@ export const depositBluefinSuiFirstTxb = async (
         });
       } else if (poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC") {
         txb.moveCall({
-          target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit`,
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[pool1].type,
             coinsList[pool2].type,
@@ -186,6 +186,8 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
             txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(cetusPoolMap["USDC-SUI"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
