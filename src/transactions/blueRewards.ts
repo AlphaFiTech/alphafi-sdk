@@ -24,7 +24,7 @@ export async function claimBlueRewardTxb(
     let blueBalance: TransactionResult;
     if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
       blueBalance = txb.moveCall({
-        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards`,
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["USDT"].type,
           coinsList["USDC"].type,
@@ -43,12 +43,14 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
           txb.object(cetusPoolMap["USDC-USDT"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC") {
       blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::get_user_rewards`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["SUI"].type,
           coinsList["USDC"].type,
@@ -66,12 +68,14 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
           txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC") {
       blueBalance = txb.moveCall({
-        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards`,
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["SUIUSDT"].type,
           coinsList["USDC"].type,
@@ -90,12 +94,14 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
           txb.object(cetusPoolMap["USDC-SUIUSDT"]),
           txb.object(cetusPoolMap["USDC-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-BLUE") {
       blueBalance = txb.moveCall({
-        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards`,
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["DEEP"].type,
           coinsList["BLUE"].type,
@@ -114,12 +120,14 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
           txb.object(cetusPoolMap["BLUE-DEEP"]),
           txb.object(cetusPoolMap["BLUE-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
       blueBalance = txb.moveCall({
-        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards`,
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["DEEP"].type,
           coinsList["SUI"].type,
@@ -136,12 +144,14 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(cetusPoolMap["DEEP-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
       blueBalance = txb.moveCall({
-        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards`,
+        target: `${poolInfo[poolName].packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v2`,
         typeArguments: [
           coinsList["BLUE"].type,
           coinsList["SUI"].type,
@@ -158,6 +168,8 @@ export async function claimBlueRewardTxb(
           txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
           txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
           txb.object(cetusPoolMap["BLUE-SUI"]),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
