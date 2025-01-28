@@ -82,6 +82,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-BLUE-SUI": { coin1: "BLUE", coin2: "SUI" },
   "BLUEFIN-STSUI-BUCK": { coin1: "STSUI", coin2: "BUCK" },
   "BLUEFIN-STSUI-MUSD": { coin1: "STSUI", coin2: "MUSD" },
+  "BLUEFIN-FUNGIBLE-STSUI-SUI": { coin1: "STSUI", coin2: "SUI" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -240,6 +241,28 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-FUNGIBLE-STSUI-SUI": {
+    packageId: conf[CONF_ENV].ALPHA_FUNGIBLE_LATEST_PACKAGE_ID,
+    packageNumber: 8,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT,
+    assetTypes: [coinsList["STSUI"].type, conf[CONF_ENV].SUI_COIN_TYPE],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+    imageUrl1: "https://images.alphafi.xyz/adminweb/stsui.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
+  },
   "BLUEFIN-STSUI-MUSD": {
     packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
     packageNumber: 6,

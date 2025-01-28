@@ -7,6 +7,7 @@ import {
   withdrawCetusTxb,
 } from "./cetus.js";
 import {
+  withdrawBluefinFungibleTxb,
   withdrawBluefinStsuiTxb,
   withdrawBluefinSuiFirstTxb,
   withdrawBluefinSuiSecondTxb,
@@ -44,7 +45,11 @@ export async function withdrawTxb(
   } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
     const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
     const coin2 = doubleAssetPoolCoinMap[poolName].coin2;
-    if (
+    if (poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+      txb = await withdrawBluefinFungibleTxb(xTokensAmount, poolName, {
+        address,
+      });
+    } else if (
       poolName === "BLUEFIN-NAVX-VSUI" ||
       poolName === "BLUEFIN-ALPHA-USDC" ||
       poolName === "BLUEFIN-BLUE-USDC"

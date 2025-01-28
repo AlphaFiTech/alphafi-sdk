@@ -187,4 +187,16 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 9,
   },
+  FT_BLUEFIN_STSUI_SUI: {
+    name: "FT_BLUEFIN_STSUI_SUI",
+    type: "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI",
+    icon: "",
+    expo: 9,
+  },
+  "AlphaFi stSUI-SUI LP": {
+    name: "AlphaFi stSUI-SUI LP",
+    type: "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI", //change
+    icon: "",
+    expo: 9,
+  },
 };

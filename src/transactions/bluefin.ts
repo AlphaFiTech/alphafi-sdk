@@ -1,4 +1,7 @@
-import { Transaction } from "@mysten/sui/transactions";
+import {
+  Transaction,
+  TransactionObjectArgument,
+} from "@mysten/sui/transactions";
 import { CoinStruct } from "@mysten/sui/client";
 import { coinsList } from "../common/coins.js";
 import { getConf } from "../common/constants.js";
@@ -1361,6 +1364,140 @@ export const depositBluefinStsuiTxb = async (
 
   return txb;
 };
+const getCoinObject = async (
+  type: string,
+  address: string,
+  tx?: Transaction,
+): Promise<string | TransactionObjectArgument | undefined> => {
+  let txb: Transaction;
+  if (!tx) {
+    txb = new Transaction();
+  } else {
+    txb = tx;
+  }
+  let coins1: CoinStruct[] = [];
+
+  let currentCursor: string | null | undefined = null;
+
+  do {
+    const response = await getSuiClient().getCoins({
+      owner: address,
+      coinType: type,
+      cursor: currentCursor,
+    });
+
+    coins1 = coins1.concat(response.data);
+
+    // Check if there's a next page
+    if (response.hasNextPage && response.nextCursor) {
+      currentCursor = response.nextCursor;
+    } else {
+      // No more pages available
+      // console.log("No more receipts available.");
+      break;
+    }
+  } while (true);
+
+  if (coins1.length >= 1) {
+    //coin1
+    const [coin1] = txb.splitCoins(coins1[0].coinObjectId, [0]);
+    txb.mergeCoins(
+      coin1,
+      coins1.map((c) => c.coinObjectId),
+    );
+    return coin1;
+  }
+};
+export const depositBluefinFungibleTxb = async (
+  amount: string,
+  poolName: PoolName,
+  isAmountA: boolean,
+  options: { address: string },
+  transaction: Transaction | undefined = undefined,
+): Promise<Transaction> => {
+  const suiClient = getSuiClient();
+  const address = options.address;
+  let txb;
+  if (transaction) txb = transaction;
+  else txb = new Transaction();
+  poolName = poolName.toUpperCase() as PoolName;
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+
+  let coins1: CoinStruct[] = [];
+
+  let currentCursor: string | null | undefined = null;
+
+  do {
+    const response = await suiClient.getCoins({
+      owner: address,
+      coinType: coinsList[pool1].type,
+      cursor: currentCursor,
+    });
+
+    coins1 = coins1.concat(response.data);
+
+    // Check if there's a next page
+    if (response.hasNextPage && response.nextCursor) {
+      currentCursor = response.nextCursor;
+    } else {
+      // No more pages available
+      // console.log("No more receipts available.");
+      break;
+    }
+  } while (true);
+
+  const amounts = await getAmounts(poolName, isAmountA, amount);
+  if (amounts) {
+    const amount1 = amounts[0];
+    const amount2 = amounts[1];
+
+    let coin1: any;
+    if (coins1.length >= 1) {
+      //coin1
+      [coin1] = txb.splitCoins(txb.object(coins1[0].coinObjectId), [0]);
+      txb.mergeCoins(
+        coin1,
+        coins1.map((c) => c.coinObjectId),
+      );
+      const [depositCoinA] = txb.splitCoins(coin1, [amount1]);
+
+      //coin2
+      const [depositCoinB] = txb.splitCoins(txb.gas, [amount2]);
+      const poolinfo = poolInfo[poolName];
+      if (poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_stsui_sui_ft_pool::user_deposit`,
+          typeArguments: [
+            coinsList[pool1].type,
+            coinsList[pool2].type,
+            poolinfo.receiptType,
+            coinsList["BLUE"].type,
+          ],
+          arguments: [
+            txb.object(getConf().ALPHA_FUNGIBLE_VERSION),
+            txb.object(poolinfo.poolId),
+            depositCoinA,
+            depositCoinB,
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_STSUI_SUI_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+      }
+      txb.transferObjects([coin1], address);
+    } else {
+      throw new Error(`No ${pool1} or ${pool2} Coins`);
+    }
+  }
+
+  return txb;
+};
 
 export const withdrawBluefinSuiFirstTxb = async (
   xTokens: string,
@@ -2416,5 +2553,50 @@ export const withdrawBluefinStsuiTxb = async (
     throw new Error("No receipt found!");
   }
 
+  return txb;
+};
+
+export const withdrawBluefinFungibleTxb = async (
+  xTokens: string,
+  poolName: PoolName,
+  options: { address: string },
+) => {
+  const address = options.address;
+  const txb = new Transaction();
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+  const poolinfo = poolInfo[poolName];
+  const ftCoin = await getCoinObject(poolinfo.receiptType, address, txb);
+
+  if (ftCoin) {
+    const ftCoinsToBurn = txb.splitCoins(ftCoin, [xTokens]);
+    if (poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_bluefin_stsui_sui_ft_pool::user_withdraw`,
+        typeArguments: [
+          coinsList[pool1].type,
+          coinsList[pool2].type,
+          poolinfo.receiptType,
+          coinsList["BLUE"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_FUNGIBLE_VERSION),
+          ftCoinsToBurn,
+          txb.object(poolinfo.poolId),
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(poolinfo.investorId),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(getConf().BLUEFIN_STSUI_SUI_POOL),
+          txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+          txb.object(getConf().LST_INFO),
+          txb.object(getConf().SUI_SYSTEM_STATE),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+    txb.transferObjects([ftCoin], address);
+  } else {
+    throw new Error("No ftCoin found!");
+  }
   return txb;
 };
