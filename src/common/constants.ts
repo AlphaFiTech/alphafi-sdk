@@ -92,10 +92,11 @@ export const conf = {
     ALPHA_5_FIRST_PACKAGE_ID:
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
     ALPHA_5_LATEST_PACKAGE_ID:
-      "0x7d43ebc5ab6c2b6a9d239a3943317a36ce2ae845065bcf172c9b66143f614ebb",
+      "0x23ae347690affdb0ff649eb1962e251e5b829c97cf57f2181a7108f8027a2db5",
 
     ALPHA_5_MODULE_PACKAGE_IDS: [
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
+      "0x6f65debb771fdcd88c1e8761a18d159495ce0f63410c49671197cad0041c8d27",
     ],
     ALPHA_5_PACKAGE_IDS: [],
     ALPHA_STSUI_FIRST_PACKAGE_ID:
@@ -304,6 +305,8 @@ export const conf = {
       "0xa9994303e2720d28f02f47b65f08480ee148d7fbe3a838a6cbb0c0da535fceb9",
     ALPHAFI_NAVI_STSUI_POOL:
       "0xd1125035ab6e2889239442031c130c641b75b430b71057bb79710ad578cc2867",
+    ALPHAFI_NAVI_LOOP_SUI_STSUI_POOL:
+      "0xd14d56ae4773ebaa2af9985101183d1025c94c54466b5e613d8b80743f645f50",
 
     //alphafi bucket pools
 
@@ -576,6 +579,8 @@ export const conf = {
       "0x19effc071a37f4666732651bdd46e7ac798ed71545c793b60d1df280e6f7d65e",
     NAVI_STSUI_INVESTOR:
       "0x3a5d769b84ea9ba9ae76a9a4a48f8f3880b0ab3a36564d42922d507da8d5bd06",
+    NAVI_LOOP_SUI_STSUI_INVESTOR:
+      "0xd0eb060970709063b349f1c14686607351ba2b831d3d9d3da3a55c7ff481b5a9",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -802,8 +807,9 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
+    NAVI_LOOP_SUI_STSUI_RECEIPT:
+      "0x6f65debb771fdcd88c1e8761a18d159495ce0f63410c49671197cad0041c8d27::alphafi_navi_sui_stsui_pool::Receipt", //chnage
     // Receipt Names
-
     ALPHA_POOL_RECEIPT_NAME: "Betafi-BETA-receipt",
 
     ALPHA_SUI_POOL_RECEIPT_NAME: "Betafi-ALPHA-SUI-receipt",
@@ -906,6 +912,7 @@ export const conf = {
       "AlphaFi-Bluefin STSUI-BUCK Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT_NAME:
       "AlphaFi-Bluefin STSUI-MUSD Receipt",
+    NAVI_SUI_STSUI_LOOP_RECEIPT_NAME: "Betafi-Navi-STSUI-SUI-LOOP-receipt",
 
     //alphafi navi account addresses
     NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS:
@@ -914,6 +921,7 @@ export const conf = {
     NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS: "",
     NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS:
       "0xc4056b0ab35b8e28caf9da260249d998931cb4d854804204a40e9afe6c019b21",
+    NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS: "",
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
@@ -1079,6 +1087,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::AutoCompoundingEvent", //change
     //Rebalance Event Types
 
     ALPHA_SUI_POOL_REBALANCE_EVENT:
@@ -1376,6 +1386,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_LIQUIDITY_CHANGE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeEvent", //change
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
       "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::WithdrawEventV2",
@@ -1457,6 +1469,8 @@ export const conf = {
 
     NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT:
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_investor::CheckRatioEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::CheckRatio", //change
 
     // Wallets
 
@@ -2055,6 +2069,7 @@ export const conf = {
       "0x35f7260fefe3dde7fa5b4bf1319f15554934a94c74acd4ba54161f99470c348f",
     ALPHAFI_NAVI_STSUI_POOL:
       "0xd1125035ab6e2889239442031c130c641b75b430b71057bb79710ad578cc2867",
+    ALPHAFI_NAVI_LOOP_SUI_STSUI_POOL: "",
 
     //alphafi bucket pools
 
@@ -2358,6 +2373,7 @@ export const conf = {
       "0xcc7bcb6a7fb530349292a5ca675695150372f42171ab2b4f2b2dd6aa0fd63ac9",
     NAVI_STSUI_INVESTOR:
       "0x3a5d769b84ea9ba9ae76a9a4a48f8f3880b0ab3a36564d42922d507da8d5bd06",
+    NAVI_LOOP_SUI_STSUI_INVESTOR: "",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -2575,6 +2591,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
+    NAVI_LOOP_SUI_STSUI_RECEIPT:
+      "0x6f65debb771fdcd88c1e8761a18d159495ce0f63410c49671197cad0041c8d27::alphafi_navi_sui_stsui_pool::Receipt", //chnage
 
     //AUTOBALANCE POOLS
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_RECEIPT:
@@ -2696,6 +2714,7 @@ export const conf = {
       "AlphaFi-Bluefin STSUI-BUCK Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT_NAME:
       "AlphaFi-Bluefin STSUI-MUSD Receipt",
+    NAVI_SUI_STSUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi SUI-STSUI Receipt",
 
     //alphafi navi account addresses
     NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS:
@@ -2705,6 +2724,7 @@ export const conf = {
     NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS:
       "0x3d1c9fbaf2b70c1f7f15a903d08d6b5555b6a8a898d5e6abd1b9dbe8741290f9",
     NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS: "",
+    NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS: "",
 
     // Event-related Timestamps
     // format: module_event_start/end
@@ -2864,6 +2884,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::AutoCompoundingEvent", //change
 
     // autobalance
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
@@ -3177,6 +3199,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_LIQUIDITY_CHANGE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeEvent", //change
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
@@ -3243,6 +3267,8 @@ export const conf = {
 
     NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT:
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_investor::CheckRatioEvent",
+    NAVI_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT:
+      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::CheckRatio", //change
 
     // Cetus Events
     CETUS_ADD_LIQUIDITY_EVENT:
