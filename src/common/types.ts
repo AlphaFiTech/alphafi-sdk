@@ -27,7 +27,8 @@ export type LoopingPoolNames =
   | "NAVI-LOOP-HASUI-SUI"
   | "NAVI-LOOP-USDT-USDC"
   | "NAVI-LOOP-SUI-VSUI"
-  | "NAVI-LOOP-USDC-USDT";
+  | "NAVI-LOOP-USDC-USDT"
+  | "NAVI-LOOP-SUI-STSUI";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
