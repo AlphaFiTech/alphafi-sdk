@@ -53,6 +53,22 @@ export async function claimRewardTxb(address: string) {
               ],
             });
           });
+        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
+          receipts.forEach((receipt) => {
+            alpha_receipt = txb.moveCall({
+              target: `${poolInfo[poolName].packageId}::alphafi_navi_sui_stsui_pool::get_user_rewards_all`,
+              arguments: [
+                txb.object(getConf().ALPHA_5_VERSION),
+                txb.object(getConf().VERSION),
+                txb.object(receipt.objectId),
+                alpha_receipt,
+                txb.object(poolInfo[poolName].poolId),
+                txb.object(poolInfo["ALPHA"].poolId),
+                txb.object(getConf().ALPHA_DISTRIBUTOR),
+                txb.object(getConf().CLOCK_PACKAGE_ID),
+              ],
+            });
+          });
         }
       } else if (
         poolInfo[poolName].packageNumber == 4 ||
@@ -305,22 +321,6 @@ export async function claimRewardTxb(address: string) {
               target: `${poolInfo[poolName].packageId}::alphafi_navi_hasui_sui_pool::get_user_rewards_all`,
               arguments: [
                 txb.object(getConf().ALPHA_2_VERSION),
-                txb.object(getConf().VERSION),
-                txb.object(receipt.objectId),
-                alpha_receipt,
-                txb.object(poolInfo[poolName].poolId),
-                txb.object(poolInfo["ALPHA"].poolId),
-                txb.object(getConf().ALPHA_DISTRIBUTOR),
-                txb.object(getConf().CLOCK_PACKAGE_ID),
-              ],
-            });
-          });
-        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
-          receipts.forEach((receipt) => {
-            alpha_receipt = txb.moveCall({
-              target: `${poolInfo[poolName].packageId}::alphafi_navi_sui_stsui_pool::get_user_rewards_all`,
-              arguments: [
-                txb.object(getConf().ALPHA_5_VERSION),
                 txb.object(getConf().VERSION),
                 txb.object(receipt.objectId),
                 alpha_receipt,
