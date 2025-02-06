@@ -82,6 +82,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-BLUE-SUI": { coin1: "BLUE", coin2: "SUI" },
   "BLUEFIN-STSUI-BUCK": { coin1: "STSUI", coin2: "BUCK" },
   "BLUEFIN-STSUI-MUSD": { coin1: "STSUI", coin2: "MUSD" },
+  "BLUEFIN-SUIBTC-USDC": { coin1: "SUIBTC", coin2: "USDC" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -180,6 +181,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "ETH-SUI": conf[CONF_ENV].ETH_SUI_CETUS_POOL_ID,
   "WSOL-SUI": conf[CONF_ENV].WSOL_SUI_CETUS_POOL_ID,
   "MUSD-SUI": conf[CONF_ENV].MUSD_SUI_CETUS_POOL_ID,
+  "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -209,6 +211,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUI-WSOL": conf[CONF_ENV].BLUEFIN_SUI_WSOL_POOL,
   "SUI-MUSD": conf[CONF_ENV].BLUEFIN_SUI_MUSD_POOL,
   "STSUI-MUSD": conf[CONF_ENV].BLUEFIN_STSUI_MUSD_POOL,
+  "SUIBTC-USDC": conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -242,6 +245,24 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "BLUEFIN-SUIBTC-USDC": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,
+    packageNumber: 8,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type, coinsList["USDC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
+    // add strategy type
+  },
   "NAVI-LOOP-SUI-STSUI": {
     packageId: conf[CONF_ENV].ALPHA_5_LATEST_PACKAGE_ID,
     packageNumber: 5,

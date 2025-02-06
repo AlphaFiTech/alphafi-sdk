@@ -74,6 +74,7 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-SUIUSDT-USDC"
   | "BLUEFIN-STSUI-BUCK"
   | "BLUEFIN-STSUI-MUSD"
+  | "BLUEFIN-SUIBTC-USDC"
   | AutoBalancePoolNames;
 
 export type AutoBalancePoolNames =
@@ -115,7 +116,8 @@ export type CoinName =
   | "SEND"
   | "STSUI"
   | "SUIUSDT"
-  | "MUSD";
+  | "MUSD"
+  | "SUIBTC";
 
 export type StrategyType =
   | "LOOPING"
@@ -207,7 +209,8 @@ export type CoinType =
   | "0xb45fcfcc2cc07ce0702cc2d229621e046c906ef14d9b25e8e4d25f6e8763fef7::send::SEND"
   | "0xd1b72982e40348d069bb1ff701e634c117bb5f741f44dff91e472d3b01461e55::stsui::STSUI"
   | "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT"
-  | "0xe44df51c0b21a27ab915fa1fe2ca610cd3eaa6d9666fe5e62b988bf7f0bd8722::musd::MUSD";
+  | "0xe44df51c0b21a27ab915fa1fe2ca610cd3eaa6d9666fe5e62b988bf7f0bd8722::musd::MUSD"
+  | "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
