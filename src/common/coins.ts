@@ -191,6 +191,6 @@ export const coinsList: { [key in CoinName]: Coin } = {
     name: "SUIBTC",
     type: "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC",
     icon: "",
-    expo: 8
-  }
+    expo: 8,
+  },
 };

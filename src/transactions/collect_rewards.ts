@@ -36,8 +36,8 @@ export async function claimRewardTxb(address: string) {
     const receipts = await getReceipts(poolName as PoolName, address, false);
     if (poolName == "ALPHA") {
     } else {
-      if(poolInfo[poolName].packageNumber == 8){
-        if(poolName === "BLUEFIN-SUIBTC-USDC"){
+      if (poolInfo[poolName].packageNumber == 8) {
+        if (poolName === "BLUEFIN-SUIBTC-USDC") {
           receipts.forEach((receipt) => {
             alpha_receipt = txb.moveCall({
               target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_all`,
@@ -55,8 +55,7 @@ export async function claimRewardTxb(address: string) {
             });
           });
         }
-      }
-      else if (poolInfo[poolName].packageNumber == 5) {
+      } else if (poolInfo[poolName].packageNumber == 5) {
         if (poolName == "NAVI-LOOP-USDT-USDC") {
           receipts.forEach((receipt) => {
             alpha_receipt = txb.moveCall({

@@ -181,7 +181,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "ETH-SUI": conf[CONF_ENV].ETH_SUI_CETUS_POOL_ID,
   "WSOL-SUI": conf[CONF_ENV].WSOL_SUI_CETUS_POOL_ID,
   "MUSD-SUI": conf[CONF_ENV].MUSD_SUI_CETUS_POOL_ID,
-  "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID
+  "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -211,7 +211,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUI-WSOL": conf[CONF_ENV].BLUEFIN_SUI_WSOL_POOL,
   "SUI-MUSD": conf[CONF_ENV].BLUEFIN_SUI_MUSD_POOL,
   "STSUI-MUSD": conf[CONF_ENV].BLUEFIN_STSUI_MUSD_POOL,
-  "SUIBTC-USDC": conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL
+  "SUIBTC-USDC": conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
