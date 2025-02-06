@@ -2299,7 +2299,8 @@ export const conf = {
       "0xf45b01f23e9951e37733b76c8cc7d22dcd23141aa246a86e17595a7aca610e1d",
     MUSD_SUI_CETUS_POOL_ID:
       "0x7da922f6ebc9a5a83668fd1078f257d636a61ff78c7c55aeeca42e1efdf007fc",
-    USDC_SUIBTC_CETUS_POOL_ID: "",
+    USDC_SUIBTC_CETUS_POOL_ID:
+      "0xa72776082624b0f5da55e385107fc0176114bfea5b281b880acae505a9bd1f1a",
 
     //Cetus Info Id's
 
