@@ -37,6 +37,7 @@ export const coinsToGetFromPyth: PythPriceIdPair[] = [
   "SEND/USD" as PythPriceIdPair,
   "STSUI/USD" as PythPriceIdPair,
   "SUIUSDT/USD" as PythPriceIdPair,
+  "SUIBTC/USD" as PythPriceIdPair,
 ];
 
 export async function getMultiLatestPrices() {
