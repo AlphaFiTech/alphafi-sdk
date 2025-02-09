@@ -108,6 +108,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-NAVX": { coin: "NAVX" },
   "NAVI-STSUI": { coin: "STSUI" },
   "NAVI-LOOP-SUI-STSUI": { coin: "STSUI" },
+  "NAVI-SUIBTC": { coin: "SUIBTC" },
 };
 
 export const loopingPoolCoinMap: {
@@ -136,6 +137,7 @@ export const naviAssetMap: {
   ETH: "11",
   NS: "13",
   STSUI: "20",
+  SUIBTC: "21",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -212,6 +214,8 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUI-MUSD": conf[CONF_ENV].BLUEFIN_SUI_MUSD_POOL,
   "STSUI-MUSD": conf[CONF_ENV].BLUEFIN_STSUI_MUSD_POOL,
   "SUIBTC-USDC": conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL,
+  "SUI-SUIBTC": conf[CONF_ENV].BLUEFIN_SUI_SUIBTC_POOL,
+  "VSUI-SUI": conf[CONF_ENV].BLUEFIN_VSUI_SUI_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -245,6 +249,24 @@ export const poolInfo: {
     lockIcon?: string | undefined;
   };
 } = {
+  "NAVI-SUIBTC": {
+    packageId: conf[CONF_ENV].ALPHA_NAVI_V2_LATEST_PACKAGE_ID,
+    packageNumber: 9,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_SUIBTC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].NAVI_SUIBTC_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_SUIBTC_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_SUIBTC_POOL_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+  },
   "BLUEFIN-SUIBTC-USDC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,
     packageNumber: 8,
