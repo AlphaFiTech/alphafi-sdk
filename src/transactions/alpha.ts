@@ -1,6 +1,7 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { CoinStruct } from "@mysten/sui/client";
 import { getConf, getReceipts, getSuiClient, Receipt } from "../index.js";
+import { getEstimatedGasBudget } from "./deposit.js";
 
 export const depositAlphaTxb = async (
   amount: string,
@@ -109,6 +110,8 @@ export const withdrawAlphaTxb = async (
         txb.pure.bool(withdrawFromLocked),
       ],
     });
+    const estimatedGasBudget = await getEstimatedGasBudget(txb);
+    if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
     txb.setSender(address);
     return txb;
   } else {
