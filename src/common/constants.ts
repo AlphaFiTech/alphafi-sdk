@@ -3402,7 +3402,7 @@ export const conf = {
     NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT:
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec::alphafi_navi_usdt_usdc_investor::CheckRatioEvent",
     NAVI_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT:
-      "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::CheckRatio", //change
+      "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151::alphafi_navi_sui_stsui_investor::CheckRatio",
 
     // Cetus Events
     CETUS_ADD_LIQUIDITY_EVENT:
