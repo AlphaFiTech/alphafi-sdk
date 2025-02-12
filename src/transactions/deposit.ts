@@ -206,7 +206,7 @@ export async function getEstimatedGasBudget(
 ): Promise<number | undefined> {
   const suiClient = getSuiClient();
   try {
-    let serializedTxb = await tx.build({ client: suiClient });
+    const serializedTxb = await tx.build({ client: suiClient });
     const dryRun = await suiClient.dryRunTransactionBlock({
       transactionBlock: serializedTxb,
     });
