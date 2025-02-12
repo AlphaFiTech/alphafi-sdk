@@ -18,7 +18,7 @@ import { naviWithdrawTx } from "./navi.js";
 import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
 import { loopingWithdraw } from "./navi-looping.js";
-import { getLiquidity } from "./deposit.js";
+import { getEstimatedGasBudget, getLiquidity } from "./deposit.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -81,6 +81,8 @@ export async function withdrawTxb(
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   }
+  const estimatedGasBudget = await getEstimatedGasBudget(txb);
+  if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
   txb.setSender(address);
   return txb;
 }

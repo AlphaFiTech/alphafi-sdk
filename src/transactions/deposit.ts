@@ -29,6 +29,7 @@ import {
   getInvestor,
   getParentPool,
 } from "../sui-sdk/functions/getReceipts.js";
+import { getSuiClient } from "../sui-sdk/client.js";
 
 export async function depositSingleAssetTxb(
   poolName: PoolName,
@@ -47,6 +48,8 @@ export async function depositSingleAssetTxb(
       txb = await naviDepositTx(amount, poolName, { address });
     }
   }
+  const estimatedGasBudget = await getEstimatedGasBudget(txb);
+  if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
   txb.setSender(address);
   return txb;
 }
@@ -101,6 +104,8 @@ export async function depositDoubleAssetTxb(
       });
     }
   }
+  const estimatedGasBudget = await getEstimatedGasBudget(txb);
+  if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
   txb.setSender(address);
   return txb;
 }
@@ -198,5 +203,23 @@ export async function getCoinAmountsFromLiquidity(
     return [coin_amounts.coinA.toString(), coin_amounts.coinB.toString()];
   } else {
     return ["0", "0"];
+  }
+}
+
+export async function getEstimatedGasBudget(
+  tx: Transaction,
+): Promise<number | undefined> {
+  const suiClient = getSuiClient();
+  try {
+    const serializedTxb = await tx.build({ client: suiClient });
+    const dryRun = await suiClient.dryRunTransactionBlock({
+      transactionBlock: serializedTxb,
+    });
+    const estimatedGasBudget =
+      Number(dryRun.input.gasData.budget) + 100_000_000;
+
+    return estimatedGasBudget;
+  } catch (err) {
+    console.error(`Error estimating transaction gasBudget`, err);
   }
 }

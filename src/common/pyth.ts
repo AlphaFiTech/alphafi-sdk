@@ -37,4 +37,5 @@ export type PythPriceIdPair =
   | "SUIUSDT/USD"
   | "MUSD/USD"
   | "FT_BLUEFIN_STSUI_SUI/USD"
-  | "AlphaFi stSUI-SUI LP/USD";
+  | "AlphaFi stSUI-SUI LP/USD"
+  | "SUIBTC/USD";

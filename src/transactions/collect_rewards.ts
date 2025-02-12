@@ -36,11 +36,67 @@ export async function claimRewardTxb(address: string) {
     const receipts = await getReceipts(poolName as PoolName, address, false);
     if (poolName == "ALPHA") {
     } else {
-      if (poolInfo[poolName].packageNumber == 5) {
+      if (poolInfo[poolName].packageNumber === 9) {
+        if (poolName === "NAVI-SUIBTC") {
+          receipts.forEach((receipt) => {
+            alpha_receipt = txb.moveCall({
+              target: `${poolInfo[poolName].packageId}::alphafi_navi_pool_v2::get_user_rewards_all`,
+              typeArguments: [
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+              ],
+              arguments: [
+                txb.object(getConf().ALPHA_NAVI_V2_VERSION),
+                txb.object(getConf().VERSION),
+                txb.object(receipt.objectId),
+                alpha_receipt,
+                txb.object(poolInfo[poolName].poolId),
+                txb.object(poolInfo["ALPHA"].poolId),
+                txb.object(getConf().ALPHA_DISTRIBUTOR),
+                txb.object(getConf().CLOCK_PACKAGE_ID),
+              ],
+            });
+          });
+        }
+      } else if (poolInfo[poolName].packageNumber == 8) {
+        if (poolName === "BLUEFIN-SUIBTC-USDC") {
+          receipts.forEach((receipt) => {
+            alpha_receipt = txb.moveCall({
+              target: `${poolInfo[poolName].packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_all`,
+              typeArguments: [coinsList["SUIBTC"].type, coinsList["USDC"].type],
+              arguments: [
+                txb.object(getConf().ALPHA_BLUEFIN_V2_VERSION),
+                txb.object(getConf().VERSION),
+                txb.object(receipt.objectId),
+                alpha_receipt,
+                txb.object(poolInfo[poolName].poolId),
+                txb.object(poolInfo["ALPHA"].poolId),
+                txb.object(getConf().ALPHA_DISTRIBUTOR),
+                txb.object(getConf().CLOCK_PACKAGE_ID),
+              ],
+            });
+          });
+        }
+      } else if (poolInfo[poolName].packageNumber == 5) {
         if (poolName == "NAVI-LOOP-USDT-USDC") {
           receipts.forEach((receipt) => {
             alpha_receipt = txb.moveCall({
               target: `${poolInfo[poolName].packageId}::alphafi_navi_usdt_usdc_pool::get_user_rewards_all`,
+              arguments: [
+                txb.object(getConf().ALPHA_5_VERSION),
+                txb.object(getConf().VERSION),
+                txb.object(receipt.objectId),
+                alpha_receipt,
+                txb.object(poolInfo[poolName].poolId),
+                txb.object(poolInfo["ALPHA"].poolId),
+                txb.object(getConf().ALPHA_DISTRIBUTOR),
+                txb.object(getConf().CLOCK_PACKAGE_ID),
+              ],
+            });
+          });
+        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
+          receipts.forEach((receipt) => {
+            alpha_receipt = txb.moveCall({
+              target: `${poolInfo[poolName].packageId}::alphafi_navi_sui_stsui_pool::get_user_rewards_all`,
               arguments: [
                 txb.object(getConf().ALPHA_5_VERSION),
                 txb.object(getConf().VERSION),
