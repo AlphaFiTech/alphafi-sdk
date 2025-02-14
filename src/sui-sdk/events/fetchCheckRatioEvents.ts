@@ -18,7 +18,7 @@ export async function fetchCheckRatioEvents(
       }
     });
   } else {
-    // Iterate over all the values in poolInfo and add each autoCompoundingEventType to the Set
+    // Iterate over all the values in poolInfo and add each checkRatioEventType to the Set
     Object.values(poolInfo).forEach((info) => {
       const eventType = info.checkRatioEventType;
       if (eventType !== undefined && eventType !== null && eventType !== "") {
