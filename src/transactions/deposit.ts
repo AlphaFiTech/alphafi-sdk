@@ -48,7 +48,7 @@ export async function depositSingleAssetTxb(
     }
   }
   txb.setSender(address);
-  const estimatedGasBudget = await getEstimatedGasBudget(txb);
+  const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
   if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
   return txb;
 }
@@ -100,7 +100,7 @@ export async function depositDoubleAssetTxb(
     }
   }
   txb.setSender(address);
-  const estimatedGasBudget = await getEstimatedGasBudget(txb);
+  const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
   if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
   return txb;
 }
@@ -203,17 +203,19 @@ export async function getCoinAmountsFromLiquidity(
 
 export async function getEstimatedGasBudget(
   tx: Transaction,
+  address: string,
 ): Promise<number | undefined> {
   const suiClient = getSuiClient();
   try {
-    const serializedTxb = await tx.build({ client: suiClient });
-    const dryRun = await suiClient.dryRunTransactionBlock({
-      transactionBlock: serializedTxb,
+    const simResult = await suiClient.devInspectTransactionBlock({
+      transactionBlock: tx,
+      sender: address,
     });
-    const estimatedGasBudget =
-      Number(dryRun.input.gasData.budget) + 100_000_000;
-
-    return estimatedGasBudget;
+    return (
+      Number(simResult.effects.gasUsed.computationCost) +
+      Number(simResult.effects.gasUsed.nonRefundableStorageFee) +
+      1e8
+    );
   } catch (err) {
     console.error(`Error estimating transaction gasBudget`, err);
   }

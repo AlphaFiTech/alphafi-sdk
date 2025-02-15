@@ -111,7 +111,7 @@ export const withdrawAlphaTxb = async (
       ],
     });
     txb.setSender(address);
-    const estimatedGasBudget = await getEstimatedGasBudget(txb);
+    const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
     if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
     return txb;
   } else {
