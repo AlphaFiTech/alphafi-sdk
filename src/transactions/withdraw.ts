@@ -76,9 +76,9 @@ export async function withdrawTxb(
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   }
+  txb.setSender(address);
   const estimatedGasBudget = await getEstimatedGasBudget(txb);
   if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
-  txb.setSender(address);
   return txb;
 }
 

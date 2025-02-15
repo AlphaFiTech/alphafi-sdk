@@ -1938,24 +1938,3 @@ export async function getZapAmounts(
     }
   }
 }
-
-// export async function zapWithdraw(
-//   amount: string,
-//   poolName: PoolName,
-//   outputCoinName: string,
-//   options: { suiClient: SuiClient; address: string },
-// ) {
-//   const suiClient = options.suiClient;
-//   const address = options.address;
-//   const txb = new Transaction();
-
-//   const pool1 = doubleAssetPoolCoinMap[poolName].pool1;
-//   const pool2 = doubleAssetPoolCoinMap[poolName].pool2;
-// }
-
-//calculate ratio of both coins in terms of coin-type 2
-//convert outputAmount in coinType2
-//then calculate coinType1 and coinType2 based on previous ratio
-//convert those amounts to liquidity
-//pass that liquidity into cetusWithdrawTxb
-//swap the amount withdrawn to outputAmountType.

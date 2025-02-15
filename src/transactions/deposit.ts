@@ -47,9 +47,9 @@ export async function depositSingleAssetTxb(
       txb = await naviDepositTx(amount, poolName, { address });
     }
   }
+  txb.setSender(address);
   const estimatedGasBudget = await getEstimatedGasBudget(txb);
   if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
-  txb.setSender(address);
   return txb;
 }
 
@@ -99,9 +99,9 @@ export async function depositDoubleAssetTxb(
       });
     }
   }
+  txb.setSender(address);
   const estimatedGasBudget = await getEstimatedGasBudget(txb);
   if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
-  txb.setSender(address);
   return txb;
 }
 
