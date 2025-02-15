@@ -15,6 +15,7 @@ import {
   depositCetusTxb,
 } from "./cetus.js";
 import {
+  depositBluefinFungibleTxb,
   depositBluefinStsuiTxb,
   depositBluefinSuiFirstTxb,
   depositBluefinSuiSecondTxb,
@@ -73,7 +74,11 @@ export async function depositDoubleAssetTxb(
       txb = await depositCetusTxb(amount, poolName, isAmountA, { address });
     }
   } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
-    if (
+    if (poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+      txb = await depositBluefinFungibleTxb(amount, poolName, isAmountA, {
+        address,
+      });
+    } else if (
       poolName === "BLUEFIN-NAVX-VSUI" ||
       poolName === "BLUEFIN-ALPHA-USDC" ||
       poolName === "BLUEFIN-BLUE-USDC"
