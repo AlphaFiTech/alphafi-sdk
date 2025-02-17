@@ -76,6 +76,7 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-SUIUSDT-USDC"
   | "BLUEFIN-STSUI-BUCK"
   | "BLUEFIN-STSUI-MUSD"
+  | "BLUEFIN-FUNGIBLE-STSUI-SUI"
   | "BLUEFIN-SUIBTC-USDC"
   | AutoBalancePoolNames;
 
@@ -119,6 +120,8 @@ export type CoinName =
   | "STSUI"
   | "SUIUSDT"
   | "MUSD"
+  | "FT_BLUEFIN_STSUI_SUI"
+  | "AlphaFi stSUI-SUI LP"
   | "SUIBTC";
 
 export type StrategyType =
@@ -212,7 +215,9 @@ export type CoinType =
   | "0xd1b72982e40348d069bb1ff701e634c117bb5f741f44dff91e472d3b01461e55::stsui::STSUI"
   | "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT"
   | "0xe44df51c0b21a27ab915fa1fe2ca610cd3eaa6d9666fe5e62b988bf7f0bd8722::musd::MUSD"
-  | "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC";
+  | "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI"
+  | "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC"
+  | "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::ALPHAFI_STSUI_SUI_LP::ALPHAFI_STSUI_SUI_LP";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
@@ -541,6 +546,20 @@ export type PoolType = {
       withdraw_fee_max_cap: string;
       weight: string;
       alphaUnlockedPerSecond: string;
+      treasury_cap: {
+        type: string;
+        fields: {
+          id: {
+            id: string;
+          };
+          total_supply: {
+            type: string;
+            fields: {
+              value: string;
+            };
+          };
+        };
+      };
     };
   };
 };

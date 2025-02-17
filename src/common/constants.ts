@@ -121,6 +121,18 @@ export const conf = {
     ],
     ALPHA_BLUEFIN_AUTOBALANCE_PACKAGE_IDS: [],
 
+    ALPHA_FUNGIBLE_FIRST_PACKAGE_ID:
+      "0xb50bdf22ee4719d18759aeb5f92f26b1aaa6274bddd1d6a2afee5b7759a165a9",
+    ALPHA_FUNGIBLE_LATEST_PACKAGE_ID:
+      "0x1bad3904fc4564c41af44a42c0e3dabebe919c9c3cb53d429abbcbb1964cbdde",
+
+    ALPHA_FUNGIBLE_MODULE_PACKAGE_IDS: [
+      "0xb50bdf22ee4719d18759aeb5f92f26b1aaa6274bddd1d6a2afee5b7759a165a9",
+    ],
+    ALPHA_FUNGIBLE_PACKAGE_IDS: [
+      "0xb50bdf22ee4719d18759aeb5f92f26b1aaa6274bddd1d6a2afee5b7759a165a9",
+    ],
+
     ALPHA_BLUEFIN_V2_FIRST_PACKAGE_ID:
       "0x579960243daa16acea08ddf8f6a4647d8c9f8acb14bbe455bc7ab9c3657288c1",
     ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID:
@@ -165,6 +177,8 @@ export const conf = {
     ALPHA_BLUEFIN_AUTOBALANCE_VERSION:
       "0x9fba497b55f6164489b7a53c98f6dc05febd3417ff460e963e9a67ce31f75f9f",
 
+    ALPHA_FUNGIBLE_VERSION:
+      "0xb1e7f9e18d651d739f45626b71005a24b462cdcce98f242171ba6d06bb07fdbd",
     ALPHA_BLUEFIN_V2_VERSION:
       "0xee3339a80ba723338f0799d545e22e44414b283c3dc083666d19f7499dfc59dc",
     ALPHA_NAVI_V2_VERSION:
@@ -398,6 +412,9 @@ export const conf = {
       "0xdee56209e25c0eafdd3e06ee9f4aae03d173478d158fb4c5c1fbae7c75d4cd72",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL:
       "0xb251e187a4e688dd3dbbf378e4aacfdd41de6a81e2a4bc10c7b80e056c1da630",
+
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL:
+      "0x926b1d3bec143f9f49dfe63cad8254265a053d74ee4355d953a2594b1f01bad6",
 
     // CETUS Pool Id's
 
@@ -674,6 +691,9 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_INVESTOR:
       "0xec780fed8f7b7ab802c751f0a42a5c3fae7553993bb128d333eee6521a81855e",
 
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_INVESTOR:
+      "0xcb732068b2bd363874624a270ace78fb4ad2a3596429b4a9297a18a3be0aa0ad",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -844,6 +864,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT:
+      "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI",
     NAVI_LOOP_SUI_STSUI_RECEIPT:
       "0x6f65debb771fdcd88c1e8761a18d159495ce0f63410c49671197cad0041c8d27::alphafi_navi_sui_stsui_pool::Receipt", //chnage
     ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT:
@@ -953,6 +975,7 @@ export const conf = {
       "AlphaFi-Bluefin STSUI-BUCK Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT_NAME:
       "AlphaFi-Bluefin STSUI-MUSD Receipt",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT_NAME: "FT_BLUEFIN_STSUI_SUI",
     NAVI_SUI_STSUI_LOOP_RECEIPT_NAME: "Betafi-Navi-STSUI-SUI-LOOP-receipt",
     ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT_NAME:
       "BetaFi-Bluefin wBTC-USDC Receipt",
@@ -1131,6 +1154,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_sui_ft_investor::AutoCompoundingEvent",
     NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_investor::AutoCompoundingEvent", //change
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_AUTO_COMPOUNDING_EVENT:
@@ -1264,6 +1289,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_REBALANCE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::RebalancePoolEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_REBALANCE_EVENT:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_sui_ft_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_REBALANCE_EVENT:
       "0x579960243daa16acea08ddf8f6a4647d8c9f8acb14bbe455bc7ab9c3657288c1::alphafi_bluefin_type_1_investor::RebalancePoolEvent", //CHANGE
 
@@ -1436,6 +1463,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_LIQUIDITY_CHANGE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_sui_ft_pool::LiquidityChangeEvent",
     NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x531989a4be74dd43b25e7bb1eeade871f4524bdf437a8eaa30b4ac2a932b5579::alphafi_navi_sui_vsui_pool::LiquidityChangeEvent", //change
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
@@ -1920,6 +1949,18 @@ export const conf = {
       "0x0c3fe368a5234c423f55d99badd45f1c09f0f4a468ee0403fb455d276a5dac62",
       "0x5bcaec70ac7fdd6e95bbc94644f2aba67918e75d2fea402bae53bec65895ead8",
     ],
+    ALPHA_FUNGIBLE_FIRST_PACKAGE_ID:
+      "0x59fd36210b1bf1dcd70d148cd868e059e74b22a660f84c5602cfb8501442322a",
+    ALPHA_FUNGIBLE_LATEST_PACKAGE_ID:
+      "0xbfbd59ec10e2b62c887e268a051ae84570ecf0d621480c0418300f28913d7380",
+
+    ALPHA_FUNGIBLE_MODULE_PACKAGE_IDS: [
+      "0x59fd36210b1bf1dcd70d148cd868e059e74b22a660f84c5602cfb8501442322a",
+    ],
+    ALPHA_FUNGIBLE_PACKAGE_IDS: [
+      "0x59fd36210b1bf1dcd70d148cd868e059e74b22a660f84c5602cfb8501442322a",
+      "0xbfbd59ec10e2b62c887e268a051ae84570ecf0d621480c0418300f28913d7380",
+    ],
     ALPHA_BLUEFIN_V2_FIRST_PACKAGE_ID:
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402",
     ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID:
@@ -1966,6 +2007,8 @@ export const conf = {
     ALPHA_BLUEFIN_AUTOBALANCE_VERSION:
       "0x80aa0d48c8c5dd7ebaf96c7bec846651eb7e199ff03913edd830e6d00049890d",
 
+    ALPHA_FUNGIBLE_VERSION:
+      "0x3293f5616005b03c5d7a8ad161aa91c4229ce0df19f61dab1d1d6d0b8f4a1cac",
     ALPHA_BLUEFIN_V2_VERSION:
       "0x4570f6121c2b5b504d22b061b6461fca8f970eb0bee08a15625d9826bc4e09da",
 
@@ -2219,6 +2262,8 @@ export const conf = {
       "0xdee56209e25c0eafdd3e06ee9f4aae03d173478d158fb4c5c1fbae7c75d4cd72",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL:
       "0xb251e187a4e688dd3dbbf378e4aacfdd41de6a81e2a4bc10c7b80e056c1da630",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL:
+      "0x0b45d1e5889b524dc1a472f59651cdedb8e0a2678e745f27975a9b57c127acdd",
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL:
       "0x4043b9e628d0cc6c2e3f322e6a7bddf603a3bcc084992355b55f4c23516bb6ba",
 
@@ -2547,6 +2592,9 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_INVESTOR:
       "0xf7785cf8b3d3f9bee48bf4d90a142d7ec98b25d6784408ffedc11633d7124197",
 
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_INVESTOR:
+      "0xaec347c096dd7e816febd8397be4cca3aabc094a9a2a1f23d7e895564f859dc2",
+
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -2701,6 +2749,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::Receipt",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT:
+      "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::ALPHAFI_STSUI_SUI_LP::ALPHAFI_STSUI_SUI_LP",
     NAVI_LOOP_SUI_STSUI_RECEIPT:
       "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151::alphafi_navi_sui_stsui_pool::Receipt", //chnage
     ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT:
@@ -2830,6 +2880,7 @@ export const conf = {
       "AlphaFi-Bluefin STSUI-BUCK Receipt",
     ALPHAFI_BLUEFIN_STSUI_MUSD_RECEIPT_NAME:
       "AlphaFi-Bluefin STSUI-MUSD Receipt",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_RECEIPT_NAME: "AlphaFi stSUI-SUI LP",
     NAVI_SUI_STSUI_LOOP_RECEIPT_NAME: "AlphaFi-Navi SUI-STSUI Receipt",
     ALPHAFI_BLUEFIN_SUIBTC_USDC_RECEIPT_NAME:
       "AlphaFi-Bluefin wBTC-USDC Receipt",
@@ -3004,6 +3055,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::alphafi_bluefin_stsui_sui_ft_investor::AutoCompoundingEvent",
     NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151::alphafi_navi_sui_stsui_investor::AutoCompoundingEvent", //change
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_AUTO_COMPOUNDING_EVENT:
@@ -3154,6 +3207,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_REBALANCE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::RebalancePoolEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_REBALANCE_EVENT:
+      "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::alphafi_bluefin_stsui_sui_ft_investor::RebalancePoolEvent",
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_REBALANCE_EVENT:
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_investor::RebalancePoolEvent", //CHANGE
 
@@ -3327,6 +3382,8 @@ export const conf = {
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_LIQUIDITY_CHANGE_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_pool::LiquidityChangeEvent",
+    ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_sui_ft_pool::LiquidityChangeEvent", //change
     NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151::alphafi_navi_sui_stsui_pool::LiquidityChangeEvent", //change
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
@@ -3571,6 +3628,89 @@ export const conf = {
       "0x8e25210077ab957b1afec39cbe9165125c93d279daef89ee29b97856385a3f3e",
     NAVI_SUIUSDT_POOL:
       "0xa3e0471746e5d35043801bce247d3b3784cc74329d39f7ed665446ddcf22a9e2",
+
+    NAVI_ORACLE_CONFIG:
+      "0x1afe1cb83634f581606cc73c4487ddd8cc39a944b951283af23f7d69d5589478",
+
+    SUPRA_ORACLE_HOLDER:
+      "0xaa0315f0748c1f24ddb2b45f7939cff40f7a8104af5ccbc4a1d32f870c0b4105",
+
+    SUI_FEED_ID:
+      "0x2cab9b151ca1721624b09b421cc57d0bb26a1feb5da1f821492204b098ec35c9",
+    SUI_PYTH_PRICE_INFO:
+      "0x801dbc2f0053d34734814b2d6df491ce7807a725fe9a01ad74a07e9c51396c37",
+    WUSDC_FEED_ID:
+      "0x70a79226dda5c080378b639d1bb540ddea64761629aa4ad7355d79266d55af61",
+    WUSDC_PYTH_PRICE_INFO:
+      "0x5dec622733a204ca27f5a90d8c2fad453cc6665186fd5dff13a83d0b6c9027ab",
+    USDC_FEED_ID:
+      "0xe120611435395f144b4bcc4466a00b6b26d7a27318f96e148648852a9dd6b31c",
+    USDC_PYTH_PRICE_INFO:
+      "0x5dec622733a204ca27f5a90d8c2fad453cc6665186fd5dff13a83d0b6c9027ab",
+    USDT_FEED_ID:
+      "0xf72d8933873bb4e5bfa1edbfa9ff6443ec5fac25c1d99ba2ef37f50a125826f3",
+    USDT_PYTH_PRICE_INFO:
+      "0x985e3db9f93f76ee8bace7c3dd5cc676a096accd5d9e09e9ae0fb6e492b14572",
+    WETH_FEED_ID:
+      "0x44d92366eba1f1652ec81f34585406726bef267565a2db1664ffd5ef18e21693",
+    WETH_PYTH_PRICE_INFO:
+      "0x9193fd47f9a0ab99b6e365a464c8a9ae30e6150fc37ed2a89c1586631f6fc4ab",
+    CETUS_FEED_ID:
+      "0x5ac98fc1e6723af2a6d9a68a5d771654a6043f9c4d2b836b2d5fb4832a3be4f2",
+    CETUS_PYTH_PRICE_INFO:
+      "0x24c0247fb22457a719efac7f670cdc79be321b521460bd6bd2ccfa9f80713b14",
+    NAVX_FEED_ID:
+      "0x4324c797d2f19eff517c24adec8b92aa2d282e44f3a5cafb36d6c4b30d7f2dca",
+    NAVX_PYTH_PRICE_INFO:
+      "0x5b117a6a2de70796bffe36495bad576b788a34c33ca0648bd57852ead3f41e32",
+    WBTC_FEED_ID:
+      "0x1bf4727242a61d892feef6616d3e40a3bd24b64b5deb884054e86cb9360556c4",
+    WBTC_PYTH_PRICE_INFO:
+      "0x9a62b4863bdeaabdc9500fce769cf7e72d5585eeb28a6d26e4cafadc13f76ab2",
+    AUSD_FEED_ID:
+      "0x9a0656e1e10a0cdf3f03dce9db9ad931f51dc6eac2e52ebfbf535dfbcf8100ef",
+    AUSD_PYTH_PRICE_INFO:
+      "0x94ef89923e7beccd4a52043a9451a87c614684b847426fb5fd76faa8cb1e907f",
+    ETH_FEED_ID:
+      "0x9a6ffc707270286e98e8d0f654ce38f69efbc302ac98e2deb11fbad2211600f0",
+    ETH_PYTH_PRICE_INFO:
+      "0x9193fd47f9a0ab99b6e365a464c8a9ae30e6150fc37ed2a89c1586631f6fc4ab",
+    USDY_FEED_ID:
+      "0x11ddf2ac1868d493e2487deeb2a0c2791bb7ca69632c8c5fefe85e09390be093",
+    USDY_PYTH_PRICE_INFO:
+      "0x62e15c2fd1437a4d0e111dbd8a193f244878ba25cc7caa9120d0ee41ac151ea5",
+    NS_FEED_ID:
+      "0xc771ec0ca245857f30195ce05197a7b3ab41c58c1e8abe0661919d90675ad63d",
+    NS_PYTH_PRICE_INFO:
+      "0xc6352e1ea55d7b5acc3ed690cc3cdf8007978071d7bfd6a189445018cfb366e0",
+    DEEP_FEED_ID:
+      "0x4558092b08ad1b33b0eb536f91a4655693c2390ac568f06de6f6fad827888600",
+    DEEP_PYTH_PRICE_INFO:
+      "0x8c7f3a322b94cc69db2a2ac575cbd94bf5766113324c3a3eceac91e3e88a51ed",
+    BLUE_FEED_ID:
+      "0xd8286c11df7e49496ee75622ae4132c56385c30b4bedb392e36c0699a52a1d52",
+    BLUE_PYTH_PRICE_INFO:
+      "0x5515a34fc610bba6b601575ed1d2535b2f9df1f339fd0d435fef487c1ee3df9c",
+    BUCK_FEED_ID:
+      "0x93c1b815f64ef7c4311d74ff7c0ca1e47739c3ac31fdee0068c30887633ba2fb",
+    BUCK_PYTH_PRICE_INFO:
+      "0x3ef821a54dbdfe3f211b2ff7261dea0f0330c72fd292422ce586e21f43809a56",
+    SUIUSDT_FEED_ID:
+      "0xdeba21105ff41300f8829aaeba45fdec25d1533a64d504ef0348ff005da3fbe5",
+    SUIUSDT_PYTH_PRICE_INFO:
+      "0x985e3db9f93f76ee8bace7c3dd5cc676a096accd5d9e09e9ae0fb6e492b14572",
+    STSUI_FEED_ID:
+      "0xd7a8c920db9f8b5c3c300307d88fca53684fd15b760977dbf8f0adc6e55783bd",
+    STSUI_PYTH_PRICE_INFO:
+      "0x801dbc2f0053d34734814b2d6df491ce7807a725fe9a01ad74a07e9c51396c37",
+    SUIBTC_FEED_ID:
+      "0x4e4666c82c476f0b51b27c5ed8c77ab960aa5e4c3a48796e179d721b471e3b7e",
+    SUIBTC_PYTH_PRICE_INFO:
+      "0x9a62b4863bdeaabdc9500fce769cf7e72d5585eeb28a6d26e4cafadc13f76ab2",
+    VSUI_FEED_ID:
+      "0x086bb5540047b3c77ae5e2f9b811c7ef085517a73510f776753c8ee83d19e62c",
+    VSUI_PYTH_PRICE_INFO:
+      "0x801dbc2f0053d34734814b2d6df491ce7807a725fe9a01ad74a07e9c51396c37",
 
     //constants for bucket
 

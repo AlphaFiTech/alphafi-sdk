@@ -110,9 +110,9 @@ export const withdrawAlphaTxb = async (
         txb.pure.bool(withdrawFromLocked),
       ],
     });
-    const estimatedGasBudget = await getEstimatedGasBudget(txb);
-    if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
     txb.setSender(address);
+    const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
+    if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
     return txb;
   } else {
     throw new Error("No receipt found!");
