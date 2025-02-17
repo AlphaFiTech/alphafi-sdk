@@ -120,6 +120,7 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-USDT-USDC": { supplyCoin: "USDT", borrowCoin: "USDC" },
   "NAVI-LOOP-SUI-VSUI": { supplyCoin: "VSUI", borrowCoin: "SUI" },
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
+  "NAVI-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
 };
 
 export const naviAssetMap: {
@@ -227,6 +228,87 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-LOOP-SUI-VSUI": conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-HASUI-SUI": conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-SUI-STSUI": conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS,
+};
+
+export const naviPriceFeedMap: {
+  [key: string]: { feedId: string; pythPriceInfo: string };
+} = {
+  SUI: {
+    feedId: conf[CONF_ENV].SUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].SUI_PYTH_PRICE_INFO,
+  },
+  WUSDC: {
+    feedId: conf[CONF_ENV].WUSDC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].WUSDC_PYTH_PRICE_INFO,
+  },
+  USDC: {
+    feedId: conf[CONF_ENV].USDC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].USDC_PYTH_PRICE_INFO,
+  },
+  USDT: {
+    feedId: conf[CONF_ENV].USDT_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].USDT_PYTH_PRICE_INFO,
+  },
+  WETH: {
+    feedId: conf[CONF_ENV].WETH_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].WETH_PYTH_PRICE_INFO,
+  },
+  CETUS: {
+    feedId: conf[CONF_ENV].CETUS_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].CETUS_PYTH_PRICE_INFO,
+  },
+  NAVX: {
+    feedId: conf[CONF_ENV].NAVX_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].NAVX_PYTH_PRICE_INFO,
+  },
+  WBTC: {
+    feedId: conf[CONF_ENV].WBTC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].WBTC_PYTH_PRICE_INFO,
+  },
+  AUSD: {
+    feedId: conf[CONF_ENV].AUSD_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].AUSD_PYTH_PRICE_INFO,
+  },
+  ETH: {
+    feedId: conf[CONF_ENV].ETH_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].ETH_PYTH_PRICE_INFO,
+  },
+  USDY: {
+    feedId: conf[CONF_ENV].USDY_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].USDY_PYTH_PRICE_INFO,
+  },
+  NS: {
+    feedId: conf[CONF_ENV].NS_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].NS_PYTH_PRICE_INFO,
+  },
+  DEEP: {
+    feedId: conf[CONF_ENV].DEEP_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].DEEP_PYTH_PRICE_INFO,
+  },
+  BLUE: {
+    feedId: conf[CONF_ENV].BLUE_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].BLUE_PYTH_PRICE_INFO,
+  },
+  BUCK: {
+    feedId: conf[CONF_ENV].BUCK_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].BUCK_PYTH_PRICE_INFO,
+  },
+  SUIUSDT: {
+    feedId: conf[CONF_ENV].SUIUSDT_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].SUIUSDT_PYTH_PRICE_INFO,
+  },
+  STSUI: {
+    feedId: conf[CONF_ENV].STSUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].STSUI_PYTH_PRICE_INFO,
+  },
+  SUIBTC: {
+    feedId: conf[CONF_ENV].SUIBTC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].SUIBTC_PYTH_PRICE_INFO,
+  },
+  VSUI: {
+    feedId: conf[CONF_ENV].VSUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].VSUI_PYTH_PRICE_INFO,
+  },
 };
 
 export const poolInfo: {
