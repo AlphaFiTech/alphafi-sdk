@@ -4,12 +4,15 @@ import { getConf } from "../common/constants.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import {
   cetusPoolMap,
+  loopingPoolCoinMap,
+  naviPriceFeedMap,
   poolInfo,
   singleAssetPoolCoinMap,
 } from "../common/maps.js";
 import { PoolName, Receipt } from "../common/types.js";
 import { coinsList } from "../common/coins.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
+import { updateSingleTokenPrice } from "./naviOracle.js";
 
 export async function loopingDeposit(
   poolName: PoolName,
@@ -17,6 +20,18 @@ export async function loopingDeposit(
   options: { address: string },
 ) {
   let txb = new Transaction();
+
+  updateSingleTokenPrice(
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].pythPriceInfo,
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].feedId,
+    txb,
+  );
+  updateSingleTokenPrice(
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].pythPriceInfo,
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].feedId,
+    txb,
+  );
+
   if (poolName === "NAVI-LOOP-HASUI-SUI") {
     txb = await naviHasuiSuiLoopDepositTx(amount, options);
   } else if (poolName === "NAVI-LOOP-SUI-VSUI") {
@@ -37,6 +52,18 @@ export async function loopingWithdraw(
   options: { address: string },
 ) {
   let txb = new Transaction();
+
+  updateSingleTokenPrice(
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].pythPriceInfo,
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].feedId,
+    txb,
+  );
+  updateSingleTokenPrice(
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].pythPriceInfo,
+    naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].feedId,
+    txb,
+  );
+
   if (poolName === "NAVI-LOOP-HASUI-SUI") {
     txb = await naviHasuiSuiLoopWithdrawTx(xTokens, options);
   } else if (poolName === "NAVI-LOOP-SUI-VSUI") {

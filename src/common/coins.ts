@@ -195,7 +195,7 @@ export const coinsList: { [key in CoinName]: Coin } = {
   },
   "AlphaFi stSUI-SUI LP": {
     name: "AlphaFi stSUI-SUI LP",
-    type: "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI", //change
+    type: "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::ALPHAFI_STSUI_SUI_LP::ALPHAFI_STSUI_SUI_LP",
     icon: "",
     expo: 9,
   },

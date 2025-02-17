@@ -5,6 +5,7 @@ import {
   bluefinPoolMap,
   cetusPoolMap,
   naviAssetMap,
+  naviPriceFeedMap,
   poolInfo,
   singleAssetPoolCoinMap,
 } from "../common/maps.js";
@@ -12,13 +13,14 @@ import { PoolName, Receipt } from "../common/types.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getConf } from "../common/constants.js";
 import { getSuiClient } from "../sui-sdk/client.js";
+import { updateSingleTokenPrice } from "./naviOracle.js";
 
 export async function naviDepositTx(
   amount: string,
   poolName: PoolName,
   options: { address: string },
 ): Promise<Transaction> {
-  const C = await getConf();
+  const C = getConf();
   const suiClient = getSuiClient();
   const address = options.address;
   const txb = new Transaction();
@@ -26,7 +28,11 @@ export async function naviDepositTx(
   const poolData = poolInfo[poolName];
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-
+  updateSingleTokenPrice(
+    naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].pythPriceInfo,
+    naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].feedId,
+    txb,
+  );
   if (singleAssetPoolCoinMap[poolName].coin == "SUI") {
     let someReceipt: any;
     if (receipt.length == 0) {
@@ -567,6 +573,12 @@ export async function naviWithdrawTx(
         arguments: [txb.object(alphaReceipt[0].objectId)],
       });
     }
+
+    updateSingleTokenPrice(
+      naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].pythPriceInfo,
+      naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].feedId,
+      txb,
+    );
 
     if (singleAssetPoolCoinMap[poolName].coin == "SUI") {
       txb.moveCall({
