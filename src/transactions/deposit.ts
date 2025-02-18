@@ -114,10 +114,13 @@ export async function getLiquidity(
   poolName: PoolName,
   a2b: boolean,
   amount: string,
+  ignoreCache: boolean = true,
 ) {
-  const cetusInvestor = (await getInvestor(poolName, true)) as CetusInvestor &
-    CommonInvestorFields;
-  const cetus_pool = await getParentPool(poolName, true);
+  const cetusInvestor = (await getInvestor(
+    poolName,
+    ignoreCache,
+  )) as CetusInvestor & CommonInvestorFields;
+  const cetus_pool = await getParentPool(poolName, ignoreCache);
   //TODO
   //check if you calculate lower_tick, upper_tick like this only
   const upper_bound = 443636;
@@ -159,14 +162,12 @@ export async function getAmounts(
   poolName: PoolName,
   a2b: boolean,
   amount: string,
-): Promise<[string, string] | undefined> {
-  const liquidity = await getLiquidity(poolName, a2b, amount);
-  if (liquidity) {
-    const numA = liquidity.coinAmountA.toString();
-    const numB = liquidity.coinAmountB.toString();
-
-    return [numA, numB];
-  }
+  ignoreCache: boolean = true,
+): Promise<[string, string]> {
+  const liquidity = await getLiquidity(poolName, a2b, amount, ignoreCache);
+  const numA = liquidity.coinAmountA.toString();
+  const numB = liquidity.coinAmountB.toString();
+  return [numA, numB];
 }
 
 export async function getCoinAmountsFromLiquidity(
