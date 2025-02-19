@@ -19,7 +19,12 @@ import { getConf } from "../common/constants.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getLatestPrices } from "../utils/prices.js";
 import { PythPriceIdPair } from "../common/pyth.js";
-import { mintTx, redeemTx, stSuiExchangeRate } from "@alphafi/stsui-sdk";
+import {
+  mintTx,
+  redeemTx,
+  stSuiExchangeRate,
+  getConf as getStSuiConf,
+} from "@alphafi/stsui-sdk";
 import { Decimal } from "decimal.js";
 
 type ZapDepositParams = {
@@ -426,7 +431,9 @@ async function zapGetQuote(
     swapOptions.pair.coinA.name === "SUI" &&
     swapOptions.pair.coinB.name === "STSUI"
   ) {
-    const exchangeRate = new Decimal(await stSuiExchangeRate());
+    const exchangeRate = new Decimal(
+      await stSuiExchangeRate(getStSuiConf().LST_INFO, true),
+    );
     const amount = new Decimal(
       swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
     );
@@ -435,7 +442,9 @@ async function zapGetQuote(
     swapOptions.pair.coinA.name === "STSUI" &&
     swapOptions.pair.coinB.name === "SUI"
   ) {
-    const exchangeRate = new Decimal(await stSuiExchangeRate());
+    const exchangeRate = new Decimal(
+      await stSuiExchangeRate(getStSuiConf().LST_INFO, true),
+    );
     const amount = new Decimal(
       swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
     );
