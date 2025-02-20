@@ -29,6 +29,7 @@ import { getAlphaPrice } from "../../utils/clmm/prices.js";
 import { getLatestPrices } from "../../utils/prices.js";
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
+import { stSuiExchangeRate, getConf as getStSuiConf } from "@alphafi/stsui-sdk";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,
@@ -282,7 +283,8 @@ export async function getSingleAssetPortfolioAmount(
       }
     } else if (
       poolName == "NAVI-LOOP-HASUI-SUI" ||
-      poolName == "NAVI-LOOP-SUI-VSUI"
+      poolName == "NAVI-LOOP-SUI-VSUI" ||
+      poolName === "NAVI-LOOP-SUI-STSUI"
     ) {
       if (pool && investor) {
         const liquidity = new Decimal(investor.content.fields.tokensDeposited);
@@ -316,6 +318,22 @@ export async function getSingleAssetPortfolioAmount(
           const voloExchRate = await fetchVoloExchangeRate(false);
           portfolioAmount = Number(
             tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
+          );
+        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
+          // const { SevenKGateway } = await import("../");
+          // const sevenKInstance = new SevenKGateway();
+          // const numberOfTokensInSui = (await sevenKInstance.getQuote({
+          //   slippage: 1,
+          //   senderAddress: options.address,
+          //   pair: { coinA: coins["VSUI"], coinB: coins["SUI"] },
+          //   inAmount: new BN(tokens.toNumber()),
+          // })) as QuoteResponse;
+          const suiTostSuiExchangeRate = await stSuiExchangeRate(
+            getStSuiConf().LST_INFO,
+            ignoreCache,
+          );
+          portfolioAmount = Number(
+            tokens.mul(parseFloat(suiTostSuiExchangeRate)),
           );
         } else {
           portfolioAmount = Number(tokens);
@@ -359,7 +377,10 @@ export async function getSingleAssetPortfolioAmountInUSD(
 
   if (amounts !== undefined) {
     let coinName = singleAssetPoolCoinMap[poolName].coin;
-    if (poolName == "NAVI-LOOP-SUI-VSUI") {
+    if (
+      poolName == "NAVI-LOOP-SUI-VSUI" ||
+      poolName === "NAVI-LOOP-SUI-STSUI"
+    ) {
       coinName = "SUI";
     }
     const amount = new Decimal(amounts).div(

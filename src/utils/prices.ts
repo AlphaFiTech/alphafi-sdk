@@ -1,7 +1,7 @@
 import { Decimal } from "decimal.js";
 import { PythPriceIdPair } from "../common/pyth.js";
 import { SimpleCache } from "./simpleCache.js";
-import { stSuiExchangeRate } from "@alphafi/stsui-sdk";
+import { stSuiExchangeRate, getConf as getStSuiConf } from "@alphafi/stsui-sdk";
 
 const latestPriceCache = new SimpleCache<string>(5000);
 
@@ -78,7 +78,10 @@ export async function getLatestPrices(
         if (pairsToFetch[i] === "STSUI/USD") {
           // todo: remove this when stsui is listed somewhere
           const suiPrice = await getLatestPrices(["SUI/USD"], false);
-          const stsuiExchangeRate = await stSuiExchangeRate();
+          const stsuiExchangeRate = await stSuiExchangeRate(
+            getStSuiConf().LST_INFO,
+            false,
+          );
           price.price = new Decimal(suiPrice[0])
             .mul(stsuiExchangeRate)
             .toString();
