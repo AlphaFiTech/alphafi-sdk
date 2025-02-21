@@ -337,7 +337,7 @@ export async function naviDepositTx(
           });
         }
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::upate_pool_with_three_swaps`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_with_three_swaps`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
             coinsList["USDC"].type,
@@ -371,9 +371,6 @@ export async function naviDepositTx(
           target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
-            coinsList["USDC"].type,
-            coinsList["SUI"].type,
-            coinsList["VSUI"].type,
           ],
           arguments: [
             txb.object(C.ALPHA_3_VERSION),
