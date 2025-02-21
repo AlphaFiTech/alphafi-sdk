@@ -1978,7 +1978,7 @@ export const conf = {
     ALPHA_3_FIRST_PACKAGE_ID:
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae",
     ALPHA_3_LATEST_PACKAGE_ID:
-      "0x58804313971e8929f7e4f09fe344b69fceeac559d8794b49d6a0a394ca8eafc8",
+      "0x673bbe1c463ece5c7d9efd28dc02d460e3fc3902980e4266edd775f4b1e7f91e",
 
     ALPHA_3_MODULE_PACKAGE_IDS: [
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae", // bucket
@@ -1989,6 +1989,8 @@ export const conf = {
       "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd",
       "0x4b44c5532e2a46cd72a52b273415678c26193d3eed1a8bb4cdf3be7fc31cd7ca",
       "0x58804313971e8929f7e4f09fe344b69fceeac559d8794b49d6a0a394ca8eafc8",
+      "0x246f5368a0100978bfe0aba20ff4ddd5811e3bcc5f9b855e22ae9e973b279e41", //upgraded by mistake
+      "0x673bbe1c463ece5c7d9efd28dc02d460e3fc3902980e4266edd775f4b1e7f91e",
     ],
 
     ALPHA_4_FIRST_PACKAGE_ID:
