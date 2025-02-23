@@ -645,8 +645,43 @@ export async function naviDepositTx(
           ],
         });
       } else if (poolName === "NAVI-SUIBTC") {
+        const claimableRewards = await getAvailableRewards(
+          getSuiClient(),
+          getConf().NAVI_SUIBTC_ACCOUNT_ADDRESS,
+        );
+        if (
+          claimableRewards &&
+          Object.keys(claimableRewards!).includes(
+            coinsList["NAVX"].type.substring(2),
+          )
+        ) {
+          txb.moveCall({
+            target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps`,
+            typeArguments: [
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+              coinsList["NAVX"].type,
+            ],
+            arguments: [
+              txb.object(C.ALPHA_NAVI_V2_VERSION),
+              txb.object(poolData.investorId),
+              txb.object(C.NAVI_STORAGE),
+              txb.pure.u8(
+                Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+              ),
+              txb.object(C.NAVI_INCENTIVE_V3),
+              txb.object(C.NAVI_NAVX_REWARDS_POOL),
+              txb.object(cetusPoolMap["NAVX-SUI"]),
+              txb.object(
+                bluefinPoolMap[`SUI-${singleAssetPoolCoinMap[poolName].coin}`],
+              ),
+              txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+              txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+              txb.object(C.CLOCK_PACKAGE_ID),
+            ],
+          });
+        }
         txb.moveCall({
-          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
             coinsList["VSUI"].type,
@@ -655,10 +690,7 @@ export async function naviDepositTx(
           ],
           arguments: [
             txb.object(C.ALPHA_NAVI_V2_VERSION),
-            txb.object(C.VERSION),
-            someReceipt,
             txb.object(poolData.poolId),
-            depositCoin,
             txb.object(poolData.investorId),
             txb.object(C.ALPHA_DISTRIBUTOR),
             txb.object(C.CLOCK_PACKAGE_ID),
@@ -679,6 +711,30 @@ export async function naviDepositTx(
             txb.object(bluefinPoolMap["SUI-SUIBTC"]),
             txb.object(C.BLUEFIN_GLOBAL_CONFIG),
             txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+          ],
+        });
+        txb.moveCall({
+          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
+          typeArguments: [
+            coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+          ],
+          arguments: [
+            txb.object(C.ALPHA_NAVI_V2_VERSION),
+            txb.object(C.VERSION),
+            someReceipt,
+            txb.object(poolData.poolId),
+            depositCoin,
+            txb.object(poolData.investorId),
+            txb.object(C.ALPHA_DISTRIBUTOR),
+            txb.object(C.PRICE_ORACLE),
+            txb.object(C.NAVI_STORAGE),
+            txb.object(poolData.parentPoolId),
+            txb.pure.u8(
+              Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+            ),
+            txb.object(C.NAVI_INCENTIVE_V3),
+            txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
       } else if (poolName === "NAVI-SUIUSDT") {
@@ -1413,8 +1469,43 @@ export async function naviWithdrawTx(
         ],
       });
     } else if (poolName === "NAVI-SUIBTC") {
+      const claimableRewards = await getAvailableRewards(
+        getSuiClient(),
+        getConf().NAVI_SUIBTC_ACCOUNT_ADDRESS,
+      );
+      if (
+        claimableRewards &&
+        Object.keys(claimableRewards!).includes(
+          coinsList["NAVX"].type.substring(2),
+        )
+      ) {
+        txb.moveCall({
+          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps`,
+          typeArguments: [
+            coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+            coinsList["NAVX"].type,
+          ],
+          arguments: [
+            txb.object(C.ALPHA_3_VERSION),
+            txb.object(poolData.investorId),
+            txb.object(C.NAVI_STORAGE),
+            txb.pure.u8(
+              Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+            ),
+            txb.object(C.NAVI_INCENTIVE_V3),
+            txb.object(C.NAVI_NAVX_REWARDS_POOL),
+            txb.object(cetusPoolMap["NAVX-SUI"]),
+            txb.object(
+              bluefinPoolMap[`SUI-${singleAssetPoolCoinMap[poolName].coin}`],
+            ),
+            txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+            txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+            txb.object(C.CLOCK_PACKAGE_ID),
+          ],
+        });
+      }
       txb.moveCall({
-        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool`,
         typeArguments: [
           coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           coinsList["VSUI"].type,
@@ -1423,12 +1514,7 @@ export async function naviWithdrawTx(
         ],
         arguments: [
           txb.object(C.ALPHA_NAVI_V2_VERSION),
-          txb.object(C.VERSION),
-          txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
           txb.object(poolData.investorId),
           txb.object(C.ALPHA_DISTRIBUTOR),
           txb.object(C.CLOCK_PACKAGE_ID),
@@ -1449,6 +1535,30 @@ export async function naviWithdrawTx(
           txb.object(bluefinPoolMap["SUI-SUIBTC"]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
           txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+        ],
+      });
+      txb.moveCall({
+        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+        typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
+        arguments: [
+          txb.object(C.ALPHA_NAVI_V2_VERSION),
+          txb.object(C.VERSION),
+          txb.object(receipt[0].objectId),
+          alpha_receipt,
+          txb.object(C.ALPHA_POOL),
+          txb.object(poolData.poolId),
+          txb.pure.u64(xTokens),
+          txb.object(poolData.investorId),
+          txb.object(C.ALPHA_DISTRIBUTOR),
+          txb.object(C.PRICE_ORACLE),
+          txb.object(C.NAVI_STORAGE),
+          txb.object(poolData.parentPoolId),
+          txb.pure.u8(
+            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+          ),
+          txb.object(C.NAVI_INCENTIVE_V3),
+          txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
     } else if (poolName === "NAVI-SUIUSDT") {
