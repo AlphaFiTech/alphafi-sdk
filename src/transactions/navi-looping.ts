@@ -788,7 +788,6 @@ export async function naviSuiStsuiLoopWithdrawTx(
       getSuiClient(),
       loopingAccountAddresses[poolName],
     );
-    console.log(JSON.stringify(claimableRewards, null, 2));
 
     const rewardCoinSet = new Set();
     if (claimableRewards) {
