@@ -311,9 +311,6 @@ export async function calculateAprForInvestor(
         let compoundAmount: number = Number(event.compound_amount);
         let totalAmount: number = Number(event.total_amount);
         if ("cur_total_debt" in event && "accrued_interest" in event) {
-          // remove exception case
-          if (event.txDigest === "GcaGgRHNA7UdsbZXGR8djAUDnGVMuWcvRNsuqHAo1d1e")
-            continue;
           compoundAmount = Number(
             event.compound_amount - event.accrued_interest,
           );
