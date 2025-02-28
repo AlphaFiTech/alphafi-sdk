@@ -315,6 +315,10 @@ export const naviPriceFeedMap: {
     feedId: conf[CONF_ENV].VSUI_FEED_ID,
     pythPriceInfo: conf[CONF_ENV].VSUI_PYTH_PRICE_INFO,
   },
+  HASUI: {
+    feedId: conf[CONF_ENV].HASUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
+  },
 };
 
 export const poolInfo: {
