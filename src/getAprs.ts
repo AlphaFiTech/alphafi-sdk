@@ -61,9 +61,6 @@ export async function getAprs(
       aprMap[poolName] = 0;
     }
   }
-  if ("NAVI-LOOP-SUI-STSUI" in aprMap) {
-    aprMap["NAVI-LOOP-SUI-STSUI"] = 7.17;
-  }
 
   return aprMap;
 }
