@@ -167,3 +167,5 @@ export { ReceiptGQL } from "./graphql/types.js";
 export * from "./types.js";
 
 export * from "./adminFunctions.js";
+
+export { fetchTransactions } from "./sui-sdk/transactions/fetchTransactions.js";
