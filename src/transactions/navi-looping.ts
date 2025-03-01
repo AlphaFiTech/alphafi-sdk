@@ -259,7 +259,6 @@ export async function naviHasuiSuiLoopDepositTx(
         depositCoin,
         txb.object(poolData.investorId),
         txb.object(C.ALPHA_DISTRIBUTOR),
-        txb.object(C.CLOCK_PACKAGE_ID),
         txb.object(C.PRICE_ORACLE),
         txb.object(C.NAVI_STORAGE),
         txb.object(C.NAVI_HASUI_POOL),
@@ -270,6 +269,7 @@ export async function naviHasuiSuiLoopDepositTx(
         txb.object(cetusPoolMap["HASUI-SUI"]),
         txb.object(C.HAEDEL_STAKING),
         txb.object(C.SUI_SYSTEM_STATE),
+        txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
     txb.transferObjects([coin], address);
