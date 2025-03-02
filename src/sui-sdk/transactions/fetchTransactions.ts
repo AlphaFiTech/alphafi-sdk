@@ -7,31 +7,41 @@ export async function fetchTransactions(
 ): Promise<SuiTransactionBlockResponse[]> {
   let transactionBlocks: SuiTransactionBlockResponse[] = [];
   const suiClient = getSuiClient();
+  const options = params.options
+    ? params.options
+    : {
+        showEffects: true,
+        showInput: true,
+        showObjectChanges: true,
+      };
+  if (params.startTime >= params.endTime)
+    throw new Error("startTime must be less than endTime");
 
   for (const filter of params.filter) {
     let hasNextPage: boolean = true;
     let nextCursor: null | string | undefined = null;
+    let i = 0; //debug
     while (hasNextPage) {
+      console.log(i++); //debug
       const res = await suiClient.queryTransactionBlocks({
         cursor: nextCursor,
         filter: filter,
-        options: {
-          showEffects: true,
-          showInput: true,
-          showObjectChanges: true,
-        },
+        options,
       });
       if (res.data.length !== 0) {
         const lastTx = res.data[res.data.length - 1];
         const firstTx = res.data[0];
         const laterTime = firstTx.timestampMs as string;
         const earlierTime = lastTx.timestampMs as string;
+        console.log("later earlier", laterTime, earlierTime); //debug
         if (Number(laterTime) < params.startTime) {
           // Page beyond interval
           hasNextPage = false;
           break;
         } else if (Number(earlierTime) > params.endTime) {
           // Page beyond interval
+          hasNextPage = res.hasNextPage;
+          nextCursor = res.nextCursor;
           continue;
         } else if (
           Number(laterTime) > params.startTime &&
@@ -46,6 +56,8 @@ export async function fetchTransactions(
               break;
             }
           }
+          hasNextPage = res.hasNextPage;
+          nextCursor = res.nextCursor;
         } else if (
           Number(laterTime) > params.endTime &&
           Number(earlierTime) > params.startTime &&
@@ -59,6 +71,8 @@ export async function fetchTransactions(
               break;
             }
           }
+          hasNextPage = res.hasNextPage;
+          nextCursor = res.nextCursor;
         } else if (
           Number(laterTime) > params.endTime &&
           Number(earlierTime) < params.startTime
@@ -72,6 +86,8 @@ export async function fetchTransactions(
               transactionBlocks.push(res.data[i]);
             }
           }
+          hasNextPage = res.hasNextPage;
+          nextCursor = res.nextCursor;
         } else {
           // Page is in the interval
           transactionBlocks = transactionBlocks.concat(res.data);

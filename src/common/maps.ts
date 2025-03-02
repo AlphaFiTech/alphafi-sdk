@@ -188,6 +188,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "WSOL-SUI": conf[CONF_ENV].WSOL_SUI_CETUS_POOL_ID,
   "MUSD-SUI": conf[CONF_ENV].MUSD_SUI_CETUS_POOL_ID,
   "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID,
+  "SUIUSDT-SUI": conf[CONF_ENV].SUIUSDT_SUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -228,6 +229,11 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-LOOP-SUI-VSUI": conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-HASUI-SUI": conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-SUI-STSUI": conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS,
+  "NAVI-AUSD": conf[CONF_ENV].NAVI_AUSD_ACCOUNT_ADDRESS,
+  "NAVI-ETH": conf[CONF_ENV].NAVI_ETH_ACCOUNT_ADDRESS,
+  "NAVI-NS": conf[CONF_ENV].NAVI_NS_ACCOUNT_ADDRESS,
+  "NAVI-STSUI": conf[CONF_ENV].NAVI_STSUI_ACCOUNT_ADDRESS,
+  "NAVI-SUIUSDT": conf[CONF_ENV].NAVI_SUIUSDT_ACCOUNT_ADDRESS,
 };
 
 export const naviPriceFeedMap: {
@@ -308,6 +314,10 @@ export const naviPriceFeedMap: {
   VSUI: {
     feedId: conf[CONF_ENV].VSUI_FEED_ID,
     pythPriceInfo: conf[CONF_ENV].VSUI_PYTH_PRICE_INFO,
+  },
+  HASUI: {
+    feedId: conf[CONF_ENV].HASUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
   },
 };
 
