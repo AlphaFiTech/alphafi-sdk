@@ -3203,7 +3203,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_STSUI_MUSD_POOL_AUTO_COMPOUNDING_EVENT:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb::alphafi_bluefin_stsui_first_investor::AutoCompoundingEvent",
     ALPHAFI_BLUEFIN_FUNGIBLE_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT:
-      "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::alphafi_bluefin_stsui_sui_ft_investor::AutoCompoundingEvent",
+      "0x59fd36210b1bf1dcd70d148cd868e059e74b22a660f84c5602cfb8501442322a::alphafi_bluefin_stsui_sui_ft_investor::AutoCompoundingEvent",
     NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
       "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151::alphafi_navi_sui_stsui_investor::AutoCompoundingEvent", //change
     ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_AUTO_COMPOUNDING_EVENT:
