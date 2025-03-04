@@ -9,7 +9,7 @@ export const coinsList: { [key in CoinName]: Coin } = {
   },
   SUI: {
     name: "SUI",
-    type: "0x2::sui::SUI",
+    type: "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI",
     icon: "https://coinmeta.polymedia.app/img/coins/0x0000000000000000000000000000000000000000000000000000000000000002-sui-SUI.svg",
     expo: 9,
   },
