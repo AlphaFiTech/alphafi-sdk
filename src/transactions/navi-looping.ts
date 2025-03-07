@@ -1591,10 +1591,10 @@ export async function naviUsdtUsdcLoopWithdrawTx(
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
-  const C = await getConf();
+  const C = getConf();
   const address = options.address;
   const txb = new Transaction();
-
+  const poolName = "NAVI-LOOP-USDT-USDC";
   const poolData = poolInfo["NAVI-LOOP-USDT-USDC"];
 
   const receipt: Receipt[] = await getReceipts(
@@ -1620,10 +1620,132 @@ export async function naviUsdtUsdcLoopWithdrawTx(
         arguments: [txb.object(alphaReceipt[0].objectId)],
       });
     }
+    const claimableRewards = await getAvailableRewards(
+      getSuiClient(),
+      loopingAccountAddresses[poolName],
+    );
 
+    const rewardCoinSet = new Set();
+    if (claimableRewards) {
+      for (const reward of claimableRewards[
+        coinsList[loopingPoolCoinMap[poolName].supplyCoin].type.substring(2)
+      ]
+        ? claimableRewards[
+            coinsList[loopingPoolCoinMap[poolName].supplyCoin].type.substring(2)
+          ]
+        : []) {
+        if (rewardCoinSet.has(reward.reward_coin_type) === false) {
+          if (reward.reward_coin_type === coinsList["NAVX"].type.substring(2)) {
+            txb.moveCall({
+              target: `${poolData.packageId}::alphafi_navi_usdt_usdc_investor::collect_v3_rewards_with_three_swaps`,
+              typeArguments: [
+                coinsList["USDT"].type,
+                coinsList["USDC"].type,
+                coinsList["SUI"].type,
+                "0x" + reward.reward_coin_type,
+              ],
+              arguments: [
+                txb.object(poolData.investorId),
+                txb.object(C.ALPHA_5_VERSION),
+                txb.object(C.CLOCK_PACKAGE_ID),
+                txb.object(C.NAVI_STORAGE),
+                txb.object(C.NAVI_INCENTIVE_V3),
+                txb.object(C.NAVI_NAVX_REWARDS_POOL),
+                txb.object(cetusPoolMap[`NAVX-SUI`]),
+                txb.object(cetusPoolMap[`USDC-SUI`]),
+                txb.object(cetusPoolMap[`USDC-USDT`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+              ],
+            });
+          } else if (
+            reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
+          ) {
+            txb.moveCall({
+              target: `${poolData.packageId}::alphafi_navi_usdt_usdc_investor::collect_v3_rewards_with_three_swaps`,
+              typeArguments: [
+                coinsList["USDT"].type,
+                coinsList["USDC"].type,
+                coinsList["SUI"].type,
+                "0x" + reward.reward_coin_type,
+              ],
+              arguments: [
+                txb.object(poolData.investorId),
+                txb.object(C.ALPHA_5_VERSION),
+                txb.object(C.CLOCK_PACKAGE_ID),
+                txb.object(C.NAVI_STORAGE),
+                txb.object(C.NAVI_INCENTIVE_V3),
+                txb.object(C.NAVI_VSUI_REWARDS_POOL),
+                txb.object(cetusPoolMap[`VSUI-SUI`]),
+                txb.object(cetusPoolMap[`USDC-SUI`]),
+                txb.object(cetusPoolMap[`USDC-USDT`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+              ],
+            });
+          }
+          rewardCoinSet.add(reward.reward_coin_type);
+        }
+      }
+      for (const reward of claimableRewards[
+        coinsList[loopingPoolCoinMap[poolName].borrowCoin].type.substring(2)
+      ]
+        ? claimableRewards[
+            coinsList[loopingPoolCoinMap[poolName].borrowCoin].type.substring(2)
+          ]
+        : []) {
+        if (rewardCoinSet.has(reward.reward_coin_type) === false) {
+          if (reward.reward_coin_type === coinsList["NAVX"].type.substring(2)) {
+            txb.moveCall({
+              target: `${poolData.packageId}::alphafi_navi_usdt_usdc_investor::collect_v3_rewards_with_three_swaps`,
+              typeArguments: [
+                coinsList["USDT"].type,
+                coinsList["USDC"].type,
+                coinsList["SUI"].type,
+                "0x" + reward.reward_coin_type,
+              ],
+              arguments: [
+                txb.object(poolData.investorId),
+                txb.object(C.ALPHA_5_VERSION),
+                txb.object(C.CLOCK_PACKAGE_ID),
+                txb.object(C.NAVI_STORAGE),
+                txb.object(C.NAVI_INCENTIVE_V3),
+                txb.object(C.NAVI_NAVX_REWARDS_POOL),
+                txb.object(cetusPoolMap[`NAVX-SUI`]),
+                txb.object(cetusPoolMap[`USDC-SUI`]),
+                txb.object(cetusPoolMap[`USDC-USDT`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+              ],
+            });
+          } else if (
+            reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
+          ) {
+            txb.moveCall({
+              target: `${poolData.packageId}::alphafi_navi_usdt_usdc_investor::collect_v3_rewards_with_three_swaps`,
+              typeArguments: [
+                coinsList["USDT"].type,
+                coinsList["USDC"].type,
+                coinsList["SUI"].type,
+                "0x" + reward.reward_coin_type,
+              ],
+              arguments: [
+                txb.object(poolData.investorId),
+                txb.object(C.ALPHA_5_VERSION),
+                txb.object(C.CLOCK_PACKAGE_ID),
+                txb.object(C.NAVI_STORAGE),
+                txb.object(C.NAVI_INCENTIVE_V3),
+                txb.object(C.NAVI_VSUI_REWARDS_POOL),
+                txb.object(cetusPoolMap[`VSUI-SUI`]),
+                txb.object(cetusPoolMap[`USDC-SUI`]),
+                txb.object(cetusPoolMap[`USDC-USDT`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+              ],
+            });
+          }
+          rewardCoinSet.add(reward.reward_coin_type);
+        }
+      }
+    }
     const [usdtCoin] = txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_withdraw`,
-      typeArguments: [coinsList["NAVX"].type],
+      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_withdraw_v2`,
       arguments: [
         txb.object(C.ALPHA_5_VERSION),
         txb.object(C.VERSION),
@@ -1638,15 +1760,10 @@ export async function naviUsdtUsdcLoopWithdrawTx(
         txb.object(C.NAVI_STORAGE),
         txb.object(C.NAVI_USDT_POOL),
         txb.object(C.NAVI_USDC_POOL),
-        txb.object(C.NAVI_INCENTIVE_V1),
+        txb.object(C.NAVI_INCENTIVE_V3),
         txb.object(C.NAVI_INCENTIVE_V2),
-        txb.object(C.NAVI_VSUI_FUNDS_POOL),
-        txb.object(C.NAVI_NAVX_FUNDS_POOL),
         txb.object(C.CETUS_GLOBAL_CONFIG_ID),
-        txb.object(cetusPoolMap["VSUI-SUI"]),
         txb.object(cetusPoolMap["USDC-USDT"]),
-        txb.object(cetusPoolMap["USDC-SUI"]),
-        txb.object(cetusPoolMap["NAVX-SUI"]),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
