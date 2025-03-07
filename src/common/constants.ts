@@ -2053,7 +2053,7 @@ export const conf = {
     ALPHA_5_FIRST_PACKAGE_ID:
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
     ALPHA_5_LATEST_PACKAGE_ID:
-      "0xf5edbfd10741ccb1a9fa994af38c02d50918bc0296fcac492e7929b704023138",
+      "0x1080d9166bb8a129c5fe6877d823cd80fec4153da610eb986a252bea3cea74ce",
 
     ALPHA_5_MODULE_PACKAGE_IDS: [
       "0xe516e0c12e56619c196fa0ee28d57e5e4ca532bd39df79bee9dcd1e3946119ec",
@@ -2065,6 +2065,7 @@ export const conf = {
       "0x1ac7aacf8479f86464df1141db1662cf8622e6a138fa8e5fd4499eec14a07151",
       "0xcf4e52f6c3891b2c7be381aed902278fe8babfe59c74aad63b11e15544be63e0",
       "0xf5edbfd10741ccb1a9fa994af38c02d50918bc0296fcac492e7929b704023138",
+      "0x1080d9166bb8a129c5fe6877d823cd80fec4153da610eb986a252bea3cea74ce",
     ],
     ALPHA_STSUI_FIRST_PACKAGE_ID:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
