@@ -13,11 +13,12 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run pretty && npm run lint",
+    "prebuild": "npm run link && npm run pretty && npm run lint",
     "build": "npm run build:cjs && npm run build:esm",
     "build:esm": "tsc --project tsconfig.esm.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
     "build:cjs": "tsc --project tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "postbuild": "npm link",
+    "link": "npm link @alphafi/stsui-sdk",
     "pretty": "prettier . --write",
     "lint": "eslint 'src/**/*.ts' --fix",
     "cpx": "cpx 'src/**/*.graphql' dist/cjs && cpx 'src/**/*.graphql' dist/esm",
@@ -63,7 +64,6 @@
   },
   "dependencies": {
     "@7kprotocol/sdk-ts": "^2.3.4",
-    "@alphafi/stsui-sdk": "^0.0.21",
     "@apollo/client": "^3.11.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "5.1.6",
     "@hop.ag/sdk": "^3.3.0",
