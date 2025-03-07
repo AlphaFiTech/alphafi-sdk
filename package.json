@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.67",
+  "version": "0.0.68",
   "description": "Official AlphaFi SDK to access AlphaFi data",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -26,7 +26,8 @@
     "docs": "typedoc",
     "test:esm": "jest --config jest.config.esm.js",
     "test:cjs": "jest --config jest.config.cjs.js",
-    "test": "npm run test:esm && npm run test:cjs"
+    "test": "npm run test:esm && npm run test:cjs",
+    "prepublish": "npm run docs"
   },
   "keywords": [],
   "author": "AlphaFi",
