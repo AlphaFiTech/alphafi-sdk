@@ -13,12 +13,11 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run link && npm run pretty && npm run lint",
+    "prebuild": "npm run pretty && npm run lint",
     "build": "npm run build:cjs && npm run build:esm",
     "build:esm": "tsc --project tsconfig.esm.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
     "build:cjs": "tsc --project tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "postbuild": "npm link",
-    "link": "npm link @alphafi/stsui-sdk",
     "pretty": "prettier . --write",
     "lint": "eslint 'src/**/*.ts' --fix",
     "cpx": "cpx 'src/**/*.graphql' dist/cjs && cpx 'src/**/*.graphql' dist/esm",
@@ -75,6 +74,7 @@
     "react": "^18.3.1"
   },
   "peerDependencies": {
-    "@mysten/sui": "^1.21.1"
+    "@mysten/sui": "^1.21.1",
+    "@alphafi/stsui-sdk": "^0.0.21"
   }
 }
