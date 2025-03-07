@@ -11,6 +11,7 @@ import {
   cetusPoolMap,
   getParentPool,
   getCoinAmountsFromLiquidity,
+  CoinName,
 } from "../../index.js";
 import {
   getPool,
@@ -32,7 +33,6 @@ import BN from "bn.js";
 import {
   stSuiExchangeRate,
   getConf as getStSuiConf,
-  CoinName,
 } from "@alphafi/stsui-sdk";
 
 export async function getAlphaPortfolioAmount(
