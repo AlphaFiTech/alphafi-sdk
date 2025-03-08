@@ -11,6 +11,7 @@ import {
   cetusPoolMap,
   getParentPool,
   getCoinAmountsFromLiquidity,
+  CoinName,
 } from "../../index.js";
 import {
   getPool,
@@ -29,7 +30,10 @@ import { getAlphaPrice } from "../../utils/clmm/prices.js";
 import { getLatestPrices } from "../../utils/prices.js";
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
-import { stSuiExchangeRate, getConf as getStSuiConf } from "@alphafi/stsui-sdk";
+import {
+  stSuiExchangeRate,
+  getConf as getStSuiConf,
+} from "@alphafi/stsui-sdk";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,
@@ -103,13 +107,25 @@ export async function getPortfolioAmount(
   ignoreCache: boolean,
 ): Promise<[string, string] | undefined> {
   let portfolioAmount: [string, string] = ["0", "0"];
-  const receipts = await getReceipts(poolName, address, ignoreCache);
   let totalXTokens = new Decimal(0);
-  if (receipts) {
-    receipts.forEach((receipt) => {
-      const xTokens = receipt.content.fields.xTokenBalance;
+  if (poolName.toString().includes("-FUNGIBLE-")) {
+    const tokenBalance = await getTokenBalance(
+      poolInfo[poolName].receiptName as CoinName,
+      address,
+    );
+    if (tokenBalance) {
+      totalXTokens = new Decimal(tokenBalance);
+    } else {
+      console.error(
+        "could not fetch fungible token balance for getPortfolioAmount",
+      );
+    }
+  } else {
+    const receipts = await getReceipts(poolName, address, ignoreCache);
+    if (receipts && receipts.length > 0) {
+      const xTokens = receipts[0].content.fields.xTokenBalance;
       totalXTokens = totalXTokens.add(xTokens);
-    });
+    }
   }
 
   if (totalXTokens.gt(0)) {
@@ -400,4 +416,24 @@ export async function getSingleAssetPortfolioAmountInUSD(
     );
   }
   return "0";
+}
+
+export async function getTokenBalance(
+  tokenName: CoinName,
+  address: string,
+): Promise<string | undefined> {
+  const suiClient = getSuiClient();
+  let balance = "0";
+  try {
+    const coinBalance = await suiClient.getBalance({
+      owner: address,
+      coinType: coinsList[tokenName].type,
+    });
+
+    const balanceInt = parseInt(coinBalance.totalBalance);
+    balance = `${balanceInt}`;
+    return balance;
+  } catch (e) {
+    console.error(`Could not get Balance for token: ${tokenName}`);
+  }
 }
