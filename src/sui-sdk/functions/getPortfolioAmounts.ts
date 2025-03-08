@@ -30,10 +30,7 @@ import { getAlphaPrice } from "../../utils/clmm/prices.js";
 import { getLatestPrices } from "../../utils/prices.js";
 import { TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
-import {
-  stSuiExchangeRate,
-  getConf as getStSuiConf,
-} from "@alphafi/stsui-sdk";
+import { stSuiExchangeRate, getConf as getStSuiConf } from "@alphafi/stsui-sdk";
 
 export async function getAlphaPortfolioAmount(
   poolName: PoolName,
