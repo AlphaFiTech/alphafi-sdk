@@ -84,6 +84,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-STSUI-MUSD": { coin1: "STSUI", coin2: "MUSD" },
   "BLUEFIN-FUNGIBLE-STSUI-SUI": { coin1: "STSUI", coin2: "SUI" },
   "BLUEFIN-SUIBTC-USDC": { coin1: "SUIBTC", coin2: "USDC" },
+  "BLUEFIN-AUTOBALANCE-SUI-LBTC": { coin1: "SUI", coin2: "LBTC" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -189,6 +190,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "MUSD-SUI": conf[CONF_ENV].MUSD_SUI_CETUS_POOL_ID,
   "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID,
   "SUIUSDT-SUI": conf[CONF_ENV].SUIUSDT_SUI_CETUS_POOL_ID,
+  "LBTC-SUI": conf[CONF_ENV].LBTC_SUI_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -221,6 +223,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUIBTC-USDC": conf[CONF_ENV].BLUEFIN_SUIBTC_USDC_POOL,
   "SUI-SUIBTC": conf[CONF_ENV].BLUEFIN_SUI_SUIBTC_POOL,
   "VSUI-SUI": conf[CONF_ENV].BLUEFIN_VSUI_SUI_POOL,
+  "SUI-LBTC": conf[CONF_ENV].BLUEFIN_SUI_LBTC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -351,6 +354,31 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "BLUEFIN-AUTOBALANCE-SUI-LBTC": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUI_LBTC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_RECEIPT,
+    assetTypes: [coinsList["SUI"].type, coinsList["LBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
+    // add strategy type
+    imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/LBTC_IC.png",
+    retired: false,
+  },
   "BLUEFIN-FUNGIBLE-STSUI-SUI": {
     packageId: conf[CONF_ENV].ALPHA_FUNGIBLE_LATEST_PACKAGE_ID,
     packageNumber: 8,
