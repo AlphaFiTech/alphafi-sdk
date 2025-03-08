@@ -205,4 +205,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 8,
   },
+  LBTC: {
+    name: "LBTC",
+    type: "0x3e8e9423d80e1774a7ca128fccd8bf5f1f7753be658c5e645929037f7c819040::lbtc::LBTC",
+    icon: "",
+    expo: 8,
+  },
 };
