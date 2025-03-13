@@ -1110,7 +1110,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_LOOP_USDT_USDC_POOL_CHECK_RATIO_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDT.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-USDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1441,7 +1441,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: true,
+    retired: false,
   },
   "NAVI-LOOP-USDC-USDT": {
     packageId: conf[CONF_ENV].ALPHA_2_LATEST_PACKAGE_ID,
@@ -1465,7 +1465,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDT.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-LOOP-SUI-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_2_LATEST_PACKAGE_ID,
@@ -1577,7 +1577,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDT.svg",
-    retired: true,
+    retired: false,
   },
   "NAVI-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
