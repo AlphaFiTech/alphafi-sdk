@@ -616,7 +616,6 @@ export async function naviDepositTx(
                   ),
                   txb.object(C.NAVI_INCENTIVE_V3),
                   txb.object(C.NAVI_NAVX_REWARDS_POOL),
-                  txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                   txb.object(cetusPoolMap["NAVX-SUI"]),
                   txb.object(cetusPoolMap["WUSDC-SUI"]),
                   txb.object(
@@ -624,13 +623,14 @@ export async function naviDepositTx(
                       `${singleAssetPoolCoinMap[poolName].coin}-WUSDC`
                     ],
                   ),
+                  txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 ],
               });
             } else if (
               reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
             ) {
               txb.moveCall({
-                target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::collect_v3_rewards_with_three_swaps`,
+                target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_three_swaps`,
                 typeArguments: [
                   coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                   coinsList["WUSDC"].type,
@@ -678,7 +678,7 @@ export async function naviDepositTx(
             txb.pure.u8(
               Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
             ),
-            txb.object(C.NAVI_INCENTIVE_V1),
+            txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
@@ -2006,7 +2006,6 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_NAVX_REWARDS_POOL),
-                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 txb.object(cetusPoolMap["NAVX-SUI"]),
                 txb.object(cetusPoolMap["WUSDC-SUI"]),
                 txb.object(
@@ -2014,6 +2013,7 @@ export async function naviWithdrawTx(
                     `${singleAssetPoolCoinMap[poolName].coin}-WUSDC`
                   ],
                 ),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
               ],
             });
           } else if (
@@ -2037,7 +2037,6 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_VSUI_REWARDS_POOL),
-                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 txb.object(cetusPoolMap["VSUI-SUI"]),
                 txb.object(cetusPoolMap["WUSDC-SUI"]),
                 txb.object(
@@ -2045,6 +2044,7 @@ export async function naviWithdrawTx(
                     `${singleAssetPoolCoinMap[poolName].coin}-WUSDC`
                   ],
                 ),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
               ],
             });
           }
