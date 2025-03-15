@@ -78,6 +78,7 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-STSUI-MUSD"
   | "BLUEFIN-FUNGIBLE-STSUI-SUI"
   | "BLUEFIN-SUIBTC-USDC"
+  | "BLUEFIN-LBTC-SUIBTC"
   | AutoBalancePoolNames;
 
 export type AutoBalancePoolNames =

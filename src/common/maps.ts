@@ -85,6 +85,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-FUNGIBLE-STSUI-SUI": { coin1: "STSUI", coin2: "SUI" },
   "BLUEFIN-SUIBTC-USDC": { coin1: "SUIBTC", coin2: "USDC" },
   "BLUEFIN-AUTOBALANCE-SUI-LBTC": { coin1: "SUI", coin2: "LBTC" },
+  "BLUEFIN-LBTC-SUIBTC": { coin1: "LBTC", coin2: "SUIBTC" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -191,6 +192,8 @@ export const cetusPoolMap: { [key: string]: string } = {
   "USDC-SUIBTC": conf[CONF_ENV].USDC_SUIBTC_CETUS_POOL_ID,
   "SUIUSDT-SUI": conf[CONF_ENV].SUIUSDT_SUI_CETUS_POOL_ID,
   "LBTC-SUI": conf[CONF_ENV].LBTC_SUI_CETUS_POOL_ID,
+  "SUIBTC-SUI": conf[CONF_ENV].SUIBTC_SUI_CETUS_POOL_ID,
+  "SUIBTC-LBTC": conf[CONF_ENV].SUIBTC_LBTC_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -224,6 +227,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUI-SUIBTC": conf[CONF_ENV].BLUEFIN_SUI_SUIBTC_POOL,
   "VSUI-SUI": conf[CONF_ENV].BLUEFIN_VSUI_SUI_POOL,
   "SUI-LBTC": conf[CONF_ENV].BLUEFIN_SUI_LBTC_POOL,
+  "LBTC-SUIBTC": conf[CONF_ENV].BLUEFIN_LBTC_SUIBTC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -354,6 +358,25 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "BLUEFIN-LBTC-SUIBTC": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,
+    packageNumber: 8,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_LBTC_SUIBTC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["LBTC"].type, coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    retired: false,
+    // add strategy type
+  },
   "BLUEFIN-AUTOBALANCE-SUI-LBTC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
