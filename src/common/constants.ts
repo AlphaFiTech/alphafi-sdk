@@ -3101,7 +3101,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_RECEIPT_NAME:
       "AlphaFi-Bluefin-Autobalance SUI-LBTC Receipt",
     ALPHAFI_BLUEFIN_LBTC_SUIBTC_RECEIPT_NAME:
-      "AlphaFi-Bluefin wBTC-LBTC Receipt",
+      "AlphaFi-Bluefin LBTC-wBTC Receipt",
 
     //alphafi navi account addresses
     NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS:
