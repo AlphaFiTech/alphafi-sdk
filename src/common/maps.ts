@@ -86,6 +86,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-SUIBTC-USDC": { coin1: "SUIBTC", coin2: "USDC" },
   "BLUEFIN-AUTOBALANCE-SUI-LBTC": { coin1: "SUI", coin2: "LBTC" },
   "BLUEFIN-LBTC-SUIBTC": { coin1: "LBTC", coin2: "SUIBTC" },
+  "USDC-SUIUSDT": { coin1: "USDC", coin2: "SUIUSDT" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -358,6 +359,28 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "USDC-SUIUSDT": {
+    packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
+    packageNumber: 1,
+    parentProtocolName: "CETUS",
+    parentPoolId: conf[CONF_ENV].USDC_SUIUSDT_CETUS_POOL_ID,
+    poolId: conf[CONF_ENV].USDC_SUIUSDT_POOL,
+    investorId: conf[CONF_ENV].USDC_SUIUSDT_CETUS_INVESTOR,
+    receiptName: conf[CONF_ENV].USDC_SUIUSDT_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].USDC_SUIUSDT_POOL_RECEIPT,
+    assetTypes: [
+      "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC",
+      "0x375f70cf2ae4c00bf37117d0c85a2c71545e6ee05c4a5c7d282cd66a4504b068::usdt::USDT",
+    ],
+    autoCompoundingEventType:
+      conf[CONF_ENV].USDC_SUIUSDT_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: conf[CONF_ENV].USDC_SUIUSDT_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV].USDC_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
+    retired: false,
+  },
   "BLUEFIN-LBTC-SUIBTC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,
     packageNumber: 8,
