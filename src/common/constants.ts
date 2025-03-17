@@ -2377,7 +2377,8 @@ export const conf = {
       "0xff496f73a1f9bf7461882fbdad0c6c6c73d301d3137932f7fce2428244359eaa",
     BUCK_SUI_POOL:
       "0xeb44ecef39cc7873de0c418311557c6b8a60a0af4f1fe1fecece85d5fbe02ab5",
-    USDC_SUIUSDT_POOL: "",
+    USDC_SUIUSDT_POOL:
+      "0x59ec4223043e2bbbcd519bf161088b81946193b0580d6ce94b48e9cb659c6efa",
 
     // Alphafi-Navi Pools
 
@@ -2695,7 +2696,8 @@ export const conf = {
     BUCK_SUI_CETUS_INVESTOR:
       "0x9b7c9b6086d3baf413bccdfbb6f60f04dedd5f5387dee531eef5b811afdfaedc",
 
-    USDC_SUIUSDT_CETUS_INVESTOR: "",
+    USDC_SUIUSDT_CETUS_INVESTOR:
+      "0x6285c57b0d86cbe585abfe5b23d74f96243f450381ef4d57604164e76a76f4c8",
 
     // Navi Investor Ids
 
