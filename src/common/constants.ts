@@ -1619,6 +1619,18 @@ export const conf = {
     CETUS_SWAP_EVENT:
       "0x1eabed72c53feb3805120a081dc15963c204dc8d091542592abaf7a35689b2fb::pool::SwapEvent",
 
+    //Governane ID's
+
+    GOVERNANCE_PACKAGE_ID:
+      "0x4b3ea02ce21386d1656ad36d3463eaa006c4eb917745a4a252766030356a6470",
+
+    VOTE_CAST_EVENT_TYPE:
+      "0x4b3ea02ce21386d1656ad36d3463eaa006c4eb917745a4a252766030356a6470::governance::VoteCastEvent",
+
+    ACTIVE_PROPOSAL_IDS: [
+      "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
+    ],
+
     // Navi Events
     NAVI_POOL_DEPOSIT_EVENT:
       "0xd899cf7d2b5db716bd2cf55599fb0d5ee38a3061e7b6bb6eebf73fa5bc4c81ca::pool::PoolDeposit",
@@ -3743,6 +3755,14 @@ export const conf = {
 
     NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
+
+    //Governane ID's
+
+    GOVERNANCE_PACKAGE_ID: "",
+
+    VOTE_CAST_EVENT_TYPE: "",
+
+    ACTIVE_PROPOSAL_IDS: [],
 
     // Check Ratio Events
     NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT:
