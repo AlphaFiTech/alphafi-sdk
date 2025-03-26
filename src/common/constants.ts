@@ -1627,8 +1627,9 @@ export const conf = {
     VOTE_CAST_EVENT_TYPE:
       "0x4b3ea02ce21386d1656ad36d3463eaa006c4eb917745a4a252766030356a6470::governance::VoteCastEvent",
 
-    PROPOSAL_ID1:
+    ACTIVE_PROPOSAL_IDS: [
       "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
+    ],
 
     // Navi Events
     NAVI_POOL_DEPOSIT_EVENT:
@@ -3761,7 +3762,7 @@ export const conf = {
 
     VOTE_CAST_EVENT_TYPE: "",
 
-    PROPOSAL_ID1: "",
+    ACTIVE_PROPOSAL_IDS: [],
 
     // Check Ratio Events
     NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT:
