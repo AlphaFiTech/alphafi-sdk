@@ -3758,7 +3758,8 @@ export const conf = {
 
     //Governane ID's
 
-    GOVERNANCE_PACKAGE_ID: "",
+    GOVERNANCE_PACKAGE_ID:
+      "0x40ddb88cb179a9c2390d19a94b4427ac463e8fa9756539d07b7f56e8f9bcd875",
 
     VOTE_CAST_EVENT_TYPE: "",
 
