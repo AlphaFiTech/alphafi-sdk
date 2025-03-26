@@ -100,7 +100,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-WUSDC": { coin: "WUSDC" },
   "NAVI-USDC": { coin: "USDC" },
   "NAVI-HASUI": { coin: "HASUI" },
-  "NAVI-LOOP-SUI-VSUI": { coin: "VSUI" },
+  "NAVI-LOOP-SUI-VSUI": { coin: "SUI" },
   "NAVI-LOOP-USDC-USDT": { coin: "USDC" },
   "BUCKET-BUCK": { coin: "BUCK" },
   "NAVI-USDY": { coin: "USDY" },
@@ -111,7 +111,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-NS": { coin: "NS" },
   "NAVI-NAVX": { coin: "NAVX" },
   "NAVI-STSUI": { coin: "STSUI" },
-  "NAVI-LOOP-SUI-STSUI": { coin: "STSUI" },
+  "NAVI-LOOP-SUI-STSUI": { coin: "SUI" },
   "NAVI-SUIBTC": { coin: "SUIBTC" },
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
 };
