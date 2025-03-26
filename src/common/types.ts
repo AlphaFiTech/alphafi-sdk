@@ -23,6 +23,7 @@ export type SingleAssetPoolNames =
   | "NAVI-STSUI"
   | "NAVI-SUIBTC"
   | "NAVI-SUIUSDT"
+  | "NAVI-DEEP"
   | LoopingPoolNames;
 
 export type LoopingPoolNames =
