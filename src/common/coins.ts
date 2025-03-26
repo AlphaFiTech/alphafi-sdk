@@ -211,4 +211,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 8,
   },
+  WAL: {
+    name: "WAL",
+    type: "0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL",
+    icon: "",
+    expo: 9,
+  },
 };

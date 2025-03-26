@@ -80,6 +80,8 @@ export type DoubleAssetPoolNames =
   | "BLUEFIN-SUIBTC-USDC"
   | "BLUEFIN-LBTC-SUIBTC"
   | "USDC-SUIUSDT"
+  | "BLUEFIN-WAL-USDC"
+  | "BLUEFIN-WAL-STSUI"
   | AutoBalancePoolNames;
 
 export type AutoBalancePoolNames =
@@ -126,7 +128,8 @@ export type CoinName =
   | "FT_BLUEFIN_STSUI_SUI"
   | "AlphaFi stSUI-SUI LP"
   | "SUIBTC"
-  | "LBTC";
+  | "LBTC"
+  | "WAL";
 
 export type StrategyType =
   | "LOOPING"
@@ -223,7 +226,8 @@ export type CoinType =
   | "0xcd8f8a6fcd309e6d00f6f8f2d37eeeedeee7ccb50934d457e5a0a2f3e65bdbd2::ft_bluefin_stsui_sui::FT_BLUEFIN_STSUI_SUI"
   | "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC"
   | "0x96eb2012a75798ce4410392baeab9dd888bc704799b7daa468c36856c83174f3::ALPHAFI_STSUI_SUI_LP::ALPHAFI_STSUI_SUI_LP"
-  | "0x3e8e9423d80e1774a7ca128fccd8bf5f1f7753be658c5e645929037f7c819040::lbtc::LBTC";
+  | "0x3e8e9423d80e1774a7ca128fccd8bf5f1f7753be658c5e645929037f7c819040::lbtc::LBTC"
+  | "0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59::wal::WAL";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;

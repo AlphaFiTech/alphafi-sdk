@@ -2488,6 +2488,8 @@ export const conf = {
       "0x4043b9e628d0cc6c2e3f322e6a7bddf603a3bcc084992355b55f4c23516bb6ba",
     ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL:
       "0xd30d849bbddd0c1bc0e2eb552c2dacdf4ae998cc03cd485640eb3db7f456e295",
+    ALPHAFI_BLUEFIN_WAL_USDC_POOL: "",
+    ALPHAFI_BLUEFIN_WAL_STSUI_POOL: "",
 
     // BLUEFIN AUTOBALANCING POOLS
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL:
@@ -2628,6 +2630,8 @@ export const conf = {
       "0x0747352161108a1df5e7c9604037f942aaee4286cb994ad3499a244ad67f399b",
     SUIBTC_SUI_CETUS_POOL_ID:
       "0x0fb4ad0e4c2c2b0a45d3f7bc5585cc9cea8486a63e4ef5cb768ddd9414fbb97a",
+    WAL_SUI_CETUS_POOL_ID: "",
+    USDC_WAL_CETUS_POOL_ID: "",
 
     //Cetus Info Id's
 
@@ -2814,6 +2818,8 @@ export const conf = {
       "0x6876c4b19075ee774ca368a4a782c9425cca97251093dafa7ff239a846b3ee30",
     ALPHAFI_BLUEFIN_LBTC_SUIBTC_INVESTOR:
       "0x43523544dd4e7900ac6aeb8299e1aebd5d72bf7fae97f1a3b988c31e08b1bacc",
+    ALPHAFI_BLUEFIN_WAL_USDC_INVESTOR: "",
+    ALPHAFI_BLUEFIN_WAL_STSUI_INVESTOR: "",
 
     //BLUEFIN AUTOBALANCING INVESTORS
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_INVESTOR:
@@ -3002,6 +3008,10 @@ export const conf = {
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_pool::Receipt",
     USDC_SUIUSDT_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::Receipt",
+    ALPHAFI_BLUEFIN_WAL_USDC_RECEIPT:
+      "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_pool::Receipt",
+    ALPHAFI_BLUEFIN_WAL_STSUI_RECEIPT:
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_pool::Receipt",
 
     //AUTOBALANCE POOLS
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_RECEIPT:
@@ -3136,6 +3146,8 @@ export const conf = {
     ALPHAFI_BLUEFIN_LBTC_SUIBTC_RECEIPT_NAME:
       "AlphaFi-Bluefin LBTC-wBTC Receipt",
     USDC_SUIUSDT_POOL_RECEIPT_NAME: "AlphaFi-Cetus suiUSDT-USDC Receipt",
+    ALPHAFI_BLUEFIN_WAL_USDC_RECEIPT_NAME: "AlphaFi-Bluefin WAL-USDC Receipt",
+    ALPHAFI_BLUEFIN_WAL_STSUI_RECEIPT_NAME: "AlphaFi-Bluefin WAL-STSUI Receipt",
 
     //alphafi navi account addresses
     NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS:
@@ -3349,6 +3361,10 @@ export const conf = {
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_investor::AutoCompoundingEvent",
     USDC_SUIUSDT_POOL_AUTO_COMPOUNDING_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::AutoCompoundingEvent",
+    ALPHAFI_BLUEFIN_WAL_USDC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_investor::AutoCompoundingEvent",
+    ALPHAFI_BLUEFIN_WAL_STSUI_POOL_AUTO_COMPOUNDING_EVENT:
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_investor::AutoCompoundingEvent",
 
     // autobalance
     ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT:
@@ -3503,6 +3519,10 @@ export const conf = {
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_investor::RebalancePoolEvent",
     USDC_SUIUSDT_POOL_REBALANCE_EVENT:
       "0x73754ff4132adde2c28995739e8bb403aeb7219ba92003245529681dbc379c08::alphafi_cetus_investor::RebalancePoolEvent",
+    ALPHAFI_BLUEFIN_WAL_USDC_POOL_REBALANCE_EVENT:
+      "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_investor::RebalancePoolEvent",
+    ALPHAFI_BLUEFIN_WAL_STSUI_POOL_REBALANCE_EVENT:
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_investor::RebalancePoolEvent", //c
 
     //Liquidity Change Event Types
     ALPHA_POOL_LIQUIDITY_CHANGE_EVENT:
@@ -3690,6 +3710,10 @@ export const conf = {
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
     USDC_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::LiquidityChangeEvent",
+    ALPHAFI_BLUEFIN_WAL_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
+    ALPHAFI_BLUEFIN_WAL_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0xdb3f0d00c5aa1d24dd65dfcbaecb284e013a2c7e742be3cb979c7703a1b899c9::alphafi_bluefin_stsui_second_pool::LiquidityChangeEvent", //c
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
@@ -3851,6 +3875,9 @@ export const conf = {
       "0xa0153768c7ed857ffd8bad4708da873fb7825a6878e5f4c83f5df4c091933e56",
     BLUEFIN_LBTC_SUIBTC_POOL:
       "0x715959c4a67cc6b8d2d4c0db628618d947a032041453a24c3a5315beb613331a",
+    BLUEFIN_WAL_USDC_POOL: "",
+    BLUEFIN_WAL_STSUI_POOL: "",
+    BLUEFIN_SUI_WAL_POOL: "",
 
     // stsui
     LST_INFO:

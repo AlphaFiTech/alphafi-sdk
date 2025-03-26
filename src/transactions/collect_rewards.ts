@@ -151,7 +151,8 @@ export async function claimRewardTxb(address: string) {
             poolName === "BLUEFIN-AUSD-USDC" ||
             poolName === "BLUEFIN-WBTC-USDC" ||
             poolName === "BLUEFIN-SEND-USDC" ||
-            poolName === "BLUEFIN-SUIUSDT-USDC"
+            poolName === "BLUEFIN-SUIUSDT-USDC" ||
+            poolName === "BLUEFIN-WAL-USDC"
           ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
@@ -251,7 +252,10 @@ export async function claimRewardTxb(address: string) {
                 ],
               });
             });
-          } else if (poolName === "BLUEFIN-ALPHA-STSUI") {
+          } else if (
+            poolName === "BLUEFIN-ALPHA-STSUI" ||
+            poolName === "BLUEFIN-WAL-STSUI"
+          ) {
             receipts.forEach((receipt) => {
               alpha_receipt = txb.moveCall({
                 target: `${poolInfo[poolName].packageId}::alphafi_bluefin_stsui_second_pool::get_user_rewards_all`,
