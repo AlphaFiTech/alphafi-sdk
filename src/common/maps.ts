@@ -652,7 +652,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-AUTOBALANCE-DEEP-SUI": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
