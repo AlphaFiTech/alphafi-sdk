@@ -88,6 +88,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-LBTC-SUIBTC": { coin1: "LBTC", coin2: "SUIBTC" },
   "USDC-SUIUSDT": { coin1: "USDC", coin2: "SUIUSDT" },
   "BLUEFIN-WAL-USDC": { coin1: "WAL", coin2: "USDC" },
+  "BLUEFIN-WAL-STSUI": { coin1: "WAL", coin2: "STSUI" },
 };
 
 export const singleAssetPoolCoinMap: {
