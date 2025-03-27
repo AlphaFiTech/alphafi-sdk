@@ -16,6 +16,7 @@ import {
   AfterTransactionEventNode,
   CheckRatioEvent,
   AutobalancingAutoCompoundingEvent,
+  VoteCastEvent,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -84,7 +85,8 @@ export async function fetchEvents(
         | AlphaAutoCompoundingEvent
         | AlphaWithdrawV2Event
         | AfterTransactionEventNode // TODO: this needs to be changed to AfterTransactionEvent Eventually
-        | CheckRatioEvent;
+        | CheckRatioEvent
+        | VoteCastEvent;
 
       let eventNode: EventNode;
 
@@ -360,6 +362,24 @@ export async function fetchEvents(
           txDigest: suiEvent.id.txDigest,
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,
+        };
+      } else if (
+        suiEvent.type === conf[CONF_ENV].VOTE_CAST_EVENT_TYPE &&
+        "proposal_id" in suiEventJson &&
+        "voter" in suiEventJson &&
+        "previous_vote_choice" in suiEventJson &&
+        "vote_choice" in suiEventJson
+      ) {
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+          proposal_id: suiEventJson.proposal_id,
+          voter: suiEventJson.voter,
+          previous_vote_choice: suiEventJson.previous_vote_choice,
+          vote_choice: suiEventJson.vote_choice,
         };
       } else {
         console.error("event: ", suiEvent, "json: ", suiEventJson);
