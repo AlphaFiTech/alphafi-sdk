@@ -158,6 +158,7 @@ export {
   AutoCompoundingEventNode,
   WithdrawV2EventNode,
   AfterTransactionEventNode,
+  CommonEventAttributes,
   EventNode,
   eventCategories,
   EventCategory,
