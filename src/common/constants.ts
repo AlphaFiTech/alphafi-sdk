@@ -3830,7 +3830,8 @@ export const conf = {
       "0x5d0b7cab355e1ffc6d5108a31d7d7064cd5da8c7a2abb35b45960b3f195a8402::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
     USDC_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphafi_cetus_pool::LiquidityChangeEvent",
-    NAVI_DEEP_POOL_LIQUIDITY_CHANGE_EVENT: "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
+    NAVI_DEEP_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x5d90d17172b9e38da9f13a982668a9e48d0b0b5f864e421b60686f60758b37bd::alphafi_navi_pool_v2::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_WAL_USDC_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x066648edaf473d6cc14b7ab46f56b673be4e44f9c940f70b6bacd7848808859b::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_WAL_STSUI_POOL_LIQUIDITY_CHANGE_EVENT:
