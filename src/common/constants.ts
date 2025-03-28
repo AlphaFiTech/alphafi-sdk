@@ -3283,6 +3283,8 @@ export const conf = {
       "0x57b3a18b87a74fbf26ebda9a5670de6740d587b8009d5d9a31ef589c61b050f0",
     NAVI_USDT_ACCOUNT_ADDRESS:
       "0xa7bcc625ed51fd190b87d945f8399f8b28a728a082d9d80d783075d992397746",
+    NAVI_WAL_ACCOUNT_ADDRESS:
+      "0x13bdd7177faa8868bf26090fb67b5f0b1aa4dbd9a021dee9ea20421b496511f9",
 
     // Event-related Timestamps
     // format: module_event_start/end

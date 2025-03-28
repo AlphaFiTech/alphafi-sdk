@@ -258,6 +258,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-USDY": conf[CONF_ENV].NAVI_USDY_ACCOUNT_ADDRESS,
   "NAVI-SUI": conf[CONF_ENV].NAVI_SUI_ACCOUNT_ADDRESS,
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_ACCOUNT_ADDRESS,
+  "NAVI-WAL": conf[CONF_ENV].NAVI_WAL_ACCOUNT_ADDRESS,
 };
 
 export const naviPriceFeedMap: {
@@ -341,6 +342,10 @@ export const naviPriceFeedMap: {
   },
   HASUI: {
     feedId: conf[CONF_ENV].HASUI_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
+  },
+  WAL: {
+    feedId: conf[CONF_ENV].HASUI_FEED_ID, //todo: change when real ids for wal are found
     pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
   },
 };
