@@ -117,6 +117,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-LOOP-SUI-STSUI": { coin: "SUI" },
   "NAVI-SUIBTC": { coin: "SUIBTC" },
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
+  "NAVI-WAL": { coin: "WAL" },
 };
 
 export const loopingPoolCoinMap: {
@@ -148,6 +149,7 @@ export const naviAssetMap: {
   STSUI: "20",
   SUIBTC: "21",
   SUIUSDT: "19",
+  WAL: "24",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -367,6 +369,27 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "NAVI-WAL": {
+    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+    packageNumber: 3,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_WAL_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_WAL_POOL,
+    investorId: conf[CONF_ENV].NAVI_WAL_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_WAL_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_WAL_POOL_RECEIPT,
+    assetTypes: [
+      "0x2053d08c1e2bd02791056171aab0fd12bd7cd7efad2ab8f6b9c8902f14df2ff2::ausd::AUSD",
+    ],
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_AUSD_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/ausd.png",
+    retired: true,
+  },
   "BLUEFIN-AUTOBALANCE-WAL-USDC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
