@@ -2522,7 +2522,8 @@ export const conf = {
     ALPHAFI_NAVI_SUIUSDT_POOL:
       "0x1d30d1b07d78341810a604ad34734001b3b70362c6502de2220999074429a641",
     ALPHAFI_NAVI_DEEP_POOL: "",
-    ALPHAFI_NAVI_WAL_POOL: "",
+    ALPHAFI_NAVI_WAL_POOL:
+      "0x8ceca427f6fef09f7691eb2c9f1bf41e4854230f9e1bd21322b3ea7f76ee6975",
 
     //alphafi bucket pools
 
@@ -2864,7 +2865,8 @@ export const conf = {
     NAVI_SUIUSDT_INVESTOR:
       "0x30432ba26016f1f1155d4a8baaa64306283dc9640cc8a42e6e3c91b1d5ba9bd4",
     NAVI_DEEP_INVESTOR: "",
-    NAVI_WAL_INVESTOR: "",
+    NAVI_WAL_INVESTOR:
+      "0xe261d6b63ba101a6cd79adfe69c8499a13a590170e2554072edfa10b770cfbe6",
 
     //ALPHAFI BUCKET INVESTORS
     BUCKET_BUCK_INVESTOR:
@@ -3301,6 +3303,8 @@ export const conf = {
     NAVI_USDT_ACCOUNT_ADDRESS:
       "0xa7bcc625ed51fd190b87d945f8399f8b28a728a082d9d80d783075d992397746",
     NAVI_DEEP_ACCOUNT_ADDRESS: "",
+    NAVI_WAL_ACCOUNT_ADDRESS:
+      "0x13bdd7177faa8868bf26090fb67b5f0b1aa4dbd9a021dee9ea20421b496511f9",
 
     // Event-related Timestamps
     // format: module_event_start/end
@@ -3897,11 +3901,14 @@ export const conf = {
     //Governane ID's
 
     GOVERNANCE_PACKAGE_ID:
-      "0x40ddb88cb179a9c2390d19a94b4427ac463e8fa9756539d07b7f56e8f9bcd875",
+      "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710",
 
-    VOTE_CAST_EVENT_TYPE: "",
+    VOTE_CAST_EVENT_TYPE:
+      "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710::governance::VoteCastEvent",
 
-    ACTIVE_PROPOSAL_IDS: [],
+    ACTIVE_PROPOSAL_IDS: [
+      "0x733e0850cfbe2b269202956d725718ad8577555af56271d98c3cc030f152ed0a",
+    ],
 
     // Check Ratio Events
     NAVI_LOOP_USDC_USDT_POOL_CHECK_RATIO_EVENT:

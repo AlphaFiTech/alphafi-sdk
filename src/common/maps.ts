@@ -261,6 +261,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-SUI": conf[CONF_ENV].NAVI_SUI_ACCOUNT_ADDRESS,
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_ACCOUNT_ADDRESS,
   "NAVI-DEEP": conf[CONF_ENV].NAVI_DEEP_ACCOUNT_ADDRESS,
+  "NAVI-WAL": conf[CONF_ENV].NAVI_WAL_ACCOUNT_ADDRESS,
 };
 
 export const naviPriceFeedMap: {
@@ -346,6 +347,10 @@ export const naviPriceFeedMap: {
     feedId: conf[CONF_ENV].HASUI_FEED_ID,
     pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
   },
+  WAL: {
+    feedId: conf[CONF_ENV].HASUI_FEED_ID, //todo: change when real ids for wal are found
+    pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
+  },
 };
 
 export const poolInfo: {
@@ -410,7 +415,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_AUSD_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/ausd.png",
-    retired: true,
+    retired: false,
   },
   "BLUEFIN-AUTOBALANCE-WAL-USDC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
