@@ -117,6 +117,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-LOOP-SUI-STSUI": { coin: "SUI" },
   "NAVI-SUIBTC": { coin: "SUIBTC" },
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
+  "NAVI-DEEP": { coin: "DEEP" },
   "NAVI-WAL": { coin: "WAL" },
 };
 
@@ -149,6 +150,7 @@ export const naviAssetMap: {
   STSUI: "20",
   SUIBTC: "21",
   SUIUSDT: "19",
+  DEEP: "15",
   WAL: "24",
 };
 
@@ -258,6 +260,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-USDY": conf[CONF_ENV].NAVI_USDY_ACCOUNT_ADDRESS,
   "NAVI-SUI": conf[CONF_ENV].NAVI_SUI_ACCOUNT_ADDRESS,
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_ACCOUNT_ADDRESS,
+  "NAVI-DEEP": conf[CONF_ENV].NAVI_DEEP_ACCOUNT_ADDRESS,
   "NAVI-WAL": conf[CONF_ENV].NAVI_WAL_ACCOUNT_ADDRESS,
 };
 
@@ -374,6 +377,25 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "NAVI-DEEP": {
+    packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
+    packageNumber: 3,
+    parentProtocolName: "NAVI",
+    parentPoolId: conf[CONF_ENV].NAVI_DEEP_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_NAVI_DEEP_POOL,
+    investorId: conf[CONF_ENV].NAVI_DEEP_INVESTOR,
+    receiptName: conf[CONF_ENV].NAVI_DEEP_POOL_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].NAVI_DEEP_POOL_RECEIPT,
+    assetTypes: [coinsList["DEEP"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV].NAVI_DEEP_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV].NAVI_DEEP_POOL_LIQUIDITY_CHANGE_EVENT,
+    imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
+    retired: false,
+  },
   "NAVI-WAL": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
     packageNumber: 3,
