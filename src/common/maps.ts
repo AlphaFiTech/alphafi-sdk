@@ -1111,7 +1111,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/vsui.png",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-SUI-AUSD": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
