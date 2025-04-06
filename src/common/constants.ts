@@ -1089,6 +1089,7 @@ export const conf = {
       "0xd969fb5e797b47934df548f7254e02264a6c0feed5f3d3181fe4ef701ed09e57",
     NAVI_DEEP_ACCOUNT_ADDRESS:
       "0x9d5d2aefa9e93ad34680351e21e3367e1eae45b7623e79625534c46342b86ba0",
+    NAVI_WAL_ACCOUNT_ADDRESS: "",
     // AutoCompoundingEvent
     ALPHA_POOL_AUTO_COMPOUNDING_EVENT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::RewardEvent",
