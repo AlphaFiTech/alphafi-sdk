@@ -1,11 +1,12 @@
 import { PoolName } from "../../common/types.js";
 
-interface CommonEventAttributes {
+export interface CommonEventAttributes {
   type: string;
   timestamp: number;
   txDigest: string;
   eventSeq: number;
-  transactionModule: string;
+  transactionModule?: string;
+  sender: string;
 }
 
 export interface CetusAutoCompoundingEvent {
@@ -166,6 +167,13 @@ export interface CheckRatioEvent {
   ratio: string;
 }
 
+export type VoteCastEvent = CommonEventAttributes & {
+  proposal_id: string;
+  voter: string;
+  previous_vote_choice: number | null;
+  vote_choice: number;
+};
+
 export type AfterTransactionEventNode =
   | (CetusAfterTransactionEvent &
       CommonEventAttributes & {
@@ -207,7 +215,8 @@ export type EventNode =
   | LiquidityChangeEventNode
   | WithdrawV2EventNode
   | AfterTransactionEventNode
-  | CheckRatioEventNode;
+  | CheckRatioEventNode
+  | VoteCastEvent;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;

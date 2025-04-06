@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.72",
+  "version": "0.0.76",
   "description": "Official AlphaFi SDK to access AlphaFi data",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -71,7 +71,7 @@
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
     "graphql": "^16.9.0",
-    "navi-sdk": "^1.5.1",
+    "navi-sdk": "^1.6.2",
     "react": "^18.3.1"
   },
   "peerDependencies": {

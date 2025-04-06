@@ -119,14 +119,6 @@ export async function getVaultBalance(
   multiGet?: MultiGetVaultBalancesParams,
 ): Promise<VaultBalance> {
   if (address && poolName && !multiGet) {
-    await Promise.all([
-      getMultiLatestPrices(),
-      getMultiCetusPool(),
-      getMultiInvestor(),
-      getMultiParentPool(),
-      getMultiReceipts(address),
-      getMultiPool(),
-    ]);
     const vaultBalance = await fetchUserVaultBalances(address, poolName, false);
     return vaultBalance;
   } else if (!address && !poolName && multiGet) {
@@ -216,6 +208,14 @@ export async function getDoubleAssetVaultBalance(
 export async function getAllVaultBalances(
   address: string,
 ): Promise<Map<PoolName, AlphaFiVaultBalance>> {
+  await Promise.all([
+    getMultiLatestPrices(),
+    getMultiCetusPool(),
+    getMultiInvestor(),
+    getMultiParentPool(),
+    getMultiReceipts(address),
+    getMultiPool(),
+  ]);
   const pools = Object.keys(poolInfo);
   const res = new Map<PoolName, AlphaFiVaultBalance>();
   const promises = pools.map(async (pool) => {

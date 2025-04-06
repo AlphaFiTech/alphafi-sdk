@@ -642,7 +642,17 @@ export async function getPoolExchangeRate(
   let pool: PoolType | AlphaPoolType;
   try {
     pool = await getPool(poolName, ignoreCache);
-    const xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
+    let xTokenSupply = new Decimal(0);
+    if (
+      poolName.toString().includes("-FUNGIBLE-") &&
+      "treasury_cap" in pool.content.fields
+    ) {
+      xTokenSupply = new Decimal(
+        pool.content.fields.treasury_cap.fields.total_supply.fields.value,
+      );
+    } else {
+      xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
+    }
     let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
     if (poolName == "ALPHA") {
       tokensInvested = new Decimal(pool.content.fields.alpha_bal);

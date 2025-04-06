@@ -151,15 +151,18 @@ export { fetchWithdrawV2Events } from "./sui-sdk/events/fetchWithdrawV2Events.js
 export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransactionEvents.js";
 export { fetchCheckRatioEvents } from "./sui-sdk/events/fetchCheckRatioEvents.js";
 export { fetchMultiCategoryEvents } from "./sui-sdk/events/fetchMultiCategoryEvents.js";
+export { fetchEvents } from "./sui-sdk/events/fetchEvents.js";
 
 export {
   LiquidityChangeEventNode,
   AutoCompoundingEventNode,
   WithdrawV2EventNode,
   AfterTransactionEventNode,
+  CommonEventAttributes,
   EventNode,
   eventCategories,
   EventCategory,
+  VoteCastEvent,
 } from "./sui-sdk/events/types.js";
 
 export { ReceiptGQL } from "./graphql/types.js";
