@@ -263,6 +263,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_ACCOUNT_ADDRESS,
   "NAVI-DEEP": conf[CONF_ENV].NAVI_DEEP_ACCOUNT_ADDRESS,
   "NAVI-WAL": conf[CONF_ENV].NAVI_WAL_ACCOUNT_ADDRESS,
+  "NAVI-NAVX": conf[CONF_ENV].NAVI_NAVX_ACCOUNT_ADDRESS,
 };
 
 export const naviPriceFeedMap: {
