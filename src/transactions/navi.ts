@@ -1142,6 +1142,24 @@ export async function naviDepositTx(
                   txb.object(C.CLOCK_PACKAGE_ID),
                 ],
               });
+            } else if (
+              reward.reward_coin_type === coinsList["STSUI"].type.substring(2)
+            ) {
+              txb.moveCall({
+                target: `${poolData.packageId}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
+                typeArguments: [coinsList["STSUI"].type],
+                arguments: [
+                  txb.object(C.ALPHA_3_VERSION),
+                  txb.object(poolData.investorId),
+                  txb.object(C.NAVI_STORAGE),
+                  txb.pure.u8(
+                    Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+                  ),
+                  txb.object(C.NAVI_INCENTIVE_V3),
+                  txb.object(C.NAVI_STSUI_REWARDS_POOL),
+                  txb.object(C.CLOCK_PACKAGE_ID),
+                ],
+              });
             }
           }
         }

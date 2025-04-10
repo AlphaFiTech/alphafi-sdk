@@ -521,6 +521,20 @@ export async function naviSuiStsuiLoopDepositTx(
               txb.object(C.CLOCK_PACKAGE_ID),
             ],
           });
+        } else if (
+          reward.reward_coin_type === coinsList["STSUI"].type.substring(2)
+        ) {
+          txb.moveCall({
+            target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_no_swap`,
+            arguments: [
+              txb.object(C.ALPHA_5_VERSION),
+              txb.object(poolData.investorId),
+              txb.object(C.NAVI_STORAGE),
+              txb.object(C.NAVI_INCENTIVE_V3),
+              txb.object(C.NAVI_STSUI_REWARDS_POOL),
+              txb.object(C.CLOCK_PACKAGE_ID),
+            ],
+          });
         }
         rewardCoinSet.add(reward.reward_coin_type);
       }
