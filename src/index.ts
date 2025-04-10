@@ -17,8 +17,6 @@ export {
   getAlphaVaultBalance,
   getSingleAssetVaultBalance,
   getDoubleAssetVaultBalance,
-  getVaultBalanceForActiveUsers,
-  getXTokenVaultBalanceForActiveUsers,
   getAllVaultBalances,
 } from "./getVaultBalances.js";
 
@@ -72,12 +70,6 @@ export {
 } from "./getRebalanceHistory.js";
 
 export { getTVLs, getTvls, fetchTVL } from "./getTvls.js";
-
-export {
-  getHoldersFromTransactions,
-  getUserTokensFromTransactions,
-  getUserTokensInUsdFromTransactions,
-} from "./getHoldersFromTransactions.js";
 
 export { getLastAutoCompoundTime } from "./getLastAutoCompoundTime.js";
 
