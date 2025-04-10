@@ -12,10 +12,9 @@ import {
 } from "./types.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { coinsList } from "./coins.js";
-import {
-  getMultiPool,
-  getPoolExchangeRate,
-} from "../sui-sdk/functions/getReceipts.js";
+import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
+import { PythPriceIdPair } from "./pyth.js";
+import { getLatestTokenPricePairs } from "../utils/prices.js";
 
 export const stableCoins = [
   "USDT",
@@ -2262,7 +2261,6 @@ export const poolIdQueryInvestorMap: { [key: string]: string } = {
 };
 
 export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
-  await getMultiPool();
   const result = new Map<PoolName, string>();
   for (const poolName in poolInfo) {
     const exchangeRate = await getPoolExchangeRate(poolName as PoolName, false);
@@ -2347,22 +2345,22 @@ export async function getLiquidityPoolInvestorTicksMap(): Promise<{
   return investorIdToTicksMap;
 }
 
-// export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
-//   const coinNameToPriceMap = new Map<CoinName, string>();
-//   const coins = Object.keys(coinsList);
-//   const pricePairs = coins.map((coinName) => {
-//     return `${coinName}/USD` as PythPriceIdPair;
-//   });
-//   const prices = await getLatestTokenPricePairs(pricePair, false);
-//   Object.entries(prices).map(([pair, price]) => {
-//     const coin = pair.split("/")[0] as CoinName;
-//     if (price) {
-//       coinNameToPriceMap.set(coin, price);
-//     }
-//   });
+export async function getTokenPriceMap(): Promise<Map<CoinName, string>> {
+  const coinNameToPriceMap = new Map<CoinName, string>();
+  const coins = Object.keys(coinsList);
+  const pricePairs = coins.map((coinName) => {
+    return `${coinName}/USD` as PythPriceIdPair;
+  });
+  const prices = await getLatestTokenPricePairs(pricePairs, false);
+  Object.entries(prices).map(([pair, price]) => {
+    const coin = pair.split("/")[0] as CoinName;
+    if (price) {
+      coinNameToPriceMap.set(coin, price);
+    }
+  });
 
-//   return coinNameToPriceMap;
-// }
+  return coinNameToPriceMap;
+}
 
 export const parentPoolMap: { [key: string]: string } = (() => {
   const result: { [key: string]: string } = {};

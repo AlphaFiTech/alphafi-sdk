@@ -20,11 +20,7 @@ import {
 import { coinsList } from "../common/coins.js";
 import { getLatestTokenPricePairs } from "./prices.js";
 import { PythPriceIdPair } from "../common/pyth.js";
-import {
-  getCoinAmountsFromLiquidity,
-  getMultiInvestor,
-  getMultiParentPool,
-} from "../index.js";
+import { getCoinAmountsFromLiquidity } from "../index.js";
 
 export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
   let holdings: HoldingsObj[] = [];
@@ -48,7 +44,6 @@ export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
 }
 
 export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
-  await Promise.all([getMultiInvestor(), getMultiParentPool()]);
   let tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] =
     [];
   for (const holdingsObj of holdings) {
