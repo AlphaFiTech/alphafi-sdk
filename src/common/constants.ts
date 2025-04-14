@@ -1691,6 +1691,10 @@ export const conf = {
     VOTE_CAST_EVENT_TYPE:
       "0x4b3ea02ce21386d1656ad36d3463eaa006c4eb917745a4a252766030356a6470::governance::VoteCastEvent",
 
+    INACTIVE_PROPOSAL_IDS: [
+      "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
+    ],
+
     ACTIVE_PROPOSAL_IDS: [
       "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
     ],
@@ -3911,8 +3915,12 @@ export const conf = {
     VOTE_CAST_EVENT_TYPE:
       "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710::governance::VoteCastEvent",
 
-    ACTIVE_PROPOSAL_IDS: [
+    INACTIVE_PROPOSAL_IDS: [
       "0x733e0850cfbe2b269202956d725718ad8577555af56271d98c3cc030f152ed0a",
+    ],
+
+    ACTIVE_PROPOSAL_IDS: [
+      "0xab41bef61a7a80ba6428a85a82a55a9682f9febb5a14c6267e6aeb81e5133369",
     ],
 
     // Check Ratio Events
