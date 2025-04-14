@@ -254,6 +254,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-NS": conf[CONF_ENV].NAVI_NS_ACCOUNT_ADDRESS,
   "NAVI-STSUI": conf[CONF_ENV].NAVI_STSUI_ACCOUNT_ADDRESS,
   "NAVI-SUIUSDT": conf[CONF_ENV].NAVI_SUIUSDT_ACCOUNT_ADDRESS,
+  "NAVI-SUIBTC": conf[CONF_ENV].NAVI_SUIBTC_ACCOUNT_ADDRESS,
   "NAVI-USDT": conf[CONF_ENV].NAVI_USDT_ACCOUNT_ADDRESS,
   "NAVI-WUSDC": conf[CONF_ENV].NAVI_WUSDC_ACCOUNT_ADDRESS,
   "NAVI-USDC": conf[CONF_ENV].NAVI_USDC_ACCOUNT_ADDRESS,
@@ -262,6 +263,7 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-VSUI": conf[CONF_ENV].NAVI_VSUI_ACCOUNT_ADDRESS,
   "NAVI-DEEP": conf[CONF_ENV].NAVI_DEEP_ACCOUNT_ADDRESS,
   "NAVI-WAL": conf[CONF_ENV].NAVI_WAL_ACCOUNT_ADDRESS,
+  "NAVI-NAVX": conf[CONF_ENV].NAVI_NAVX_ACCOUNT_ADDRESS,
 };
 
 export const naviPriceFeedMap: {
@@ -1111,7 +1113,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/vsui.png",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-SUI-AUSD": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
