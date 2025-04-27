@@ -152,6 +152,7 @@ export { fetchAfterTransactionEvents } from "./sui-sdk/events/fetchAfterTransact
 export { fetchCheckRatioEvents } from "./sui-sdk/events/fetchCheckRatioEvents.js";
 export { fetchMultiCategoryEvents } from "./sui-sdk/events/fetchMultiCategoryEvents.js";
 export { fetchEvents } from "./sui-sdk/events/fetchEvents.js";
+export { fetchAirdropClaimEvents } from "./sui-sdk/events/fetchAirdropClaimEvent.js";
 
 export {
   LiquidityChangeEventNode,
@@ -163,6 +164,7 @@ export {
   eventCategories,
   EventCategory,
   VoteCastEvent,
+  AirdropClaimEventNode,
 } from "./sui-sdk/events/types.js";
 
 export { ReceiptGQL } from "./graphql/types.js";

@@ -17,6 +17,7 @@ import {
   CheckRatioEvent,
   AutobalancingAutoCompoundingEvent,
   VoteCastEvent,
+  AirdropClaimEvent,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -86,7 +87,8 @@ export async function fetchEvents(
         | AlphaWithdrawV2Event
         | AfterTransactionEventNode // TODO: this needs to be changed to AfterTransactionEvent Eventually
         | CheckRatioEvent
-        | VoteCastEvent;
+        | VoteCastEvent
+        | AirdropClaimEvent;
 
       let eventNode: EventNode;
 
@@ -389,6 +391,22 @@ export async function fetchEvents(
           voter: suiEventJson.voter,
           previous_vote_choice: suiEventJson.previous_vote_choice,
           vote_choice: suiEventJson.vote_choice,
+          sender: suiEvent.sender,
+        };
+      } else if (
+        suiEvent.type === conf[CONF_ENV].AIRDROP_CLAIM_EVENT_TYPE &&
+        "airdrop_amount" in suiEventJson &&
+        "relock_amount" in suiEventJson
+      ) {
+        // Handling AirdropClaimEvent
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          airdrop_amount: suiEventJson.airdrop_amount,
+          relock_amount: suiEventJson.relock_amount,
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
           sender: suiEvent.sender,
         };
       } else {
