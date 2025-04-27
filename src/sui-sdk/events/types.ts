@@ -174,6 +174,11 @@ export type VoteCastEvent = CommonEventAttributes & {
   vote_choice: number;
 };
 
+export type AirdropClaimEvent = {
+  airdrop_amount: string;
+  relock_amount: string;
+};
+
 export type AfterTransactionEventNode =
   | (CetusAfterTransactionEvent &
       CommonEventAttributes & {
@@ -209,6 +214,8 @@ export type WithdrawV2EventNode = AlphaWithdrawV2Event & CommonEventAttributes;
 
 export type CheckRatioEventNode = CheckRatioEvent & CommonEventAttributes;
 
+export type AirdropClaimEventNode = AirdropClaimEvent & CommonEventAttributes;
+
 export type EventNode =
   | AutoCompoundingEventNode
   | RebalanceEventNode
@@ -216,7 +223,8 @@ export type EventNode =
   | WithdrawV2EventNode
   | AfterTransactionEventNode
   | CheckRatioEventNode
-  | VoteCastEvent;
+  | VoteCastEvent
+  | AirdropClaimEventNode;
 
 export type FetchAutoCompoundingEventsParams = {
   startTime?: number;
@@ -236,6 +244,12 @@ export type FetchWithdrawV2EventsParams = {
 };
 
 export type FetchCheckRatioEventsParams = FetchAutoCompoundingEventsParams;
+
+export type FetchAirdropClaimEventsParams = {
+  startTime?: number;
+  endTime?: number;
+  order?: "ascending" | "descending";
+};
 
 export type FetchEventsParams = {
   eventTypes: string[];

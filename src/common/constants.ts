@@ -3908,7 +3908,11 @@ export const conf = {
     NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
 
-    //Governane ID's
+    // Airdrop Claim Event Type
+    AIRDROP_CLAIM_EVENT_TYPE:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::AirdropClaimEvent",
+
+    //Governance ID's
 
     GOVERNANCE_PACKAGE_ID:
       "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710",
