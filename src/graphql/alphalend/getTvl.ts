@@ -1,7 +1,8 @@
-import client from "./client.js";
+import { getClient } from "./client.js";
 import { GET_ALPHALEND_TVL } from "./queries.js";
 
-export async function getTvl() {
+export async function getTvl(clientUrl?: string) {
+  const client = getClient(clientUrl);
   const {
     data,
   }: {
