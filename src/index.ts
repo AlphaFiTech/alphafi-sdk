@@ -88,6 +88,7 @@ export * from "./graphql/fetchData.js";
 export * from "./graphql/parseData.js";
 export * from "./graphql/executeMutations.js";
 export * from "./graphql/getMultiReceipts.js";
+export * from "./graphql/alphalend/getTvl.js";
 
 export {
   getReceipts,
