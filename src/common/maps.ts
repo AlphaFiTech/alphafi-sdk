@@ -90,7 +90,6 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-WAL-USDC": { coin1: "WAL", coin2: "USDC" },
   "BLUEFIN-WAL-STSUI": { coin1: "WAL", coin2: "STSUI" },
   "BLUEFIN-AUTOBALANCE-WAL-USDC": { coin1: "WAL", coin2: "USDC" },
-  "BLUEFIN-AUTOBALANCE-STSUI-SUI": { coin1: "STSUI", coin2: "SUI" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -380,28 +379,6 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
-  "BLUEFIN-AUTOBALANCE-STSUI-SUI": {
-    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
-    packageNumber: 7,
-    parentProtocolName: "BLUEFIN",
-    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_POOL,
-    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_INVESTOR,
-    receiptName:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_RECEIPT,
-    assetTypes: [coinsList["STSUI"].type, coinsList["SUI"].type],
-    autoCompoundingEventType:
-      conf[CONF_ENV]
-        .ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_POOL_AUTO_COMPOUNDING_EVENT,
-    rebalanceEventType:
-      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_POOL_REBALANCE_EVENT,
-    liquidityChangeEventType:
-      conf[CONF_ENV]
-        .ALPHAFI_BLUEFIN_AUTOBALANCE_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
-    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
-    retired: false,
-  },
   "NAVI-DEEP": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
     packageNumber: 3,
