@@ -90,6 +90,10 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-WAL-USDC": { coin1: "WAL", coin2: "USDC" },
   "BLUEFIN-WAL-STSUI": { coin1: "WAL", coin2: "STSUI" },
   "BLUEFIN-AUTOBALANCE-WAL-USDC": { coin1: "WAL", coin2: "USDC" },
+  "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO": {
+    coin1: "SUIUSDT",
+    coin2: "USDC",
+  },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -241,6 +245,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "WAL-USDC": conf[CONF_ENV].BLUEFIN_WAL_USDC_POOL,
   "SUI-WAL": conf[CONF_ENV].BLUEFIN_SUI_WAL_POOL,
   "WAL-STSUI": conf[CONF_ENV].BLUEFIN_WAL_STSUI_POOL,
+  "SUIUSDT-USDC-ZERO-ZERO": conf[CONF_ENV].BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -379,6 +384,34 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL,
+    poolId:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL,
+    investorId:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_INVESTOR,
+    receiptName:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_RECEIPT_NAME,
+    receiptType:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_RECEIPT,
+    assetTypes: [coinsList["SUIUSDT"].type, coinsList["USDC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
+    retired: false,
+  },
   "NAVI-DEEP": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
     packageNumber: 3,
