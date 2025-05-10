@@ -54,7 +54,7 @@ export const conf = {
     ALPHA_2_FIRST_PACKAGE_ID:
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0xe24bbdd0bc8229ef1bc547f5319bd7971064c6d7bfd64955825d397c6128d2fc",
+      "0xa5ad5a5895f0d1d410c6145236d33f8c4fe8c1063f76d21d5824423f096a62be",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
@@ -186,6 +186,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
@@ -1700,6 +1703,9 @@ export const conf = {
       "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
     ],
 
+    AIRDROP_CLAIM_EVENT_TYPE:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::AirdropClaimEvent",
+
     // Navi Events
     NAVI_POOL_DEPOSIT_EVENT:
       "0xd899cf7d2b5db716bd2cf55599fb0d5ee38a3061e7b6bb6eebf73fa5bc4c81ca::pool::PoolDeposit",
@@ -2330,6 +2336,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
