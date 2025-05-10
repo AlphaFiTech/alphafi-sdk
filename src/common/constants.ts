@@ -54,7 +54,7 @@ export const conf = {
     ALPHA_2_FIRST_PACKAGE_ID:
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0xe24bbdd0bc8229ef1bc547f5319bd7971064c6d7bfd64955825d397c6128d2fc",
+      "0xa5ad5a5895f0d1d410c6145236d33f8c4fe8c1063f76d21d5824423f096a62be",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
@@ -186,6 +186,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
@@ -1692,9 +1695,16 @@ export const conf = {
     VOTE_CAST_EVENT_TYPE:
       "0x4b3ea02ce21386d1656ad36d3463eaa006c4eb917745a4a252766030356a6470::governance::VoteCastEvent",
 
+    INACTIVE_PROPOSAL_IDS: [
+      "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
+    ],
+
     ACTIVE_PROPOSAL_IDS: [
       "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
     ],
+
+    AIRDROP_CLAIM_EVENT_TYPE:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::AirdropClaimEvent",
 
     // Navi Events
     NAVI_POOL_DEPOSIT_EVENT:
@@ -2155,7 +2165,7 @@ export const conf = {
     ALPHA_3_FIRST_PACKAGE_ID:
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae",
     ALPHA_3_LATEST_PACKAGE_ID:
-      "0x40dd49f8cc27562848eb44e1ed966a5c0d7351c50771f31c7b0d69c70b636b9b",
+      "0xc65d8eb58cb63f56b096ecd43083f3e39c948fc9a84eeeb43c2c10ad83b247d7",
 
     ALPHA_3_MODULE_PACKAGE_IDS: [
       "0xa095412a92ff0f063cbea962f2f88b1a93cbc85c72bebf5dd7d90a8e2d6375ae", // bucket
@@ -2170,6 +2180,7 @@ export const conf = {
       "0x673bbe1c463ece5c7d9efd28dc02d460e3fc3902980e4266edd775f4b1e7f91e",
       "0x5b571ed2428b2ab352cd1f5a684c04912e22af661817d76278139d15c750e0c1",
       "0x40dd49f8cc27562848eb44e1ed966a5c0d7351c50771f31c7b0d69c70b636b9b",
+      "0xc65d8eb58cb63f56b096ecd43083f3e39c948fc9a84eeeb43c2c10ad83b247d7",
     ],
 
     ALPHA_4_FIRST_PACKAGE_ID:
@@ -2325,6 +2336,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
@@ -3904,7 +3918,11 @@ export const conf = {
     NAVI_HASUI_POOL_AFTER_TRANSACTION_EVENT:
       "0x8f7d2c35e19c65213bc2153086969a55ec207b5a25ebdee303a6d9edd9c053e3::alphafi_navi_pool::AfterTransactionEvent",
 
-    //Governane ID's
+    // Airdrop Claim Event Type
+    AIRDROP_CLAIM_EVENT_TYPE:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::AirdropClaimEvent",
+
+    //Governance ID's
 
     GOVERNANCE_PACKAGE_ID:
       "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710",
@@ -3912,8 +3930,12 @@ export const conf = {
     VOTE_CAST_EVENT_TYPE:
       "0x79729faced2e6294254e555424184f71c8c043a1dbe3447b88613704a7276710::governance::VoteCastEvent",
 
-    ACTIVE_PROPOSAL_IDS: [
+    INACTIVE_PROPOSAL_IDS: [
       "0x733e0850cfbe2b269202956d725718ad8577555af56271d98c3cc030f152ed0a",
+    ],
+
+    ACTIVE_PROPOSAL_IDS: [
+      "0xab41bef61a7a80ba6428a85a82a55a9682f9febb5a14c6267e6aeb81e5133369",
     ],
 
     // Check Ratio Events
