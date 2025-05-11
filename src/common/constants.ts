@@ -54,7 +54,7 @@ export const conf = {
     ALPHA_2_FIRST_PACKAGE_ID:
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0xe24bbdd0bc8229ef1bc547f5319bd7971064c6d7bfd64955825d397c6128d2fc",
+      "0xa5ad5a5895f0d1d410c6145236d33f8c4fe8c1063f76d21d5824423f096a62be",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
@@ -186,6 +186,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
@@ -1700,6 +1703,9 @@ export const conf = {
       "0x05b343bfc6ed4918f90720eb5597de127f12603e657083ac5773e9910f49fc02",
     ],
 
+    AIRDROP_CLAIM_EVENT_TYPE:
+      "0x904f7b5fc4064adc1a3d49b263abe683660ba766f78abd84a454c37c1f102218::alphapool::AirdropClaimEvent",
+
     // Navi Events
     NAVI_POOL_DEPOSIT_EVENT:
       "0xd899cf7d2b5db716bd2cf55599fb0d5ee38a3061e7b6bb6eebf73fa5bc4c81ca::pool::PoolDeposit",
@@ -2124,7 +2130,7 @@ export const conf = {
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
 
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0x9052181ff85e0257fe2eda69e0e969a892d04fd041df73e76dd93a5a48cccbdf",
+      "0x614ee9bcaf46a4187fd0d84dd9fcda1659803b4a37108c7f200623fdc55a1ed2",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28",
@@ -2143,6 +2149,7 @@ export const conf = {
       "0xad4f82d9956085bdab812d46fb2ea4d95c35e9e936cb53d04a79d3989ef97774",
       "0x596639cb12dc5731890063eea58cc631bd6608f49bd338da96181f4265bf8f18",
       "0xb7039e74683423783f5179d6359df115af06b040bc439cbef3b307bdaceb050d",
+      "0x614ee9bcaf46a4187fd0d84dd9fcda1659803b4a37108c7f200623fdc55a1ed2",
       "0xb01692159686f46d9f7c97aac0defad8e0d09ee4dff213324e3f159f2cb5103a",
       "0x4f7d530f5bf6359f9d6d9eafb5e144a174ccc8b875d65c2ea7cf16a8c692b721",
       "0x04750718b379422ec13cfce770cb1ea27a89d3a8911a4457d9d588cd5781bd6a",
@@ -2330,6 +2337,9 @@ export const conf = {
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
+
+    VOLO_STAKE_POOL:
+      "0x2d914e23d82fedef1b5f56a32d5c64bdcc3087ccfea2b4d6ea51a71f587840e5",
 
     VOLO_METADATA:
       "0x680cd26af32b2bde8d3361e804c53ec1d1cfe24c7f039eb7f549e8dfde389a60",
