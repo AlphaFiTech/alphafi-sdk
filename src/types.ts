@@ -150,8 +150,6 @@ export type LiquidityToUsdParams = {
 export type LiquidityToTokensParams = {
   liquidity: string;
   poolName: string;
-  ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
-  sqrtPriceCetusMap: Map<PoolName, string>;
 };
 
 export type UserUsdHoldings = {
@@ -223,10 +221,4 @@ export type DoubleAssetMultiVaultBalance = {
   tokenA: string;
   tokenB: string;
   tokensInUsd: string;
-};
-
-export type GetVaultBalanceForActiveUsersParams = {
-  poolNames?: PoolName[];
-  startTime?: number;
-  endTime?: number;
 };

@@ -1,6 +1,5 @@
 import { conf, CONF_ENV } from "./constants.js";
 import {
-  AlphaPoolType,
   CetusInvestor,
   CetusPoolType,
   CoinName,
@@ -8,16 +7,14 @@ import {
   DoubleAssetPoolNames,
   PoolName,
   PoolReceipt,
-  PoolType,
   SingleAssetPoolNames,
   StrategyType,
 } from "./types.js";
-import { PythPriceIdPair } from "./pyth.js";
 import { getSuiClient } from "../sui-sdk/client.js";
-import { Decimal } from "decimal.js";
-import { getLatestTokenPricePairs } from "../utils/prices.js";
-import { multiGetNaviInvestor } from "../sui-sdk/functions/getReceipts.js";
 import { coinsList } from "./coins.js";
+import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
+import { PythPriceIdPair } from "./pyth.js";
+import { getLatestTokenPricePairs } from "../utils/prices.js";
 
 export const stableCoins = [
   "USDT",
@@ -2263,79 +2260,13 @@ export const poolIdQueryInvestorMap: { [key: string]: string } = {
     "navxSuiInvestor",
 };
 
-// Pagination needed for more than 50 pools
 export async function getPoolExchangeRateMap(): Promise<Map<PoolName, string>> {
-  const poolNameToConversionRateMap = new Map<PoolName, string>();
-
-  const poolIds = Object.keys(poolIdPoolNameMap);
-  const suiClient = getSuiClient();
-  const res = await suiClient.multiGetObjects({
-    ids: poolIds,
-    options: {
-      showContent: true,
-    },
-  });
-  for (const poolRawData of res) {
-    const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
-    const poolId = poolDetails.objectId;
-    const xTokenSupply = new Decimal(poolDetails.content.fields.xTokenSupply);
-    const tokensInvested = new Decimal(
-      poolDetails.content.fields.tokensInvested,
-    );
-    const conversionRate =
-      Number(xTokenSupply) !== 0
-        ? tokensInvested.div(xTokenSupply).toString()
-        : "0";
-    poolNameToConversionRateMap.set(poolIdPoolNameMap[poolId], conversionRate);
+  const result = new Map<PoolName, string>();
+  for (const poolName in poolInfo) {
+    const exchangeRate = await getPoolExchangeRate(poolName as PoolName, false);
+    result.set(poolName as PoolName, exchangeRate.toString());
   }
-
-  // Looping pools
-  const loopingPoolNames = Object.keys(poolInfo).filter(
-    (poolName) => poolInfo[poolName].strategyType === "LOOPING",
-  );
-  const loopingPoolsMap: { [poolName: string]: PoolType } = {};
-  res
-    .filter((poolRawData) => {
-      const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
-      const poolId = poolDetails.objectId;
-      return poolInfo[poolIdPoolNameMap[poolId]].strategyType === "LOOPING"
-        ? true
-        : false;
-    })
-    .map((poolRawData) => {
-      const poolDetails = poolRawData.data as PoolType | AlphaPoolType;
-      const poolId = poolDetails.objectId;
-      const poolName = poolIdPoolNameMap[poolId];
-      loopingPoolsMap[poolName] = poolRawData.data as PoolType;
-    });
-
-  const naviInvestors = await multiGetNaviInvestor(
-    loopingPoolNames as SingleAssetPoolNames[],
-  );
-
-  for (const poolName of loopingPoolNames) {
-    const pool = loopingPoolsMap[poolName];
-    const investor = naviInvestors[poolName as SingleAssetPoolNames];
-    if (investor) {
-      const liquidity = new Decimal(investor.content.fields.tokensDeposited);
-      const debtToSupplyRatio = new Decimal(
-        investor.content.fields.current_debt_to_supply_ratio,
-      );
-      const tokensInvested = liquidity.mul(
-        new Decimal(1).minus(new Decimal(debtToSupplyRatio).div(1e20)),
-      );
-      const xTokenSupplyInPool = new Decimal(pool.content.fields.xTokenSupply);
-      const exchangeRate = tokensInvested.div(xTokenSupplyInPool);
-      poolNameToConversionRateMap.set(
-        poolName as PoolName,
-        exchangeRate.toString(),
-      );
-    } else {
-      console.error("investor not found for poolName: ", poolName);
-    }
-  }
-
-  return poolNameToConversionRateMap;
+  return result;
 }
 
 // Pagination needed for more than 50 pools
