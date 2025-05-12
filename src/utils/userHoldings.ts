@@ -4,8 +4,6 @@ import {
   singleAssetPoolCoinMap,
   poolInfo,
   coinsInPool,
-  getLiquidityPoolSqrtPriceMap,
-  getLiquidityPoolInvestorTicksMap,
 } from "../common/maps.js";
 import {
   DoubleAssetTokenHoldings,
@@ -14,16 +12,15 @@ import {
   LiquidityToTokensParams,
 } from "../types.js";
 import { Decimal } from "decimal.js";
-import { PoolName, SingleAssetPoolNames } from "../common/types.js";
 import {
-  CoinAmounts,
-  ClmmPoolUtil,
-  TickMath,
-} from "@cetusprotocol/cetus-sui-clmm-sdk";
-import BN from "bn.js";
+  DoubleAssetPoolNames,
+  PoolName,
+  SingleAssetPoolNames,
+} from "../common/types.js";
 import { coinsList } from "../common/coins.js";
 import { getLatestTokenPricePairs } from "./prices.js";
 import { PythPriceIdPair } from "../common/pyth.js";
+import { getCoinAmountsFromLiquidity } from "../index.js";
 
 export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
   let holdings: HoldingsObj[] = [];
@@ -47,38 +44,36 @@ export async function multiXTokensToLiquidity(xTokensHoldings: HoldingsObj[]) {
 }
 
 export async function multiLiquidityToTokens(holdings: HoldingsObj[]) {
-  const sqrtPriceCetusMap = await getLiquidityPoolSqrtPriceMap();
-  const ticksCetusMap = await getLiquidityPoolInvestorTicksMap();
   let tokenHoldings: (SingleAssetTokenHoldings | DoubleAssetTokenHoldings)[] =
-    holdings.map((holdingsObj) => {
-      const tokens = liquidityToTokens({
-        liquidity: holdingsObj.holding,
-        poolName: holdingsObj.poolName,
-        ticksCetusMap: ticksCetusMap,
-        sqrtPriceCetusMap: sqrtPriceCetusMap,
-      });
-      if (typeof tokens === "string") {
-        return {
-          user: holdingsObj.owner,
-          poolName: holdingsObj.poolName,
-          tokens: tokens,
-        } as SingleAssetTokenHoldings;
-      } else {
-        return {
-          user: holdingsObj.owner,
-          poolName: holdingsObj.poolName,
-          tokenAmountA: tokens[0],
-          tokenAmountB: tokens[1],
-        } as DoubleAssetTokenHoldings;
-      }
+    [];
+  for (const holdingsObj of holdings) {
+    const tokens = await liquidityToTokens({
+      liquidity: holdingsObj.holding,
+      poolName: holdingsObj.poolName,
     });
+    if (typeof tokens === "string") {
+      tokenHoldings.push({
+        user: holdingsObj.owner,
+        poolName: holdingsObj.poolName,
+        tokens: tokens,
+      } as SingleAssetTokenHoldings);
+    } else {
+      tokenHoldings.push({
+        user: holdingsObj.owner,
+        poolName: holdingsObj.poolName,
+        tokenAmountA: tokens[0],
+        tokenAmountB: tokens[1],
+      } as DoubleAssetTokenHoldings);
+    }
+  }
+
   tokenHoldings = mergeDuplicateTokenHoldings(tokenHoldings);
   return tokenHoldings;
 }
 
-export function liquidityToTokens(
+export async function liquidityToTokens(
   params: LiquidityToTokensParams,
-): string | [string, string] {
+): Promise<string | [string, string]> {
   let holdingUSD: string | undefined;
   if (params.poolName.slice(0, 4) === "NAVI") {
     holdingUSD = singleAssetLiquidityToTokens(
@@ -90,7 +85,7 @@ export function liquidityToTokens(
   } else if (
     ["CETUS", "BLUEFIN"].includes(poolInfo[params.poolName].parentProtocolName)
   ) {
-    const [holdingA, holdingB] = doubleAssetliquidityToTokens(params);
+    const [holdingA, holdingB] = await doubleAssetliquidityToTokens(params);
     return [holdingA, holdingB];
   } else if (poolInfo[params.poolName].parentProtocolName === "BUCKET") {
     if (params.poolName in singleAssetPoolCoinMap) {
@@ -108,51 +103,25 @@ export function liquidityToTokens(
   return holdingUSD;
 }
 
-function doubleAssetliquidityToTokens(params: {
+async function doubleAssetliquidityToTokens(params: {
   liquidity: string;
   poolName: string;
-  ticksCetusMap: { [pool: string]: { lower: string; upper: string } };
-  sqrtPriceCetusMap: Map<PoolName, string>;
-}): [string, string] {
-  const pool = params.poolName;
-  const liquidity = params.liquidity;
-  const ticksCetusMap = params.ticksCetusMap;
-  const sqrtPriceCetusMap = params.sqrtPriceCetusMap;
-
-  const upper_bound = 443636;
-  let lower_tick = Number(ticksCetusMap[pool].lower);
-  let upper_tick = Number(ticksCetusMap[pool].upper);
-
-  if (lower_tick > upper_bound) {
-    lower_tick = -~(lower_tick - 1);
-  }
-  if (upper_tick > upper_bound) {
-    upper_tick = -~(upper_tick - 1);
-  }
-  const liquidityInt = Math.floor(Number(liquidity));
-  const sqrtPrice = sqrtPriceCetusMap.get(pool as PoolName) as string;
-  const coin_amounts: CoinAmounts = ClmmPoolUtil.getCoinAmountFromLiquidity(
-    new BN(`${liquidityInt}`),
-    new BN(sqrtPrice),
-    TickMath.tickIndexToSqrtPriceX64(lower_tick),
-    TickMath.tickIndexToSqrtPriceX64(upper_tick),
-    true,
+}): Promise<[string, string]> {
+  const scaled_coin_amounts = await getCoinAmountsFromLiquidity(
+    params.poolName as PoolName,
+    params.liquidity,
+    false,
   );
-  const coinAmounts = [
-    coin_amounts.coinA.toNumber(),
-    coin_amounts.coinB.toNumber(),
+  const coins = coinsInPool(params.poolName as DoubleAssetPoolNames);
+  const coin_amounts = [
+    new Decimal(scaled_coin_amounts[0])
+      .div(new Decimal(Math.pow(10, coinsList[coins.coinA].expo)))
+      .toFixed(5),
+    new Decimal(scaled_coin_amounts[1])
+      .div(new Decimal(Math.pow(10, coinsList[coins.coinB].expo)))
+      .toFixed(5),
   ];
-  const ten = new Decimal(10);
-  const coin1 = doubleAssetPoolCoinMap[pool].coin1;
-  const coin2 = doubleAssetPoolCoinMap[pool].coin2;
-
-  const amount1 = new Decimal(coinAmounts[0]).div(
-    ten.pow(coinsList[coin1].expo),
-  );
-  const amount2 = new Decimal(coinAmounts[1]).div(
-    ten.pow(coinsList[coin2].expo),
-  );
-  return [amount1.toFixed(5).toString(), amount2.toFixed(5).toString()];
+  return coin_amounts as [string, string];
 }
 
 function alphaLiquidityToTokens(liquidity: string) {
