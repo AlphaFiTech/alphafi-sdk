@@ -3,7 +3,7 @@
 /* This file contains the setup for the Sui Client, implemented as a singleton
  */
 
-import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
+import { SuiClient } from "@mysten/sui/client";
 
 // Lazy initialization for the SuiClient instance
 let suiClientInstance: SuiClient | undefined = undefined;
@@ -14,7 +14,8 @@ let suiNodeUrl: string | undefined = undefined;
  * If no URL has been set, it defaults to the mainnet full node URL.
  */
 export function getSuiNodeUrl(): string {
-  suiNodeUrl = suiNodeUrl ? suiNodeUrl : getFullnodeUrl("mainnet");
+  const mainnetUrl = "https://alphalen-suimain-ef6f.mainnet.sui.rpcpool.com";
+  suiNodeUrl = suiNodeUrl ? suiNodeUrl : mainnetUrl;
   return suiNodeUrl;
 }
 
