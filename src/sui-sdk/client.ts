@@ -4,6 +4,11 @@
  */
 
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
+import {
+  setSuiNodeUrl as setSuiNodeUrlStsuiSDK,
+  setSuiClient as setSuiClientStsuiSDK,
+  setCustomSuiClient as setCustomSuiClientStsuiSDK,
+} from "@alphafi/stsui-sdk";
 
 // Lazy initialization for the SuiClient instance
 let suiClientInstance: SuiClient | undefined = undefined;
@@ -43,6 +48,7 @@ export function getSuiClient(rpcNodeUrl?: string): SuiClient {
  * @param rpcNodeUrl - The new RPC URL for the Sui client.
  */
 export function setSuiNodeUrl(rpcNodeUrl: string) {
+  setSuiNodeUrlStsuiSDK(rpcNodeUrl);
   if (suiNodeUrl !== rpcNodeUrl) {
     suiNodeUrl = rpcNodeUrl;
     suiClientInstance = undefined; // Invalidate the current instance to allow creating a new one
@@ -60,6 +66,7 @@ export function setSuiNodeUrl(rpcNodeUrl: string) {
  * @param rpcNodeUrl - The new RPC URL to be used for the SuiClient.
  */
 export function setSuiClient(rpcNodeUrl: string) {
+  setSuiClientStsuiSDK(rpcNodeUrl);
   if (suiNodeUrl !== rpcNodeUrl) {
     suiNodeUrl = rpcNodeUrl;
     suiClientInstance = new SuiClient({
@@ -76,5 +83,6 @@ export function setSuiClient(rpcNodeUrl: string) {
  * @param suiClient - The custom SuiClient instance to be set.
  */
 export const setCustomSuiClient = (suiClient: SuiClient) => {
+  setCustomSuiClientStsuiSDK(suiClient);
   suiClientInstance = suiClient;
 };

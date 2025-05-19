@@ -75,7 +75,7 @@
     "react": "^18.3.1"
   },
   "peerDependencies": {
-    "@alphafi/stsui-sdk": "^0.0.21",
+    "@alphafi/stsui-sdk": "^0.0.22",
     "@mysten/sui": "<=1.21.2"
   }
 }
