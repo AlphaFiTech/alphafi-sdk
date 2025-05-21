@@ -1,8 +1,8 @@
 import { SdkOptions } from "@cetusprotocol/cetus-sui-clmm-sdk";
-import { getFullnodeUrl } from "@mysten/sui/client";
+import { getSuiNodeUrl } from "../sui-sdk/client.js";
 
 export const cetusMainnetSDKOptions: SdkOptions = {
-  fullRpcUrl: getFullnodeUrl("mainnet"),
+  fullRpcUrl: getSuiNodeUrl(),
   swapCountUrl: "https://api-sui.cetus.zone/v2/sui/swap/count",
   simulationAccount: {
     address:
