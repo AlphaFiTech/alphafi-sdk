@@ -1,4 +1,4 @@
-export const CONF_ENV = "testing";
+export const CONF_ENV = "production";
 
 export const conf = {
   testing: {
@@ -4085,6 +4085,8 @@ export const conf = {
       "0x41dcd6735e948e80b458d2007ca4fb90f9738b503e66572b6ef2f3d61fb9ada3",
     BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL:
       "0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7",
+    BLUEFIN_WAL_SUI_POOL:
+      "0xe60bc7ade245b9f35b49686dfab0a18e5ca9176d49bef1b90f60d67d06315ff0",
 
     // stsui
     LST_INFO:
