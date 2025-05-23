@@ -1228,7 +1228,7 @@ export async function naviDepositTx(
               reward.reward_coin_type === coinsList["NAVX"].type.substring(2)
             ) {
               txb.moveCall({
-                target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps_bluefin`,
+                target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
                 typeArguments: [
                   coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                   coinsList["SUI"].type,
@@ -1257,7 +1257,7 @@ export async function naviDepositTx(
               reward.reward_coin_type === coinsList["DEEP"].type.substring(2)
             ) {
               txb.moveCall({
-                target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps_bluefin`,
+                target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
                 typeArguments: [
                   coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                   coinsList["SUI"].type,
