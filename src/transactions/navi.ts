@@ -1243,13 +1243,13 @@ export async function naviDepositTx(
                   ),
                   txb.object(C.NAVI_INCENTIVE_V3),
                   txb.object(C.NAVI_NAVX_REWARDS_POOL),
+                  txb.object(C.BLUEFIN_GLOBAL_CONFIG),
                   txb.object(bluefinPoolMap["NAVX-SUI"]),
                   txb.object(
                     bluefinPoolMap[
                       `SUI-${singleAssetPoolCoinMap[poolName].coin}`
                     ],
                   ),
-                  txb.object(C.BLUEFIN_GLOBAL_CONFIG),
                   txb.object(C.CLOCK_PACKAGE_ID),
                 ],
               });
@@ -1272,13 +1272,42 @@ export async function naviDepositTx(
                   ),
                   txb.object(C.NAVI_INCENTIVE_V3),
                   txb.object(C.NAVI_DEEP_REWARDS_POOL),
+                  txb.object(C.BLUEFIN_GLOBAL_CONFIG),
                   txb.object(bluefinPoolMap["DEEP-SUI"]),
                   txb.object(
                     bluefinPoolMap[
                       `SUI-${singleAssetPoolCoinMap[poolName].coin}`
                     ],
                   ),
+                  txb.object(C.CLOCK_PACKAGE_ID),
+                ],
+              });
+            } else if (
+              reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
+            ) {
+              txb.moveCall({
+                target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
+                typeArguments: [
+                  coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+                  coinsList["SUI"].type,
+                  coinsList["VSUI"].type,
+                ],
+                arguments: [
+                  txb.object(C.ALPHA_NAVI_V2_VERSION),
+                  txb.object(poolData.investorId),
+                  txb.object(C.NAVI_STORAGE),
+                  txb.pure.u8(
+                    Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+                  ),
+                  txb.object(C.NAVI_INCENTIVE_V3),
+                  txb.object(C.NAVI_VSUI_REWARDS_POOL),
                   txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                  txb.object(bluefinPoolMap["VSUI-SUI"]),
+                  txb.object(
+                    bluefinPoolMap[
+                      `SUI-${singleAssetPoolCoinMap[poolName].coin}`
+                    ],
+                  ),
                   txb.object(C.CLOCK_PACKAGE_ID),
                 ],
               });
@@ -2793,9 +2822,10 @@ export async function naviWithdrawTx(
         ]) {
           if (reward.reward_coin_type === coinsList["NAVX"].type.substring(2)) {
             txb.moveCall({
-              target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps`,
+              target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
               typeArguments: [
                 coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+                coinsList["SUI"].type,
                 coinsList["NAVX"].type,
               ],
               arguments: [
@@ -2807,14 +2837,13 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_NAVX_REWARDS_POOL),
-                txb.object(cetusPoolMap["NAVX-SUI"]),
+                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                txb.object(bluefinPoolMap["NAVX-SUI"]),
                 txb.object(
                   bluefinPoolMap[
                     `SUI-${singleAssetPoolCoinMap[poolName].coin}`
                   ],
                 ),
-                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 txb.object(C.CLOCK_PACKAGE_ID),
               ],
             });
@@ -2822,9 +2851,10 @@ export async function naviWithdrawTx(
             reward.reward_coin_type === coinsList["DEEP"].type.substring(2)
           ) {
             txb.moveCall({
-              target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_v3_rewards_with_two_swaps`,
+              target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
               typeArguments: [
                 coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+                coinsList["SUI"].type,
                 coinsList["DEEP"].type,
               ],
               arguments: [
@@ -2836,14 +2866,42 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_DEEP_REWARDS_POOL),
-                txb.object(cetusPoolMap["DEEP-SUI"]),
+                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                txb.object(bluefinPoolMap["DEEP-SUI"]),
                 txb.object(
                   bluefinPoolMap[
                     `SUI-${singleAssetPoolCoinMap[poolName].coin}`
                   ],
                 ),
+                txb.object(C.CLOCK_PACKAGE_ID),
+              ],
+            });
+          } else if (
+            reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
+          ) {
+            txb.moveCall({
+              target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
+              typeArguments: [
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+                coinsList["SUI"].type,
+                coinsList["VSUI"].type,
+              ],
+              arguments: [
+                txb.object(C.ALPHA_NAVI_V2_VERSION),
+                txb.object(poolData.investorId),
+                txb.object(C.NAVI_STORAGE),
+                txb.pure.u8(
+                  Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
+                ),
+                txb.object(C.NAVI_INCENTIVE_V3),
+                txb.object(C.NAVI_VSUI_REWARDS_POOL),
                 txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+                txb.object(bluefinPoolMap["VSUI-SUI"]),
+                txb.object(
+                  bluefinPoolMap[
+                    `SUI-${singleAssetPoolCoinMap[poolName].coin}`
+                  ],
+                ),
                 txb.object(C.CLOCK_PACKAGE_ID),
               ],
             });
