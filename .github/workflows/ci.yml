@@ -1,8 +1,14 @@
 name: CI
 
 on:
-  push: # Triggers on any push to any branch
-  pull_request: # Still run on PRs for status checks and reviews
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
   test:
