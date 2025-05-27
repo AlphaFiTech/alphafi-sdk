@@ -4101,6 +4101,8 @@ export const conf = {
       "0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7",
     BLUEFIN_WAL_SUI_POOL:
       "0xe60bc7ade245b9f35b49686dfab0a18e5ca9176d49bef1b90f60d67d06315ff0",
+    BLUEFIN_NAVX_SUI_POOL:
+      "0xac3f2181f453b68e540d3d7d1bf548fe3fc4f4164c4cdae7838c186c737be2f6",
 
     // stsui
     LST_INFO:
