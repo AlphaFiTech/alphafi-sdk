@@ -1473,7 +1473,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-ALPHA"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(false),
+            txb.pure.bool(true),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -1502,7 +1502,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-WSOL"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(false),
+            txb.pure.bool(true),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -1531,7 +1531,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-ETH"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(false),
+            txb.pure.bool(true),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -1560,7 +1560,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-BUCK"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(false),
+            txb.pure.bool(true),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -1618,7 +1618,7 @@ export const depositBluefinStsuiTxb = async (
             txb.object(bluefinPoolMap["SUI-WAL"]),
             txb.object(getConf().LST_INFO),
             txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.pure.bool(false),
+            txb.pure.bool(true),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -2933,7 +2933,7 @@ export const withdrawBluefinStsuiTxb = async (
           txb.object(bluefinPoolMap["SUI-ALPHA"]),
           txb.object(getConf().LST_INFO),
           txb.object(getConf().SUI_SYSTEM_STATE),
-          txb.pure.bool(false),
+          txb.pure.bool(true),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
@@ -2963,7 +2963,7 @@ export const withdrawBluefinStsuiTxb = async (
           txb.object(bluefinPoolMap["SUI-WSOL"]),
           txb.object(getConf().LST_INFO),
           txb.object(getConf().SUI_SYSTEM_STATE),
-          txb.pure.bool(false),
+          txb.pure.bool(true),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
@@ -2993,7 +2993,7 @@ export const withdrawBluefinStsuiTxb = async (
           txb.object(bluefinPoolMap["SUI-ETH"]),
           txb.object(getConf().LST_INFO),
           txb.object(getConf().SUI_SYSTEM_STATE),
-          txb.pure.bool(false),
+          txb.pure.bool(true),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
@@ -3083,7 +3083,7 @@ export const withdrawBluefinStsuiTxb = async (
           txb.object(bluefinPoolMap["SUI-WAL"]),
           txb.object(getConf().LST_INFO),
           txb.object(getConf().SUI_SYSTEM_STATE),
-          txb.pure.bool(false),
+          txb.pure.bool(true),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
