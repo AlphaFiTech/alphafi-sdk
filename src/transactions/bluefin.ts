@@ -587,6 +587,26 @@ export const depositBluefinType1Txb = async (
 
       if (poolName === "BLUEFIN-USDT-USDC") {
         txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[pool1].type,
@@ -615,6 +635,26 @@ export const depositBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-AUSD-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_AUSD_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
@@ -645,6 +685,26 @@ export const depositBluefinType1Txb = async (
         });
       } else if (poolName === "BLUEFIN-WBTC-USDC") {
         txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_WBTC_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[pool1].type,
@@ -673,6 +733,26 @@ export const depositBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-SEND-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SEND_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
@@ -773,6 +853,26 @@ export const depositBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-SUIUSDT-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
@@ -980,6 +1080,26 @@ export const depositBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-WAL-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_WAL_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
           typeArguments: [
@@ -2386,6 +2506,26 @@ export const withdrawBluefinType1Txb = async (
       }
       if (poolName === "BLUEFIN-USDT-USDC") {
         txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
             coinsList[pool1].type,
@@ -2415,6 +2555,26 @@ export const withdrawBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-AUSD-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_AUSD_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
@@ -2446,6 +2606,26 @@ export const withdrawBluefinType1Txb = async (
         });
       } else if (poolName === "BLUEFIN-WBTC-USDC") {
         txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_WBTC_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
             coinsList[pool1].type,
@@ -2475,6 +2655,26 @@ export const withdrawBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-SEND-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SEND_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
@@ -2533,6 +2733,26 @@ export const withdrawBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-SUIUSDT-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
@@ -2627,6 +2847,26 @@ export const withdrawBluefinType1Txb = async (
           ],
         });
       } else if (poolName === "BLUEFIN-WAL-USDC") {
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
+          typeArguments: [
+            coinsList[doubleAssetPoolCoinMap[poolName].coin1].type,
+            coinsList[doubleAssetPoolCoinMap[poolName].coin2].type,
+            coinsList["BLUE"].type,
+            coinsList["SUI"].type,
+          ],
+          arguments: [
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_4_VERSION),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_WAL_USDC_POOL),
+            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+            txb.object(bluefinPoolMap["SUI-USDC"]),
+            txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_withdraw_v2`,
           typeArguments: [
