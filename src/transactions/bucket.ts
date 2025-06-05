@@ -1,6 +1,7 @@
 import { CoinStruct } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
 import {
+  bluefinPoolMap,
   cetusPoolMap,
   coinsList,
   getConf,
@@ -71,7 +72,18 @@ export async function bucketDepositTx(
         arguments: [txb.object(receipt[0].objectId)],
       });
     }
-
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_bucket_investor_v1::collect_and_convert_reward_to_buck`,
+      arguments: [
+        txb.object(C.ALPHA_3_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.BUCKET_PROTOCOL),
+        txb.object(C.FOUNTAIN),
+        txb.object(bluefinPoolMap["SUI-USDC"]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
     txb.moveCall({
       target: `${poolData.packageId}::alphafi_bucket_pool_v1::user_deposit`,
       arguments: [
@@ -129,7 +141,18 @@ export async function bucketWithdrawTx(
         arguments: [txb.object(alphaReceipt[0].objectId)],
       });
     }
-
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_bucket_investor_v1::collect_and_convert_reward_to_buck`,
+      arguments: [
+        txb.object(C.ALPHA_3_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.BUCKET_PROTOCOL),
+        txb.object(C.FOUNTAIN),
+        txb.object(bluefinPoolMap["SUI-USDC"]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
     const [buck] = txb.moveCall({
       target: `${poolData.packageId}::alphafi_bucket_pool_v1::user_withdraw`,
       arguments: [
