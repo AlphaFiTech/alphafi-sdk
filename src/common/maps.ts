@@ -245,6 +245,8 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SUIUSDT-USDC-ZERO-ZERO": conf[CONF_ENV].BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL,
   "WAL-SUI": conf[CONF_ENV].BLUEFIN_WAL_SUI_POOL,
   "NAVX-SUI": conf[CONF_ENV].BLUEFIN_NAVX_SUI_POOL,
+  "NAVX-USDC": conf[CONF_ENV].BLUEFIN_NAVX_USDC_POOL,
+  "VSUI-USDC": conf[CONF_ENV].BLUEFIN_VSUI_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
