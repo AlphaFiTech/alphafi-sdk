@@ -4112,6 +4112,10 @@ export const conf = {
       "0xe60bc7ade245b9f35b49686dfab0a18e5ca9176d49bef1b90f60d67d06315ff0",
     BLUEFIN_NAVX_SUI_POOL:
       "0xac3f2181f453b68e540d3d7d1bf548fe3fc4f4164c4cdae7838c186c737be2f6",
+    BLUEFIN_NAVX_USDC_POOL:
+      "0x6666b67759ec9cfcfecf553e4cb60d0efcc2015a4fddb8e3406719e9d21f3427",
+    BLUEFIN_VSUI_USDC_POOL:
+      "0x8f3c373b2a66cfee321768695807e8d823c5a91af184ceaf9310bd12c304b981",
 
     // stsui
     LST_INFO:
