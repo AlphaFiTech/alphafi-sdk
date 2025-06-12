@@ -89,7 +89,7 @@ export async function naviDepositTx(
           reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
         ) {
           txb.moveCall({
-            target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_one_swap_bluefin`,
+            target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_one_swap`,
             typeArguments: [
               coinsList[singleAssetPoolCoinMap[poolName].coin].type,
               coinsList["VSUI"].type,
@@ -104,8 +104,8 @@ export async function naviDepositTx(
               ),
               txb.object(C.NAVI_INCENTIVE_V3),
               txb.object(C.NAVI_VSUI_REWARDS_POOL),
-              txb.object(bluefinPoolMap["VSUI-SUI"]),
-              txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+              txb.object(cetusPoolMap["VSUI-SUI"]),
+              txb.object(C.CETUS_GLOBAL_CONFIG_ID),
             ],
           });
         }
@@ -711,10 +711,11 @@ export async function naviDepositTx(
               reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
             ) {
               txb.moveCall({
-                target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
+                target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_three_swaps_bluefin`,
                 typeArguments: [
                   coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                   coinsList["USDC"].type,
+                  coinsList["SUI"].type,
                   coinsList["VSUI"].type,
                 ],
                 arguments: [
@@ -726,11 +727,12 @@ export async function naviDepositTx(
                   ),
                   txb.object(C.NAVI_INCENTIVE_V3),
                   txb.object(C.NAVI_VSUI_REWARDS_POOL),
-                  txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-                  txb.object(bluefinPoolMap["VSUI-USDC"]),
+                  txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+                  txb.object(cetusPoolMap["VSUI-SUI"]),
+                  txb.object(cetusPoolMap["USDC-SUI"]),
                   txb.object(
                     bluefinPoolMap[
-                      `${singleAssetPoolCoinMap[poolName].coin}-USDC`
+                      `USDC-${singleAssetPoolCoinMap[poolName].coin}`
                     ],
                   ),
                   txb.object(C.CLOCK_PACKAGE_ID),
@@ -1365,10 +1367,11 @@ export async function naviDepositTx(
               reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
             ) {
               txb.moveCall({
-                target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
+                target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_three_swaps_bluefin`,
                 typeArguments: [
                   coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                   coinsList["USDC"].type,
+                  coinsList["SUI"].type,
                   coinsList["VSUI"].type,
                 ],
                 arguments: [
@@ -1380,11 +1383,12 @@ export async function naviDepositTx(
                   ),
                   txb.object(C.NAVI_INCENTIVE_V3),
                   txb.object(C.NAVI_VSUI_REWARDS_POOL),
-                  txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-                  txb.object(bluefinPoolMap["VSUI-USDC"]),
+                  txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+                  txb.object(cetusPoolMap["VSUI-SUI"]),
+                  txb.object(cetusPoolMap["USDC-SUI"]),
                   txb.object(
                     bluefinPoolMap[
-                      `${singleAssetPoolCoinMap[poolName].coin}-USDC`
+                      `USDC-${singleAssetPoolCoinMap[poolName].coin}`
                     ],
                   ),
                   txb.object(C.CLOCK_PACKAGE_ID),
@@ -1713,7 +1717,7 @@ export async function naviWithdrawTx(
             reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
           ) {
             txb.moveCall({
-              target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_one_swap_bluefin`,
+              target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_one_swap`,
               typeArguments: [
                 coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                 coinsList["VSUI"].type,
@@ -1728,8 +1732,8 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_VSUI_REWARDS_POOL),
-                txb.object(bluefinPoolMap["VSUI-SUI"]),
-                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                txb.object(cetusPoolMap["VSUI-SUI"]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
               ],
             });
           }
@@ -2899,10 +2903,11 @@ export async function naviWithdrawTx(
             reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
           ) {
             txb.moveCall({
-              target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
+              target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_three_swaps_bluefin`,
               typeArguments: [
                 coinsList[singleAssetPoolCoinMap[poolName].coin].type,
                 coinsList["USDC"].type,
+                coinsList["SUI"].type,
                 coinsList["VSUI"].type,
               ],
               arguments: [
@@ -2914,11 +2919,12 @@ export async function naviWithdrawTx(
                 ),
                 txb.object(C.NAVI_INCENTIVE_V3),
                 txb.object(C.NAVI_VSUI_REWARDS_POOL),
-                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-                txb.object(bluefinPoolMap["VSUI-USDC"]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+                txb.object(cetusPoolMap["VSUI-SUI"]),
+                txb.object(cetusPoolMap["USDC-SUI"]),
                 txb.object(
                   bluefinPoolMap[
-                    `${singleAssetPoolCoinMap[poolName].coin}-USDC`
+                    `USDC-${singleAssetPoolCoinMap[poolName].coin}`
                   ],
                 ),
                 txb.object(C.CLOCK_PACKAGE_ID),
