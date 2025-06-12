@@ -42,7 +42,7 @@ export const conf = {
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
 
     ALPHA_LATEST_PACKAGE_ID:
-      "0xc93301a1a23aa96ff2f6881ef5452005efb13387b8bb81b75a537bf5cf0c5cc2",
+      "0x023287665cf627513e7a5adf7737d2223fd3fa4caeb4dec0f12bddf5a29ef381",
 
     ALPHA_MODULE_PACKAGE_IDS: [
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e",
@@ -1821,6 +1821,14 @@ export const conf = {
       "0x41dcd6735e948e80b458d2007ca4fb90f9738b503e66572b6ef2f3d61fb9ada3",
     BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL:
       "0x62af128423465822e5a0979ccad2b0b5ee50a58c6a2c8ea3dd7fda1cda3cfbe7",
+    BLUEFIN_WAL_SUI_POOL:
+      "0xe60bc7ade245b9f35b49686dfab0a18e5ca9176d49bef1b90f60d67d06315ff0",
+    BLUEFIN_NAVX_SUI_POOL:
+      "0xac3f2181f453b68e540d3d7d1bf548fe3fc4f4164c4cdae7838c186c737be2f6",
+    BLUEFIN_NAVX_USDC_POOL:
+      "0x6666b67759ec9cfcfecf553e4cb60d0efcc2015a4fddb8e3406719e9d21f3427",
+    BLUEFIN_VSUI_USDC_POOL:
+      "0x8f3c373b2a66cfee321768695807e8d823c5a91af184ceaf9310bd12c304b981",
 
     // stsui
     LST_INFO:
