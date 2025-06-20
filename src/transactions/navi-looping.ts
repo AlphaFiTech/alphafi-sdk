@@ -507,7 +507,7 @@ export async function naviSuiStsuiLoopDepositTx(
           reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
         ) {
           txb.moveCall({
-            target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_bluefin`,
+            target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps`,
             typeArguments: [coinsList["VSUI"].type],
             arguments: [
               txb.object(C.ALPHA_5_VERSION),
@@ -517,8 +517,8 @@ export async function naviSuiStsuiLoopDepositTx(
               txb.object(C.NAVI_VSUI_REWARDS_POOL),
               txb.object(C.LST_INFO),
               txb.object(C.SUI_SYSTEM_STATE),
-              txb.object(bluefinPoolMap[`VSUI-SUI`]),
-              txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+              txb.object(cetusPoolMap[`VSUI-SUI`]),
+              txb.object(C.CETUS_GLOBAL_CONFIG_ID),
               txb.object(C.CLOCK_PACKAGE_ID),
             ],
           });
@@ -569,7 +569,7 @@ export async function naviSuiStsuiLoopDepositTx(
           reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
         ) {
           txb.moveCall({
-            target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_bluefin`,
+            target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps`,
             typeArguments: [coinsList["VSUI"].type],
             arguments: [
               txb.object(C.ALPHA_5_VERSION),
@@ -579,8 +579,8 @@ export async function naviSuiStsuiLoopDepositTx(
               txb.object(C.NAVI_VSUI_REWARDS_POOL),
               txb.object(C.LST_INFO),
               txb.object(C.SUI_SYSTEM_STATE),
-              txb.object(bluefinPoolMap[`VSUI-SUI`]),
-              txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+              txb.object(cetusPoolMap[`VSUI-SUI`]),
+              txb.object(C.CETUS_GLOBAL_CONFIG_ID),
               txb.object(C.CLOCK_PACKAGE_ID),
             ],
           });
@@ -1327,7 +1327,7 @@ export async function naviSuiStsuiLoopWithdrawTx(
             reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
           ) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_bluefin`,
+              target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(C.ALPHA_5_VERSION),
@@ -1337,8 +1337,8 @@ export async function naviSuiStsuiLoopWithdrawTx(
                 txb.object(C.NAVI_VSUI_REWARDS_POOL),
                 txb.object(C.LST_INFO),
                 txb.object(C.SUI_SYSTEM_STATE),
-                txb.object(bluefinPoolMap[`VSUI-SUI`]),
-                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                txb.object(cetusPoolMap[`VSUI-SUI`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 txb.object(C.CLOCK_PACKAGE_ID),
               ],
             });
@@ -1389,7 +1389,7 @@ export async function naviSuiStsuiLoopWithdrawTx(
             reward.reward_coin_type === coinsList["VSUI"].type.substring(2)
           ) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_bluefin`,
+              target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(C.ALPHA_5_VERSION),
@@ -1399,8 +1399,8 @@ export async function naviSuiStsuiLoopWithdrawTx(
                 txb.object(C.NAVI_VSUI_REWARDS_POOL),
                 txb.object(C.LST_INFO),
                 txb.object(C.SUI_SYSTEM_STATE),
-                txb.object(bluefinPoolMap[`VSUI-SUI`]),
-                txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+                txb.object(cetusPoolMap[`VSUI-SUI`]),
+                txb.object(C.CETUS_GLOBAL_CONFIG_ID),
                 txb.object(C.CLOCK_PACKAGE_ID),
               ],
             });
