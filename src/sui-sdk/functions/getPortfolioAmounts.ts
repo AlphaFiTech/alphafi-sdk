@@ -209,7 +209,10 @@ export async function getSingleAssetPortfolioAmount(
   if (totalXTokens.gt(0)) {
     let pool;
     let investor;
-    if (poolInfo[poolName].parentProtocolName == "NAVI") {
+    if (
+      poolInfo[poolName].parentProtocolName == "NAVI" ||
+      poolInfo[poolName].parentProtocolName === "ALPHALEND"
+    ) {
       pool = await getPool(poolName, ignoreCache);
       investor = (await getInvestor(poolName, ignoreCache)) as NaviInvestor &
         CommonInvestorFields;
@@ -297,7 +300,7 @@ export async function getSingleAssetPortfolioAmount(
     } else if (
       poolName == "NAVI-LOOP-HASUI-SUI" ||
       poolName == "NAVI-LOOP-SUI-VSUI" ||
-      poolName === "NAVI-LOOP-SUI-STSUI"
+      poolName === "ALPHALEND-LOOP-SUI-STSUI"
     ) {
       if (pool && investor) {
         const liquidity = new Decimal(investor.content.fields.tokensDeposited);
@@ -332,7 +335,7 @@ export async function getSingleAssetPortfolioAmount(
           portfolioAmount = Number(
             tokens.mul(parseFloat(voloExchRate.data.exchangeRate)),
           );
-        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
+        } else if (poolName == "ALPHALEND-LOOP-SUI-STSUI") {
           // const { SevenKGateway } = await import("../");
           // const sevenKInstance = new SevenKGateway();
           // const numberOfTokensInSui = (await sevenKInstance.getQuote({
@@ -392,7 +395,7 @@ export async function getSingleAssetPortfolioAmountInUSD(
     let coinName = singleAssetPoolCoinMap[poolName].coin;
     if (
       poolName == "NAVI-LOOP-SUI-VSUI" ||
-      poolName === "NAVI-LOOP-SUI-STSUI"
+      poolName === "ALPHALEND-LOOP-SUI-STSUI"
     ) {
       coinName = "SUI";
     }
