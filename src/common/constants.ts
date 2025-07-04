@@ -1,4 +1,4 @@
-export const CONF_ENV = "testing";
+export const CONF_ENV = "production";
 
 export const conf = {
   testing: {
@@ -92,7 +92,7 @@ export const conf = {
     ALPHA_5_FIRST_PACKAGE_ID:
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
     ALPHA_5_LATEST_PACKAGE_ID:
-      "0x79cc340ea7fdfd10115def36065e305582d3a2eeb17245f2205aa140a7457393",
+      "0x99289ce3772de0750a15d057de3fcb6d3ef8f30e5aaa9587a3b140587ebe9a60",
 
     ALPHA_5_MODULE_PACKAGE_IDS: [
       "0x5441ed00fa7b209ad951d31c6e3d4d48ad8666e6d2a5155e4f5e99dd74177288",
