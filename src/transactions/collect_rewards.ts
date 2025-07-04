@@ -99,7 +99,7 @@ export async function claimRewardTxb(address: string) {
               ],
             });
           });
-        } else if (poolName == "NAVI-LOOP-SUI-STSUI") {
+        } else if (poolName == "ALPHALEND-LOOP-SUI-STSUI") {
           receipts.forEach((receipt) => {
             alpha_receipt = txb.moveCall({
               target: `${poolInfo[poolName].packageId}::alphafi_navi_sui_stsui_pool::get_user_rewards_all`,

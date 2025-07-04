@@ -19,6 +19,7 @@ import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
 import { loopingWithdraw } from "./navi-looping.js";
 import { getEstimatedGasBudget, getLiquidity } from "./deposit.js";
+import { alphalendLoopingWithdraw } from "./alphalend.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -80,6 +81,12 @@ export async function withdrawTxb(
     } else txb = await naviWithdrawTx(xTokensAmount, poolName, { address });
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
+  } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
+    if (poolInfo[poolName].strategyType === "LOOPING") {
+      txb = await alphalendLoopingWithdraw(poolName, xTokensAmount, {
+        address,
+      });
+    }
   }
   txb.setSender(address);
   const estimatedGasBudget = await getEstimatedGasBudget(txb, address);

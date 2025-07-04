@@ -30,6 +30,7 @@ import {
   getParentPool,
 } from "../sui-sdk/functions/getReceipts.js";
 import { getSuiClient } from "../sui-sdk/client.js";
+import { alphalendLoopingDeposit } from "./alphalend.js";
 
 export async function depositSingleAssetTxb(
   poolName: PoolName,
@@ -46,6 +47,10 @@ export async function depositSingleAssetTxb(
       txb = await loopingDeposit(poolName, amount, { address });
     } else {
       txb = await naviDepositTx(amount, poolName, { address });
+    }
+  } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
+    if (poolInfo[poolName].strategyType === "LOOPING") {
+      txb = await alphalendLoopingDeposit(poolName, amount, { address });
     }
   }
   txb.setSender(address);

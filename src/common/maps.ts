@@ -115,7 +115,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-NS": { coin: "NS" },
   "NAVI-NAVX": { coin: "NAVX" },
   "NAVI-STSUI": { coin: "STSUI" },
-  "NAVI-LOOP-SUI-STSUI": { coin: "SUI" },
+  "ALPHALEND-LOOP-SUI-STSUI": { coin: "SUI" },
   "NAVI-SUIBTC": { coin: "SUIBTC" },
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
   "NAVI-DEEP": { coin: "DEEP" },
@@ -129,7 +129,7 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-USDT-USDC": { supplyCoin: "USDT", borrowCoin: "USDC" },
   "NAVI-LOOP-SUI-VSUI": { supplyCoin: "VSUI", borrowCoin: "SUI" },
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
-  "NAVI-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
+  "ALPHALEND-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
 };
 
 export const naviAssetMap: {
@@ -254,7 +254,6 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-LOOP-USDT-USDC": conf[CONF_ENV].NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-SUI-VSUI": conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-HASUI-SUI": conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS,
-  "NAVI-LOOP-SUI-STSUI": conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-AUSD": conf[CONF_ENV].NAVI_AUSD_ACCOUNT_ADDRESS,
   "NAVI-ETH": conf[CONF_ENV].NAVI_ETH_ACCOUNT_ADDRESS,
   "NAVI-NS": conf[CONF_ENV].NAVI_NS_ACCOUNT_ADDRESS,
@@ -661,24 +660,24 @@ export const poolInfo: {
     retired: false,
     // add strategy type
   },
-  "NAVI-LOOP-SUI-STSUI": {
+  "ALPHALEND-LOOP-SUI-STSUI": {
     packageId: conf[CONF_ENV].ALPHA_5_LATEST_PACKAGE_ID,
     packageNumber: 5,
-    parentProtocolName: "NAVI",
+    parentProtocolName: "ALPHALEND",
     parentPoolId: conf[CONF_ENV].NAVI_STSUI_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_STSUI_POOL,
-    investorId: conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_RECEIPT,
+    poolId: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL,
+    investorId: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHALEND_SUI_STSUI_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_RECEIPT,
     assetTypes: ["0x2::sui::SUI"],
     autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
     checkRatioEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/vsui.png",
     retired: true,

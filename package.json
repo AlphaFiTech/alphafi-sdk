@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "@7kprotocol/sdk-ts": "^2.3.4",
+    "@alphafi/alphalend-sdk": "^1.1.3",
     "@apollo/client": "^3.11.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "5.1.6",
     "@hop.ag/sdk": "^3.3.0",
@@ -76,6 +77,6 @@
   },
   "peerDependencies": {
     "@alphafi/stsui-sdk": "^0.0.22",
-    "@mysten/sui": "<=1.21.2"
+    "@mysten/sui": "^1.30.0"
   }
 }

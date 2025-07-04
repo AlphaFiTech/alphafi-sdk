@@ -16,6 +16,7 @@ import { coinsList } from "../common/coins.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { updateSingleTokenPrice } from "./naviOracle.js";
 import { getAvailableRewards } from "navi-sdk/dist/libs/PTB/V3.js";
+import { AlphalendClient } from "@alphafi/alphalend-sdk";
 
 export async function loopingDeposit(
   poolName: PoolName,
@@ -43,8 +44,6 @@ export async function loopingDeposit(
     txb = await naviUsdcUsdtLoopDepositTx(amount, options);
   } else if (poolName === "NAVI-LOOP-USDT-USDC") {
     txb = await naviUsdtUsdcLoopDepositTx(amount, options);
-  } else if (poolName === "NAVI-LOOP-SUI-STSUI") {
-    txb = await naviSuiStsuiLoopDepositTx(amount, options);
   }
   return txb;
 }
@@ -75,8 +74,6 @@ export async function loopingWithdraw(
     txb = await naviUsdcUsdtLoopWithdrawTx(xTokens, options);
   } else if (poolName === "NAVI-LOOP-USDT-USDC") {
     txb = await naviUsdtUsdcLoopWithdrawTx(xTokens, options);
-  } else if (poolName === "NAVI-LOOP-SUI-STSUI") {
-    txb = await naviSuiStsuiLoopWithdrawTx(xTokens, options);
   }
   return txb;
 }
@@ -590,7 +587,28 @@ export async function naviSuiStsuiLoopDepositTx(
     }
   }
   txb.moveCall({
-    target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_deposit_v2`,
+    target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_one_swap`,
+    typeArguments: [coinsList["ALPHA"].type],
+    arguments: [
+      txb.object(C.ALPHA_5_VERSION),
+      txb.object(poolData.investorId),
+      txb.object(C.LENDING_PROTOCOL_ID),
+      txb.object(bluefinPoolMap[`ALPHA-STSUI`]),
+      txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+      txb.object(C.CLOCK_PACKAGE_ID),
+    ],
+  });
+  txb.moveCall({
+    target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_no_swap_v2`,
+    arguments: [
+      txb.object(C.ALPHA_5_VERSION),
+      txb.object(poolData.investorId),
+      txb.object(C.LENDING_PROTOCOL_ID),
+      txb.object(C.CLOCK_PACKAGE_ID),
+    ],
+  });
+  txb.moveCall({
+    target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_deposit_v3`,
     arguments: [
       txb.object(C.ALPHA_5_VERSION),
       txb.object(C.VERSION),
@@ -599,12 +617,7 @@ export async function naviSuiStsuiLoopDepositTx(
       depositCoin,
       txb.object(poolData.investorId),
       txb.object(C.ALPHA_DISTRIBUTOR),
-      txb.object(C.PRICE_ORACLE),
-      txb.object(C.NAVI_STORAGE),
-      txb.object(C.NAVI_STSUI_POOL),
-      txb.object(C.NAVI_SUI_POOL),
-      txb.object(C.NAVI_INCENTIVE_V3),
-      txb.object(C.NAVI_INCENTIVE_V2),
+      txb.object(C.LENDING_PROTOCOL_ID),
       txb.object(C.LST_INFO),
       txb.object(C.SUI_SYSTEM_STATE),
       txb.object(C.CLOCK_PACKAGE_ID),
@@ -1275,7 +1288,11 @@ export async function naviSuiStsuiLoopWithdrawTx(
   );
 
   const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
+  const alphalendClient = new AlphalendClient("mainnet", getSuiClient());
+  await alphalendClient.updatePrices(txb, [
+    coinsList["STSUI"].type,
+    "0x2::sui::SUI",
+  ]);
   if (receipt.length > 0) {
     let alpha_receipt: any;
     if (alphaReceipt.length == 0) {
@@ -1411,7 +1428,7 @@ export async function naviSuiStsuiLoopWithdrawTx(
     }
 
     const [stsui_coin] = txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_withdraw_v2`,
+      target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_withdraw_v3`,
       arguments: [
         txb.object(C.ALPHA_5_VERSION),
         txb.object(C.VERSION),
@@ -1422,12 +1439,7 @@ export async function naviSuiStsuiLoopWithdrawTx(
         txb.pure.u64(xTokens),
         txb.object(poolData.investorId),
         txb.object(C.ALPHA_DISTRIBUTOR),
-        txb.object(C.PRICE_ORACLE),
-        txb.object(C.NAVI_STORAGE),
-        txb.object(C.NAVI_STSUI_POOL),
-        txb.object(C.NAVI_SUI_POOL),
-        txb.object(C.NAVI_INCENTIVE_V3),
-        txb.object(C.NAVI_INCENTIVE_V2),
+        txb.object(C.LENDING_PROTOCOL_ID),
         txb.object(C.LST_INFO),
         txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
