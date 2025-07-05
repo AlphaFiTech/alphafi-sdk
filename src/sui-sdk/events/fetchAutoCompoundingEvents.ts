@@ -311,12 +311,6 @@ export async function calculateAprForInvestor(
         let compoundAmount: number = Number(event.compound_amount);
         let totalAmount: number = Number(event.total_amount);
         if ("cur_total_debt" in event && "accrued_interest" in event) {
-          if (
-            event.investor_id ===
-            "0xd0eb060970709063b349f1c14686607351ba2b831d3d9d3da3a55c7ff481b5a9"
-          ) {
-            console.log(event.compound_amount, "hi babyyyyy");
-          }
           compoundAmount = Number(
             event.compound_amount - event.accrued_interest,
           );
