@@ -174,7 +174,11 @@ export async function getReceipts(
         paginatedObjects.data.forEach((obj) => {
           const o = obj.data as Receipt;
           if (o) {
-            if (poolInfo[poolName].receiptName === o.content.fields.name) {
+            if (
+              poolInfo[poolName].receiptName === o.content.fields.name ||
+              (poolName === "ALPHALEND-LOOP-SUI-STSUI" &&
+                o.content.fields.name === "AlphaFi-Navi SUI-STSUI Receipt")
+            ) {
               nfts.push(o);
             }
           }
