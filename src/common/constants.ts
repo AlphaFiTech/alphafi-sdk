@@ -2282,6 +2282,7 @@ export const conf = {
       "0x7f758fda0de8aaf73a3ce27e769971f371a1d5be81204da297c66fe7ac47df45",
       "0xc4706e6c41b29df4bb9b59505aa3d1a018eed06c968c4d464862c42e7aed1826",
       "0x5f54dc1d11c378113065528deca8bd8de0f24464f8c489aa959c8f0381200185",
+      "0x996ff7edaaa986da408ca4760cb004baa74bf678776d2d5ee43e705384a620f9",
     ],
     ALPHA_STSUI_FIRST_PACKAGE_ID:
       "0xff869e243a172cfef9a4551f4eef88ac4861be0f81b0e7a4b7840b6276f5ceeb",
