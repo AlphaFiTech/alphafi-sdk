@@ -217,4 +217,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 9,
   },
+  DMC: {
+    name: "DMC",
+    type: "0x4c981f3ff786cdb9e514da897ab8a953647dae2ace9679e8358eec1e3e8871ac::dmc::DMC",
+    icon: "",
+    expo: 9,
+  },
 };

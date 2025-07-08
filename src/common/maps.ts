@@ -358,6 +358,10 @@ export const naviPriceFeedMap: {
     feedId: conf[CONF_ENV].HASUI_FEED_ID, //todo: change when real ids for wal are found
     pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
   },
+  DMC: {
+    feedId: conf[CONF_ENV].DMC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].DMC_PYTH_PRICE_INFO,
+  },
 };
 
 export const poolInfo: {
@@ -2423,4 +2427,5 @@ export const ignoredWalletsForDailyRevenue = [
   "0x6a498c57c18306e0af942442a5d20e5b2940939b4937ed52f4b17e3fa99972f5",
   "0xbdaee7c803e5db14b6571d78d05e152057b72bace936566b8403b760d5d228e8",
   "0x927363c465a04495ba8a88085ab12a3ee9902c3775601aeb8fa897b4ab564742",
+  "0x9d11564cf203aac35fff7f11ef2540c008790d9398ccc408ee84cd801b0e5813",
 ];

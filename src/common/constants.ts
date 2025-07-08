@@ -4337,6 +4337,10 @@ export const conf = {
       "0xac934a2a2d406085e7f73b460221fe1b11935864605ba58cdbb8e21c15f12acd",
     HASUI_PYTH_PRICE_INFO:
       "0x801dbc2f0053d34734814b2d6df491ce7807a725fe9a01ad74a07e9c51396c37",
+    DMC_FEED_ID:
+      "0x8abfa63ae82ca2fbc271861375e497166d8792580fb7c2ffcf014d2a131433f0",
+    DMC_PYTH_PRICE_INFO:
+      "0x5c0be5cc32bdf53fd3b5a567744dd1145c4f82b269906ceda03dbb6f06d9371b",
 
     //constants for bucket
 
