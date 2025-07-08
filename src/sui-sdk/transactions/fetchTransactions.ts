@@ -53,57 +53,6 @@ export async function fetchTransactions(
           hasNextPage = res.hasNextPage;
           nextCursor = res.nextCursor;
         }
-        // } else if (
-        //   Number(laterTime) > params.startTime &&
-        //   Number(laterTime) < params.endTime &&
-        //   Number(earlierTime) < params.startTime
-        // ) {
-        //   // Page spills from interval startTime
-        //   for (let i = 0; i < res.data.length; i++) {
-        //     if (Number(res.data[i].timestampMs) > params.startTime) {
-        //       transactionBlocks.push(res.data[i]);
-        //     } else {
-        //       break;
-        //     }
-        //   }
-        //   hasNextPage = res.hasNextPage;
-        //   nextCursor = res.nextCursor;
-        // } else if (
-        //   Number(laterTime) > params.endTime &&
-        //   Number(earlierTime) > params.startTime &&
-        //   Number(earlierTime) < params.endTime
-        // ) {
-        //   // Page spills from interval endTIme
-        //   for (let i = res.data.length - 1; i >= 0; i--) {
-        //     if (Number(res.data[i].timestampMs) < params.endTime) {
-        //       transactionBlocks.push(res.data[i]);
-        //     } else {
-        //       break;
-        //     }
-        //   }
-        //   hasNextPage = res.hasNextPage;
-        //   nextCursor = res.nextCursor;
-        // } else if (
-        //   Number(laterTime) > params.endTime &&
-        //   Number(earlierTime) < params.startTime
-        // ) {
-        //   // Page spills from interval both bounds
-        //   for (let i = 0; i < res.data.length; i++) {
-        //     if (
-        //       Number(res.data[i].timestampMs) > params.startTime &&
-        //       Number(res.data[i].timestampMs) < params.endTime
-        //     ) {
-        //       transactionBlocks.push(res.data[i]);
-        //     }
-        //   }
-        //   hasNextPage = res.hasNextPage;
-        //   nextCursor = res.nextCursor;
-        // } else {
-        //   // Page is in the interval
-        //   transactionBlocks = transactionBlocks.concat(res.data);
-        //   hasNextPage = res.hasNextPage;
-        //   nextCursor = res.nextCursor;
-        // }
       } else {
         // Empty result
         transactionBlocks = transactionBlocks.concat(res.data);
