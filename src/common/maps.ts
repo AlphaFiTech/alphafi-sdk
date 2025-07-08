@@ -2185,6 +2185,18 @@ export function coinsInPool(
     }
     return "VSUI";
   }
+  // Special case for "ALPHALEND-LOOP-SUI-STSUI"
+  if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
+    if (
+      event &&
+      event.type ===
+        conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT
+    ) {
+      return "SUI";
+    }
+    return "STSUI";
+  }
+
   const singleAsset = singleAssetPoolCoinMap[poolName];
   const doubleAsset = doubleAssetPoolCoinMap[poolName];
   if (singleAsset) {
