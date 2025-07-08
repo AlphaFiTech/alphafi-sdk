@@ -110,7 +110,11 @@ export async function getMultiReceipts(address: string) {
     for (const pool of Object.keys(poolInfo)) {
       const cacheKey = `getReceipts-${poolInfo[pool].receiptName}-${address}`;
       let receipt: Receipt[] = [];
-      if (receiptMap.has(poolInfo[pool].receiptName)) {
+      if (
+        receiptMap.has(poolInfo[pool].receiptName) ||
+        (pool === "ALPHALEND-LOOP-SUI-STSUI" &&
+          receiptMap.has("AlphaFi-Navi SUI-STSUI Receipt"))
+      ) {
         receipt = convertReceiptGQLToReceipt(
           receiptMap.get(poolInfo[pool].receiptName) as ReceiptGQL[],
         );
