@@ -75,7 +75,9 @@ export async function liquidityToTokens(
   params: LiquidityToTokensParams,
 ): Promise<string | [string, string]> {
   let holdingUSD: string | undefined;
-  if (params.poolName.slice(0, 4) === "NAVI") {
+  if (
+    ["NAVI", "ALPHALEND"].includes(poolInfo[params.poolName].parentProtocolName)
+  ) {
     holdingUSD = singleAssetLiquidityToTokens(
       params.liquidity,
       params.poolName,
@@ -142,7 +144,8 @@ function singleAssetLiquidityToTokens(liquidity: string, pool: string) {
     amount = amount.div(new Decimal(Math.pow(10, coinsList[coin].expo)));
     return amount.toFixed(5);
   } else if (
-    poolInfo[pool].parentProtocolName === "NAVI" &&
+    (poolInfo[pool].parentProtocolName === "NAVI" ||
+      poolInfo[pool].parentProtocolName === "ALPHALEND") &&
     poolInfo[pool].strategyType === "LOOPING"
   ) {
     const coin = coinsInPool(pool as SingleAssetPoolNames);

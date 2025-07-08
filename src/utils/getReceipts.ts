@@ -1,3 +1,5 @@
+// NOTE: this function is outdated
+
 import { SuiObjectResponse } from "@mysten/sui/client";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { GetReceiptParams } from "./types.js";
@@ -15,6 +17,7 @@ const recieptTypes = {
     "0x1a22b26f139b34c9de9718cf7e53159b2b939ec8f46f4c040776b7a3d580dd28::alphafi_cetus_sui_pool::Receipt",
 };
 
+// DEPRECATED
 export async function getReceipts(params: GetReceiptParams) {
   let receipts: SuiObjectResponse[] = [];
   const suiClient = getSuiClient();

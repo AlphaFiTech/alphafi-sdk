@@ -20,6 +20,7 @@ import {
   Distributor,
   getConf,
   BluefinPoolType,
+  AlphaLendInvestor,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
 import { Decimal } from "decimal.js";
@@ -110,7 +111,11 @@ export async function getMultiReceipts(address: string) {
     for (const pool of Object.keys(poolInfo)) {
       const cacheKey = `getReceipts-${poolInfo[pool].receiptName}-${address}`;
       let receipt: Receipt[] = [];
-      if (receiptMap.has(poolInfo[pool].receiptName)) {
+      if (
+        receiptMap.has(poolInfo[pool].receiptName) ||
+        (pool === "ALPHALEND-LOOP-SUI-STSUI" &&
+          receiptMap.has("AlphaFi-Navi SUI-STSUI Receipt"))
+      ) {
         receipt = convertReceiptGQLToReceipt(
           receiptMap.get(poolInfo[pool].receiptName) as ReceiptGQL[],
         );
@@ -564,8 +569,14 @@ export async function getInvestor(
         cetusInvestor = o.data as BucketInvestor & CommonInvestorFields;
       } else if (poolInfo[poolName].parentProtocolName == "BLUEFIN") {
         cetusInvestor = o.data as BluefinInvestor & CommonInvestorFields;
-      } else {
+      } else if (poolInfo[poolName].parentProtocolName == "ALPHALEND") {
+        cetusInvestor = o.data as AlphaLendInvestor & CommonInvestorFields;
+      } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
         cetusInvestor = o.data as CetusInvestor & CommonInvestorFields;
+      } else {
+        throw new Error(
+          `Unexpected parent protocol: ${poolInfo[poolName].parentProtocolName}`,
+        );
       }
 
       // Cache the investor object

@@ -1,3 +1,5 @@
+// NOTE: this file is deprecated
+
 import { LpBreakdownType, PoolName } from "./common/types.js";
 
 export async function alphaLpBreakdown(

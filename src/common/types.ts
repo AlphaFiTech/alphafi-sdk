@@ -312,6 +312,8 @@ export type NaviInvestor = {
   };
 };
 
+export type AlphaLendInvestor = NaviInvestor;
+
 export type BucketInvestor = {
   content: {
     fields: {
@@ -349,7 +351,8 @@ export type Investor =
   | (CetusInvestor & CommonInvestorFields)
   | (NaviInvestor & CommonInvestorFields)
   | (BucketInvestor & CommonInvestorFields)
-  | (BluefinInvestor & CommonInvestorFields);
+  | (BluefinInvestor & CommonInvestorFields)
+  | (AlphaLendInvestor & CommonInvestorFields);
 
 export type CetusPoolType = {
   objectId: string;

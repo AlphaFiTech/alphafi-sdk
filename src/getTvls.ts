@@ -12,6 +12,9 @@ import {
   BluefinPoolType,
   coinsList,
   doubleAssetPoolCoinMap,
+  AlphaLendInvestor,
+  coinsInPool,
+  SingleAssetPoolNames,
 } from "./index.js";
 import {
   getDistributor,
@@ -155,6 +158,26 @@ export async function fetchTVL(
       investor,
       ignoreCache,
     );
+  } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
+    if (poolInfo[poolName].strategyType === "LOOPING") {
+      const poolToken = coinsInPool(poolName as SingleAssetPoolNames);
+      const [priceOfCoin] = await getLatestPrices(
+        [`${poolToken}/USD` as PythPriceIdPair],
+        ignoreCache,
+      );
+      const investor = (await getInvestor(
+        poolName,
+        ignoreCache,
+      )) as AlphaLendInvestor & CommonInvestorFields;
+      const liquidity = new Decimal(investor.content.fields.tokensDeposited);
+      const debtToSupplyRatio = new Decimal(
+        investor.content.fields.current_debt_to_supply_ratio,
+      );
+      const tokensInvested = liquidity.mul(
+        new Decimal(1).minus(debtToSupplyRatio.div(new Decimal(1e20))),
+      );
+      return tokensInvested.div(1e9).mul(priceOfCoin).toString();
+    }
   }
   return "0";
 }
