@@ -194,6 +194,7 @@ export async function calculateAprForInvestor(
     }
 
     // const matchInvestor =
+    //   "0x3e8937974f3dac64eb8ee9f86a80ccc24852bd2f74d18753d071bbdad73a4c97"; // ALPHALEND-SUI-LOOP
     //       "0x681a30beb23d2532f9413c09127525ae5e562da7aa89f9f3498bd121fef22065"; // NAVI-USDC
     // // "0xa65eaadb556a80e4cb02fe35efebb2656d82d364897530f45dabc1e99d15a8a9"; // HASUI
     // ("0x227226f22bd9e484e541005916904ca066db1d42b8a80351800ef37b26c6cd89"); // AUSD
