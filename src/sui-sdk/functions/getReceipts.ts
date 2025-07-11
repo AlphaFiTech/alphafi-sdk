@@ -20,6 +20,7 @@ import {
   Distributor,
   getConf,
   BluefinPoolType,
+  AlphaLendInvestor,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
 import { Decimal } from "decimal.js";
@@ -568,8 +569,14 @@ export async function getInvestor(
         cetusInvestor = o.data as BucketInvestor & CommonInvestorFields;
       } else if (poolInfo[poolName].parentProtocolName == "BLUEFIN") {
         cetusInvestor = o.data as BluefinInvestor & CommonInvestorFields;
-      } else {
+      } else if (poolInfo[poolName].parentProtocolName == "ALPHALEND") {
+        cetusInvestor = o.data as AlphaLendInvestor & CommonInvestorFields;
+      } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
         cetusInvestor = o.data as CetusInvestor & CommonInvestorFields;
+      } else {
+        throw new Error(
+          `Unexpected parent protocol: ${poolInfo[poolName].parentProtocolName}`,
+        );
       }
 
       // Cache the investor object

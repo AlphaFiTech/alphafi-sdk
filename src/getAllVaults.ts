@@ -14,7 +14,8 @@ export async function getAllSingleAssetVaults(): Promise<string[]> {
     if (
       poolInfo[pool].parentProtocolName === "NAVI" ||
       poolInfo[pool].parentProtocolName === "BUCKET" ||
-      poolInfo[pool].parentProtocolName === "ALPHAFI"
+      poolInfo[pool].parentProtocolName === "ALPHAFI" ||
+      poolInfo[pool].parentProtocolName === "ALPHALEND"
     ) {
       vaultsArr.push(pool);
     }
