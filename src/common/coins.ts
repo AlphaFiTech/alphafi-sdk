@@ -223,4 +223,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 9,
   },
+  TBTC: {
+    name: "TBTC",
+    type: "0x77045f1b9f811a7a8fb9ebd085b5b0c55c5cb0d1520ff55f7037f89b5da9f5f1::TBTC::TBTC",
+    icon: "",
+    expo: 8,
+  },
 };
