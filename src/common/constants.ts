@@ -1,4 +1,4 @@
-export const CONF_ENV = "testing";
+export const CONF_ENV = "production";
 
 export const conf = {
   testing: {
@@ -2401,6 +2401,11 @@ export const conf = {
       "0xf715bbe511dd50f9546c5ed1e87fe7e1aff760ea6ea460c3849eece8d537217e",
       "0x8163199c587b80780bd49eec4b78995c3c321c01fc8426ebb636b1658f8b87eb",
     ],
+    ALPHA_CETUS_COMPENSATOR_FIRST_PACKAGE_ID: "",
+    ALPHA_CETUS_COMPENSATOR_LATEST_PACKAGE_ID: "",
+
+    ALPHA_CETUS_COMPENSATOR_MODULE_PACKAGE_IDS: [""],
+    ALPHA_CETUS_COMPENSATOR_PACKAGE_IDS: [],
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
 
@@ -2432,6 +2437,7 @@ export const conf = {
 
     ALPHA_NAVI_V2_VERSION:
       "0xd912c62a88d526233bf456e77802a5c370cd625e4327c76662e68450b396a797",
+    ALPHA_CETUS_COMPENSATOR_VERSION: "",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -2450,6 +2456,11 @@ export const conf = {
     ALPHA_TOKEN_REWARD_SHARE: 0.45,
 
     ALPHA_PROTOCOL_INFO_OBJECT_ID: "", // TODO
+
+    ALPHA_CETUS_COMPENSATOR: "",
+
+    CETUS_CLMM_VESTER: "",
+    CETUS_CLMM_VERSIONED: "",
 
     // Coin Types
 
