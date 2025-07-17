@@ -1,4 +1,4 @@
-export const CONF_ENV = "production";
+export const CONF_ENV = "testing";
 
 export const conf = {
   testing: {
@@ -54,7 +54,7 @@ export const conf = {
     ALPHA_2_FIRST_PACKAGE_ID:
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
     ALPHA_2_LATEST_PACKAGE_ID:
-      "0xa5ad5a5895f0d1d410c6145236d33f8c4fe8c1063f76d21d5824423f096a62be",
+      "0xf6e63fee94d5046dc42147303ef31bb7c8d2b3dfdfbd10fedd4ba82c25550bc2",
 
     ALPHA_2_MODULE_PACKAGE_IDS: [
       "0x2bc50698b26faad5988f58313e2fc347f85b6b6554cde120504c58f6bc057c30",
@@ -158,7 +158,7 @@ export const conf = {
     ALPHA_CETUS_COMPENSATOR_FIRST_PACKAGE_ID:
       "0x03d4154629dfd823f9608108c50b1559dbe7d3a7102176b9138c39c255b03bfc",
     ALPHA_CETUS_COMPENSATOR_LATEST_PACKAGE_ID:
-      "0x4102ca1c19eb1140db9da7050b8c210c8bc987579c3de1c101b8cc3014b11b64",
+      "0x06eda53ad88701d9ea27702bab51ad0fb2d1bfe0f573e2758d5af921c28efd6d",
 
     ALPHA_CETUS_COMPENSATOR_MODULE_PACKAGE_IDS: [
       "0x03d4154629dfd823f9608108c50b1559dbe7d3a7102176b9138c39c255b03bfc",
