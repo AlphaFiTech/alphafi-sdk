@@ -1759,7 +1759,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-USDT": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
