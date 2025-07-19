@@ -29,7 +29,7 @@ export {
   getCoinAmountsFromLiquidity,
   getLiquidity,
 } from "./transactions/deposit.js";
-
+export { migrateBoostedToLoop } from "./transactions/navi-looping.js";
 export {
   withdrawTxb,
   coinAmountToXTokensDoubleAsset,
