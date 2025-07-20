@@ -167,6 +167,8 @@ export const conf = {
       "0x03d4154629dfd823f9608108c50b1559dbe7d3a7102176b9138c39c255b03bfc",
       "0x4102ca1c19eb1140db9da7050b8c210c8bc987579c3de1c101b8cc3014b11b64",
     ],
+    VOLO_PACKAGE_ID:
+      "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
     ALPHA_DISTRIBUTOR:
       "0xc83a5765802d20d19b66b1be808131a58b10f480a5bbebb8f9ea04c6e5baade2",
 
@@ -2419,6 +2421,8 @@ export const conf = {
     ALPHA_CETUS_COMPENSATOR_PACKAGE_IDS: [
       "0x614f9d104fcfcd76a98aab67c45c73f1231522a52def3ea31725cf1366599a88",
     ],
+    VOLO_PACKAGE_ID:
+      "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
     ALPHA_DISTRIBUTOR:
       "0x33f3c288a90c5368ec3b937875cfae94aebae0ee7fb65e97265728eff9e6995b",
 

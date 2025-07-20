@@ -34,7 +34,7 @@ export async function alphalendLoopingWithdraw(
   }
   return txb;
 }
-const alphalendClient = new AlphalendClient("mainnet", getSuiClient());
+export const alphalendClient = new AlphalendClient("mainnet", getSuiClient());
 export async function alphalendSuiStsuiLoopDepositTx(
   amount: string,
   options: { address: string },
