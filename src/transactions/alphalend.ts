@@ -1,6 +1,7 @@
 import { Transaction } from "@mysten/sui/transactions";
 import {
   bluefinPoolMap,
+  cetusPoolMap,
   coinsList,
   getConf,
   getReceipts,
@@ -92,6 +93,20 @@ export async function alphalendSuiStsuiLoopDepositTx(
     ],
   });
   txb.moveCall({
+    target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_v2`,
+    typeArguments: [coinsList["BLUE"].type],
+    arguments: [
+      txb.object(C.ALPHA_5_VERSION),
+      txb.object(poolData.investorId),
+      txb.object(C.LENDING_PROTOCOL_ID),
+      txb.object(C.LST_INFO),
+      txb.object(C.SUI_SYSTEM_STATE),
+      txb.object(cetusPoolMap[`BLUE-SUI`]),
+      txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+      txb.object(C.CLOCK_PACKAGE_ID),
+    ],
+  });
+  txb.moveCall({
     target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_deposit_v3`,
     arguments: [
       txb.object(C.ALPHA_5_VERSION),
@@ -169,7 +184,20 @@ export async function alphalendSuiStsuiLoopWithdrawTx(
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
-
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_two_swaps_v2`,
+      typeArguments: [coinsList["BLUE"].type],
+      arguments: [
+        txb.object(C.ALPHA_5_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(C.LST_INFO),
+        txb.object(C.SUI_SYSTEM_STATE),
+        txb.object(cetusPoolMap[`BLUE-SUI`]),
+        txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
     const [stsui_coin] = txb.moveCall({
       target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::user_withdraw_v3`,
       arguments: [
