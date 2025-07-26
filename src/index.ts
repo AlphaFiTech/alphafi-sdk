@@ -102,7 +102,11 @@ export {
   getPositionRanges,
 } from "./sui-sdk/functions/getPositionRange.js";
 
-export { getMultiLatestPrices, getLatestPrices } from "./utils/prices.js";
+export {
+  getMultiLatestPrices,
+  getLatestPrices,
+  fetchRequiredPrices,
+} from "./utils/prices.js";
 
 export {
   liquidityToTokens,

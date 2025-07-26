@@ -6,10 +6,12 @@ import {
   getConf,
   getReceipts,
   getSuiClient,
+  loopingPoolCoinMap,
   poolInfo,
 } from "../index.js";
 import { PoolName, Receipt } from "../common/types.js";
 import { AlphalendClient } from "@alphafi/alphalend-sdk";
+import { getCoinObject } from "./bluefin.js";
 
 export async function alphalendLoopingDeposit(
   poolName: PoolName,
@@ -20,6 +22,8 @@ export async function alphalendLoopingDeposit(
 
   if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
     txb = await alphalendSuiStsuiLoopDepositTx(amount, options);
+  } else if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
+    txb = await alphalendSingleLoopDeposit(poolName, amount, options);
   }
   return txb;
 }
@@ -32,6 +36,8 @@ export async function alphalendLoopingWithdraw(
 
   if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
     txb = await alphalendSuiStsuiLoopWithdrawTx(xTokens, options);
+  } else if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
+    txb = await alphalendSingleLoopWithdraw(poolName, xTokens, options);
   }
   return txb;
 }
@@ -123,6 +129,151 @@ export async function alphalendSuiStsuiLoopDepositTx(
     ],
   });
 
+  return txb;
+}
+export async function alphalendSingleLoopDeposit(
+  poolName: PoolName,
+  amount: string,
+  options: { address: string },
+): Promise<Transaction> {
+  const C = getConf();
+  const address = options.address;
+  const txb = new Transaction();
+  const poolData = poolInfo[poolName];
+
+  const coinName = loopingPoolCoinMap[poolName].supplyCoin;
+
+  await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
+  const receipt: Receipt[] = await getReceipts(
+    poolName as PoolName,
+    address,
+    true,
+  );
+
+  let someReceipt: any;
+  if (receipt.length == 0) {
+    [someReceipt] = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [poolData.receiptType],
+      arguments: [],
+    });
+  } else {
+    [someReceipt] = txb.moveCall({
+      target: `0x1::option::some`,
+      typeArguments: [receipt[0].content.type],
+      arguments: [txb.object(receipt[0].objectId)],
+    });
+  }
+  let totalCoin: any;
+  if (coinName === "SUI") {
+    totalCoin = txb.gas;
+  } else {
+    totalCoin = await getCoinObject(coinsList[coinName].type, address, txb);
+  }
+  const [depositCoin] = txb.splitCoins(totalCoin, [amount]);
+  if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
+        coinsList["ALPHA"].type,
+        coinsList["STSUI"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`ALPHA-STSUI`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
+        coinsList["STSUI"].type,
+        coinsList["SUI"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`STSUI-SUI`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
+        coinsList["BLUE"].type,
+        coinsList["SUI"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`BLUE-SUI`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
+        coinsList["SUI"].type,
+        coinsList["USDC"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`SUI-USDC`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
+        coinsList["TBTC"].type,
+        coinsList["USDC"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`TBTC-USDC`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(false),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+  }
+  txb.moveCall({
+    target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::user_deposit`,
+    typeArguments: [coinsList[coinName].type],
+    arguments: [
+      txb.object(C.ALPHA_ALPHALEND_VERSION),
+      txb.object(C.VERSION),
+      someReceipt,
+      txb.object(poolData.poolId),
+      depositCoin,
+      txb.object(poolData.investorId),
+      txb.object(C.ALPHA_DISTRIBUTOR),
+      txb.object(C.LENDING_PROTOCOL_ID),
+      txb.object(C.CLOCK_PACKAGE_ID),
+    ],
+  });
+  txb.transferObjects([totalCoin], address);
   return txb;
 }
 
@@ -221,6 +372,153 @@ export async function alphalendSuiStsuiLoopWithdrawTx(
       typeArguments: [`0x2::coin::Coin<${coinsList["SUI"].type}>`],
       arguments: [stsui_coin, txb.pure.address(address)],
     });
+  } else {
+    throw new Error(`No ALPHALEND-LOOP-SUI-STSUI Receipt`);
+  }
+
+  return txb;
+}
+export async function alphalendSingleLoopWithdraw(
+  poolName: PoolName,
+  xTokens: string,
+  options: { address: string },
+): Promise<Transaction> {
+  const C = getConf();
+  const address = options.address;
+  const txb = new Transaction();
+  const poolData = poolInfo[poolName];
+
+  const receipt: Receipt[] = await getReceipts(
+    poolName as PoolName,
+    address,
+    true,
+  );
+
+  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
+
+  const coinName = loopingPoolCoinMap[poolName].supplyCoin;
+
+  await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
+  if (receipt.length > 0) {
+    let alpha_receipt: any;
+    if (alphaReceipt.length == 0) {
+      [alpha_receipt] = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [C.ALPHA_POOL_RECEIPT],
+        arguments: [],
+      });
+    } else {
+      [alpha_receipt] = txb.moveCall({
+        target: `0x1::option::some`,
+        typeArguments: [alphaReceipt[0].content.type],
+        arguments: [txb.object(alphaReceipt[0].objectId)],
+      });
+    }
+    if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
+      txb.moveCall({
+        target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList["TBTC"].type,
+          coinsList["ALPHA"].type,
+          coinsList["STSUI"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_ALPHALEND_VERSION),
+          txb.object(poolData.investorId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap[`ALPHA-STSUI`]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.moveCall({
+        target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList["TBTC"].type,
+          coinsList["STSUI"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_ALPHALEND_VERSION),
+          txb.object(poolData.investorId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap[`STSUI-SUI`]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.moveCall({
+        target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList["TBTC"].type,
+          coinsList["BLUE"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_ALPHALEND_VERSION),
+          txb.object(poolData.investorId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap[`BLUE-SUI`]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.moveCall({
+        target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList["TBTC"].type,
+          coinsList["SUI"].type,
+          coinsList["USDC"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_ALPHALEND_VERSION),
+          txb.object(poolData.investorId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap[`SUI-USDC`]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.moveCall({
+        target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList["TBTC"].type,
+          coinsList["TBTC"].type,
+          coinsList["USDC"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_ALPHALEND_VERSION),
+          txb.object(poolData.investorId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap[`TBTC-USDC`]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(false),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+    const [coin] = txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::user_withdraw`,
+      typeArguments: [coinsList[coinName].type],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(C.VERSION),
+        txb.object(receipt[0].objectId),
+        alpha_receipt,
+        txb.object(C.ALPHA_POOL),
+        txb.object(poolData.poolId),
+        txb.pure.u64(xTokens),
+        txb.object(poolData.investorId),
+        txb.object(C.ALPHA_DISTRIBUTOR),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.transferObjects([coin], address);
   } else {
     throw new Error(`No ALPHALEND-LOOP-SUI-STSUI Receipt`);
   }

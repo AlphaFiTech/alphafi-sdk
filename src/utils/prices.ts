@@ -1,4 +1,5 @@
 import { PythPriceIdPair } from "../common/pyth.js";
+import { CoinName, coinsList } from "../index.js";
 import { SimpleCache } from "./simpleCache.js";
 
 const latestPriceCache = new SimpleCache<string>(5000);
@@ -50,47 +51,59 @@ export async function getMultiLatestPrices() {
     }
   });
 }
+export async function fetchRequiredPrices(): Promise<{
+  [k: string]: string | undefined;
+}> {
+  const apiUrl = "https://api.alphalend.xyz/public/graphql";
+  const query = `
+    query {
+      coinInfo {
+        coinType
+        coingeckoPrice
+      }
+    }`;
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+  const dataArr = (await response.json()).data.coinInfo;
 
+  const priceMap: { [k: string]: string | undefined } = {};
+  for (const data of dataArr) {
+    let coinType = data.coinType;
+    let coin: string | undefined;
+    if (coinType.startsWith("0x0")) {
+      coinType = "0x" + coinType.substring(3);
+    }
+    coin = Object.keys(coinsList).find(
+      (coinKey) => coinsList[coinKey as CoinName].type === coinType,
+    );
+    if (data.coinType === "0x2::sui::SUI") {
+      coin = "SUI";
+    }
+    if (!coin) {
+      console.error(`Coin not found for coinType: ${data.coinType}`);
+      continue;
+    }
+    priceMap[coin] = data.coingeckoPrice.toString();
+  }
+  return priceMap;
+}
 export async function getLatestPrices(
   pairs: PythPriceIdPair[],
   ignoreCache: boolean,
 ): Promise<string[]> {
-  const pairsToFetch: PythPriceIdPair[] = [];
-  const pairsToFetchIndexes: number[] = [];
+  const priceMap = await fetchRequiredPrices();
+  console.log(ignoreCache);
 
-  const prices: string[] = pairs.map((pair, index) => {
-    const cacheKey = `getLatestPrice-${pair}`;
-    if (ignoreCache) {
-      latestPriceCache.delete(cacheKey);
-    }
-    const cachedResponse = latestPriceCache.get(cacheKey);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-    pairsToFetch.push(pair);
-    pairsToFetchIndexes.push(index);
-    return "";
-  });
-  if (pairsToFetch.length > 0) {
-    try {
-      const fetchedPrices = await fetchPricesFromAlphaAPI(pairsToFetch);
-      for (let i = 0; i < pairsToFetch.length; i++) {
-        const price = fetchedPrices[i];
-        prices[pairsToFetchIndexes[i]] = price.price;
-      }
-    } catch (error) {
-      console.error(
-        `Error in getLatestPrices for pairs ${pairsToFetch}:`,
-        error,
-      );
-    }
+  const prices: string[] = [];
+  for (const entry of pairs) {
+    const coinName = entry.toString().split("/")[0];
+    prices.push(priceMap[coinName]!);
   }
-  prices.forEach((price, i) => {
-    if (price) {
-      const cacheKey = `getLatestPrice-${pairs[i]}`;
-      latestPriceCache.set(cacheKey, price);
-    }
-  });
   return prices;
 }
 
@@ -110,26 +123,26 @@ export async function getLatestTokenPricePairs(
   return priceMap;
 }
 
-interface PythPricePair {
-  pair: PythPriceIdPair;
-  price: string;
-}
+// interface PythPricePair {
+//   pair: PythPriceIdPair;
+//   price: string;
+// }
 
-async function fetchPricesFromAlphaAPI(
-  pairs: PythPriceIdPair[],
-): Promise<PythPricePair[]> {
-  const req_url = `https://api.alphafi.xyz/alpha/fetchPrices?pairs=${pairs.join(",")}`;
-  let prices: PythPricePair[] = [];
-  try {
-    const res = await fetch(req_url);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const data = (await res.json()) as PythPricePair[];
-    prices = data;
-  } catch (error) {
-    console.error(`Error fetching prices for pairs ${pairs}:`, error);
-    throw error;
-  }
-  return prices;
-}
+// async function fetchPricesFromAlphaAPI(
+//   pairs: PythPriceIdPair[],
+// ): Promise<PythPricePair[]> {
+//   const req_url = `https://api.alphafi.xyz/alpha/fetchPrices?pairs=${pairs.join(",")}`;
+//   let prices: PythPricePair[] = [];
+//   try {
+//     const res = await fetch(req_url);
+//     if (!res.ok) {
+//       throw new Error(`HTTP error! status: ${res.status}`);
+//     }
+//     const data = (await res.json()) as PythPricePair[];
+//     prices = data;
+//   } catch (error) {
+//     console.error(`Error fetching prices for pairs ${pairs}:`, error);
+//     throw error;
+//   }
+//   return prices;
+// }
