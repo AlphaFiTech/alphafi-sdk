@@ -40,4 +40,6 @@ export type PythPriceIdPair =
   | "AlphaFi stSUI-SUI LP/USD"
   | "SUIBTC/USD"
   | "LBTC/USD"
-  | "WAL/USD";
+  | "WAL/USD"
+  | "DMC/USD"
+  | "TBTC/USD";

@@ -20,9 +20,7 @@ export async function fetchTransactions(
   for (const filter of params.filter) {
     let hasNextPage: boolean = true;
     let nextCursor: null | string | undefined = null;
-    let i = 0; //debug
     while (hasNextPage) {
-      console.log(i++); //debug
       const res = await suiClient.queryTransactionBlocks({
         cursor: nextCursor,
         filter: filter,
@@ -33,7 +31,6 @@ export async function fetchTransactions(
         const firstTx = res.data[0];
         const laterTime = firstTx.timestampMs as string;
         const earlierTime = lastTx.timestampMs as string;
-        console.log("later earlier", laterTime, earlierTime); //debug
         if (Number(laterTime) < params.startTime) {
           // Page beyond interval
           hasNextPage = false;
@@ -43,41 +40,8 @@ export async function fetchTransactions(
           hasNextPage = res.hasNextPage;
           nextCursor = res.nextCursor;
           continue;
-        } else if (
-          Number(laterTime) > params.startTime &&
-          Number(laterTime) < params.endTime &&
-          Number(earlierTime) < params.startTime
-        ) {
-          // Page spills from interval startTime
-          for (let i = 0; i < res.data.length; i++) {
-            if (Number(res.data[i].timestampMs) > params.startTime) {
-              transactionBlocks.push(res.data[i]);
-            } else {
-              break;
-            }
-          }
-          hasNextPage = res.hasNextPage;
-          nextCursor = res.nextCursor;
-        } else if (
-          Number(laterTime) > params.endTime &&
-          Number(earlierTime) > params.startTime &&
-          Number(earlierTime) < params.endTime
-        ) {
-          // Page spills from interval endTIme
-          for (let i = res.data.length - 1; i >= 0; i--) {
-            if (Number(res.data[i].timestampMs) < params.endTime) {
-              transactionBlocks.push(res.data[i]);
-            } else {
-              break;
-            }
-          }
-          hasNextPage = res.hasNextPage;
-          nextCursor = res.nextCursor;
-        } else if (
-          Number(laterTime) > params.endTime &&
-          Number(earlierTime) < params.startTime
-        ) {
-          // Page spills from interval both bounds
+        } else {
+          // page is partially or completely in the interval
           for (let i = 0; i < res.data.length; i++) {
             if (
               Number(res.data[i].timestampMs) > params.startTime &&
@@ -86,11 +50,6 @@ export async function fetchTransactions(
               transactionBlocks.push(res.data[i]);
             }
           }
-          hasNextPage = res.hasNextPage;
-          nextCursor = res.nextCursor;
-        } else {
-          // Page is in the interval
-          transactionBlocks = transactionBlocks.concat(res.data);
           hasNextPage = res.hasNextPage;
           nextCursor = res.nextCursor;
         }

@@ -25,7 +25,8 @@ export async function fetchUserVaults(
         if (
           poolInfo[pool].parentProtocolName === "ALPHAFI" ||
           poolInfo[pool].parentProtocolName === "NAVI" ||
-          poolInfo[pool].parentProtocolName === "BUCKET"
+          poolInfo[pool].parentProtocolName === "BUCKET" ||
+          poolInfo[pool].parentProtocolName === "ALPHALEND"
         ) {
           const coin = singleAssetPoolCoinMap[pool].coin;
           res = {

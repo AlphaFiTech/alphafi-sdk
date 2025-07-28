@@ -115,7 +115,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-NS": { coin: "NS" },
   "NAVI-NAVX": { coin: "NAVX" },
   "NAVI-STSUI": { coin: "STSUI" },
-  "NAVI-LOOP-SUI-STSUI": { coin: "SUI" },
+  "ALPHALEND-LOOP-SUI-STSUI": { coin: "SUI" },
   "NAVI-SUIBTC": { coin: "SUIBTC" },
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
   "NAVI-DEEP": { coin: "DEEP" },
@@ -129,7 +129,7 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-USDT-USDC": { supplyCoin: "USDT", borrowCoin: "USDC" },
   "NAVI-LOOP-SUI-VSUI": { supplyCoin: "VSUI", borrowCoin: "SUI" },
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
-  "NAVI-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
+  "ALPHALEND-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
 };
 
 export const naviAssetMap: {
@@ -223,6 +223,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "SEND-USDC": conf[CONF_ENV].BLUEFIN_SEND_USDC_POOL,
   "WBTC-SUI": conf[CONF_ENV].BLUEFIN_WBTC_SUI_POOL,
   "STSUI-SUI": conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
+  "STSUI-SUI-ZERO-ZERO": conf[CONF_ENV].BLUEFIN_STSUI_SUI_ZERO_ZERO_POOL,
   "STSUI-USDC": conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
   "STSUI-ETH": conf[CONF_ENV].BLUEFIN_STSUI_ETH_POOL,
   "STSUI-WSOL": conf[CONF_ENV].BLUEFIN_STSUI_WSOL_POOL,
@@ -254,7 +255,6 @@ export const loopingAccountAddresses: { [key: string]: string } = {
   "NAVI-LOOP-USDT-USDC": conf[CONF_ENV].NAVI_USDT_USDC_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-SUI-VSUI": conf[CONF_ENV].NAVI_SUI_VSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-LOOP-HASUI-SUI": conf[CONF_ENV].NAVI_HASUI_SUI_LOOP_ACCOUNT_ADDRESS,
-  "NAVI-LOOP-SUI-STSUI": conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_ACCOUNT_ADDRESS,
   "NAVI-AUSD": conf[CONF_ENV].NAVI_AUSD_ACCOUNT_ADDRESS,
   "NAVI-ETH": conf[CONF_ENV].NAVI_ETH_ACCOUNT_ADDRESS,
   "NAVI-NS": conf[CONF_ENV].NAVI_NS_ACCOUNT_ADDRESS,
@@ -358,6 +358,10 @@ export const naviPriceFeedMap: {
   WAL: {
     feedId: conf[CONF_ENV].HASUI_FEED_ID, //todo: change when real ids for wal are found
     pythPriceInfo: conf[CONF_ENV].HASUI_PYTH_PRICE_INFO,
+  },
+  DMC: {
+    feedId: conf[CONF_ENV].DMC_FEED_ID,
+    pythPriceInfo: conf[CONF_ENV].DMC_PYTH_PRICE_INFO,
   },
 };
 
@@ -535,7 +539,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-LBTC-SUIBTC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,
@@ -661,27 +665,27 @@ export const poolInfo: {
     retired: false,
     // add strategy type
   },
-  "NAVI-LOOP-SUI-STSUI": {
+  "ALPHALEND-LOOP-SUI-STSUI": {
     packageId: conf[CONF_ENV].ALPHA_5_LATEST_PACKAGE_ID,
     packageNumber: 5,
-    parentProtocolName: "NAVI",
+    parentProtocolName: "ALPHALEND",
     parentPoolId: conf[CONF_ENV].NAVI_STSUI_POOL,
-    poolId: conf[CONF_ENV].ALPHAFI_NAVI_LOOP_SUI_STSUI_POOL,
-    investorId: conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_INVESTOR,
-    receiptName: conf[CONF_ENV].NAVI_SUI_STSUI_LOOP_RECEIPT_NAME,
-    receiptType: conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_RECEIPT,
+    poolId: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL,
+    investorId: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHALEND_SUI_STSUI_LOOP_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_RECEIPT,
     assetTypes: ["0x2::sui::SUI"],
     autoCompoundingEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType: undefined,
     liquidityChangeEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LOOPING",
     checkRatioEventType:
-      conf[CONF_ENV].NAVI_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT,
+      conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_CHECK_RATIO_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/vsui.png",
-    retired: true,
+    retired: false,
   },
   "BLUEFIN-STSUI-MUSD": {
     packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
@@ -963,7 +967,7 @@ export const poolInfo: {
     packageId: conf[CONF_ENV].ALPHA_STSUI_LATEST_PACKAGE_ID,
     packageNumber: 6,
     parentProtocolName: "BLUEFIN",
-    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_USDC_POOL,
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_USDC_ZERO_ONE_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_POOL,
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_USDC_RECEIPT_NAME,
@@ -984,7 +988,7 @@ export const poolInfo: {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
     parentProtocolName: "BLUEFIN",
-    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_ZERO_ZERO_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_POOL,
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_RECEIPT_NAME,
@@ -1512,7 +1516,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_ETH_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/eth 2.png",
-    retired: false,
+    retired: true,
   },
   "DEEP-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1534,7 +1538,7 @@ export const poolInfo: {
       conf[CONF_ENV].DEEP_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/deep.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "ALPHA-USDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1578,7 +1582,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: false,
+    retired: true,
   },
   "USDC-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1600,7 +1604,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "USDC-USDT": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1622,7 +1626,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_USDT_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDT.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-USDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1756,7 +1760,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_WETH_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-USDT": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1906,7 +1910,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDT_WUSDC_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDT.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: false,
+    retired: true,
   },
   // "USDY-WUSDC": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1947,7 +1951,7 @@ export const poolInfo: {
       conf[CONF_ENV].WUSDC_SUI_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     imageUrl1: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: false,
+    retired: true,
   },
   "WETH-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -2019,7 +2023,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVX_SUI_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   // "BUCK-WUSDC": {
   //   packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -2058,7 +2062,7 @@ export const poolInfo: {
       conf[CONF_ENV].CETUS_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/cetus_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "ALPHA-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -2080,7 +2084,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHA_WUSDC_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/logo192.png",
     imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: false,
+    retired: true,
   },
   "WSOL-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -2186,6 +2190,18 @@ export function coinsInPool(
     }
     return "VSUI";
   }
+  // Special case for "ALPHALEND-LOOP-SUI-STSUI"
+  if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
+    if (
+      event &&
+      event.type ===
+        conf[CONF_ENV].ALPHALEND_LOOP_SUI_STSUI_POOL_LIQUIDITY_CHANGE_EVENT
+    ) {
+      return "SUI";
+    }
+    return "STSUI";
+  }
+
   const singleAsset = singleAssetPoolCoinMap[poolName];
   const doubleAsset = doubleAssetPoolCoinMap[poolName];
   if (singleAsset) {
@@ -2424,4 +2440,5 @@ export const ignoredWalletsForDailyRevenue = [
   "0x6a498c57c18306e0af942442a5d20e5b2940939b4937ed52f4b17e3fa99972f5",
   "0xbdaee7c803e5db14b6571d78d05e152057b72bace936566b8403b760d5d228e8",
   "0x927363c465a04495ba8a88085ab12a3ee9902c3775601aeb8fa897b4ab564742",
+  "0x9d11564cf203aac35fff7f11ef2540c008790d9398ccc408ee84cd801b0e5813",
 ];
