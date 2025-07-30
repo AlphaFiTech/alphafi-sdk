@@ -42,4 +42,5 @@ export type PythPriceIdPair =
   | "LBTC/USD"
   | "WAL/USD"
   | "DMC/USD"
-  | "TBTC/USD";
+  | "TBTC/USD"
+  | "IKA/USD";
