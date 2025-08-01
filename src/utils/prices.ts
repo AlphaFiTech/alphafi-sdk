@@ -94,16 +94,40 @@ export async function fetchRequiredPrices(): Promise<{
 }
 
 export async function getLatestPrices(
-  pairs: PythPriceIdPair[], // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  pairs: PythPriceIdPair[],
   ignoreCache: boolean,
 ): Promise<string[]> {
-  const priceMap = await fetchRequiredPrices();
-
-  const prices: string[] = [];
-  for (const entry of pairs) {
-    const coinName = entry.toString().split("/")[0];
-    prices.push(priceMap[coinName]!);
+  let requireCall = false;
+  const prices: string[] = pairs.map((pair) => {
+    const cacheKey = `getLatestPrice-${pair}`;
+    if (ignoreCache) {
+      latestPriceCache.delete(cacheKey);
+    }
+    const cachedResponse = latestPriceCache.get(cacheKey);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    requireCall = true;
+    return pair;
+  });
+  if (requireCall) {
+    try {
+      const priceMap = await fetchRequiredPrices();
+      for (let i = 0; i < prices.length; i++) {
+        const entry = prices[i];
+        if (entry.includes("/USD")) {
+          const coinName = entry.toString().split("/")[0];
+          const price = priceMap[coinName] ? priceMap[coinName] : "0";
+          const cacheKey = `getLatestPrice-${entry}`;
+          latestPriceCache.set(cacheKey, price);
+          prices[i] = price;
+        }
+      }
+    } catch (err) {
+      console.error("couldnt fetch prices");
+    }
   }
+
   return prices;
 }
 
