@@ -186,6 +186,7 @@ export async function alphalendSingleLoopDeposit(
         txb.object(bluefinPoolMap[`ALPHA-STSUI`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
+        txb.pure.bool(false),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -202,6 +203,7 @@ export async function alphalendSingleLoopDeposit(
         txb.object(C.LENDING_PROTOCOL_ID),
         txb.object(bluefinPoolMap[`STSUI-SUI`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
         txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
@@ -220,6 +222,7 @@ export async function alphalendSingleLoopDeposit(
         txb.object(bluefinPoolMap[`BLUE-SUI`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
+        txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -236,6 +239,7 @@ export async function alphalendSingleLoopDeposit(
         txb.object(C.LENDING_PROTOCOL_ID),
         txb.object(bluefinPoolMap[`SUI-USDC`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
         txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
@@ -254,6 +258,7 @@ export async function alphalendSingleLoopDeposit(
         txb.object(bluefinPoolMap[`TBTC-USDC`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(false),
+        txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -429,6 +434,7 @@ export async function alphalendSingleLoopWithdraw(
           txb.object(bluefinPoolMap[`ALPHA-STSUI`]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
           txb.pure.bool(true),
+          txb.pure.bool(false),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -445,6 +451,7 @@ export async function alphalendSingleLoopWithdraw(
           txb.object(C.LENDING_PROTOCOL_ID),
           txb.object(bluefinPoolMap[`STSUI-SUI`]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
           txb.pure.bool(true),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
@@ -463,6 +470,7 @@ export async function alphalendSingleLoopWithdraw(
           txb.object(bluefinPoolMap[`BLUE-SUI`]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
           txb.pure.bool(true),
+          txb.pure.bool(true),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -479,6 +487,7 @@ export async function alphalendSingleLoopWithdraw(
           txb.object(C.LENDING_PROTOCOL_ID),
           txb.object(bluefinPoolMap[`SUI-USDC`]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
           txb.pure.bool(true),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
@@ -497,6 +506,7 @@ export async function alphalendSingleLoopWithdraw(
           txb.object(bluefinPoolMap[`TBTC-USDC`]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
           txb.pure.bool(false),
+          txb.pure.bool(true),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });

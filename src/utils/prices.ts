@@ -92,12 +92,12 @@ export async function fetchRequiredPrices(): Promise<{
   }
   return priceMap;
 }
+
 export async function getLatestPrices(
-  pairs: PythPriceIdPair[],
+  pairs: PythPriceIdPair[], // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ignoreCache: boolean,
 ): Promise<string[]> {
   const priceMap = await fetchRequiredPrices();
-  console.log(ignoreCache);
 
   const prices: string[] = [];
   for (const entry of pairs) {
