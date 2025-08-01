@@ -133,6 +133,7 @@ export {
   loopingPoolCoinMap,
   naviAssetMap,
   ignoredWalletsForDailyRevenue,
+  alphalendMarketIdMap,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";

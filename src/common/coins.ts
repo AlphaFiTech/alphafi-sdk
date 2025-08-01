@@ -229,4 +229,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 8,
   },
+  IKA: {
+    name: "IKA",
+    type: "0x7262fb2f7a3a14c888c438a3cd9b912469a58cf60f367352c46584262e8299aa::ika::IKA",
+    icon: "",
+    expo: 9,
+  },
 };

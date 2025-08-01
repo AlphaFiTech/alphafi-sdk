@@ -156,6 +156,13 @@ export const naviAssetMap: {
   DEEP: "15",
   WAL: "24",
 };
+export const alphalendMarketIdMap: {
+  [key in string]: string;
+} = {
+  SUI: "1",
+  STSUI: "2",
+  TBTC: "14",
+};
 
 export const cetusPoolMap: { [key: string]: string } = {
   "WUSDC-SUI": conf[CONF_ENV].WUSDC_SUI_CETUS_POOL_ID,
