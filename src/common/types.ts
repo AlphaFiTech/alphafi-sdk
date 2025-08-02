@@ -32,7 +32,8 @@ export type LoopingPoolNames =
   | "NAVI-LOOP-USDT-USDC"
   | "NAVI-LOOP-SUI-VSUI"
   | "NAVI-LOOP-USDC-USDT"
-  | "ALPHALEND-LOOP-SUI-STSUI";
+  | "ALPHALEND-LOOP-SUI-STSUI"
+  | "ALPHALEND-SINGLE-LOOP-TBTC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -145,7 +146,8 @@ export type StrategyType =
   | "LIQUIDITY-POOL"
   | "LENDING"
   | "LIQUID-STAKING"
-  | "AUTOBALANCE-LIQUIDITY-POOL";
+  | "AUTOBALANCE-LIQUIDITY-POOL"
+  | "SINGLE-LOOPING";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.

@@ -19,7 +19,10 @@ import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
 import { loopingWithdraw } from "./navi-looping.js";
 import { getEstimatedGasBudget, getLiquidity } from "./deposit.js";
-import { alphalendLoopingWithdraw } from "./alphalend.js";
+import {
+  alphalendLoopingWithdraw,
+  alphalendSingleLoopWithdraw,
+} from "./alphalend.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -85,6 +88,10 @@ export async function withdrawTxb(
     if (poolInfo[poolName].strategyType === "LOOPING") {
       txb = await alphalendLoopingWithdraw(poolName, xTokensAmount, {
         address,
+      });
+    } else if (poolInfo[poolName].strategyType === "SINGLE-LOOPING") {
+      txb = await alphalendSingleLoopWithdraw(poolName, xTokensAmount, {
+        address: address,
       });
     }
   }

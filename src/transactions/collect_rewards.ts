@@ -492,6 +492,24 @@ export async function claimRewardTxb(address: string) {
               ],
             });
           });
+        } else if (poolInfo[poolName].parentProtocolName == "ALPHALEND") {
+          receipts.forEach((receipt) => {
+            alpha_receipt = txb.moveCall({
+              target: `${poolInfo[poolName].packageId}::alphafi_alphalend_single_loop_pool::get_user_rewards_all`,
+              typeArguments: [
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type,
+              ],
+              arguments: [
+                txb.object(getConf().VERSION),
+                txb.object(receipt.objectId),
+                alpha_receipt,
+                txb.object(poolInfo[poolName].poolId),
+                txb.object(poolInfo["ALPHA"].poolId),
+                txb.object(getConf().ALPHA_DISTRIBUTOR),
+                txb.object(getConf().CLOCK_PACKAGE_ID),
+              ],
+            });
+          });
         }
       }
     }

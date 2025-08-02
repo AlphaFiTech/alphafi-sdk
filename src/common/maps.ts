@@ -120,6 +120,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-SUIUSDT": { coin: "SUIUSDT" },
   "NAVI-DEEP": { coin: "DEEP" },
   "NAVI-WAL": { coin: "WAL" },
+  "ALPHALEND-SINGLE-LOOP-TBTC": { coin: "TBTC" },
 };
 
 export const loopingPoolCoinMap: {
@@ -130,6 +131,7 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-SUI-VSUI": { supplyCoin: "VSUI", borrowCoin: "SUI" },
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
   "ALPHALEND-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
+  "ALPHALEND-SINGLE-LOOP-TBTC": { supplyCoin: "TBTC", borrowCoin: "TBTC" },
 };
 
 export const naviAssetMap: {
@@ -255,6 +257,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "NAVX-SUI": conf[CONF_ENV].BLUEFIN_NAVX_SUI_POOL,
   "NAVX-USDC": conf[CONF_ENV].BLUEFIN_NAVX_USDC_POOL,
   "VSUI-USDC": conf[CONF_ENV].BLUEFIN_VSUI_USDC_POOL,
+  "TBTC-USDC": conf[CONF_ENV].BLUEFIN_TBTC_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -396,6 +399,26 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "ALPHALEND-SINGLE-LOOP-TBTC": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_RECEIPT,
+    assetTypes: [coinsList["TBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
   "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,

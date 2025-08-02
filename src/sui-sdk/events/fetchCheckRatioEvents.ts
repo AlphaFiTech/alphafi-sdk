@@ -8,7 +8,10 @@ export async function fetchCheckRatioEvents(
   const eventTypesSet = new Set<string>();
   if (params.poolNames) {
     params.poolNames.forEach((poolName) => {
-      if (poolInfo[poolName].strategyType !== "LOOPING") {
+      if (
+        poolInfo[poolName].strategyType !== "LOOPING" &&
+        poolInfo[poolName].strategyType !== "SINGLE-LOOPING"
+      ) {
         console.error("Check Ratio event only applicable in looping pools");
         throw new Error("Inavlid Params");
       }

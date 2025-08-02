@@ -1797,7 +1797,7 @@ export const depositBluefinStsuiTxb = async (
 
   return txb;
 };
-const getCoinObject = async (
+export const getCoinObject = async (
   type: string,
   address: string,
   tx?: Transaction,

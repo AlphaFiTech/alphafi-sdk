@@ -146,7 +146,8 @@ function singleAssetLiquidityToTokens(liquidity: string, pool: string) {
   } else if (
     (poolInfo[pool].parentProtocolName === "NAVI" ||
       poolInfo[pool].parentProtocolName === "ALPHALEND") &&
-    poolInfo[pool].strategyType === "LOOPING"
+    (poolInfo[pool].strategyType === "LOOPING" ||
+      poolInfo[pool].strategyType === "SINGLE-LOOPING")
   ) {
     const coin = coinsInPool(pool as SingleAssetPoolNames);
     const amount = new Decimal(liquidity).div(
