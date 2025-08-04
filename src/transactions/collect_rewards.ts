@@ -500,6 +500,7 @@ export async function claimRewardTxb(address: string) {
                 coinsList[singleAssetPoolCoinMap[poolName].coin].type,
               ],
               arguments: [
+                txb.object(getConf().ALPHA_ALPHALEND_VERSION),
                 txb.object(getConf().VERSION),
                 txb.object(receipt.objectId),
                 alpha_receipt,
