@@ -1018,7 +1018,7 @@ export const poolInfo: {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
     packageNumber: 4,
     parentProtocolName: "BLUEFIN",
-    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_POOL,
+    parentPoolId: conf[CONF_ENV].BLUEFIN_STSUI_SUI_ZERO_ZERO_POOL,
     poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_POOL,
     investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_INVESTOR,
     receiptName: conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_SUI_RECEIPT_NAME,
