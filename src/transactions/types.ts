@@ -15,3 +15,7 @@ export type DoubleAssetDepositParams = {
   amount: string;
   isAmountA: boolean;
 };
+
+export type UserAutoBalanceRewardAmounts = {
+  [key in string]: string;
+};
