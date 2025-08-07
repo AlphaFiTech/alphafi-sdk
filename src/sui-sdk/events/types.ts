@@ -36,11 +36,11 @@ export interface NaviLoopAutoCompoundingEvent extends NaviAutoCompoundingEvent {
 }
 
 export interface AutobalancingAutoCompoundingEvent {
-  blue_reward_amount: bigint;
-  current_liquidity: bigint;
+  amount: bigint;
+  coin_type: {
+    name: string;
+  };
   fee_collected: bigint;
-  free_balance_a: bigint;
-  free_balance_b: bigint;
   investor_id: string;
   total_amount_a: bigint;
   total_amount_b: bigint;

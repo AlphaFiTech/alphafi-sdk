@@ -5,6 +5,7 @@ import {
   singleAssetPoolCoinMap,
   poolInfo,
   doubleAssetPoolCoinMap,
+  coinTypeMap,
 } from "../../common/maps.js";
 import { PoolName, SingleAssetPoolNames } from "../../common/types.js";
 import { fetchEvents } from "./fetchEvents.js";
@@ -28,9 +29,16 @@ export async function fetchAutoCompoundingEvents(
     });
   } else {
     // Iterate over all the values in poolInfo and add each autoCompoundingEventType to the Set
-    Object.values(poolInfo).forEach((info) => {
-      const eventType = info.autoCompoundingEventType;
-      if (eventType !== undefined && eventType !== null && eventType !== "") {
+    Object.keys(poolInfo).forEach((info) => {
+      const eventType = poolInfo[info].autoCompoundingEventType;
+      if (
+        eventType !== undefined &&
+        eventType !== null &&
+        eventType !== "" &&
+        (poolInfo[info].strategyType != "AUTOBALANCE-LIQUIDITY-POOL" ||
+          (poolInfo[info].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" && // remove after changing all modules
+            info === "BLUEFIN-AUTOBALANCE-SUI-USDC"))
+      ) {
         eventTypesSet.add(eventType);
       }
     });
@@ -139,7 +147,6 @@ export async function calculateAprForInvestor(
   let totalGrowth = 0;
   let totalTimeSpan = 0;
   let apr = 0;
-
   try {
     // Sort events by timestamp to process them in order
     events.sort((a, b) => a.timestamp - b.timestamp);
@@ -151,13 +158,14 @@ export async function calculateAprForInvestor(
     let prevCompoundB = 0n;
 
     const investorPoolMap = getInvestorPoolMap();
-
     if (
       events.length > 0 &&
-      investorPoolMap
-        .get(events[0].investor_id.toString())
-        ?.toString()
-        .includes("AUTOBALANCE")
+      "amount" in events[0] &&
+      "total_amount_a" in events[0]
+      // investorPoolMap
+      //   .get(events[0].investor_id.toString())
+      //   ?.toString()
+      //   .includes("AUTOBALANCE")
     ) {
       let sumOfGrowths = new Decimal(0);
       const poolName = investorPoolMap.get(events[0].investor_id.toString());
@@ -167,16 +175,18 @@ export async function calculateAprForInvestor(
         [`${c1}/USD`, `${c2}/USD`],
         false,
       );
-      const [bluePrice] = await getLatestPrices(["BLUE/USD"], false);
-
+      const coinTypeToCoin = coinTypeMap;
       for (const event of events) {
-        if ("blue_reward_amount" in event) {
-          const blueReward = new Decimal(event.blue_reward_amount.toString());
+        if ("amount" in event && "total_amount_a" in event) {
+          const reward = new Decimal(event.amount.toString());
+          const rewardType = event.coin_type.name.toString();
+          const rewardCoin = coinTypeToCoin["0x" + rewardType];
           const totalAmountA = new Decimal(event.total_amount_a.toString());
           const totalAmountB = new Decimal(event.total_amount_b.toString());
-          const blueRewardPrice = blueReward
-            .mul(bluePrice)
-            .div(Math.pow(10, coinsList["BLUE"].expo));
+          const [price] = await getLatestPrices([`${rewardCoin}/USD`], false);
+          const rewardPrice = reward
+            .mul(price)
+            .div(Math.pow(10, coinsList[rewardCoin].expo));
           const baseAmountsPrice = totalAmountA
             .mul(c1Price)
             .div(Math.pow(10, coinsList[c1].expo))
@@ -184,9 +194,7 @@ export async function calculateAprForInvestor(
               totalAmountB.mul(c2Price).div(Math.pow(10, coinsList[c2].expo)),
             );
           if (baseAmountsPrice.gt(0)) {
-            sumOfGrowths = sumOfGrowths.plus(
-              blueRewardPrice.div(baseAmountsPrice),
-            );
+            sumOfGrowths = sumOfGrowths.plus(rewardPrice.div(baseAmountsPrice));
           }
         }
       }
