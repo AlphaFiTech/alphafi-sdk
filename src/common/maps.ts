@@ -121,6 +121,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-DEEP": { coin: "DEEP" },
   "NAVI-WAL": { coin: "WAL" },
   "ALPHALEND-SINGLE-LOOP-TBTC": { coin: "TBTC" },
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": { coin: "SUIBTC" },
 };
 
 export const loopingPoolCoinMap: {
@@ -132,6 +133,10 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
   "ALPHALEND-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
   "ALPHALEND-SINGLE-LOOP-TBTC": { supplyCoin: "TBTC", borrowCoin: "TBTC" },
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": {
+    supplyCoin: "SUIBTC",
+    borrowCoin: "SUIBTC",
+  },
 };
 
 export const naviAssetMap: {
@@ -162,6 +167,7 @@ export const alphalendMarketIdMap: {
   SUI: "1",
   STSUI: "2",
   TBTC: "14",
+  SUIBTC: "3",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -399,6 +405,27 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
   "ALPHALEND-SINGLE-LOOP-TBTC": {
     packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
     packageNumber: 10,

@@ -33,7 +33,8 @@ export type LoopingPoolNames =
   | "NAVI-LOOP-SUI-VSUI"
   | "NAVI-LOOP-USDC-USDT"
   | "ALPHALEND-LOOP-SUI-STSUI"
-  | "ALPHALEND-SINGLE-LOOP-TBTC";
+  | "ALPHALEND-SINGLE-LOOP-TBTC"
+  | "ALPHALEND-SINGLE-LOOP-SUIBTC";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
