@@ -35,10 +35,22 @@ const client = new ApolloClient({
   }),
 });
 
-const getReceiptTypes = () => {
+const getReceiptTypes = (filter: "all" | "active" | "retired" = "all") => {
   const receiptTypes: { [key: string]: ReceiptType } = {};
   const mySet: Set<string> = new Set();
   Object.keys(poolInfo).forEach((pool) => {
+    // if (
+    //   filter === "active" &&
+    //   (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
+    //     poolInfo[pool].retired)
+    // )
+    //   return;
+    // if (
+    //   filter === "retired" &&
+    //   (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
+    //     poolInfo[pool].retired)
+    // )
+    //   return;
     const key = pool.replace(/-/g, "_");
     if (!mySet.has(poolInfo[pool].receiptType)) {
       receiptTypes[key] = {
@@ -48,15 +60,17 @@ const getReceiptTypes = () => {
       mySet.add(poolInfo[pool].receiptType);
     }
   });
+  console.log(filter, receiptTypes);
   return receiptTypes;
 };
 
 export async function fetchMultiReceipts(
   address: string,
+  filter: "all" | "active" | "retired" = "all",
 ): Promise<Map<string, ReceiptGQL[]>> {
   const multiReceipts: any[] = [];
 
-  const receiptTypes = getReceiptTypes();
+  const receiptTypes = getReceiptTypes(filter);
   const batchSize = 10; // Set the desired batch size
 
   // Convert the receiptTypes object into an array of entries
