@@ -110,7 +110,7 @@ export async function getMultiReceipts(
   filter: "all" | "active" | "retired" = "all",
 ) {
   try {
-    const receiptMap = await fetchMultiReceipts(address, filter);
+    const receiptMap = await fetchMultiReceipts(address);
     for (const pool of Object.keys(poolInfo)) {
       const cacheKey = `getReceipts-${poolInfo[pool].receiptName}-${address}`;
       let receipt: Receipt[] = [];
@@ -220,23 +220,9 @@ export async function getReceipts(
 const poolCache = new SimpleCache<PoolType | AlphaPoolType>();
 const poolPromiseCache = new SimpleCache<Promise<PoolType | AlphaPoolType>>();
 
-export async function getMultiPool(
-  filter: "all" | "active" | "retired" = "all",
-) {
+export async function getMultiPool() {
   let pools = Object.keys(poolInfo);
   pools = pools.filter((pool) => {
-    if (
-      filter === "active" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
-    if (
-      filter === "retired" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
     return poolInfo[pool].poolId !== "";
   });
   const poolIds = pools.map((pool) => {
@@ -329,23 +315,9 @@ const parentPoolPromiseCache = new SimpleCache<
   Promise<CetusPoolType | BluefinPoolType>
 >();
 
-export async function getMultiParentPool(
-  filter: "all" | "active" | "retired" = "all",
-) {
+export async function getMultiParentPool() {
   let pools = Object.keys(poolInfo);
   pools = pools.filter((pool) => {
-    if (
-      filter === "active" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
-    if (
-      filter === "retired" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
     return poolInfo[pool].parentPoolId !== "";
   });
   const parentPoolIds = pools.map((pool) => {
@@ -442,23 +414,9 @@ const cetusPoolPromiseCache = new SimpleCache<
   Promise<CetusPoolType | BluefinPoolType | undefined>
 >();
 
-export async function getMultiCetusPool(
-  filter: "all" | "active" | "retired" = "all",
-) {
+export async function getMultiCetusPool() {
   let pools = Object.keys(cetusPoolMap);
   pools = pools.filter((pool) => {
-    if (
-      filter === "active" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
-    if (
-      filter === "retired" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
     return cetusPoolMap[pool] !== "";
   });
   const poolIds = pools.map((pool) => {
@@ -544,23 +502,9 @@ export async function getCetusPool(
 const investorCache = new SimpleCache<Investor>();
 const investorPromiseCache = new SimpleCache<Promise<Investor>>();
 
-export async function getMultiInvestor(
-  filter: "all" | "active" | "retired" = "all",
-) {
+export async function getMultiInvestor() {
   let pools = Object.keys(poolInfo);
   pools = pools.filter((pool) => {
-    if (
-      filter === "active" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
-    if (
-      filter === "retired" &&
-      (poolInfo[pool].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" ||
-        poolInfo[pool].retired)
-    )
-      return false;
     return poolInfo[pool].investorId !== "";
   });
   const investorIds = pools.map((pool) => {
