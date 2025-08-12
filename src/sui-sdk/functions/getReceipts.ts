@@ -105,10 +105,7 @@ export function convertReceiptGQLToReceipt(receipts: ReceiptGQL[]): Receipt[] {
 const receiptsCache = new SimpleCache<Receipt[]>(3600000);
 const receiptsPromiseCache = new SimpleCache<Promise<Receipt[]>>(3600000);
 
-export async function getMultiReceipts(
-  address: string,
-  filter: "all" | "active" | "retired" = "all",
-) {
+export async function getMultiReceipts(address: string) {
   try {
     const receiptMap = await fetchMultiReceipts(address);
     for (const pool of Object.keys(poolInfo)) {
