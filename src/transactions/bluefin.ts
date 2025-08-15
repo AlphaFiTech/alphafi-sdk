@@ -15,6 +15,7 @@ import { PoolName, Receipt } from "../common/types.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { getAmounts } from "./deposit.js";
+import { claimRewardsTxb } from "./blueRewards.js";
 
 export const depositBluefinSuiFirstTxb = async (
   amount: string,
@@ -1984,11 +1985,18 @@ export const withdrawBluefinSuiFirstTxb = async (
   options: { address: string },
 ) => {
   const address = options.address;
-  const txb = new Transaction();
+  let txb = new Transaction();
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
+  if (xTokens === receipt[0].content.fields.xTokenBalance) {
+    const res = await claimRewardsTxb(address, poolName);
+    if (res) {
+      txb = res.txb;
+      txb.transferObjects(res.coinOut, address);
+    }
+  }
   const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
