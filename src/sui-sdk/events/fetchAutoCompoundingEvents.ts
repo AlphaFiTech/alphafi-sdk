@@ -334,7 +334,12 @@ export async function calculateAprForInvestor(
         ) as SingleAssetPoolNames;
         const coinName = singleAssetPoolCoinMap[poolName].coin;
 
-        growthRate = growthRate * Math.pow(10, 9 - coinsList[coinName].expo);
+        if (
+          poolInfo[investorPoolMap.get(event.investor_id)!]
+            .parentProtocolName === "NAVI"
+        ) {
+          growthRate = growthRate * Math.pow(10, 9 - coinsList[coinName].expo);
+        }
         // if (event.investor_id === matchInvestor) {
         //   console.log(
         //     `${event.compound_amount},${event.total_amount},${growthRate},${event.timestamp},${(event.timestamp - previousTimestamp) / (1000 * 60)}`,

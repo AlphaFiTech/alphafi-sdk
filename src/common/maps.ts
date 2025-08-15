@@ -121,6 +121,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-DEEP": { coin: "DEEP" },
   "NAVI-WAL": { coin: "WAL" },
   "ALPHALEND-SINGLE-LOOP-TBTC": { coin: "TBTC" },
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": { coin: "SUIBTC" },
 };
 
 export const loopingPoolCoinMap: {
@@ -132,6 +133,10 @@ export const loopingPoolCoinMap: {
   "NAVI-LOOP-USDC-USDT": { supplyCoin: "USDC", borrowCoin: "USDT" },
   "ALPHALEND-LOOP-SUI-STSUI": { supplyCoin: "STSUI", borrowCoin: "SUI" },
   "ALPHALEND-SINGLE-LOOP-TBTC": { supplyCoin: "TBTC", borrowCoin: "TBTC" },
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": {
+    supplyCoin: "SUIBTC",
+    borrowCoin: "SUIBTC",
+  },
 };
 
 export const naviAssetMap: {
@@ -162,6 +167,7 @@ export const alphalendMarketIdMap: {
   SUI: "1",
   STSUI: "2",
   TBTC: "14",
+  SUIBTC: "3",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -399,6 +405,27 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "ALPHALEND-SINGLE-LOOP-SUIBTC": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
   "ALPHALEND-SINGLE-LOOP-TBTC": {
     packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
     packageNumber: 10,
@@ -655,7 +682,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-SUIBTC": {
     packageId: conf[CONF_ENV].ALPHA_NAVI_V2_LATEST_PACKAGE_ID,
@@ -752,7 +779,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_STSUI_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
-    retired: false,
+    retired: true,
     // add strategy type
   },
   "NAVI-STSUI": {
@@ -1075,7 +1102,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/BTCB.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-SEND-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1096,7 +1123,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "", // add send image here
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-BLUE-SUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1117,7 +1144,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/send.png",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-BLUE-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1138,7 +1165,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/send.png",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-NAVX": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -1157,7 +1184,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_NAVX_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/navi_token.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-NAVX-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1205,7 +1232,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/ausd.png",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-ALPHA-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1253,7 +1280,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/BTCB.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-NS": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -1298,7 +1325,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/ausd.png",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-SUI-BUCK": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1322,7 +1349,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/buck.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-LOOP-USDT-USDC": {
     packageId: conf[CONF_ENV].ALPHA_5_LATEST_PACKAGE_ID,
@@ -1370,7 +1397,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDT.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDC.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-SUI-USDC": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
@@ -1418,7 +1445,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_LOOP_HASUI_SUI_POOL_CHECK_RATIO_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/hasui.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-USDY": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1502,7 +1529,7 @@ export const poolInfo: {
       conf[CONF_ENV].BUCKET_BUCK_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/bucket_protocol.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/buck.svg",
-    retired: false,
+    retired: true,
   },
   "BUCK-SUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
@@ -1813,7 +1840,7 @@ export const poolInfo: {
       conf[CONF_ENV].NAVI_USDT_POOL_AFTER_TRANSACTION_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/USDT.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-WUSDC": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,

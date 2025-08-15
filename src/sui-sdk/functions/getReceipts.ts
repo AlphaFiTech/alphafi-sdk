@@ -112,10 +112,13 @@ export async function getMultiReceipts(address: string) {
       const cacheKey = `getReceipts-${poolInfo[pool].receiptName}-${address}`;
       let receipt: Receipt[] = [];
       if (
-        receiptMap.has(poolInfo[pool].receiptName) ||
-        (pool === "ALPHALEND-LOOP-SUI-STSUI" &&
-          receiptMap.has("AlphaFi-Navi SUI-STSUI Receipt"))
+        pool === "ALPHALEND-LOOP-SUI-STSUI" &&
+        receiptMap.has("AlphaFi-Navi SUI-STSUI Receipt")
       ) {
+        receipt = convertReceiptGQLToReceipt(
+          receiptMap.get("AlphaFi-Navi SUI-STSUI Receipt") as ReceiptGQL[],
+        );
+      } else if (receiptMap.has(poolInfo[pool].receiptName)) {
         receipt = convertReceiptGQLToReceipt(
           receiptMap.get(poolInfo[pool].receiptName) as ReceiptGQL[],
         );
