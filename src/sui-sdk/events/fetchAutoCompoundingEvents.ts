@@ -29,8 +29,8 @@ export async function fetchAutoCompoundingEvents(
     });
   } else {
     // Iterate over all the values in poolInfo and add each autoCompoundingEventType to the Set
-    Object.keys(poolInfo).forEach((info) => {
-      const eventType = poolInfo[info].autoCompoundingEventType;
+    Object.keys(poolInfo).forEach((poolName) => {
+      const eventType = poolInfo[poolName].autoCompoundingEventType;
       if (eventType !== undefined && eventType !== null && eventType !== "") {
         eventTypesSet.add(eventType);
       }
