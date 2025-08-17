@@ -31,14 +31,7 @@ export async function fetchAutoCompoundingEvents(
     // Iterate over all the values in poolInfo and add each autoCompoundingEventType to the Set
     Object.keys(poolInfo).forEach((info) => {
       const eventType = poolInfo[info].autoCompoundingEventType;
-      if (
-        eventType !== undefined &&
-        eventType !== null &&
-        eventType !== "" &&
-        (poolInfo[info].strategyType != "AUTOBALANCE-LIQUIDITY-POOL" ||
-          (poolInfo[info].strategyType === "AUTOBALANCE-LIQUIDITY-POOL" && // remove after changing all modules
-            info === "BLUEFIN-AUTOBALANCE-SUI-USDC"))
-      ) {
+      if (eventType !== undefined && eventType !== null && eventType !== "") {
         eventTypesSet.add(eventType);
       }
     });
