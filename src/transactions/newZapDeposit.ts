@@ -2,10 +2,7 @@ import {
   Transaction,
   TransactionObjectArgument,
 } from "@mysten/sui/transactions";
-import BN from "bn.js";
-import { CoinStruct, SuiClient } from "@mysten/sui/client";
-import { Coin, CoinName, PoolName, SwapOptions } from "../common/types.js";
-import { getSuiClient } from "../sui-sdk/client.js";
+import { PoolName, SwapOptions } from "../common/types.js";
 import {
   bluefinPoolMap,
   cetusPoolMap,
@@ -13,551 +10,419 @@ import {
   poolInfo,
 } from "../common/maps.js";
 import { coinsList } from "../common/coins.js";
+import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
 import { SevenKGateway } from "./7k.js";
+import { BN } from "bn.js";
+import { Decimal } from "decimal.js";
+import { getSuiClient } from "../sui-sdk/client.js";
 import { getConf } from "../common/constants.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
-import { getLatestPrices } from "../utils/prices.js";
-import { PythPriceIdPair } from "../common/pyth.js";
-import {
-  mintTx,
-  redeemTx,
-  stSuiExchangeRate,
-  getConf as getStSuiConf,
-} from "@alphafi/stsui-sdk";
-import { Decimal } from "decimal.js";
 
-type ZapDepositParams = {
-  txb: Transaction;
-  coinA: TransactionObjectArgument | undefined;
-  amountA: string | undefined;
-  coinB: TransactionObjectArgument | undefined;
-  amountB: string | undefined;
-};
+// async function _provideLiquidityFixedAmountInternalForAutoSwap(
+//     pool: Pool,
+//     position: ID | TransactionObjectArgument,
+//     liquidityInput: LiquidityInput,
+//     options?: IOnChainCallOptionalParamsWithCoinObjects
+// ): Promise<TransactionBlock> {
+//     const txb = options?.txb || new TransactionBlock();
 
-type CoinDetails = {
-  swapGateway: SevenKGateway;
-  inputObject: Coin;
-  inputCoinAmount: number;
-  swapObjectA: Coin;
-  swapObjectB: Coin;
-  slippage: number;
-  address: string;
-  poolName: PoolName;
-};
+//     const sender = options?.sender || this.signerConfig.address;
 
-// Case 1: When the first amount is zero
-async function handleFirstAmountZero(
-  params: ZapDepositParams,
-  coinDetails: CoinDetails,
+//     // Use the input amount of the fixed token rather than max amount
+//     // else you may run into issues like user might not have more fixed tokens
+//     // in their wallet for instance when a user provides the max coin A or max coin B
+//     // liquidity.
+//     let amountAMax;
+//     let amountBMax;
+//     if (options?.maxAmounts) {
+//         [amountAMax, amountBMax] = options.maxAmounts;
+//     } else {
+//         [amountAMax, amountBMax] = liquidityInput.fix_amount_a
+//             ? [liquidityInput.coinAmount, liquidityInput.tokenMaxB]
+//             : [liquidityInput.tokenMaxA, liquidityInput.coinAmount];
+//     }
+
+//     const amount = liquidityInput.coinAmount;
+
+//     const coinAObject = options?.coinAObject;
+//     const coinBObject = options?.coinBObject;
+//     let splitCoinA;
+//     let mergeCoinA;
+//     let splitCoinB;
+//     let mergeCoinB;
+//     if (coinAObject) {
+//         [splitCoinB, mergeCoinB] = await CoinUtils.createCoinWithBalance(
+//             this.suiClient,
+//             txb,
+//             amountBMax.toString(),
+// txb.pure.bool(liquidityInput.fix_amount_a)
+//         ],
+//         target: `${this.config.CurrentPackage}::gateway::provide_liquidity_with_fixed_amount`,
+//         typeArguments: [pool.coin_a.address, pool.coin_b.address]
+//     });
+
+//     // merge the remaining coins and send them all back to user
+//     const coins: TransactionObjectArgument[] = [];
+
+//     if (mergeCoinA) {
+//         [mergeCoinA].forEach(item => {
+//             if (item) {
+//                 coins.push(item);
+
+// }
+//         });
+//     }
+//     if (mergeCoinB) {
+//         [mergeCoinB].forEach(item => {
+//             if (item) {
+//                 coins.push(item);
+//             }
+//         });
+//     }
+//     if (coins.length > 0) {
+//         txb.transferObjects(coins, sender);
+//     }
+
+//     return txb;
+// }
+
+async function getCoinObject(
+  coinType: string,
+  tx: Transaction,
   suiClient: SuiClient,
-): Promise<ZapDepositParams> {
-  params.amountA = "0";
-  params.coinA = params.txb.moveCall({
-    target: "0x2::coin::zero",
-    typeArguments: [coinDetails.swapObjectA.type],
-    arguments: [],
-  });
-
-  if (coinDetails.inputObject.type === coinDetails.swapObjectB.type) {
-    params.amountB = coinDetails.inputCoinAmount.toString();
-    const res = await splitFromExisting(
-      coinDetails.swapObjectB.name,
-      params.amountB ?? "0",
-      params.txb,
-      suiClient,
-      coinDetails.address,
-    );
-    params.txb = res.tx;
-    params.coinB = res.coinOut;
-  } else {
-    const swapOptionsI2B: SwapOptions = {
-      pair: { coinA: coinDetails.inputObject, coinB: coinDetails.swapObjectB },
-      senderAddress: coinDetails.address,
-      inAmount: new BN(coinDetails.inputCoinAmount),
-      slippage: coinDetails.slippage,
-    };
-    const result = await zapSwap(
-      swapOptionsI2B,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (result) {
-      params.amountB = result.amountOut;
-      params.txb = result.tx;
-      if (result.coinOut) params.coinB = result.coinOut;
-    }
-  }
-  return params;
-}
-
-// Case 2: When the second amount is zero
-async function handleSecondAmountZero(
-  params: ZapDepositParams,
-  coinDetails: CoinDetails,
-  suiClient: SuiClient,
-): Promise<ZapDepositParams> {
-  params.amountB = "0";
-  params.coinB = params.txb.moveCall({
-    target: "0x2::coin::zero",
-    typeArguments: [coinDetails.swapObjectB.type],
-    arguments: [],
-  });
-  if (coinDetails.inputObject.type === coinDetails.swapObjectA.type) {
-    params.amountA = coinDetails.inputCoinAmount.toString();
-    const res = await splitFromExisting(
-      coinDetails.swapObjectA.name,
-      params.amountA,
-      params.txb,
-      suiClient,
-      coinDetails.address,
-    );
-    params.txb = res.tx;
-    params.coinA = res.coinOut;
-  } else {
-    const swapOptionsI2A: SwapOptions = {
-      pair: { coinA: coinDetails.inputObject, coinB: coinDetails.swapObjectA },
-      senderAddress: coinDetails.address,
-      inAmount: new BN(coinDetails.inputCoinAmount),
-      slippage: coinDetails.slippage,
-    };
-    const result = await zapSwap(
-      swapOptionsI2A,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (result) {
-      params.amountA = result.amountOut;
-      params.txb = result.tx;
-      if (result.coinOut) params.coinA = result.coinOut;
-    }
-  }
-  return params;
-}
-
-// Case 3: When both amounts are nonzero
-async function handleNonZeroAmounts(
-  params: ZapDepositParams,
-  coinDetails: CoinDetails,
-  amounts: [string, string],
-  suiClient: SuiClient,
-): Promise<ZapDepositParams | undefined> {
-  const amount1 = Number(amounts[0]);
-  const amount2 = Number(amounts[1]);
-  const swapOptions: SwapOptions = {
-    pair: { coinA: coinDetails.swapObjectA, coinB: coinDetails.swapObjectB },
-    senderAddress: coinDetails.address,
-    inAmount: new BN(amount1),
-    slippage: coinDetails.slippage,
-  };
-
-  const ratioQuote = await zapGetQuote(
-    coinDetails.swapGateway,
-    swapOptions,
-    coinDetails.poolName,
-  );
-  if (ratioQuote === undefined) {
-    console.error("Error fetching ratioQuote for Zap");
-    return undefined;
-  }
-  const amount1InCoinType2 = Number(ratioQuote);
-  const totalAmount = amount2 + amount1InCoinType2;
-  const inputAmountToType1 = Math.floor(
-    (coinDetails.inputCoinAmount * amount1InCoinType2) / totalAmount,
-  );
-  const inputAmountToType2 = Math.floor(
-    (coinDetails.inputCoinAmount * amount2) / totalAmount,
-  );
-
-  const swapOptionsI2A: SwapOptions = {
-    pair: { coinA: coinDetails.inputObject, coinB: coinDetails.swapObjectA },
-    senderAddress: coinDetails.address,
-    inAmount: new BN(inputAmountToType1),
-    slippage: coinDetails.slippage,
-  };
-  const swapOptionsI2B: SwapOptions = {
-    pair: { coinA: coinDetails.inputObject, coinB: coinDetails.swapObjectB },
-    senderAddress: coinDetails.address,
-    inAmount: new BN(inputAmountToType2),
-    slippage: coinDetails.slippage,
-  };
-
-  let swapResult;
-  if (coinDetails.inputObject.type === coinDetails.swapObjectA.type) {
-    swapResult = await zapSwap(
-      swapOptionsI2B,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (swapResult) {
-      params.amountB = swapResult.amountOut;
-      params.txb = swapResult.tx;
-      if (swapResult.coinOut) params.coinB = swapResult.coinOut;
-    }
-    params.amountA = inputAmountToType1.toString();
-    if (swapResult && swapResult.remainingLSTCoin) {
-      params.coinA = swapResult.remainingLSTCoin;
-    } else {
-      const res = await splitFromExisting(
-        coinDetails.swapObjectA.name,
-        params.amountA,
-        params.txb,
-        suiClient,
-        coinDetails.address,
-      );
-      params.txb = res.tx;
-      params.coinA = res.coinOut;
-    }
-  } else if (coinDetails.inputObject.type === coinDetails.swapObjectB.type) {
-    swapResult = await zapSwap(
-      swapOptionsI2A,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (swapResult) {
-      params.amountA = swapResult.amountOut;
-      params.txb = swapResult.tx;
-      if (swapResult.coinOut) params.coinA = swapResult.coinOut;
-    }
-    if (swapResult && swapResult.remainingLSTCoin) {
-      params.coinB = swapResult.remainingLSTCoin;
-    } else {
-      params.amountB = inputAmountToType2.toString();
-      const res = await splitFromExisting(
-        coinDetails.swapObjectB.name,
-        params.amountB,
-        params.txb,
-        suiClient,
-        coinDetails.address,
-      );
-      params.txb = res.tx;
-      params.coinB = res.coinOut;
-    }
-  } else {
-    swapResult = await zapSwap(
-      swapOptionsI2A,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (swapResult) {
-      params.amountA = swapResult.amountOut;
-      params.txb = swapResult.tx;
-      if (swapResult.coinOut) params.coinA = swapResult.coinOut;
-    }
-    swapResult = await zapSwap(
-      swapOptionsI2B,
-      params.txb,
-      coinDetails.poolName,
-    );
-    if (swapResult) {
-      params.amountB = swapResult.amountOut;
-      params.txb = swapResult.tx;
-      if (swapResult.coinOut) params.coinB = swapResult.coinOut;
-    }
-  }
-  return params;
-}
-
-export async function zapDepositTxb(
-  inputCoinName: CoinName,
-  inputCoinAmount: number,
-  poolName: PoolName,
-  slippage: number, // 0.01 --> 1%, 0.001 --> 0.1%
   address: string,
-): Promise<Transaction | undefined> {
-  const suiClient = getSuiClient();
-  let params: ZapDepositParams = {
-    txb: new Transaction(),
-    coinA: undefined,
-    amountA: undefined,
-    coinB: undefined,
-    amountB: undefined,
-  };
-  const coinDetails: CoinDetails = {
-    swapGateway: new SevenKGateway(),
-    inputObject: coinsList[inputCoinName],
-    inputCoinAmount: inputCoinAmount,
-    swapObjectA: coinsList[doubleAssetPoolCoinMap[poolName].coin1],
-    swapObjectB: coinsList[doubleAssetPoolCoinMap[poolName].coin2],
-    address: address,
-    slippage: slippage,
-    poolName: poolName,
-  };
+): Promise<TransactionObjectArgument> {
+  let currentCursor: string | null | undefined = null;
+  let coins1: CoinStruct[] = [];
+  do {
+    const response = await suiClient.getCoins({
+      owner: address,
+      coinType,
+      cursor: currentCursor,
+    });
+    coins1 = coins1.concat(response.data);
+    if (response.hasNextPage && response.nextCursor) {
+      currentCursor = response.nextCursor;
+    } else break;
+  } while (true);
 
-  const amounts = await getAmounts(poolName, true, "100000001", true);
-  if (Number(amounts[0]) === 0) {
-    params = await handleFirstAmountZero(params, coinDetails, suiClient);
-  } else if (Number(amounts[1]) === 0) {
-    params = await handleSecondAmountZero(params, coinDetails, suiClient);
-  } else {
-    const result = await handleNonZeroAmounts(
-      params,
-      coinDetails,
-      amounts,
-      suiClient,
-    );
-    if (!result) return undefined;
-    params = result;
-  }
-
-  if (params.amountA && params.amountB && params.coinA && params.coinB) {
-    // fee charge
-    const feePercentage = 0.05;
-    const amountAFee = ((Number(params.amountA) * feePercentage) / 100).toFixed(
-      0,
-    );
-    const amountBFee = ((Number(params.amountB) * feePercentage) / 100).toFixed(
-      0,
-    );
-    const [feeCoinA] = params.txb.splitCoins(params.coinA, [amountAFee]);
-    const [feeCoinB] = params.txb.splitCoins(params.coinB, [amountBFee]);
-    params.txb.transferObjects([feeCoinA, feeCoinB], getConf().FEE_ADDRESS);
-
-    // Removing fee amounts from amounts and some slippage
-    const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
-    const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
-    params.amountA = (Number(params.amountA) * 0.995).toString();
-    params.amountB = (Number(params.amountB) * 0.995).toString();
-
-    // Conditional deposit calls based on pool and protocol
-    const receipt = await getReceipts(poolName, address, true);
-    let amounts = await getAmounts(poolName, true, params.amountA, false);
-    if (amounts[0] > params.amountA || amounts[1] > params.amountB) {
-      amounts = await getAmounts(poolName, false, params.amountB, false);
-    }
-    const [depositCoinA] = params.txb.splitCoins(params.coinA, [amounts[0]]);
-    const [depositCoinB] = params.txb.splitCoins(params.coinB, [amounts[1]]);
-
-    let someReceipt: any;
-    if (receipt.length == 0) {
-      [someReceipt] = params.txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [poolInfo[poolName].receiptType],
-        arguments: [],
-      });
-    } else {
-      [someReceipt] = params.txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [receipt[0].content.type],
-        arguments: [params.txb.object(receipt[0].objectId)],
-      });
-    }
-
-    if (poolInfo[poolName].parentProtocolName === "CETUS") {
-      if (pool1 === "CETUS" && pool2 === "SUI") {
-        params.txb = await depositCetusSuiTxb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else if (pool2 === "SUI") {
-        params.txb = await depositCetusAlphaSuiTxb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else {
-        params.txb = await depositCetusTxb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      }
-    } else if (poolInfo[poolName].parentProtocolName === "BLUEFIN") {
-      if (
-        poolName === "BLUEFIN-NAVX-VSUI" ||
-        poolName === "BLUEFIN-ALPHA-USDC" ||
-        poolName === "BLUEFIN-BLUE-USDC"
-      ) {
-        params.txb = await depositBluefinType2Txb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else if (pool1 === "SUI") {
-        params.txb = await depositBluefinSuiFirstTxb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else if (pool2 === "SUI") {
-        params.txb = await depositBluefinSuiSecondTxb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else if (pool1 === "STSUI" || pool2 === "STSUI") {
-        params.txb = await depositBluefinStsuiTxb(
-          params.txb,
-          someReceipt,
-          poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      } else {
-        params.txb = await depositBluefinType1Txb(
-          params.txb,
-          someReceipt,
-          coinDetails.poolName,
-          depositCoinA,
-          depositCoinB,
-        );
-      }
-    }
-    params.txb.transferObjects([params.coinA, params.coinB], address);
-  }
-  params.txb.setGasBudget(100000000);
-  return params.txb;
-}
-
-async function zapGetQuote(
-  swapGateway: SevenKGateway,
-  swapOptions: SwapOptions,
-  poolName: PoolName,
-): Promise<string | undefined> {
-  if (
-    swapOptions.pair.coinA.name === "SUI" &&
-    swapOptions.pair.coinB.name === "STSUI"
-  ) {
-    const exchangeRate = new Decimal(
-      await stSuiExchangeRate(getStSuiConf().LST_INFO, true),
-    );
-    const amount = new Decimal(
-      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
-    );
-    return amount.div(exchangeRate).toString();
-  } else if (
-    swapOptions.pair.coinA.name === "STSUI" &&
-    swapOptions.pair.coinB.name === "SUI"
-  ) {
-    const exchangeRate = new Decimal(
-      await stSuiExchangeRate(getStSuiConf().LST_INFO, true),
-    );
-    const amount = new Decimal(
-      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
-    );
-    return amount.mul(exchangeRate).toString();
-  } else {
-    const quoteResponse = await swapGateway.getQuote(swapOptions, [
-      poolInfo[poolName].parentPoolId,
-    ]);
-    if (quoteResponse) {
-      return quoteResponse.returnAmountWithDecimal
-        ? quoteResponse.returnAmountWithDecimal
-        : "0";
-    }
-  }
+  const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0]);
+  tx.mergeCoins(
+    coin,
+    coins1.map((c) => c.coinObjectId),
+  );
+  return coin;
 }
 
 async function zapSwap(
   swapOptions: SwapOptions,
-  txb: Transaction,
+  tx: Transaction,
   poolName: PoolName,
+  coinIn?: TransactionObjectArgument,
 ): Promise<
   | {
-      tx: Transaction;
-      coinOut: TransactionObjectArgument | undefined;
-      remainingLSTCoin: TransactionObjectArgument | undefined;
-      amountOut: string;
+      coinOut: TransactionObjectArgument;
+      amountOut: Decimal;
     }
   | undefined
 > {
-  if (
-    swapOptions.pair.coinA.name === "SUI" &&
-    swapOptions.pair.coinB.name === "STSUI"
-  ) {
-    const result = await mintTx(
-      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
-      txb,
-    );
-    return {
-      tx: result.tx,
-      coinOut: result.coinOut,
-      amountOut: result.amountOut,
-      remainingLSTCoin: undefined,
-    };
-  } else if (
-    swapOptions.pair.coinA.name === "STSUI" &&
-    swapOptions.pair.coinB.name === "SUI"
-  ) {
-    const result = await redeemTx(
-      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
-      txb,
-      { address: swapOptions.senderAddress },
-    );
-    return result;
-  } else {
-    const swapGateway = new SevenKGateway();
-    const quoteResponse = await swapGateway.getQuote(swapOptions, [
-      poolInfo[poolName].parentPoolId,
-    ]);
-    if (quoteResponse) {
-      const result = await swapGateway.getTransactionBlock(
-        swapOptions,
-        quoteResponse,
-        txb,
-      );
-      return {
-        tx: txb,
-        coinOut: result,
-        amountOut: quoteResponse.returnAmountWithDecimal
-          ? quoteResponse.returnAmountWithDecimal
-          : "0",
-        remainingLSTCoin: undefined,
-      };
-    }
+  const swapGateway = new SevenKGateway();
+  const quoteResponse = await swapGateway.getQuote(swapOptions, [
+    poolInfo[poolName].parentPoolId,
+  ]);
+  if (!quoteResponse) {
+    console.error("Error fetching quote for zap");
+    return undefined;
   }
+  const amount = new Decimal(quoteResponse.returnAmountWithDecimal);
+  const slippageReducedAmount = amount.mul(
+    new Decimal(1).sub(swapOptions.slippage),
+  );
+  const coinOut = await swapGateway.getTransactionBlock(
+    swapOptions,
+    quoteResponse,
+    tx,
+    coinIn,
+  );
+  if (!coinOut) {
+    console.error("Error getting transaction block for zap");
+    return undefined;
+  }
+  if (coinIn) {
+    tx.transferObjects([coinIn], swapOptions.senderAddress);
+  }
+  const returnCoinOut = tx.splitCoins(coinOut, [
+    slippageReducedAmount.floor().toString(),
+  ]);
+  tx.transferObjects([coinOut], swapOptions.senderAddress);
+  return {
+    coinOut: returnCoinOut,
+    amountOut: slippageReducedAmount,
+  };
 }
 
-async function splitFromExisting(
-  coinType: CoinName,
-  amount: string,
-  txb: Transaction,
-  suiClient: SuiClient,
+export async function zapDepositTxb1(
+  inputCoinAmount: bigint,
+  isInputA: boolean,
+  poolName: PoolName,
+  slippage: number, // 1% --> 0.01
   address: string,
-): Promise<{
-  tx: Transaction;
-  coinOut: TransactionObjectArgument;
-}> {
-  let coin: TransactionObjectArgument;
-  if (coinType === "SUI") {
-    [coin] = txb.splitCoins(txb.gas, [amount]);
+): Promise<Transaction | undefined> {
+  const tx = new Transaction();
+  const suiClient = getSuiClient();
+  const coinA = coinsList[doubleAssetPoolCoinMap[poolName].coin1];
+  const coinB = coinsList[doubleAssetPoolCoinMap[poolName].coin2];
+
+  // get inital ratio in terms of 2 coins
+  const amounts = (
+    await getAmounts(poolName, isInputA, inputCoinAmount.toString())
+  ).map((a) => new Decimal(a));
+  let amountA = amounts[0];
+  const amountB = amounts[1];
+
+  // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
+  const swapGateway = new SevenKGateway();
+  const swapOptions: SwapOptions = {
+    pair: {
+      coinA: coinA,
+      coinB: coinB,
+    },
+    senderAddress: address,
+    slippage,
+    inAmount: new BN(amountA.toString()),
+  };
+  const quoteResponse = await swapGateway.getQuote(swapOptions, [
+    poolInfo[poolName].parentPoolId,
+  ]);
+  if (!quoteResponse) {
+    console.error("Error fetching quote for zap");
+    return undefined;
+  }
+  amountA = new Decimal(quoteResponse.returnAmountWithDecimal);
+
+  // get input coin and handle how much of input coin needs to be swapped
+  const totalAmount = amountA.add(amountB);
+  let [inputCoinToType1, inputCoinToType2] = [new Decimal(0), new Decimal(0)];
+  const coinObject = await getCoinObject(
+    isInputA ? coinA.type : coinB.type,
+    tx,
+    suiClient,
+    address,
+  );
+  if (isInputA) {
+    inputCoinToType2 = new Decimal(inputCoinAmount.toString())
+      .mul(amountB)
+      .div(totalAmount)
+      .mul(amountA.mul(slippage).div(totalAmount).add(1));
+
+    const coinIn = tx.splitCoins(coinObject, [inputCoinToType2.toString()]);
+    const swapOptions: SwapOptions = {
+      pair: {
+        coinA: coinA,
+        coinB: coinB,
+      },
+      senderAddress: address,
+      slippage,
+      inAmount: new BN(inputCoinToType2.toString()),
+    };
+    const swapResult = await zapSwap(swapOptions, tx, poolName, coinIn);
+    if (!swapResult) {
+      console.error("Error swapping for zap");
+      return undefined;
+    }
+    const { coinOut: coinOutB, amountOut } = swapResult;
+    inputCoinToType1 = new Decimal(
+      (await getAmounts(poolName, false, amountOut.toString(), false))[0],
+    );
+    const coinOutA = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
+    tx.transferObjects([coinObject], address);
+    deposit({
+      tx,
+      coinA: coinOutA,
+      coinB: coinOutB,
+      amountA: inputCoinToType1,
+      amountB: amountOut,
+      address,
+      poolName,
+    });
   } else {
-    let currentCursor: string | null | undefined = null;
-    let coins1: CoinStruct[] = [];
-    do {
-      const response = await suiClient.getCoins({
-        owner: address,
-        coinType: coinsList[coinType].type,
-        cursor: currentCursor,
-      });
-      coins1 = coins1.concat(response.data);
-      if (response.hasNextPage && response.nextCursor) {
-        currentCursor = response.nextCursor;
-      } else break;
-    } while (true);
-    [coin] = txb.splitCoins(txb.object(coins1[0].coinObjectId), [0]);
-    txb.mergeCoins(
-      coin,
-      coins1.map((c) => c.coinObjectId),
+    inputCoinToType1 = new Decimal(inputCoinAmount.toString())
+      .mul(amountA)
+      .div(totalAmount)
+      .mul(amountB.mul(slippage).div(totalAmount).add(1));
+    const coinIn = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
+    const swapOptions: SwapOptions = {
+      pair: {
+        coinA: coinB,
+        coinB: coinA,
+      },
+      senderAddress: address,
+      slippage,
+      inAmount: new BN(inputCoinToType1.toString()),
+    };
+    const swapResult = await zapSwap(swapOptions, tx, poolName, coinIn);
+    if (!swapResult) {
+      console.error("Error swapping for zap");
+      return undefined;
+    }
+    const { coinOut: coinOutA, amountOut } = swapResult;
+    inputCoinToType2 = new Decimal(
+      (await getAmounts(poolName, true, amountOut.toString(), false))[1],
+    );
+    const coinOutB = tx.splitCoins(coinObject, [inputCoinToType2.toString()]);
+    tx.transferObjects([coinObject], address);
+    deposit({
+      tx,
+      coinA: coinOutA,
+      coinB: coinOutB,
+      amountA: amountOut,
+      amountB: inputCoinToType2,
+      address,
+      poolName,
+    });
+  }
+  return tx;
+}
+
+async function deposit(params: {
+  tx: Transaction;
+  coinA: TransactionObjectArgument;
+  coinB: TransactionObjectArgument;
+  amountA: Decimal;
+  amountB: Decimal;
+  address: string;
+  poolName: PoolName;
+}) {
+  // fee charge
+  const feePercentage = 0.05;
+  const amountAFee = ((Number(params.amountA) * feePercentage) / 100).toFixed(
+    0,
+  );
+  const amountBFee = ((Number(params.amountB) * feePercentage) / 100).toFixed(
+    0,
+  );
+  const [feeCoinA] = params.tx.splitCoins(params.coinA, [amountAFee]);
+  const [feeCoinB] = params.tx.splitCoins(params.coinB, [amountBFee]);
+  params.tx.transferObjects([feeCoinA, feeCoinB], getConf().FEE_ADDRESS);
+
+  // Removing fee amounts from amounts and some slippage
+  const pool1 = doubleAssetPoolCoinMap[params.poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[params.poolName].coin2;
+  params.amountA = params.amountA.mul(0.995);
+  params.amountB = params.amountB.mul(0.995);
+
+  // Conditional deposit calls based on pool and protocol
+  const receipt = await getReceipts(params.poolName, params.address, false);
+  let amounts = await getAmounts(
+    params.poolName,
+    true,
+    params.amountA.toString(),
+    false,
+  );
+  if (
+    amounts[0] > params.amountA.toString() ||
+    amounts[1] > params.amountB.toString()
+  ) {
+    amounts = await getAmounts(
+      params.poolName,
+      false,
+      params.amountB.toString(),
+      false,
     );
   }
-  return {
-    tx: txb,
-    coinOut: coin,
-  };
+  const [depositCoinA] = params.tx.splitCoins(params.coinA, [amounts[0]]);
+  const [depositCoinB] = params.tx.splitCoins(params.coinB, [amounts[1]]);
+
+  let someReceipt: any;
+  if (receipt.length == 0) {
+    [someReceipt] = params.tx.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [poolInfo[params.poolName].receiptType],
+      arguments: [],
+    });
+  } else {
+    [someReceipt] = params.tx.moveCall({
+      target: `0x1::option::some`,
+      typeArguments: [receipt[0].content.type],
+      arguments: [params.tx.object(receipt[0].objectId)],
+    });
+  }
+
+  if (poolInfo[params.poolName].parentProtocolName === "CETUS") {
+    if (pool1 === "CETUS" && pool2 === "SUI") {
+      params.tx = await depositCetusSuiTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else if (pool2 === "SUI") {
+      params.tx = await depositCetusAlphaSuiTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else {
+      params.tx = await depositCetusTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    }
+  } else if (poolInfo[params.poolName].parentProtocolName === "BLUEFIN") {
+    if (
+      params.poolName === "BLUEFIN-NAVX-VSUI" ||
+      params.poolName === "BLUEFIN-ALPHA-USDC" ||
+      params.poolName === "BLUEFIN-BLUE-USDC"
+    ) {
+      params.tx = await depositBluefinType2Txb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else if (pool1 === "SUI") {
+      params.tx = await depositBluefinSuiFirstTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else if (pool2 === "SUI") {
+      params.tx = await depositBluefinSuiSecondTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else if (pool1 === "STSUI" || pool2 === "STSUI") {
+      params.tx = await depositBluefinStsuiTxb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    } else {
+      params.tx = await depositBluefinType1Txb(
+        params.tx,
+        someReceipt,
+        params.poolName,
+        depositCoinA,
+        depositCoinB,
+      );
+    }
+  }
+  params.tx.transferObjects([params.coinA, params.coinB], params.address);
 }
 
 const depositCetusTxb = async (
@@ -1600,96 +1465,3 @@ const depositBluefinStsuiTxb = async (
   }
   return txb;
 };
-
-export async function getZapAmounts(
-  inputCoinAmount: number,
-  inputCoinName: CoinName,
-  poolName: PoolName,
-  slippage: number,
-  address: string,
-  ignoreCache: boolean,
-): Promise<[string, string, string, string] | undefined> {
-  const coinTypeA = doubleAssetPoolCoinMap[poolName].coin1;
-  const coinTypeB = doubleAssetPoolCoinMap[poolName].coin2;
-  const swapObjectA = coinsList[coinTypeA];
-  const swapObjectB = coinsList[coinTypeB];
-  const inputObject = coinsList[inputCoinName];
-
-  const amounts = await getAmounts(poolName, true, "100000001");
-  const amount1 = Number(amounts[0]);
-  const amount2 = Number(amounts[1]);
-
-  const swapGateway = new SevenKGateway();
-  const swapOptions: SwapOptions = {
-    pair: {
-      coinA: swapObjectA,
-      coinB: swapObjectB,
-    },
-    senderAddress: address,
-    inAmount: new BN(amount1),
-    slippage: slippage,
-  };
-
-  const ratioQuote = await zapGetQuote(swapGateway, swapOptions, poolName);
-  if (!ratioQuote) {
-    console.error(`Error geting quote for zap`);
-    return undefined;
-  }
-
-  const amount1InCoinType2 = Number(ratioQuote);
-  const totalAmount = amount2 + amount1InCoinType2;
-  const inputAmountToType1 = Math.floor(
-    (inputCoinAmount * amount1InCoinType2) / totalAmount,
-  );
-  const inputAmountToType2 = Math.floor(
-    (inputCoinAmount * amount2) / totalAmount,
-  );
-
-  let amountA: string | undefined, amountB: string | undefined;
-  const swapOptionsI2A = {
-    pair: {
-      coinA: inputObject,
-      coinB: swapObjectA,
-    },
-    senderAddress: address,
-    inAmount: new BN(inputAmountToType1),
-    slippage: slippage,
-  };
-  const swapOptionsI2B = {
-    pair: {
-      coinA: inputObject,
-      coinB: swapObjectB,
-    },
-    senderAddress: address,
-    inAmount: new BN(inputAmountToType2),
-    slippage: slippage,
-  };
-  if (inputCoinName === coinTypeA) {
-    amountA = inputAmountToType1.toString();
-    amountB = await zapGetQuote(swapGateway, swapOptionsI2B, poolName);
-  } else if (inputCoinName === coinTypeB) {
-    amountA = await zapGetQuote(swapGateway, swapOptionsI2A, poolName);
-    amountB = inputAmountToType2.toString();
-  } else {
-    amountA = await zapGetQuote(swapGateway, swapOptionsI2A, poolName);
-    amountB = await zapGetQuote(swapGateway, swapOptionsI2B, poolName);
-  }
-
-  if (amountA && amountB) {
-    const [coin1Price, coin2Price] = await getLatestPrices(
-      [
-        `${swapObjectA.name}/USD` as PythPriceIdPair,
-        `${swapObjectB.name}/USD` as PythPriceIdPair,
-      ],
-      ignoreCache,
-    );
-    const coin1InUSD = Number(amountA) * Number(coin1Price);
-    const coin2InUSD = Number(amountB) * Number(coin2Price);
-    return [
-      amountA.toString(),
-      coin1InUSD.toString(),
-      amountB.toString(),
-      coin2InUSD.toString(),
-    ];
-  }
-}

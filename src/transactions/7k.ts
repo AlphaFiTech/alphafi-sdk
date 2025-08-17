@@ -36,17 +36,14 @@ export class SevenKGateway {
   async getTransactionBlock(
     options: sevenKSwapOptions,
     quoteResponse: QuoteResponse,
-    transaction: Transaction | undefined = undefined,
-  ): Promise<{
-    tx: Transaction;
-    coinOut: TransactionObjectArgument | undefined;
-  }> {
-    let txb = new Transaction();
+    transaction?: Transaction,
+    coinIn?: TransactionObjectArgument,
+  ): Promise<TransactionObjectArgument | undefined> {
+    const txb = transaction ? transaction : new Transaction();
     const { senderAddress, slippage } = options;
-    if (transaction) txb = transaction;
     const commissionPartnerAddress =
       "0x401c29204828bed9a2f9f65f9da9b9e54b1e43178c88811e2584e05cf2c3eb6f";
-    const { tx, coinOut } = await buildTx({
+    const { coinOut } = await buildTx({
       quoteResponse,
       accountAddress: senderAddress,
       slippage: slippage, // 1%
@@ -56,8 +53,9 @@ export class SevenKGateway {
       },
       extendTx: {
         tx: txb,
+        coinIn: coinIn,
       },
     });
-    return { tx, coinOut };
+    return coinOut;
   }
 }
