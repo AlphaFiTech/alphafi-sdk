@@ -408,8 +408,14 @@ export async function fetchEvents(
           sender: suiEvent.sender,
         };
       } else {
-        console.error("event: ", suiEvent, "json: ", suiEventJson);
-        throw new Error("Unknown event type");
+        console.error(
+          "Unknown event type \n event: ",
+          suiEvent,
+          "json: ",
+          suiEventJson,
+        );
+        // throw new Error("Unknown event type");
+        continue;
       }
 
       allEvents.push(eventNode);
