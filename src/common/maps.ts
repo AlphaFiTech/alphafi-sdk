@@ -2303,6 +2303,18 @@ export const poolIdPoolNameMap = ((): {
   delete res[""]; //deletes unlaunched pools
   return res;
 })();
+export const coinTypeMap = ((): {
+  [key: string]: CoinName;
+} => {
+  const res: {
+    [key: string]: CoinName;
+  } = {};
+  Object.entries(coinsList).map(([coinName, data]) => {
+    res[data.type] = coinName as CoinName;
+  });
+  delete res[""]; //deletes unlaunched pools
+  return res;
+})();
 
 export const poolIdQueryPoolMap: { [key: string]: string } = {
   // alpha pool
