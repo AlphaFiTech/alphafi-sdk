@@ -158,7 +158,8 @@ export async function fetchEvents(
         }
       } else if (
         isAutoCompoundingEvent(suiEvent.type) &&
-        "amount" in suiEventJson
+        "amount" in suiEventJson &&
+        !("total_amount_a" in suiEventJson)
       ) {
         eventNode = {
           type: suiEvent.type,
@@ -172,19 +173,16 @@ export async function fetchEvents(
         };
       } else if (
         isAutoCompoundingEvent(suiEvent.type) &&
-        "blue_reward_amount" in suiEventJson
+        "amount" in suiEventJson &&
+        "total_amount_a" in suiEventJson
       ) {
         // Handling CetusAutoCompoundingEvent
         eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
-          blue_reward_amount: BigInt(
-            suiEventJson.blue_reward_amount.toString(),
-          ),
-          current_liquidity: BigInt(suiEventJson.current_liquidity.toString()),
+          amount: BigInt(suiEventJson.amount.toString()),
+          coin_type: suiEventJson.coin_type,
           fee_collected: BigInt(suiEventJson.fee_collected.toString()),
-          free_balance_a: BigInt(suiEventJson.free_balance_a.toString()),
-          free_balance_b: BigInt(suiEventJson.free_balance_b.toString()),
           investor_id: suiEventJson.investor_id,
           total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
           total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
@@ -410,8 +408,14 @@ export async function fetchEvents(
           sender: suiEvent.sender,
         };
       } else {
-        console.error("event: ", suiEvent, "json: ", suiEventJson);
-        throw new Error("Unknown event type");
+        console.error(
+          "Unknown event type \n event: ",
+          suiEvent,
+          "json: ",
+          suiEventJson,
+        );
+        // throw new Error("Unknown event type");
+        continue;
       }
 
       allEvents.push(eventNode);
