@@ -47,6 +47,8 @@ export {
 
 export { zapDepositTxb, getZapAmounts } from "./transactions/zapDeposit.js";
 
+export { zapDepositTxb1 } from "./transactions/newZapDeposit.js";
+
 //
 export {
   getAllVaults,

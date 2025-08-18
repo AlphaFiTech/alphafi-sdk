@@ -135,10 +135,13 @@ async function zapSwap(
     console.error("Error fetching quote for zap");
     return undefined;
   }
-  const amount = new Decimal(quoteResponse.returnAmountWithDecimal);
-  const slippageReducedAmount = amount.mul(
-    new Decimal(1).sub(swapOptions.slippage),
-  );
+  console.log("swapOptions", swapOptions, swapOptions.inAmount?.toString());
+  console.log("quoteResponse", quoteResponse);
+  const slippageReducedAmount = new Decimal(
+    quoteResponse.returnAmountWithDecimal,
+  )
+    .mul(new Decimal(1).sub(swapOptions.slippage))
+    .floor();
   const coinOut = await swapGateway.getTransactionBlock(
     swapOptions,
     quoteResponse,
@@ -149,11 +152,9 @@ async function zapSwap(
     console.error("Error getting transaction block for zap");
     return undefined;
   }
-  if (coinIn) {
-    tx.transferObjects([coinIn], swapOptions.senderAddress);
-  }
+
   const returnCoinOut = tx.splitCoins(coinOut, [
-    slippageReducedAmount.floor().toString(),
+    slippageReducedAmount.toString(),
   ]);
   tx.transferObjects([coinOut], swapOptions.senderAddress);
   return {
@@ -175,31 +176,51 @@ export async function zapDepositTxb1(
   const coinB = coinsList[doubleAssetPoolCoinMap[poolName].coin2];
 
   // get inital ratio in terms of 2 coins
-  const amounts = (
+  let [amountA, amountB] = (
     await getAmounts(poolName, isInputA, inputCoinAmount.toString())
   ).map((a) => new Decimal(a));
-  let amountA = amounts[0];
-  const amountB = amounts[1];
 
+  console.log("amountA", amountA.toString());
+  console.log("amountB", amountB.toString());
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   const swapGateway = new SevenKGateway();
-  const swapOptions: SwapOptions = {
-    pair: {
-      coinA: coinA,
-      coinB: coinB,
-    },
-    senderAddress: address,
-    slippage,
-    inAmount: new BN(amountA.toString()),
-  };
-  const quoteResponse = await swapGateway.getQuote(swapOptions, [
-    poolInfo[poolName].parentPoolId,
-  ]);
-  if (!quoteResponse) {
-    console.error("Error fetching quote for zap");
-    return undefined;
+  if (isInputA) {
+    const swapOptions: SwapOptions = {
+      pair: {
+        coinA: coinA,
+        coinB: coinB,
+      },
+      senderAddress: address,
+      slippage,
+      inAmount: new BN(amountA.toString()),
+    };
+    const quoteResponse = await swapGateway.getQuote(swapOptions, [
+      poolInfo[poolName].parentPoolId,
+    ]);
+    if (!quoteResponse) {
+      console.error("Error fetching quote for zap");
+      return undefined;
+    }
+    amountA = new Decimal(quoteResponse.returnAmountWithDecimal);
+  } else {
+    const swapOptions: SwapOptions = {
+      pair: {
+        coinA: coinB,
+        coinB: coinA,
+      },
+      senderAddress: address,
+      slippage,
+      inAmount: new BN(amountB.toString()),
+    };
+    const quoteResponse = await swapGateway.getQuote(swapOptions, [
+      poolInfo[poolName].parentPoolId,
+    ]);
+    if (!quoteResponse) {
+      console.error("Error fetching quote for zap");
+      return undefined;
+    }
+    amountB = new Decimal(quoteResponse.returnAmountWithDecimal);
   }
-  amountA = new Decimal(quoteResponse.returnAmountWithDecimal);
 
   // get input coin and handle how much of input coin needs to be swapped
   const totalAmount = amountA.add(amountB);
@@ -210,13 +231,20 @@ export async function zapDepositTxb1(
     suiClient,
     address,
   );
+  console.log("amountA after swap", amountA.toString());
+  console.log("amountB after swap", amountB.toString());
+  console.log("totalAmount after swap", totalAmount.toString());
+
   if (isInputA) {
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      .mul(amountA.mul(slippage).div(totalAmount).add(1));
+      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .floor();
 
-    const coinIn = tx.splitCoins(coinObject, [inputCoinToType2.toString()]);
+    const coinIn = tx.splitCoins(coinObject, [
+      inputCoinToType2.floor().toString(),
+    ]);
     const swapOptions: SwapOptions = {
       pair: {
         coinA: coinA,
@@ -224,8 +252,9 @@ export async function zapDepositTxb1(
       },
       senderAddress: address,
       slippage,
-      inAmount: new BN(inputCoinToType2.toString()),
+      inAmount: new BN(inputCoinToType2.floor().toString()),
     };
+
     const swapResult = await zapSwap(swapOptions, tx, poolName, coinIn);
     if (!swapResult) {
       console.error("Error swapping for zap");
@@ -235,23 +264,28 @@ export async function zapDepositTxb1(
     inputCoinToType1 = new Decimal(
       (await getAmounts(poolName, false, amountOut.toString(), false))[0],
     );
-    const coinOutA = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
-    tx.transferObjects([coinObject], address);
+    const coinOutA = tx.splitCoins(coinObject, [
+      inputCoinToType1.floor().toString(),
+    ]);
     deposit({
       tx,
       coinA: coinOutA,
       coinB: coinOutB,
-      amountA: inputCoinToType1,
-      amountB: amountOut,
+      amountA: inputCoinToType1.floor(),
+      amountB: amountOut.floor(),
       address,
       poolName,
     });
   } else {
+    // calculate amount of coinB to swap to Type A
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      .mul(amountB.mul(slippage).div(totalAmount).add(1));
+      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      .floor();
     const coinIn = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
+
+    // swap coinB to coinA
     const swapOptions: SwapOptions = {
       pair: {
         coinA: coinB,
@@ -267,21 +301,30 @@ export async function zapDepositTxb1(
       return undefined;
     }
     const { coinOut: coinOutA, amountOut } = swapResult;
+
+    // calculate amount of coinB needed corresponding to the coinA swapped amount
     inputCoinToType2 = new Decimal(
       (await getAmounts(poolName, true, amountOut.toString(), false))[1],
     );
-    const coinOutB = tx.splitCoins(coinObject, [inputCoinToType2.toString()]);
-    tx.transferObjects([coinObject], address);
+    console.log("inputCoinToType1", inputCoinToType1.toString());
+    console.log("amountOut", amountOut.toString());
+    console.log("inputCoinToType2", inputCoinToType2.toString());
+
+    const coinOutB = tx.splitCoins(coinObject, [
+      inputCoinToType2.floor().toString(),
+    ]);
     deposit({
       tx,
       coinA: coinOutA,
       coinB: coinOutB,
-      amountA: amountOut,
-      amountB: inputCoinToType2,
+      amountA: amountOut.floor(),
+      amountB: inputCoinToType2.floor(),
       address,
       poolName,
     });
   }
+  tx.transferObjects([coinObject], address);
+  tx.setGasBudget(1_000_000_000n);
   return tx;
 }
 
