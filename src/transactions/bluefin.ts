@@ -239,7 +239,7 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(poolinfo.investorId),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -256,7 +256,24 @@ export const depositBluefinSuiFirstTxb = async (
             txb.object(poolinfo.investorId),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
+          typeArguments: [
+            coinsList[pool1].type,
+            coinsList[pool2].type,
+            coinsList["DEEP"].type,
+          ],
+          arguments: [
+            txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+            txb.object(poolinfo.poolId),
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -2066,7 +2083,7 @@ export const withdrawBluefinSuiFirstTxb = async (
             txb.object(poolinfo.investorId),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -2083,7 +2100,24 @@ export const withdrawBluefinSuiFirstTxb = async (
             txb.object(poolinfo.investorId),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
+          typeArguments: [
+            coinsList[pool1].type,
+            coinsList[pool2].type,
+            coinsList["DEEP"].type,
+          ],
+          arguments: [
+            txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+            txb.object(poolinfo.poolId),
+            txb.object(poolinfo.investorId),
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
