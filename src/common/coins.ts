@@ -241,4 +241,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 8,
   },
+  ALKIMI: {
+    name: "ALKIMI",
+    type: "0x1a8f4bc33f8ef7fbc851f156857aa65d397a6a6fd27a7ac2ca717b51f2fd9489::alkimi::ALKIMI",
+    icon: "",
+    expo: 9,
+  },
 };
