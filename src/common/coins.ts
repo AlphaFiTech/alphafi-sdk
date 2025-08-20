@@ -247,4 +247,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 9,
   },
+  XAUM: {
+    name: "XAUM",
+    type: "0x9d297676e7a4b771ab023291377b2adfaa4938fb9080b8d12430e4b108b836a9::xaum::XAUM",
+    icon: "",
+    expo: 9,
+  },
 };
