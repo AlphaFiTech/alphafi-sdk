@@ -24,8 +24,8 @@ export async function claimRewardsTxb(
     const receipts = await getReceipts(poolName, userAddress, true);
     const txb = new Transaction();
     const pool = poolInfo[poolName];
-    const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
-    const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+    const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
+    const coin2 = doubleAssetPoolCoinMap[poolName].coin2;
     const rewards: TransactionResult[] = [];
     if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
       txb.moveCall({
@@ -79,8 +79,8 @@ export async function claimRewardsTxb(
       txb.moveCall({
         target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
         typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
+          coinsList[coin1].type,
+          coinsList[coin2].type,
           coinsList["BLUE"].type,
         ],
         arguments: [
@@ -96,8 +96,8 @@ export async function claimRewardsTxb(
       txb.moveCall({
         target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
         typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
+          coinsList[coin1].type,
+          coinsList[coin2].type,
           coinsList["STSUI"].type,
         ],
         arguments: [
@@ -350,8 +350,8 @@ export async function claimRewardsTxb(
       txb.moveCall({
         target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
         typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
+          coinsList[coin1].type,
+          coinsList[coin2].type,
           coinsList["BLUE"].type,
         ],
         arguments: [
@@ -367,8 +367,8 @@ export async function claimRewardsTxb(
       txb.moveCall({
         target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
         typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
+          coinsList[coin1].type,
+          coinsList[coin2].type,
           coinsList["STSUI"].type,
         ],
         arguments: [
@@ -384,8 +384,8 @@ export async function claimRewardsTxb(
       txb.moveCall({
         target: `${pool.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
         typeArguments: [
-          coinsList[pool1].type,
-          coinsList[pool2].type,
+          coinsList[coin1].type,
+          coinsList[coin2].type,
           coinsList["DEEP"].type,
         ],
         arguments: [
@@ -475,7 +475,7 @@ export async function claimRewardsTxb(
         typeArguments: [
           coinsList["SUI"].type,
           coinsList["LBTC"].type,
-          coinsList["LBTC"].type,
+          coinsList["DEEP"].type,
         ],
         arguments: [
           txb.object(receipts[0].objectId),
@@ -505,7 +505,7 @@ export async function claimRewardsTxb(
       });
       const lbtcCoin = txb.moveCall({
         target: "0x2::coin::from_balance",
-        typeArguments: [coinsList["USDC"].type],
+        typeArguments: [coinsList["LBTC"].type],
         arguments: [lbtcBalance!],
       });
       const deepCoin = txb.moveCall({

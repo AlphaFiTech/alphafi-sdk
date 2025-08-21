@@ -139,7 +139,9 @@ export type CoinName =
   | "DMC"
   | "TBTC"
   | "IKA"
-  | "XBTC";
+  | "XBTC"
+  | "ALKIMI"
+  | "XAUM";
 
 export type StrategyType =
   | "LOOPING"
@@ -242,7 +244,9 @@ export type CoinType =
   | "0x4c981f3ff786cdb9e514da897ab8a953647dae2ace9679e8358eec1e3e8871ac::dmc::DMC"
   | "0x77045f1b9f811a7a8fb9ebd085b5b0c55c5cb0d1520ff55f7037f89b5da9f5f1::TBTC::TBTC"
   | "0x7262fb2f7a3a14c888c438a3cd9b912469a58cf60f367352c46584262e8299aa::ika::IKA"
-  | "0x876a4b7bce8aeaef60464c11f4026903e9afacab79b9b142686158aa86560b50::xbtc::XBTC";
+  | "0x876a4b7bce8aeaef60464c11f4026903e9afacab79b9b142686158aa86560b50::xbtc::XBTC"
+  | "0x1a8f4bc33f8ef7fbc851f156857aa65d397a6a6fd27a7ac2ca717b51f2fd9489::alkimi::ALKIMI"
+  | "0x9d297676e7a4b771ab023291377b2adfaa4938fb9080b8d12430e4b108b836a9::xaum::XAUM";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;

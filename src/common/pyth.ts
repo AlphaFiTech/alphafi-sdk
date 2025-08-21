@@ -44,4 +44,6 @@ export type PythPriceIdPair =
   | "DMC/USD"
   | "TBTC/USD"
   | "IKA/USD"
-  | "XBTC/USD";
+  | "XBTC/USD"
+  | "ALKIMI/USD"
+  | "XAUM/USD";
