@@ -1162,8 +1162,8 @@ export const depositBluefinType1Txb = async (
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_reward`,
           typeArguments: [
-            coinsList[coin1].type,
-            coinsList[coin2].type,
+            coinsList[pool1].type,
+            coinsList[pool2].type,
             coinsList["WAL"].type,
           ],
           arguments: [
@@ -2372,7 +2372,7 @@ export const withdrawBluefinSuiSecondTxb = async (
   options: { address: string },
 ) => {
   const address = options.address;
-  const txb = new Transaction();
+  let txb = new Transaction();
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
@@ -2382,6 +2382,13 @@ export const withdrawBluefinSuiSecondTxb = async (
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
     if (poolName.toString().includes("AUTOBALANCE")) {
+      if (xTokens === receipt[0].content.fields.xTokenBalance) {
+        const res = await claimRewardsTxb(address, poolName);
+        if (res) {
+          txb = res.txb;
+          txb.transferObjects(res.coinOut, address);
+        }
+      }
       if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::collect_reward`,
@@ -2625,7 +2632,7 @@ export const withdrawBluefinType1Txb = async (
   options: { address: string },
 ) => {
   const address = options.address;
-  const txb = new Transaction();
+  let txb = new Transaction();
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
@@ -2635,6 +2642,13 @@ export const withdrawBluefinType1Txb = async (
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
     if (poolName.toString().includes("AUTOBALANCE")) {
+      if (xTokens === receipt[0].content.fields.xTokenBalance) {
+        const res = await claimRewardsTxb(address, poolName);
+        if (res) {
+          txb = res.txb;
+          txb.transferObjects(res.coinOut, address);
+        }
+      }
       if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_reward`,

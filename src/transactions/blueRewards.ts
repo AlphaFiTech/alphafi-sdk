@@ -242,7 +242,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -260,7 +260,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -278,7 +278,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -296,7 +296,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -373,7 +373,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -391,7 +391,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -409,7 +409,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -427,7 +427,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -504,7 +504,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -522,7 +522,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -540,7 +540,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -558,7 +558,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -635,7 +635,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -653,7 +653,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -671,7 +671,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -689,7 +689,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_sui_second_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -955,7 +955,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -973,7 +973,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -991,7 +991,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -1009,7 +1009,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -1086,7 +1086,7 @@ export async function claimRewardsTxb(
         ],
       });
       const blueBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -1104,7 +1104,7 @@ export async function claimRewardsTxb(
         ],
       });
       const stsuiBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -1122,7 +1122,7 @@ export async function claimRewardsTxb(
         ],
       });
       const tBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -1140,7 +1140,7 @@ export async function claimRewardsTxb(
         ],
       });
       const sBalance = txb.moveCall({
-        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v4`,
+        target: `${pool.packageId}::alphafi_bluefin_type_1_pool::get_user_rewards_v3`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
