@@ -396,11 +396,16 @@ export async function pendingRewardAmount(
     });
     const coinTypeToCoin = coinTypeMap;
     Object.keys(curAcc).forEach((type) => {
+      if (!coinTypeToCoin[type]) {
+        console.error("coin not present", type);
+        return;
+      }
       const cur = new Decimal(curAcc[type]);
       const last = new Decimal(type in lastAcc ? lastAcc[type] : "0");
       const pending = new Decimal(
         type in userPendingReward ? userPendingReward[type] : "0",
       );
+
       const totalPending = cur
         .minus(last)
         .mul(userXtokenBalance)
