@@ -2007,18 +2007,19 @@ export const withdrawBluefinSuiFirstTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  if (xTokens === receipt[0].content.fields.xTokenBalance) {
-    const res = await claimRewardsTxb(address, poolName);
-    if (res) {
-      txb = res.txb;
-      txb.transferObjects(res.coinOut, address);
-    }
-  }
+
   const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
     if (poolName.toString().includes("AUTOBALANCE")) {
+      if (xTokens === receipt[0].content.fields.xTokenBalance) {
+        const res = await claimRewardsTxb(address, poolName);
+        if (res) {
+          txb = res.txb;
+          txb.transferObjects(res.coinOut, address);
+        }
+      }
       if (poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
