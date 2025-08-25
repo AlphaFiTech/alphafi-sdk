@@ -393,6 +393,7 @@ export const poolInfo: {
     receiptType: PoolReceipt;
     assetTypes: string[];
     autoCompoundingEventType: string;
+    autobalanceOldAutoCompoundingEventType?: string;
     rebalanceEventType: string | undefined;
     liquidityChangeEventType: string;
     withdrawV2EventType?: string;
@@ -631,6 +632,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_LBTC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
@@ -925,6 +929,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:

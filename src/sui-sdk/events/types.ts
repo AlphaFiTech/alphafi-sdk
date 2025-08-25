@@ -46,6 +46,23 @@ export interface AutobalancingAutoCompoundingEvent {
   total_amount_b: bigint;
 }
 
+export interface AutobalancingOldAutoCompoundingEvent {
+  blue_reward_amount: bigint;
+  current_liquidity: bigint;
+  fee_collected: bigint;
+  free_balance_a: bigint;
+  free_balance_b: bigint;
+  investor_id: string;
+  total_amount_a: bigint;
+  total_amount_b: bigint;
+}
+
+//verify, this might be wrong, alphapool reward event is defined as alpha autocompounding event
+export interface AlphaAutoCompoundingEvent {
+  amount: string;
+  investor_id: string;
+}
+
 export interface RebalanceEvent {
   investor_id: string;
   lower_tick_after: string;
@@ -55,12 +72,6 @@ export interface RebalanceEvent {
   amount_b_before: string;
   amount_a_after: string;
   amount_b_after: string;
-}
-
-//verify, this might be wrong, alphapool reward event is defined as alpha autocompounding event
-export interface AlphaAutoCompoundingEvent {
-  amount: string;
-  investor_id: string;
 }
 
 export interface CetusLiquidityChangeEvent {
@@ -201,7 +212,8 @@ export type AutoCompoundingEventNode =
   | (NaviAutoCompoundingEvent & CommonEventAttributes)
   | (NaviLoopAutoCompoundingEvent & CommonEventAttributes)
   | (AlphaAutoCompoundingEvent & CommonEventAttributes)
-  | (AutobalancingAutoCompoundingEvent & CommonEventAttributes);
+  | (AutobalancingAutoCompoundingEvent & CommonEventAttributes)
+  | (AutobalancingOldAutoCompoundingEvent & CommonEventAttributes);
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 
