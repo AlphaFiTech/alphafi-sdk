@@ -20,22 +20,26 @@ export async function fetchAutoCompoundingEvents(
 ): Promise<AutoCompoundingEventNode[]> {
   const eventTypesSet = new Set<string>();
   // const rebalanceEventTypesSet = new Set<string>();
-  if (params.poolNames) {
-    params.poolNames.forEach((poolName) => {
-      const eventType = poolInfo[poolName].autoCompoundingEventType;
-      if (eventType !== undefined && eventType !== null && eventType !== "") {
-        eventTypesSet.add(eventType);
-      }
-    });
-  } else {
-    // Iterate over all the values in poolInfo and add each autoCompoundingEventType to the Set
-    Object.keys(poolInfo).forEach((poolName) => {
-      const eventType = poolInfo[poolName].autoCompoundingEventType;
-      if (eventType !== undefined && eventType !== null && eventType !== "") {
-        eventTypesSet.add(eventType);
-      }
-    });
-  }
+  const requiredPools = params.poolNames
+    ? params.poolNames
+    : Object.keys(poolInfo);
+
+  requiredPools.forEach((poolName) => {
+    const eventType = poolInfo[poolName].autoCompoundingEventType;
+    const autobalanceOldEventType =
+      poolInfo[poolName].autobalanceOldAutoCompoundingEventType;
+    if (eventType !== undefined && eventType !== null && eventType !== "") {
+      eventTypesSet.add(eventType);
+    }
+    if (
+      autobalanceOldEventType !== undefined &&
+      autobalanceOldEventType !== null &&
+      autobalanceOldEventType !== ""
+    ) {
+      eventTypesSet.add(autobalanceOldEventType);
+    }
+  });
+
   // for rebalance
   // if (params.poolNames) {
   //   params.poolNames.forEach((poolName) => {
