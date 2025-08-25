@@ -11,7 +11,11 @@ import {
 } from "../index.js";
 import { Transaction, TransactionResult } from "@mysten/sui/transactions";
 import { UserAutoBalanceRewardAmounts } from "./types.js";
-import { coinTypeMap } from "../common/maps.js";
+import {
+  AUTOBALANCE_SUI_FIRST_POOLS,
+  AUTOBALANCE_SUI_SECOND_POOLS,
+  coinTypeMap,
+} from "../common/maps.js";
 export interface ClaimRewardResponse {
   txb: Transaction;
   coinOut: TransactionResult[];
@@ -34,10 +38,7 @@ export async function collectRewardTxb(
   const pool = poolInfo[poolName];
   const coin1 = doubleAssetPoolCoinMap[poolName].coin1;
   const coin2 = doubleAssetPoolCoinMap[poolName].coin2;
-  if (
-    poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC" ||
-    poolName === "BLUEFIN-AUTOBALANCE-SUI-LBTC"
-  ) {
+  if (AUTOBALANCE_SUI_FIRST_POOLS.includes(poolName)) {
     for (const reward of bluefinPool.content.fields.reward_infos) {
       const rewardType = "0x" + reward.fields.reward_coin_type;
       txb.moveCall({
@@ -58,10 +59,7 @@ export async function collectRewardTxb(
         ],
       });
     }
-  } else if (
-    poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI" ||
-    poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI"
-  ) {
+  } else if (AUTOBALANCE_SUI_SECOND_POOLS.includes(poolName)) {
     for (const reward of bluefinPool.content.fields.reward_infos) {
       const rewardType = "0x" + reward.fields.reward_coin_type;
       txb.moveCall({

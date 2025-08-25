@@ -135,6 +135,9 @@ export {
   naviAssetMap,
   ignoredWalletsForDailyRevenue,
   alphalendMarketIdMap,
+  AUTOBALANCE_SUI_FIRST_POOLS,
+  AUTOBALANCE_SUI_SECOND_POOLS,
+  AUTOBALANCE_TYPE_1_POOLS,
 } from "./common/maps.js";
 
 export { getConf } from "./common/constants.js";
