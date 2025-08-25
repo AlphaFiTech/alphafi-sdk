@@ -457,7 +457,14 @@ export type BluefinPoolType = {
       protocol_fee_coin_a: string;
       protocol_fee_coin_b: string;
       protocol_fee_share: string;
-      reward_infos: [];
+      reward_infos: [
+        {
+          type: string;
+          fields: {
+            reward_coin_type: string;
+          };
+        },
+      ];
       sequence_number: string;
       ticks_manager: {
         type: string;
