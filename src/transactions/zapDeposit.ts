@@ -450,9 +450,12 @@ async function zapGetQuote(
     );
     return amount.mul(exchangeRate).toString();
   } else {
-    const quoteResponse = await swapGateway.getQuote(swapOptions, [
-      poolInfo[poolName].parentPoolId,
-    ]);
+    const quoteResponse = await swapGateway.getQuote(
+      swapOptions.pair.coinA.type,
+      swapOptions.pair.coinB.type,
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+      [poolInfo[poolName].parentPoolId],
+    );
     if (quoteResponse) {
       return quoteResponse.returnAmountWithDecimal
         ? quoteResponse.returnAmountWithDecimal
@@ -500,14 +503,18 @@ async function zapSwap(
     return result;
   } else {
     const swapGateway = new SevenKGateway();
-    const quoteResponse = await swapGateway.getQuote(swapOptions, [
-      poolInfo[poolName].parentPoolId,
-    ]);
+    const quoteResponse = await swapGateway.getQuote(
+      swapOptions.pair.coinA.type,
+      swapOptions.pair.coinB.type,
+      swapOptions.inAmount ? swapOptions.inAmount.toString() : "0",
+      [poolInfo[poolName].parentPoolId],
+    );
     if (quoteResponse) {
       const result = await swapGateway.getTransactionBlock(
-        swapOptions,
-        quoteResponse,
         txb,
+        swapOptions.senderAddress,
+        quoteResponse,
+        swapOptions.slippage,
       );
       return {
         tx: txb,
