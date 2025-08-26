@@ -453,8 +453,6 @@ export const poolInfo: {
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_175_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
     // add strategy type
-    imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    imageUrl2: "https://images.alphafi.xyz/adminweb/LBTC_IC.png",
     retired: false,
   },
   "BLUEFIN-AUTOBALANCE-DEEP-SUI-175": {
@@ -481,8 +479,6 @@ export const poolInfo: {
         .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_175_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
     // add strategy type
-    imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    imageUrl2: "https://images.alphafi.xyz/adminweb/LBTC_IC.png",
     retired: false,
   },
   "BLUEFIN-AUTOBALANCE-WAL-SUI": {
@@ -506,8 +502,6 @@ export const poolInfo: {
         .ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
     // add strategy type
-    imageUrl1: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    imageUrl2: "https://images.alphafi.xyz/adminweb/LBTC_IC.png",
     retired: false,
   },
   "ALPHALEND-SINGLE-LOOP-SUIBTC": {

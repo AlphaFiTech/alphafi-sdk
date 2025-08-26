@@ -3547,7 +3547,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_SUI_USDC_175_RECEIPT_NAME:
       "AlphaFi-Bluefin-Autobalance SUI-USDC (0.175%) Receipt",
     ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_175_RECEIPT_NAME:
-      "AlphaFi-Bluefin-Autobalance DEEP-SUI(0.175%) Receipt",
+      "AlphaFi-Bluefin-Autobalance DEEP-SUI (0.175%) Receipt",
     ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_SUI_RECEIPT_NAME:
       "AlphaFi-Bluefin-Autobalance WAL-SUI Receipt",
 

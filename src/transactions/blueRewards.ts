@@ -8,6 +8,7 @@ import {
   doubleAssetPoolCoinMap,
   getParentPool,
   BluefinPoolType,
+  AUTOBALANCE_TYPE_1_POOLS,
 } from "../index.js";
 import { Transaction, TransactionResult } from "@mysten/sui/transactions";
 import { UserAutoBalanceRewardAmounts } from "./types.js";
@@ -80,7 +81,7 @@ export async function collectRewardTxb(
         ],
       });
     }
-  } else {
+  } else if (AUTOBALANCE_TYPE_1_POOLS.includes(poolName)) {
     for (const reward of bluefinPool.content.fields.reward_infos) {
       const rewardType = "0x" + reward.fields.reward_coin_type;
       txb.moveCall({
