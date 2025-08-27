@@ -12,6 +12,7 @@ import {
 import { PoolName, Receipt } from "../common/types.js";
 import { AlphalendClient } from "@alphafi/alphalend-sdk";
 import { getCoinObject } from "./bluefin.js";
+import { pool } from "navi-sdk";
 
 export async function alphalendLoopingDeposit(
   poolName: PoolName,
@@ -22,8 +23,6 @@ export async function alphalendLoopingDeposit(
 
   if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
     txb = await alphalendSuiStsuiLoopDepositTx(amount, options);
-  } else if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
-    txb = await alphalendSingleLoopDeposit(poolName, amount, options);
   }
   return txb;
 }
@@ -36,8 +35,6 @@ export async function alphalendLoopingWithdraw(
 
   if (poolName === "ALPHALEND-LOOP-SUI-STSUI") {
     txb = await alphalendSuiStsuiLoopWithdrawTx(xTokens, options);
-  } else if (poolName === "ALPHALEND-SINGLE-LOOP-TBTC") {
-    txb = await alphalendSingleLoopWithdraw(poolName, xTokens, options);
   }
   return txb;
 }
