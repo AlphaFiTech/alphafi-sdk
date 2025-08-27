@@ -179,7 +179,6 @@ export async function calculateAprForInvestor(
           const rewardType = event.coin_type.name.toString();
           const rewardCoin = coinTypeToCoin["0x" + rewardType];
           if (rewardCoin === undefined) {
-            console.error("Coin type not found: ", rewardType);
             continue;
           }
           const totalAmountA = new Decimal(event.total_amount_a.toString());
