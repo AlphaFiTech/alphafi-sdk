@@ -592,6 +592,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_ZERO_ZERO_POOL_REBALANCE_EVENT,
@@ -655,6 +658,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_USDC_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
@@ -945,6 +951,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
@@ -967,6 +976,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_BLUE_SUI_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
@@ -989,6 +1001,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_DEEP_BLUE_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
@@ -1032,6 +1047,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_SUIUSDT_USDC_POOL_REBALANCE_EVENT,
@@ -1083,6 +1101,9 @@ export const poolInfo: {
     autoCompoundingEventType:
       conf[CONF_ENV]
         .ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_AUTO_COMPOUNDING_EVENT,
+    autobalanceOldAutoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_OLD_AUTO_COMPOUNDING_EVENT,
     rebalanceEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_USDT_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
