@@ -21,7 +21,7 @@ export {
 } from "./getVaultBalances.js";
 
 // transactions
-
+export { collectAndSwapRewardsSingleLoop } from "./transactions/alphalend.js";
 export {
   depositDoubleAssetTxb,
   depositSingleAssetTxb,
