@@ -12,7 +12,6 @@ import {
 import { PoolName, Receipt } from "../common/types.js";
 import { AlphalendClient } from "@alphafi/alphalend-sdk";
 import { getCoinObject } from "./bluefin.js";
-import { pool } from "navi-sdk";
 
 export async function alphalendLoopingDeposit(
   poolName: PoolName,
