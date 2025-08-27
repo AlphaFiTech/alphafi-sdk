@@ -143,6 +143,7 @@ export const singleAssetPoolCoinMap: {
   "NAVI-WAL": { coin: "WAL" },
   "ALPHALEND-SINGLE-LOOP-TBTC": { coin: "TBTC" },
   "ALPHALEND-SINGLE-LOOP-SUIBTC": { coin: "SUIBTC" },
+  "ALPHALEND-SINGLE-LOOP-XAUM": { coin: "XAUM" },
 };
 
 export const loopingPoolCoinMap: {
@@ -157,6 +158,10 @@ export const loopingPoolCoinMap: {
   "ALPHALEND-SINGLE-LOOP-SUIBTC": {
     supplyCoin: "SUIBTC",
     borrowCoin: "SUIBTC",
+  },
+  "ALPHALEND-SINGLE-LOOP-XAUM": {
+    supplyCoin: "XAUM",
+    borrowCoin: "XAUM",
   },
 };
 
@@ -189,6 +194,7 @@ export const alphalendMarketIdMap: {
   STSUI: "2",
   TBTC: "14",
   SUIBTC: "3",
+  XAUM: "18",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -287,6 +293,8 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "TBTC-USDC": conf[CONF_ENV].BLUEFIN_TBTC_USDC_POOL,
   "SUI-USDC-175": conf[CONF_ENV].BLUEFIN_SUI_USDC_175_POOL,
   "DEEP-SUI-175": conf[CONF_ENV].BLUEFIN_DEEP_SUI_175_POOL,
+  "XAUM-XBTC": conf[CONF_ENV].BLUEFIN_XAUM_XBTC_POOL,
+  "XBTC-USDC": conf[CONF_ENV].BLUEFIN_XBTC_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -429,6 +437,26 @@ export const poolInfo: {
     retired: boolean;
   };
 } = {
+  "ALPHALEND-SINGLE-LOOP-XAUM": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_INVESTOR,
+    receiptName: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_RECEIPT,
+    assetTypes: [coinsList["XAUM"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
   "BLUEFIN-AUTOBALANCE-SUI-USDC-175": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
     packageNumber: 7,
