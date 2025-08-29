@@ -331,7 +331,17 @@ export type NaviInvestor = {
   };
 };
 
-export type AlphaLendInvestor = NaviInvestor;
+export type AlphaLendInvestor = NaviInvestor & {
+  content: {
+    fields: {
+      position_cap: {
+        fields: {
+          position_id: string;
+        };
+      };
+    };
+  };
+};
 
 export type BucketInvestor = {
   content: {
