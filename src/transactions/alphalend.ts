@@ -313,7 +313,7 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(bluefinPoolMap[`ALPHA-USDC`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
-        txb.pure.bool(false),
+        txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
