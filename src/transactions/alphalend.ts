@@ -389,25 +389,6 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
-
-    txb.moveCall({
-      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [
-        coinsList["XAUM"].type,
-        coinsList["XAUM"].type,
-        coinsList["XBTC"].type,
-      ],
-      arguments: [
-        txb.object(C.ALPHA_ALPHALEND_VERSION),
-        txb.object(poolData.investorId),
-        txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`XAUM-XBTC`]),
-        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-        txb.pure.bool(false),
-        txb.pure.bool(true),
-        txb.object(C.CLOCK_PACKAGE_ID),
-      ],
-    });
   }
   return txb;
 }
