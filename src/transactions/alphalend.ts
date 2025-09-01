@@ -193,6 +193,24 @@ export async function collectAndSwapRewardsSingleLoop(
       target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
       typeArguments: [
         coinsList["TBTC"].type,
+        coinsList["DEEP"].type,
+        coinsList["SUI"].type,
+      ],
+      arguments: [
+        txb.object(C.ALPHA_ALPHALEND_VERSION),
+        txb.object(poolData.investorId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap[`DEEP-SUI`]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+    txb.moveCall({
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [
+        coinsList["TBTC"].type,
         coinsList["SUI"].type,
         coinsList["USDC"].type,
       ],
