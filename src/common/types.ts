@@ -87,6 +87,7 @@ export type DoubleAssetPoolNames =
   | "USDC-SUIUSDT"
   | "BLUEFIN-WAL-USDC"
   | "BLUEFIN-WAL-STSUI"
+  | "BLUEFIN-LYF-STSUI-SUI"
   | AutoBalancePoolNames;
 
 export type AutoBalancePoolNames =
@@ -156,7 +157,8 @@ export type StrategyType =
   | "LENDING"
   | "LIQUID-STAKING"
   | "AUTOBALANCE-LIQUIDITY-POOL"
-  | "SINGLE-LOOPING";
+  | "SINGLE-LOOPING"
+  | "LEVERAGE-YIELD-FARMING";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
