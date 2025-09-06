@@ -861,7 +861,7 @@ export async function collectAndSwapRewardsLyf(
   if (pool.strategyType === "LEVERAGE-YIELD-FARMING") {
     if (poolname === "BLUEFIN-LYF-STSUI-SUI") {
       txb.moveCall({
-        target: `${pool.packageId}::alphafi_lyf_investor::collect_reward_and_swap_bluefin`,
+        target: `${pool.packageId}::alphafi_lyf_pool::collect_reward_and_swap_bluefin`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -870,7 +870,7 @@ export async function collectAndSwapRewardsLyf(
         ],
         arguments: [
           txb.object(getConf().ALPHA_LYF_VERSION),
-          txb.object(pool.investorId),
+          txb.object(pool.poolId),
           txb.object(getConf().LENDING_PROTOCOL_ID),
           txb.object(pool.parentPoolId),
           txb.object(bluefinPoolMap["BLUE-SUI"]),
@@ -882,7 +882,7 @@ export async function collectAndSwapRewardsLyf(
         ],
       });
       txb.moveCall({
-        target: `${pool.packageId}::alphafi_lyf_investor::collect_reward_and_swap_bluefin`,
+        target: `${pool.packageId}::alphafi_lyf_pool::collect_reward_and_swap_bluefin`,
         typeArguments: [
           coinsList[coin1].type,
           coinsList[coin2].type,
@@ -891,7 +891,7 @@ export async function collectAndSwapRewardsLyf(
         ],
         arguments: [
           txb.object(getConf().ALPHA_LYF_VERSION),
-          txb.object(pool.investorId),
+          txb.object(pool.poolId),
           txb.object(getConf().LENDING_PROTOCOL_ID),
           txb.object(pool.parentPoolId),
           txb.object(bluefinPoolMap["ALPHA-STSUI"]),

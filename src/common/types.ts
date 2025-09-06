@@ -344,7 +344,19 @@ export type AlphaLendInvestor = NaviInvestor & {
     };
   };
 };
-
+export type BluefinLyfInvestor = BluefinInvestor &
+  AlphaLendInvestor & {
+    fields: {
+      cur_debt_a: number;
+      cur_debt_b: number;
+      current_debt_to_supply_ratio: {
+        type: string;
+        fields: {
+          value: number;
+        };
+      };
+    };
+  };
 export type BucketInvestor = {
   content: {
     fields: {
@@ -378,12 +390,15 @@ export type CommonInvestorFields = {
   };
 };
 
-export type Investor =
-  | (CetusInvestor & CommonInvestorFields)
-  | (NaviInvestor & CommonInvestorFields)
-  | (BucketInvestor & CommonInvestorFields)
-  | (BluefinInvestor & CommonInvestorFields)
-  | (AlphaLendInvestor & CommonInvestorFields);
+export type Investor = (
+  | CetusInvestor
+  | NaviInvestor
+  | BucketInvestor
+  | BluefinInvestor
+  | AlphaLendInvestor
+  | BluefinLyfInvestor
+) &
+  CommonInvestorFields;
 
 export type CetusPoolType = {
   objectId: string;
@@ -573,6 +588,7 @@ export type PoolType = {
       id: { id: string };
       xTokenSupply: string;
       tokensInvested: string;
+      investor?: Investor;
       // rewards: Bag,
       acc_rewards_per_xtoken: {
         type: string;
