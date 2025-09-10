@@ -259,4 +259,16 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 6,
   },
+  ESUI: {
+    name: "ESUI",
+    type: "0x66629328922d609cf15af779719e248ae0e63fe0b9d9739623f763b33a9c97da::esui::ESUI",
+    icon: "",
+    expo: 9,
+  },
+  EBTC: {
+    name: "EBTC",
+    type: "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC",
+    icon: "",
+    expo: 8,
+  },
 };
