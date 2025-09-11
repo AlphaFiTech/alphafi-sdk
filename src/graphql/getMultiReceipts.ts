@@ -1,6 +1,5 @@
 import {
   ApolloClient,
-  ApolloQueryResult,
   gql,
   HttpLink,
   InMemoryCache,
@@ -81,20 +80,33 @@ export async function fetchMultiReceipts(
           ${query}
         `;
 
-        const result: ApolloQueryResult<any> = await client.query({
+        type ReceiptBatchResponse = {
+          owner: Record<
+            string,
+            | undefined
+            | {
+                pageInfo: { hasNextPage: boolean; endCursor: string };
+                nodes: any[];
+              }
+          >;
+        };
+        const result = await client.query<ReceiptBatchResponse>({
           query: GET_RECEIPTS,
           variables: {
             address: address,
           },
         });
 
-        const { data } = result;
+        const data = result.data;
+        if (!data) break;
         const receipts = data.owner;
         hasNextPage = false;
 
         Object.keys(receipts).forEach((key) => {
           if (key !== "__typename") {
-            const { pageInfo, nodes } = receipts[key];
+            const entry = receipts[key];
+            if (!entry) return;
+            const { pageInfo, nodes } = entry;
             hasNextPage = hasNextPage || pageInfo.hasNextPage;
             if (hasNextPage) receiptTypes[key].cursor = pageInfo.endCursor;
             else receiptTypes[key].cursor = "0";

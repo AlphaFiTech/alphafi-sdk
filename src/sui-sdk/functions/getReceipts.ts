@@ -482,7 +482,7 @@ export async function getCetusPool(
       // Cache the pool object
       cetusPoolCache.set(cacheKey, cetusPool);
       return cetusPool;
-    } catch (e) {
+    } catch {
       console.error(`getCetusPool failed for poolName: ${poolName}`);
       return undefined;
     } finally {
@@ -639,7 +639,7 @@ export async function getDistributor(
       // Cache the distributor object
       distributorCache.set(cacheKey, distributor);
       return distributor;
-    } catch (e) {
+    } catch {
       console.error(`getDistributor failed`);
       return undefined;
     } finally {

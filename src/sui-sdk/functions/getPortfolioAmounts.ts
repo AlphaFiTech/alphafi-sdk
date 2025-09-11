@@ -433,7 +433,7 @@ export async function getTokenBalance(
     const balanceInt = parseInt(coinBalance.totalBalance);
     balance = `${balanceInt}`;
     return balance;
-  } catch (e) {
+  } catch {
     console.error(`Could not get Balance for token: ${tokenName}`);
   }
 }
