@@ -20,6 +20,7 @@
     "postbuild": "npm link",
     "pretty": "prettier . --write",
     "lint": "eslint 'src/**/*.ts' --fix",
+    "cpx": "cpx 'src/**/*.graphql' dist/cjs && cpx 'src/**/*.graphql' dist/esm",
     "prettier": "prettier --write 'src/**/*.ts'",
     "gen": "node embed-graphql.js",
     "docs": "typedoc",
@@ -43,6 +44,7 @@
     "@typescript-eslint/parser": "^8.43.0",
     "babel-loader": "^10.0.0",
     "clean-webpack-plugin": "^4.0.0",
+    "cpx": "^1.5.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
@@ -69,7 +71,8 @@
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
     "graphql": "^16.9.0",
-    "navi-sdk": "^1.6.2"
+    "navi-sdk": "^1.6.2",
+    "react": "^19.1.1"
   },
   "peerDependencies": {
     "@alphafi/stsui-sdk": "^0.0.22",

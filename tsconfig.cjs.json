@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.esm.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "target": "es2020",
     "skipLibCheck": true,
     "outDir": "./dist/cjs",
@@ -10,7 +10,7 @@
     // Add the baseUrl option
     "baseUrl": "./", // Specifies the base directory for non-relative module names
     "paths": {
-      "@mysten/sui/*": ["node_modules/@mysten/sui/dist/esm/*"]
+      "@mysten/sui/*": ["node_modules/@mysten/sui/dist/cjs/*"]
     }
   },
   "include": ["src/**/*"],
