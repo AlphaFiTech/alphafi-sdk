@@ -47,4 +47,6 @@ export type PythPriceIdPair =
   | "XBTC/USD"
   | "ALKIMI/USD"
   | "XAUM/USD"
-  | "UP/USD";
+  | "UP/USD"
+  | "ESUI/USD"
+  | "EBTC/USD";
