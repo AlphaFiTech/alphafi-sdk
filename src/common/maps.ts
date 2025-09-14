@@ -1943,7 +1943,7 @@ export const poolInfo: {
     imageUrl1: "https://images.alphafi.xyz/adminweb/navi_token.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
     retired: true,
-    naviParentPoolCoinType: coinsList["SUI"].type,
+    naviParentPoolCoinType: "0x2::sui::SUI",
   },
   "NAVI-VSUI": {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
