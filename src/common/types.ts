@@ -148,7 +148,8 @@ export type CoinName =
   | "XAUM"
   | "UP"
   | "ESUI"
-  | "EBTC";
+  | "EBTC"
+  | "EGUSDC";
 
 export type StrategyType =
   | "LOOPING"
@@ -256,7 +257,8 @@ export type CoinType =
   | "0x9d297676e7a4b771ab023291377b2adfaa4938fb9080b8d12430e4b108b836a9::xaum::XAUM"
   | "0x87dfe1248a1dc4ce473bd9cb2937d66cdc6c30fee63f3fe0dbb55c7a09d35dec::up::UP"
   | "0x66629328922d609cf15af779719e248ae0e63fe0b9d9739623f763b33a9c97da::esui::ESUI"
-  | "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC";
+  | "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC"
+  | "0x68532559a19101b58757012207d82328e75fde7a696d20a59e8307c1a7f42ad7::egusdc::EGUSDC";
 
 const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
 const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
@@ -527,16 +529,16 @@ export type Receipt = {
         };
       };
       locked_balance:
-        | {
-            type: string;
-            fields: {
-              head: string;
-              id: { id: string };
-              size: string;
-              tail: string;
-            };
-          }
-        | undefined;
+      | {
+        type: string;
+        fields: {
+          head: string;
+          id: { id: string };
+          size: string;
+          tail: string;
+        };
+      }
+      | undefined;
       name: string;
       owner: string;
       pending_rewards: {
