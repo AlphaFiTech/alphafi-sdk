@@ -77,6 +77,6 @@
   },
   "peerDependencies": {
     "@alphafi/stsui-sdk": "^0.0.22",
-    "@mysten/sui": "^1.30.0"
+    "@mysten/sui": "^1.37.4"
   }
 }

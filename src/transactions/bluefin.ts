@@ -416,6 +416,13 @@ export const depositBluefinSuiSecondTxb = async (
         const coinBType =
           pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
         await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
+        console.log(
+          alphalendClient.constants.ALPHAFI_LATEST_ORACLE_PACKAGE_ID,
+          alphalendClient.constants.ALPHAFI_ORACLE_OBJECT_ID,
+          alphalendClient.constants.ALPHALEND_LATEST_PACKAGE_ID,
+          alphalendClient.constants.LENDING_PROTOCOL_ID,
+        );
+
         await collectAndSwapRewardsLyf(poolName, txb);
         console.log(amount1, amount2);
 
