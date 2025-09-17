@@ -359,6 +359,15 @@ export type BluefinLyfInvestor = BluefinInvestor &
           value: number;
         };
       };
+      free_balance_a: string;
+      free_balance_b: string;
+      lower_tick: string;
+      upper_tick: string;
+      position_cap: {
+        fields: {
+          position_id: string;
+        };
+      };
     };
   };
 export type BucketInvestor = {

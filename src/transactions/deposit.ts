@@ -2,9 +2,11 @@ import { Transaction } from "@mysten/sui/transactions";
 import { doubleAssetPoolCoinMap, poolInfo } from "../common/maps.js";
 import {
   BluefinInvestor,
+  BluefinLyfInvestor,
   CetusInvestor,
   CommonInvestorFields,
   PoolName,
+  PoolType,
 } from "../common/types.js";
 import { depositAlphaTxb } from "./alpha.js";
 import { naviDepositTx } from "./navi.js";
@@ -28,6 +30,7 @@ import BN from "bn.js";
 import {
   getInvestor,
   getParentPool,
+  getPool,
 } from "../sui-sdk/functions/getReceipts.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import {
@@ -138,6 +141,12 @@ export async function getLiquidity(
   const upper_bound = 443636;
   let lower_tick = Number(cetusInvestor.content.fields.lower_tick);
   let upper_tick = Number(cetusInvestor.content.fields.upper_tick);
+  if (poolInfo[poolName].strategyType === "LEVERAGE-YIELD-FARMING") {
+    const pool = (await getPool(poolName, ignoreCache)) as PoolType;
+    const investor = pool.content.fields.investor as BluefinLyfInvestor;
+    lower_tick = Number(investor.fields.lower_tick);
+    upper_tick = Number(investor.fields.upper_tick);
+  }
 
   if (lower_tick > upper_bound) {
     lower_tick = -~(lower_tick - 1);
