@@ -35,8 +35,7 @@ export async function claimRewardTxb(address: string) {
       continue;
     }
     const receipts = await getReceipts(poolName as PoolName, address, false);
-    if (poolName == "ALPHA") {
-    } else {
+    if (poolName !== "ALPHA") {
       if (poolInfo[poolName].packageNumber === 9) {
         if (poolName === "NAVI-SUIBTC") {
           receipts.forEach((receipt) => {

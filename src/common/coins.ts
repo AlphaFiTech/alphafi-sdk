@@ -271,4 +271,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 8,
   },
+  EGUSDC: {
+    name: "EGUSDC",
+    type: "0x68532559a19101b58757012207d82328e75fde7a696d20a59e8307c1a7f42ad7::egusdc::EGUSDC",
+    icon: "",
+    expo: 6,
+  },
 };

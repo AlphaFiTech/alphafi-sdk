@@ -149,7 +149,8 @@ export type CoinName =
   | "XAUM"
   | "UP"
   | "ESUI"
-  | "EBTC";
+  | "EBTC"
+  | "EGUSDC";
 
 export type StrategyType =
   | "LOOPING"
@@ -258,41 +259,27 @@ export type CoinType =
   | "0x9d297676e7a4b771ab023291377b2adfaa4938fb9080b8d12430e4b108b836a9::xaum::XAUM"
   | "0x87dfe1248a1dc4ce473bd9cb2937d66cdc6c30fee63f3fe0dbb55c7a09d35dec::up::UP"
   | "0x66629328922d609cf15af779719e248ae0e63fe0b9d9739623f763b33a9c97da::esui::ESUI"
-  | "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC";
+  | "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC"
+  | "0x68532559a19101b58757012207d82328e75fde7a696d20a59e8307c1a7f42ad7::egusdc::EGUSDC";
 
-const ALPHA_SUI_POOL_RECEIPT = conf[CONF_ENV].ALPHA_SUI_POOL_RECEIPT;
-const USDY_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDY_WUSDC_POOL_RECEIPT;
-const USDT_WUSDC_POOL_RECEIPT = conf[CONF_ENV].USDT_WUSDC_POOL_RECEIPT;
-const ALPHA_POOL_RECEIPT = conf[CONF_ENV].ALPHA_POOL_RECEIPT;
-const HASUI_SUI_POOL_RECEIPT = conf[CONF_ENV].HASUI_SUI_POOL_RECEIPT;
-const WUSDC_SUI_POOL_RECEIPT = conf[CONF_ENV].WUSDC_SUI_POOL_RECEIPT;
-const WUSDC_WBTC_POOL_RECEIPT = conf[CONF_ENV].WUSDC_WBTC_POOL_RECEIPT;
-const WETH_WUSDC_POOL_RECEIPT = conf[CONF_ENV].WETH_WUSDC_POOL_RECEIPT;
-const NAVI_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_SUI_POOL_RECEIPT;
-const NAVI_VSUI_POOL_RECEIPT = conf[CONF_ENV].NAVI_VSUI_POOL_RECEIPT;
-const NAVX_SUI_POOL_RECEIPT = conf[CONF_ENV].NAVX_SUI_POOL_RECEIPT;
-const NAVI_WETH_POOL_RECEIPT = conf[CONF_ENV].NAVI_WETH_POOL_RECEIPT;
-const NAVI_USDT_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDT_POOL_RECEIPT;
-const NAVI_WUSDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_WUSDC_POOL_RECEIPT;
-const NAVI_USDC_POOL_RECEIPT = conf[CONF_ENV].NAVI_USDC_POOL_RECEIPT;
-const BUCKET_BUCK_POOL_RECEIPT = conf[CONF_ENV].BUCKET_BUCK_POOL_RECEIPT;
-export type PoolReceipt =
-  | typeof ALPHA_SUI_POOL_RECEIPT
-  | typeof USDY_WUSDC_POOL_RECEIPT
-  | typeof USDT_WUSDC_POOL_RECEIPT
-  | typeof ALPHA_POOL_RECEIPT
-  | typeof HASUI_SUI_POOL_RECEIPT
-  | typeof WUSDC_SUI_POOL_RECEIPT
-  | typeof WUSDC_WBTC_POOL_RECEIPT
-  | typeof WETH_WUSDC_POOL_RECEIPT
-  | typeof NAVI_SUI_POOL_RECEIPT
-  | typeof NAVI_VSUI_POOL_RECEIPT
-  | typeof NAVX_SUI_POOL_RECEIPT
-  | typeof NAVI_WETH_POOL_RECEIPT
-  | typeof NAVI_USDT_POOL_RECEIPT
-  | typeof NAVI_WUSDC_POOL_RECEIPT
-  | typeof NAVI_USDC_POOL_RECEIPT
-  | typeof BUCKET_BUCK_POOL_RECEIPT;
+type ConfEnv = (typeof conf)[typeof CONF_ENV];
+export type PoolReceipt = ConfEnv[
+  | "ALPHA_SUI_POOL_RECEIPT"
+  | "USDY_WUSDC_POOL_RECEIPT"
+  | "USDT_WUSDC_POOL_RECEIPT"
+  | "ALPHA_POOL_RECEIPT"
+  | "HASUI_SUI_POOL_RECEIPT"
+  | "WUSDC_SUI_POOL_RECEIPT"
+  | "WUSDC_WBTC_POOL_RECEIPT"
+  | "WETH_WUSDC_POOL_RECEIPT"
+  | "NAVI_SUI_POOL_RECEIPT"
+  | "NAVI_VSUI_POOL_RECEIPT"
+  | "NAVX_SUI_POOL_RECEIPT"
+  | "NAVI_WETH_POOL_RECEIPT"
+  | "NAVI_USDT_POOL_RECEIPT"
+  | "NAVI_WUSDC_POOL_RECEIPT"
+  | "NAVI_USDC_POOL_RECEIPT"
+  | "BUCKET_BUCK_POOL_RECEIPT"];
 
 export interface PoolData {
   weight: number;
@@ -553,16 +540,16 @@ export type Receipt = {
         };
       };
       locked_balance:
-        | {
-            type: string;
-            fields: {
-              head: string;
-              id: { id: string };
-              size: string;
-              tail: string;
-            };
-          }
-        | undefined;
+      | {
+        type: string;
+        fields: {
+          head: string;
+          id: { id: string };
+          size: string;
+          tail: string;
+        };
+      }
+      | undefined;
       name: string;
       owner: string;
       pending_rewards: {

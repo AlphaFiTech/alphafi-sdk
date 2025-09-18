@@ -3,6 +3,7 @@ import {
   getQuote,
   QuoteResponse,
   setSuiClient,
+  AggregatorTx,
 } from "@7kprotocol/sdk-ts";
 import {
   Transaction,
@@ -38,7 +39,7 @@ export class SevenKGateway {
     quoteResponse: QuoteResponse,
     transaction: Transaction | undefined = undefined,
   ): Promise<{
-    tx: Transaction;
+    tx: AggregatorTx;
     coinOut: TransactionObjectArgument | undefined;
   }> {
     let txb = new Transaction();
