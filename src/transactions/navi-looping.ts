@@ -15,7 +15,17 @@ import { PoolName, Receipt } from "../common/types.js";
 import { coinsList } from "../common/coins.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { updateSingleTokenPrice } from "./naviOracle.js";
-import { getAvailableRewards } from "navi-sdk/dist/libs/PTB/V3.js";
+// DISABLED: navi-sdk dependency temporarily removed
+// import { getAvailableRewards } from "navi-sdk/dist/libs/PTB/V3.js";
+
+// Mock function to replace navi-sdk getAvailableRewards
+async function getAvailableRewards(
+  _client: any,
+  _address: string,
+): Promise<any> {
+  // Return empty rewards to prevent breaking existing code
+  return {};
+}
 import { AlphalendClient } from "@alphafi/alphalend-sdk";
 import { alphalendClient } from "./alphalend.js";
 

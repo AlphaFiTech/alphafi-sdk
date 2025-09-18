@@ -15,8 +15,18 @@ import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getConf } from "../common/constants.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { updateSingleTokenPrice } from "./naviOracle.js";
-import { getAvailableRewards } from "navi-sdk/dist/libs/PTB/V3.js";
+// DISABLED: navi-sdk dependency temporarily removed
+// import { getAvailableRewards } from "navi-sdk/dist/libs/PTB/V3.js";
 // import { getAvailableRewards } from "navi-sdk";
+
+// Mock function to replace navi-sdk getAvailableRewards
+async function getAvailableRewards(
+  _client: any,
+  _address: string,
+): Promise<any> {
+  // Return empty rewards to prevent breaking existing code
+  return {};
+}
 
 export async function naviDepositTx(
   amount: string,
