@@ -15,6 +15,7 @@ import {
 import { coinsList } from "../common/coins.js";
 import { getAmounts } from "./deposit.js";
 import { SevenKGateway } from "./7k.js";
+import { AggregatorTx, isSuiTransaction } from "@7kprotocol/sdk-ts";
 import { getConf } from "../common/constants.js";
 import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getLatestPrices } from "../utils/prices.js";
@@ -84,7 +85,9 @@ async function handleFirstAmountZero(
     );
     if (result) {
       params.amountB = result.amountOut;
-      params.txb = result.tx;
+      if (isSuiTransaction(result.tx)) {
+        params.txb = result.tx;
+      }
       if (result.coinOut) params.coinB = result.coinOut;
     }
   }
@@ -128,7 +131,9 @@ async function handleSecondAmountZero(
     );
     if (result) {
       params.amountA = result.amountOut;
-      params.txb = result.tx;
+      if (isSuiTransaction(result.tx)) {
+        params.txb = result.tx;
+      }
       if (result.coinOut) params.coinA = result.coinOut;
     }
   }
@@ -191,7 +196,9 @@ async function handleNonZeroAmounts(
     );
     if (swapResult) {
       params.amountB = swapResult.amountOut;
-      params.txb = swapResult.tx;
+      if (isSuiTransaction(swapResult.tx)) {
+        params.txb = swapResult.tx;
+      }
       if (swapResult.coinOut) params.coinB = swapResult.coinOut;
     }
     params.amountA = inputAmountToType1.toString();
@@ -216,7 +223,9 @@ async function handleNonZeroAmounts(
     );
     if (swapResult) {
       params.amountA = swapResult.amountOut;
-      params.txb = swapResult.tx;
+      if (isSuiTransaction(swapResult.tx)) {
+        params.txb = swapResult.tx;
+      }
       if (swapResult.coinOut) params.coinA = swapResult.coinOut;
     }
     if (swapResult && swapResult.remainingLSTCoin) {
@@ -241,7 +250,9 @@ async function handleNonZeroAmounts(
     );
     if (swapResult) {
       params.amountA = swapResult.amountOut;
-      params.txb = swapResult.tx;
+      if (isSuiTransaction(swapResult.tx)) {
+        params.txb = swapResult.tx;
+      }
       if (swapResult.coinOut) params.coinA = swapResult.coinOut;
     }
     swapResult = await zapSwap(
@@ -251,7 +262,9 @@ async function handleNonZeroAmounts(
     );
     if (swapResult) {
       params.amountB = swapResult.amountOut;
-      params.txb = swapResult.tx;
+      if (isSuiTransaction(swapResult.tx)) {
+        params.txb = swapResult.tx;
+      }
       if (swapResult.coinOut) params.coinB = swapResult.coinOut;
     }
   }
@@ -467,7 +480,7 @@ async function zapSwap(
   poolName: PoolName,
 ): Promise<
   | {
-      tx: Transaction;
+      tx: AggregatorTx;
       coinOut: TransactionObjectArgument | undefined;
       remainingLSTCoin: TransactionObjectArgument | undefined;
       amountOut: string;

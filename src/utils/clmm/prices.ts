@@ -390,6 +390,10 @@ export class CetusGateway {
       fix_amount_a: options.isAmountA,
       tick_lower: lowerTick,
       tick_upper: upperTick,
+      // New fields required by latest SDK
+      metadata_a: "",
+      metadata_b: "",
+      slippage: slippage,
     });
 
     return txb;
