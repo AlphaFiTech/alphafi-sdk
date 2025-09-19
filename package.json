@@ -66,7 +66,7 @@
     "@apollo/client": "^4.0.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "^5.4.0",
     "@hop.ag/sdk": "^4.0.17",
-    "@mysten/dapp-kit": "0.14.0",
+    "@mysten/dapp-kit": "^0.18.0",
     "@mysten/sui": "^1.30.0",
     "@mysten/wallet-standard": "0.14.0",
     "bignumber.js": "^9.1.2",
