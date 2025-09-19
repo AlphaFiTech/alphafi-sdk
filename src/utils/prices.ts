@@ -123,7 +123,7 @@ export async function getLatestPrices(
           prices[i] = price;
         }
       }
-    } catch (err) {
+    } catch {
       console.error("couldnt fetch prices");
     }
   }

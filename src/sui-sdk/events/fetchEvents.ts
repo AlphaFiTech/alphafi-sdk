@@ -18,6 +18,7 @@ import {
   AutobalancingAutoCompoundingEvent,
   VoteCastEvent,
   AirdropClaimEvent,
+  AutobalancingOldAutoCompoundingEvent,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -79,6 +80,7 @@ export async function fetchEvents(
         | NaviAutoCompoundingEvent
         | NaviLoopAutoCompoundingEvent
         | AutobalancingAutoCompoundingEvent
+        | AutobalancingOldAutoCompoundingEvent
         | RebalanceEvent
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
@@ -131,7 +133,7 @@ export async function fetchEvents(
         isAutoCompoundingEvent(suiEvent.type) &&
         "compound_amount" in suiEventJson
       ) {
-        // Handling NaviAutoCompoundingEvent
+        // Handling NaviAutoCompoundingEvent (lending and looping)
         eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
@@ -161,6 +163,7 @@ export async function fetchEvents(
         "amount" in suiEventJson &&
         !("total_amount_a" in suiEventJson)
       ) {
+        // alpha autocompounding event
         eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
@@ -176,7 +179,7 @@ export async function fetchEvents(
         "amount" in suiEventJson &&
         "total_amount_a" in suiEventJson
       ) {
-        // Handling CetusAutoCompoundingEvent
+        // new autobalance autocompounding event (reward events)
         eventNode = {
           type: suiEvent.type,
           timestamp: Number(suiEvent.timestampMs),
@@ -202,6 +205,29 @@ export async function fetchEvents(
         //   );
         //   prevTS = eventNode.timestamp;
         // }
+      } else if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "blue_reward_amount" in suiEventJson
+      ) {
+        // old autobalance autocompound event
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          blue_reward_amount: BigInt(
+            suiEventJson.blue_reward_amount.toString(),
+          ),
+          current_liquidity: BigInt(suiEventJson.current_liquidity.toString()),
+          fee_collected: BigInt(suiEventJson.fee_collected.toString()),
+          free_balance_a: BigInt(suiEventJson.free_balance_a.toString()),
+          free_balance_b: BigInt(suiEventJson.free_balance_b.toString()),
+          investor_id: suiEventJson.investor_id,
+          total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
+          total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+          sender: suiEvent.sender,
+        };
       } else if (
         isRebalanceEvent(suiEvent.type) &&
         "lower_tick_after" in suiEventJson
@@ -434,9 +460,16 @@ export async function fetchEvents(
 }
 
 const isAutoCompoundingEvent = (eventType: string) => {
-  const eventTypes: string[] = Object.values(poolInfo).map((info) => {
+  let eventTypes: string[] = Object.values(poolInfo).map((info) => {
     return info.autoCompoundingEventType;
   });
+  eventTypes = eventTypes.concat(
+    Object.values(poolInfo)
+      .map((info) => {
+        return info.autobalanceOldAutoCompoundingEventType;
+      })
+      .filter((type) => type != undefined),
+  );
   return eventTypes.includes(eventType);
 };
 

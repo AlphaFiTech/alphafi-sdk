@@ -1,7 +1,6 @@
 import { GET_RECEIPT_DATA } from "./queries.js";
 import client from "./client.js";
 import { poolInfo } from "../common/maps.js";
-import { ApolloQueryResult } from "@apollo/client";
 import {
   ReceiptsResponse,
   ReceiptNode,
@@ -15,17 +14,19 @@ export async function fetchReceiptsGql(): Promise<ReceiptMoveObjectContents[]> {
   let cursor: string | null = null;
   //   let count = 0;
   while (hasNextPage) {
-    const result: ApolloQueryResult<ReceiptsResponse> = await client.query({
-      query: GET_RECEIPT_DATA,
-      variables: {
-        after: cursor,
-        receiptType: poolInfo["ALPHA"].receiptType,
-        limit: 10,
-      },
-    });
+    const result: { data: ReceiptsResponse | undefined } =
+      await client.query<ReceiptsResponse>({
+        query: GET_RECEIPT_DATA,
+        variables: {
+          after: cursor,
+          receiptType: poolInfo["ALPHA"].receiptType,
+          limit: 10,
+        },
+      });
 
     // Now destructure from the properly typed variable
-    const { data } = result;
+    const data: ReceiptsResponse | undefined = result.data;
+    if (!data) break;
     const { nodes, pageInfo } = data.objects;
     receiptNodes = receiptNodes.concat(nodes);
 
