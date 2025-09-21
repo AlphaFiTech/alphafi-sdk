@@ -38,20 +38,33 @@ export async function zapDepositTxb(
   const swapGateway = new SevenKGateway();
   const [coinTypeA, coinTypeB] = poolInfo[poolName].assetTypes;
 
-  const investor = (await getInvestor(poolName, false)) as CetusInvestor &
-    CommonInvestorFields;
-  const parentPool = await getParentPool(poolName, false);
-  let lower_tick = Number(investor.content.fields.lower_tick);
-  let upper_tick = Number(investor.content.fields.upper_tick);
-  const current_tick_index = Number(
-    parentPool.content.fields.current_tick_index.fields.bits,
-  );
   const coinObject = await getCoinObject(
     isInputA ? coinTypeA : coinTypeB,
     tx,
     suiClient,
     address,
   );
+
+  const investor = (await getInvestor(poolName, false)) as CetusInvestor &
+    CommonInvestorFields;
+  const parentPool = await getParentPool(poolName, false);
+
+  // get lower_tick, upper_tick, current_tick_index without 2's complement
+  const upper_bound = 443636;
+  let lower_tick = Number(investor.content.fields.lower_tick);
+  let upper_tick = Number(investor.content.fields.upper_tick);
+  let current_tick_index = Number(
+    parentPool.content.fields.current_tick_index.fields.bits,
+  );
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
+  }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+  if (current_tick_index > upper_bound) {
+    current_tick_index = -~(current_tick_index - 1);
+  }
 
   if (current_tick_index >= upper_tick) {
     await handleFirstAmountZero({
@@ -124,7 +137,7 @@ export async function zapDepositTxb(
       .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
-    const coinIn = tx.splitCoins(coinObject, [
+    const [coinIn] = tx.splitCoins(coinObject, [
       inputCoinToType2.floor().toString(),
     ]);
 
@@ -143,7 +156,7 @@ export async function zapDepositTxb(
       await getAmounts(poolName, false, amountOut.toString(), false)
     ).map((a) => new Decimal(a));
 
-    const coinOutA = tx.splitCoins(coinObject, [
+    const [coinOutA] = tx.splitCoins(coinObject, [
       inputCoinToType1.floor().toString(),
     ]);
     await deposit({
@@ -162,7 +175,7 @@ export async function zapDepositTxb(
       .div(totalAmount)
       .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
-    const coinIn = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
+    const [coinIn] = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
 
     // swap coinB to coinA
     const { coinOut: coinOutA, amountOut } = await zapSwap({
@@ -181,7 +194,7 @@ export async function zapDepositTxb(
       await getAmounts(poolName, true, amountOut.toString(), false)
     ).map((a) => new Decimal(a));
 
-    const coinOutB = tx.splitCoins(coinObject, [
+    const [coinOutB] = tx.splitCoins(coinObject, [
       inputCoinToType2.floor().toString(),
     ]);
     await deposit({
@@ -195,7 +208,6 @@ export async function zapDepositTxb(
     });
   }
   tx.transferObjects([coinObject], address);
-  tx.setGasBudget(1_000_000_000n);
   return tx;
 }
 
@@ -349,6 +361,13 @@ async function getCoinObject(
   suiClient: SuiClient,
   address: string,
 ): Promise<TransactionObjectArgument> {
+  if (
+    coinType === "0x2::sui::SUI" ||
+    coinType ===
+      "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+  ) {
+    return tx.gas;
+  }
   let currentCursor: string | null | undefined = null;
   let coins1: CoinStruct[] = [];
   do {
@@ -383,7 +402,7 @@ async function zapSwap(params: {
   tokenOut: string;
   amountIn: string;
   slippage: number;
-  coinIn?: TransactionObjectArgument;
+  coinIn: TransactionObjectArgument;
 }): Promise<{
   coinOut: TransactionObjectArgument;
   amountOut: Decimal;
@@ -415,7 +434,7 @@ async function zapSwap(params: {
     throw new Error("Error getting transaction block for zap");
   }
 
-  const returnCoinOut = params.tx.splitCoins(coinOut, [
+  const [returnCoinOut] = params.tx.splitCoins(coinOut, [
     slippageReducedAmount.toString(),
   ]);
   params.tx.transferObjects([coinOut], params.address);
@@ -437,7 +456,7 @@ async function handleFirstAmountZero(params: {
   coinObject: TransactionObjectArgument;
 }) {
   if (params.isInputA) {
-    const toSwap = params.tx.splitCoins(params.coinObject, [
+    const [toSwap] = params.tx.splitCoins(params.coinObject, [
       params.inputCoinAmount.toString(),
     ]);
     const swapResult = await zapSwap({
@@ -451,7 +470,6 @@ async function handleFirstAmountZero(params: {
       coinIn: toSwap,
     });
 
-    params.tx.transferObjects([params.coinObject], params.address);
     await deposit({
       tx: params.tx,
       coinA: params.tx.moveCall({
@@ -466,9 +484,10 @@ async function handleFirstAmountZero(params: {
       poolName: params.poolName,
     });
   } else {
-    const coinB = params.tx.splitCoins(params.coinObject, [
+    const [coinB] = params.tx.splitCoins(params.coinObject, [
       params.inputCoinAmount.toString(),
     ]);
+
     await deposit({
       tx: params.tx,
       coinA: params.tx.moveCall({
@@ -498,9 +517,10 @@ async function handleSecondAmountZero(params: {
   coinObject: TransactionObjectArgument;
 }) {
   if (params.isInputA) {
-    const coinA = params.tx.splitCoins(params.coinObject, [
+    const [coinA] = params.tx.splitCoins(params.coinObject, [
       params.inputCoinAmount.toString(),
     ]);
+
     await deposit({
       tx: params.tx,
       coinA,
@@ -514,9 +534,8 @@ async function handleSecondAmountZero(params: {
       address: params.address,
       poolName: params.poolName,
     });
-    params.tx.transferObjects([params.coinObject], params.address);
   } else {
-    const toSwap = params.tx.splitCoins(params.coinObject, [
+    const [toSwap] = params.tx.splitCoins(params.coinObject, [
       params.inputCoinAmount.toString(),
     ]);
     const swapResult = await zapSwap({
@@ -530,7 +549,6 @@ async function handleSecondAmountZero(params: {
       coinIn: toSwap,
     });
 
-    params.tx.transferObjects([params.coinObject], params.address);
     await deposit({
       tx: params.tx,
       coinA: swapResult.coinOut,
@@ -545,6 +563,7 @@ async function handleSecondAmountZero(params: {
       poolName: params.poolName,
     });
   }
+  params.tx.transferObjects([params.coinObject], params.address);
 }
 
 async function deposit(params: {
@@ -570,8 +589,8 @@ async function deposit(params: {
 
   const [pool1, pool2] = poolInfo[params.poolName].assetTypes;
   const receipt = await getReceipts(params.poolName, params.address, false);
-  let depositCoinA: TransactionObjectArgument = params.coinA;
-  let depositCoinB: TransactionObjectArgument = params.coinB;
+  let depositCoinA: TransactionObjectArgument;
+  let depositCoinB: TransactionObjectArgument;
 
   // Removing fee amounts from amounts
   params.amountA = params.amountA.sub(amountAFee);
@@ -599,6 +618,8 @@ async function deposit(params: {
     [depositCoinA] = params.tx.splitCoins(params.coinA, [amounts[0]]);
     [depositCoinB] = params.tx.splitCoins(params.coinB, [amounts[1]]);
     params.tx.transferObjects([params.coinA, params.coinB], params.address);
+  } else {
+    [depositCoinA, depositCoinB] = [params.coinA, params.coinB];
   }
 
   let someReceipt: any;
