@@ -76,14 +76,24 @@ export async function simulateTransactionBlock(txb: Transaction) {
   const { suiClient, address } = getExecStuff();
   txb.setSender(address);
   try {
-    suiClient
-      .devInspectTransactionBlock({
-        transactionBlock: txb,
-        sender: address,
+    // suiClient
+    //   .devInspectTransactionBlock({
+    //     transactionBlock: txb,
+    //     sender: address,
+    //   })
+    //   .then((res) => {
+    //     console.log(JSON.stringify(res, null, 2));
+    //     // console.log(res.effects.status, res.balanceChanges);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    await suiClient
+      .dryRunTransactionBlock({
+        transactionBlock: await txb.build({ client: suiClient }),
       })
       .then((res) => {
         console.log(JSON.stringify(res, null, 2));
-        // console.log(res.effects.status, res.balanceChanges);
       })
       .catch((error) => {
         console.error(error);

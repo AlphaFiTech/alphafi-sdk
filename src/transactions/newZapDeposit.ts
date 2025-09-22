@@ -2,25 +2,29 @@ import {
   Transaction,
   TransactionObjectArgument,
 } from "@mysten/sui/transactions";
-import { getConf } from "../common/constants";
-import { CetusInvestor, CommonInvestorFields, PoolName } from "../common/types";
+import { getConf } from "../common/constants.js";
+import {
+  CetusInvestor,
+  CommonInvestorFields,
+  PoolName,
+} from "../common/types.js";
 import {
   getInvestor,
   getParentPool,
   getReceipts,
-} from "../sui-sdk/functions/getReceipts";
+} from "../sui-sdk/functions/getReceipts.js";
 import {
   bluefinPoolMap,
   cetusPoolMap,
   doubleAssetPoolCoinMap,
   poolInfo,
-} from "../common/maps";
-import { getSuiClient } from "../sui-sdk/client";
+} from "../common/maps.js";
+import { getSuiClient } from "../sui-sdk/client.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
-import { getAmounts } from "./deposit";
+import { getAmounts } from "./deposit.js";
 import { Decimal } from "decimal.js";
-import { SevenKGateway } from "./7k";
-import { coinsList } from "../common/coins";
+import { SevenKGateway } from "./7k.js";
+import { coinsList } from "../common/coins.js";
 
 async function getCoinObject(
   coinType: string,
@@ -227,16 +231,7 @@ export async function zapDepositTxb(
       return undefined;
     }
 
-    const {
-      coinA,
-      coinB,
-      remCoinA,
-      remCoinB,
-      coinAVal,
-      coinBVal,
-      remCoinAVal,
-      remCoinBVal,
-    } = await getCoinsInRatio({
+    const { coinA, coinB, remCoinA, remCoinB } = await getCoinsInRatio({
       tx,
       poolName,
       coinA: coinObject,

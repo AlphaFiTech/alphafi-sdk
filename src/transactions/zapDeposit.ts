@@ -175,7 +175,9 @@ export async function zapDepositTxb(
       .div(totalAmount)
       .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
-    const [coinIn] = tx.splitCoins(coinObject, [inputCoinToType1.toString()]);
+    const [coinIn] = tx.splitCoins(coinObject, [
+      inputCoinToType1.floor().toString(),
+    ]);
 
     // swap coinB to coinA
     const { coinOut: coinOutA, amountOut } = await zapSwap({
@@ -223,11 +225,23 @@ export async function zapDepositQuoteTxb(
   const investor = (await getInvestor(poolName, false)) as CetusInvestor &
     CommonInvestorFields;
   const parentPool = await getParentPool(poolName, false);
+
+  // get lower_tick, upper_tick, current_tick_index without 2's complement
+  const upper_bound = 443636;
   let lower_tick = Number(investor.content.fields.lower_tick);
   let upper_tick = Number(investor.content.fields.upper_tick);
-  const current_tick_index = Number(
+  let current_tick_index = Number(
     parentPool.content.fields.current_tick_index.fields.bits,
   );
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
+  }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+  if (current_tick_index > upper_bound) {
+    current_tick_index = -~(current_tick_index - 1);
+  }
 
   if (current_tick_index >= upper_tick) {
     if (isInputA) {
@@ -417,12 +431,6 @@ async function zapSwap(params: {
   if (!quoteResponse) {
     throw new Error("Error fetching quote for zap");
   }
-
-  const slippageReducedAmount = new Decimal(
-    quoteResponse.returnAmountWithDecimal,
-  )
-    .mul(new Decimal(1).sub(params.slippage))
-    .floor();
   const coinOut = await swapGateway.getTransactionBlock(
     params.tx,
     params.address,
@@ -434,6 +442,11 @@ async function zapSwap(params: {
     throw new Error("Error getting transaction block for zap");
   }
 
+  const slippageReducedAmount = new Decimal(
+    quoteResponse.returnAmountWithDecimal,
+  )
+    .mul(new Decimal(1).sub(params.slippage))
+    .floor();
   const [returnCoinOut] = params.tx.splitCoins(coinOut, [
     slippageReducedAmount.toString(),
   ]);
@@ -576,25 +589,28 @@ async function deposit(params: {
   poolName: PoolName;
 }) {
   // fee charge
-  const feePercentage = 0.05;
-  const amountAFee = ((Number(params.amountA) * feePercentage) / 100).toFixed(
-    0,
-  );
-  const amountBFee = ((Number(params.amountB) * feePercentage) / 100).toFixed(
-    0,
-  );
-  const [feeCoinA] = params.tx.splitCoins(params.coinA, [amountAFee]);
-  const [feeCoinB] = params.tx.splitCoins(params.coinB, [amountBFee]);
-  params.tx.transferObjects([feeCoinA, feeCoinB], getConf().FEE_ADDRESS);
+  const feePercentage = 0;
+  if (feePercentage > 0) {
+    const amountAFee = ((Number(params.amountA) * feePercentage) / 100).toFixed(
+      0,
+    );
+    const amountBFee = ((Number(params.amountB) * feePercentage) / 100).toFixed(
+      0,
+    );
+    const [feeCoinA] = params.tx.splitCoins(params.coinA, [amountAFee]);
+    const [feeCoinB] = params.tx.splitCoins(params.coinB, [amountBFee]);
+    params.tx.transferObjects([feeCoinA, feeCoinB], getConf().FEE_ADDRESS);
 
-  const [pool1, pool2] = poolInfo[params.poolName].assetTypes;
+    // Removing fee amounts from amounts
+    params.amountA = params.amountA.sub(amountAFee);
+    params.amountB = params.amountB.sub(amountBFee);
+  }
+
+  const pool1 = doubleAssetPoolCoinMap[params.poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[params.poolName].coin2;
   const receipt = await getReceipts(params.poolName, params.address, false);
   let depositCoinA: TransactionObjectArgument;
   let depositCoinB: TransactionObjectArgument;
-
-  // Removing fee amounts from amounts
-  params.amountA = params.amountA.sub(amountAFee);
-  params.amountB = params.amountB.sub(amountBFee);
 
   if (!params.amountA.eq(0) && !params.amountB.eq(0)) {
     // Conditional deposit calls based on pool and protocol
