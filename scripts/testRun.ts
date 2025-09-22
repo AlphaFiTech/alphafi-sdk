@@ -46,20 +46,21 @@ async function getCoinObject(
 
 async function runTest() {
   const { address, suiClient, keypair } = getExecStuff();
+  // zapDepositTxb 200000000n true BLUEFIN-STSUI-SUI 0.01 0x8983f49747f2c700a15dd22508a0af973b4f961c5c90fe7750188d8099e3fa1a
   const tx = await zapDepositTxb(
-    100_000n,
-    false,
-    "BLUEFIN-SUI-USDC",
+    100_000_000n,
+    true,
+    "BLUEFIN-STSUI-SUI",
     0.01,
     address, // "0xdad8b77b746f38cbac5044eb7b2c7232f9e38f30e2868f0e5bf311cd83554b5a",
   );
-  const quote = await zapDepositQuoteTxb(
-    100_000n,
-    false,
-    "BLUEFIN-SUI-USDC",
-    0.01,
-  );
-  console.log(quote);
+  // const quote = await zapDepositQuoteTxb(
+  //   100_000n,
+  //   false,
+  //   "BLUEFIN-SUI-USDC",
+  //   0.01,
+  // );
+  // console.log(quote);
   if (tx) {
     tx.setGasBudget(1_000_000_000n);
     // await suiClient
