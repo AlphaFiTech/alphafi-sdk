@@ -49,7 +49,10 @@ export {
   pendingRewardAmount,
 } from "./transactions/blueRewards.js";
 
-export { zapDepositTxb, getZapAmounts } from "./transactions/zapDeposit.js";
+export {
+  zapDepositTxb,
+  zapDepositQuoteTxb,
+} from "./transactions/zapDeposit.js";
 
 //
 export {

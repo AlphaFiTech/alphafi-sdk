@@ -258,6 +258,9 @@ export const conf = {
     CETUS_CLMM_VERSIONED:
       "0x4f6f2f638362505836114f313809b834dafd58e3910df5110f6e54e4e35c929b",
 
+    ALPHAFI_SWAPPER_PACKAGE_ID:
+      "0xaff9333d3d69aec8d4eca3acc80722bdb4607f53544201d1384fa54e5c7955da",
+
     // Coin Types
     // BETA_COIN_TYPE:
     //   "0x3813ca8aa2849b6369106ea749b0bdc5d72a671a267bf55a4be68c6c86fb911f::beta::BETA",
@@ -2670,6 +2673,9 @@ export const conf = {
       "0xe255c47472470c03bbefb1fc883459c2b978d3ad29aa8ee0c8c1ec9753fa7d01",
     CETUS_CLMM_VERSIONED:
       "0x4f6f2f638362505836114f313809b834dafd58e3910df5110f6e54e4e35c929b",
+
+    ALPHAFI_SWAPPER_PACKAGE_ID:
+      "0xaff9333d3d69aec8d4eca3acc80722bdb4607f53544201d1384fa54e5c7955da",
 
     // Coin Types
 
