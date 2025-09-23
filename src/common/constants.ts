@@ -244,6 +244,9 @@ export const conf = {
     CETUS_CLMM_VERSIONED:
       "0x4f6f2f638362505836114f313809b834dafd58e3910df5110f6e54e4e35c929b",
 
+    ALPHAFI_SWAPPER_PACKAGE_ID:
+      "0xaff9333d3d69aec8d4eca3acc80722bdb4607f53544201d1384fa54e5c7955da",
+
     // Coin Types
     // BETA_COIN_TYPE:
     //   "0x3813ca8aa2849b6369106ea749b0bdc5d72a671a267bf55a4be68c6c86fb911f::beta::BETA",
@@ -2576,6 +2579,9 @@ export const conf = {
     CETUS_CLMM_VERSIONED:
       "0x4f6f2f638362505836114f313809b834dafd58e3910df5110f6e54e4e35c929b",
 
+    ALPHAFI_SWAPPER_PACKAGE_ID:
+      "0xaff9333d3d69aec8d4eca3acc80722bdb4607f53544201d1384fa54e5c7955da",
+
     // Coin Types
 
     // BETA_COIN_TYPE: "", // always leave it empty here in production
@@ -4414,6 +4420,8 @@ export const conf = {
       "0x7242459a663c4e59434252ceb27c228f6b1f21f2ba506f3b62d71b19a7421cc1",
     BLUEFIN_XAUM_XBTC_POOL:
       "0xa873b036fa735c40b776a40dffdd1134ec4e24d4bbe8ae28de6bcc2a03ac4d81",
+    BLUEFIN_XAUM_USDC_POOL:
+      "0x458fc3722cc88babd7cbe78273aa5e4ecbdff75c76a2ad14cd1f75418b569649",
     BLUEFIN_XBTC_USDC_POOL:
       "0x1b0cc1c66185ceb8eccbc807c73243ce957f0053dfa1026149265bb2ff704a07",
 

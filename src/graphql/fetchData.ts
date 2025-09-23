@@ -17,57 +17,71 @@ import {
   GET_CETUS_POOLS,
 } from "./queries.js";
 
+type UserWalletData = {
+  userWallet: { coins: { name: string; amount: string }[] };
+};
+type ProtocolData = {
+  protocolData: {
+    totalValueLocked: unknown;
+    pools: { name: string; tvl: unknown }[];
+  };
+};
+type PortfolioData = { portfolio: { poolName: string; investment: unknown }[] };
+type ChainIdentifier = { chainIdentifier: string };
+
 export async function fetchUserWalletData(address: string) {
-  const { data } = await client.query({
+  const { data } = await client.query<UserWalletData>({
     query: GET_USER_WALLET_DATA,
     variables: { address },
   });
-  return data.userWallet;
+  return data?.userWallet;
 }
 
 export async function fetchProtocolData() {
-  const { data } = await client.query({
+  const { data } = await client.query<ProtocolData>({
     query: GET_PROTOCOL_DATA,
   });
-  return data.protocolData;
+  return data?.protocolData;
 }
 
 export async function fetchPortfolioData(address: string) {
-  const { data } = await client.query({
+  const { data } = await client.query<PortfolioData>({
     query: GET_PORTFOLIO_DATA,
     variables: { address },
   });
-  return data.portfolio;
+  return data?.portfolio;
 }
 
 export async function fetchChainIdentifier() {
-  const { data } = await client.query({
+  const { data } = await client.query<ChainIdentifier>({
     query: GET_CHAIN_IDENTIFIER,
   });
-  return data.chainIdentifier;
+  return data?.chainIdentifier;
 }
 
 export async function fetchUserVaults(walletAddress: string) {
-  const { data } = await client.query({
+  const { data } = await client.query<{ owner: unknown }>({
     query: GET_USER_VAULTS,
     variables: {
       address: walletAddress,
     },
   });
-  return data.owner;
+  return (data as any)?.owner;
 }
 
 export async function fetchUserVaultBalances(walletAddress: string) {
-  const { data: poolsData } = await client.query({
+  const { data: poolsData } = await client.query<Record<string, unknown>>({
     query: GET_POOLS,
   });
-  const { data: cetusPoolsData } = await client.query({
+  const { data: cetusPoolsData } = await client.query<Record<string, unknown>>({
     query: GET_CETUS_POOLS,
   });
-  const { data: investorsData } = await client.query({
+  const { data: investorsData } = await client.query<Record<string, unknown>>({
     query: GET_INVESTORS,
   });
-  const { data: userVaultBalancesData } = await client.query({
+  const { data: userVaultBalancesData } = await client.query<
+    Record<string, unknown>
+  >({
     query: GET_USER_VAULT_BALANCES,
     variables: {
       address: walletAddress,
@@ -75,27 +89,27 @@ export async function fetchUserVaultBalances(walletAddress: string) {
   });
 
   const data = {
-    ...poolsData,
-    ...cetusPoolsData,
-    ...investorsData,
-    ...userVaultBalancesData,
+    ...(poolsData ?? {}),
+    ...(cetusPoolsData ?? {}),
+    ...(investorsData ?? {}),
+    ...(userVaultBalancesData ?? {}),
   };
 
   return data;
 }
 
 export async function fetchPools() {
-  const { data } = await client.query({
+  const { data } = await client.query<Record<string, unknown>>({
     query: GET_POOLS,
   });
-  return data;
+  return data ?? {};
 }
 
 export async function fetchCetusPools() {
-  const { data } = await client.query({
+  const { data } = await client.query<Record<string, unknown>>({
     query: GET_CETUS_POOLS,
   });
-  return data;
+  return data ?? {};
 }
 
 export {

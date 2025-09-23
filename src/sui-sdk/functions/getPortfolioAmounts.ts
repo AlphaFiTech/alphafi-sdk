@@ -300,7 +300,10 @@ export async function getSingleAssetPortfolioAmount(
     } else if (
       poolName == "NAVI-LOOP-HASUI-SUI" ||
       poolName == "NAVI-LOOP-SUI-VSUI" ||
-      poolName === "ALPHALEND-LOOP-SUI-STSUI"
+      poolName === "ALPHALEND-LOOP-SUI-STSUI" ||
+      poolName === "ALPHALEND-SINGLE-LOOP-TBTC" ||
+      poolName === "ALPHALEND-SINGLE-LOOP-SUIBTC" ||
+      poolName === "ALPHALEND-SINGLE-LOOP-XAUM"
     ) {
       if (pool && investor) {
         const liquidity = new Decimal(investor.content.fields.tokensDeposited);
@@ -316,12 +319,15 @@ export async function getSingleAssetPortfolioAmount(
         const userTokens = totalXTokens
           .mul(tokensInvested)
           .div(xTokenSupplyInPool);
-        const tokens = userTokens.div(
-          Math.pow(
-            10,
-            9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
-          ),
-        );
+        let tokens = userTokens;
+        if (poolInfo[poolName].parentProtocolName === "NAVI") {
+          tokens = userTokens.div(
+            Math.pow(
+              10,
+              9 - coinsList[singleAssetPoolCoinMap[poolName].coin].expo,
+            ),
+          );
+        }
         if (poolName == "NAVI-LOOP-SUI-VSUI") {
           // const { SevenKGateway } = await import("../");
           // const sevenKInstance = new SevenKGateway();
@@ -433,7 +439,7 @@ export async function getTokenBalance(
     const balanceInt = parseInt(coinBalance.totalBalance);
     balance = `${balanceInt}`;
     return balance;
-  } catch (e) {
+  } catch {
     console.error(`Could not get Balance for token: ${tokenName}`);
   }
 }
