@@ -771,7 +771,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_LBTC_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
-    retired: false,
+    retired: true,
     // add strategy type
   },
   "BLUEFIN-AUTOBALANCE-SUI-LBTC": {
@@ -823,7 +823,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/stsui.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "NAVI-SUIUSDT": {
     packageId: conf[CONF_ENV].ALPHA_3_LATEST_PACKAGE_ID,
@@ -881,7 +881,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    retired: false,
+    retired: true,
     // add strategy type
   },
   "ALPHALEND-LOOP-SUI-STSUI": {
@@ -1262,7 +1262,7 @@ export const poolInfo: {
     // add strategy type
     imageUrl1: "https://images.alphafi.xyz/adminweb/deep.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/sui-logo1.svg",
-    retired: false,
+    retired: true,
   },
   "BLUEFIN-WBTC-SUI": {
     packageId: conf[CONF_ENV].ALPHA_4_LATEST_PACKAGE_ID,
