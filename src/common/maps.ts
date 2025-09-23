@@ -861,7 +861,7 @@ export const poolInfo: {
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_REBALANCE_EVENT,
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_BLUEFIN_SUIBTC_USDC_POOL_LIQUIDITY_CHANGE_EVENT,
-    retired: false,
+    retired: true,
     // add strategy type
   },
   "ALPHALEND-LOOP-SUI-STSUI": {
