@@ -195,6 +195,7 @@ export const alphalendMarketIdMap: {
   TBTC: "14",
   SUIBTC: "3",
   XAUM: "18",
+  USDC: "6",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -439,6 +440,36 @@ export const poolInfo: {
     naviParentPoolCoinType?: string;
   };
 } = {
+  "ALPHALEND-SLUSH-SUI": {
+    packageId: conf[CONF_ENV].ALPHA_SLUSH_LATEST_PACKAGE_ID,
+    packageNumber: 11,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: "", //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHALEND_SLUSH_SUI_POOL,
+    investorId: "",
+    receiptName: "",
+    receiptType: "",
+    assetTypes: [coinsList["SUI"].type],
+    autoCompoundingEventType: "",
+    rebalanceEventType: undefined,
+    liquidityChangeEventType: "",
+    retired: false,
+  },
+  "ALPHALEND-SLUSH-USDC": {
+    packageId: conf[CONF_ENV].ALPHA_SLUSH_LATEST_PACKAGE_ID,
+    packageNumber: 11,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: "", //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHALEND_SLUSH_USDC_POOL,
+    investorId: "",
+    receiptName: "",
+    receiptType: "",
+    assetTypes: [coinsList["USDC"].type],
+    autoCompoundingEventType: "",
+    rebalanceEventType: undefined,
+    liquidityChangeEventType: "",
+    retired: false,
+  },
   "ALPHALEND-SINGLE-LOOP-XAUM": {
     packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
     packageNumber: 10,
