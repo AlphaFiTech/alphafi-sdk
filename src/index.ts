@@ -29,7 +29,7 @@ export {
   getCoinAmountsFromLiquidity,
   getLiquidity,
 } from "./transactions/deposit.js";
-export { migrateBoostedToLoop } from "./transactions/navi-looping.js";
+// export { migrateBoostedToLoop } from "./transactions/navi-looping.js";
 export {
   withdrawTxb,
   coinAmountToXTokensDoubleAsset,
@@ -132,7 +132,7 @@ export {
   doubleAssetPoolCoinMap,
   singleAssetPoolCoinMap,
   loopingPoolCoinMap,
-  naviAssetMap,
+  //   naviAssetMap,
   ignoredWalletsForDailyRevenue,
   alphalendMarketIdMap,
   AUTOBALANCE_SUI_FIRST_POOLS,

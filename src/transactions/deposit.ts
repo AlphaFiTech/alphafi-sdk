@@ -7,7 +7,7 @@ import {
   PoolName,
 } from "../common/types.js";
 import { depositAlphaTxb } from "./alpha.js";
-import { naviDepositTx } from "./navi.js";
+// import { naviDepositTx } from "./navi.js";
 import { bucketDepositTx } from "./bucket.js";
 import {
   depositCetusAlphaSuiTxb,
@@ -22,7 +22,7 @@ import {
   depositBluefinType1Txb,
   depositBluefinType2Txb,
 } from "./bluefin.js";
-import { loopingDeposit } from "./navi-looping.js";
+// import { loopingDeposit } from "./navi-looping.js";
 import { ClmmPoolUtil, TickMath } from "@cetusprotocol/cetus-sui-clmm-sdk";
 import BN from "bn.js";
 import {
@@ -45,13 +45,15 @@ export async function depositSingleAssetTxb(
     txb = await depositAlphaTxb(amount, address);
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketDepositTx(amount, { address });
-  } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
-    if (poolInfo[poolName].strategyType === "LOOPING") {
-      txb = await loopingDeposit(poolName, amount, { address });
-    } else {
-      txb = await naviDepositTx(amount, poolName, { address });
-    }
-  } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
+  }
+  // else if (poolInfo[poolName].parentProtocolName === "NAVI") {
+  // if (poolInfo[poolName].strategyType === "LOOPING") {
+  // txb = await loopingDeposit(poolName, amount, { address });
+  // } else {
+  // txb = await naviDepositTx(amount, poolName, { address });
+  // }
+  // }
+  else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
     if (poolInfo[poolName].strategyType === "LOOPING") {
       txb = await alphalendLoopingDeposit(poolName, amount, { address });
     } else if (poolInfo[poolName].strategyType === "SINGLE-LOOPING") {
