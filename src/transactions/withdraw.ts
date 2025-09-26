@@ -14,10 +14,10 @@ import {
   withdrawBluefinType1Txb,
   withdrawBluefinType2Txb,
 } from "./bluefin.js";
-import { naviWithdrawTx } from "./navi.js";
+// import { naviWithdrawTx } from "./navi.js";
 import { bucketWithdrawTx } from "./bucket.js";
 import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
-import { loopingWithdraw } from "./navi-looping.js";
+// import { loopingWithdraw } from "./navi-looping.js";
 import { getEstimatedGasBudget, getLiquidity } from "./deposit.js";
 import {
   alphalendLoopingWithdraw,
@@ -78,11 +78,15 @@ export async function withdrawTxb(
         address,
       });
     }
-  } else if (poolInfo[poolName].parentProtocolName === "NAVI") {
-    if (poolInfo[poolName].strategyType === "LOOPING") {
-      txb = await loopingWithdraw(poolName, xTokensAmount, { address });
-    } else txb = await naviWithdrawTx(xTokensAmount, poolName, { address });
-  } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
+  }
+  // else if (poolInfo[poolName].parentProtocolName === "NAVI") {
+  //   if (poolInfo[poolName].strategyType === "LOOPING") {
+  //     // txb = await loopingWithdraw(poolName, xTokensAmount, { address });
+  //   } else {
+  //     // txb = await naviWithdrawTx(xTokensAmount, poolName, { address });
+  //   }
+  // }
+  else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
     if (poolInfo[poolName].strategyType === "LOOPING") {
