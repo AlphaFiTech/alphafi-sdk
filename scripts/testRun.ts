@@ -9,6 +9,9 @@ import {
   zapDepositQuoteTxb,
   zapDepositTxb,
 } from "../src/transactions/zapDeposit";
+import { getConf } from "../src";
+import { getAvailableRewards } from "../src/transactions/get_navi_rewards";
+import { naviDepositTx } from "../src/transactions/navi";
 
 dotenv.config();
 
@@ -47,13 +50,14 @@ async function getCoinObject(
 async function runTest() {
   const { address, suiClient, keypair } = getExecStuff();
   // zapDepositTxb 200000000n true BLUEFIN-STSUI-SUI 0.01 0x8983f49747f2c700a15dd22508a0af973b4f961c5c90fe7750188d8099e3fa1a
-  const tx = await zapDepositTxb(
-    100_000_000n,
-    true,
-    "BLUEFIN-STSUI-SUI",
-    0.01,
-    address, // "0xdad8b77b746f38cbac5044eb7b2c7232f9e38f30e2868f0e5bf311cd83554b5a",
-  );
+  // const tx = await zapDepositTxb(
+  //   100_000_000n,
+  //   true,
+  //   "BLUEFIN-STSUI-SUI",
+  //   0.01,
+  //   address, // "0xdad8b77b746f38cbac5044eb7b2c7232f9e38f30e2868f0e5bf311cd83554b5a",
+  // );
+  const tx = await naviDepositTx("100000", "NAVI-NAVX", { address });
   // const quote = await zapDepositQuoteTxb(
   //   100_000n,
   //   false,
@@ -83,5 +87,15 @@ async function runTest() {
     await simulateTransactionBlock(tx);
   }
 }
-
 runTest();
+
+async function getAvailableRewardsTest() {
+  const rewards = await getAvailableRewards(
+    getConf().NAVI_VSUI_ACCOUNT_ADDRESS,
+  );
+  console.log("rewards", rewards);
+}
+
+// Hey guys, I am trying to run this script but it returns some cloudflare related error. Is there any way to bypass this?
+
+// getAvailableRewardsTest();
