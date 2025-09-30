@@ -2247,7 +2247,7 @@ export const conf = {
     LENDING_PROTOCOL_ID:
       "0x01d9cf05d65fa3a9bb7163095139120e3c4e414dfbab153a49779a7d14010b93",
     ALPHAFI_STDLIB_PACKAGE_ID:
-      "0x9f940d202e7e147ea512d0ea84f5d84cb9575850a95cea485d2fa94eb229d6c0",
+      "0x4b591bbc246c9fadd28e7ac895e0778fb0e102f1b0d9f441e78d35f0d1ea1fcc",
     // Event-related Timestamps
     // format: module_event_start/end
     ALPHA_MODULE_DEPOSIT_EVENT_END_TIME: 1724074240881,
