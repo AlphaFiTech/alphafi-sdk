@@ -85,7 +85,7 @@ export async function fetchRequiredPrices(): Promise<{
       coin = "SUI";
     }
     if (!coin) {
-      console.error(`Coin not found for coinType: ${data.coinType}`);
+      // console.error(`Coin not found for coinType: ${data.coinType}`);
       continue;
     }
     priceMap[coin] = data.coingeckoPrice.toString();
