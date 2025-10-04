@@ -4,7 +4,6 @@ import {
   poolInfo,
   coinsList,
   PoolName,
-  getPool,
   doubleAssetPoolCoinMap,
   getParentPool,
   BluefinPoolType,
@@ -283,7 +282,7 @@ export async function pendingRewardAmount(
     let coin1Type = coinsList[doubleAssetPoolCoinMap[poolName].coin1].type;
     let coin2Type = coinsList[doubleAssetPoolCoinMap[poolName].coin2].type;
     await collectRewardTxb(poolName, true, txb);
-    
+
     if (AUTOBALANCE_SUI_FIRST_POOLS.includes(poolName)) {
       txb.moveCall({
         target: `${poolInf.packageId}::alphafi_bluefin_sui_first_pool::update_pool_v4`,
@@ -319,10 +318,7 @@ export async function pendingRewardAmount(
       });
       txb.moveCall({
         target: `${getConf().ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID}::alphafi_bluefin_sui_second_pool::get_cur_acc_per_xtoken`,
-        typeArguments: [
-          doubleAssetPoolCoinMap[poolName].coin1,
-          doubleAssetPoolCoinMap[poolName].coin2,
-        ],
+        typeArguments: [coin1Type, coin2Type],
         arguments: [txb.object(poolInfo[poolName].poolId)],
       });
     } else {
@@ -341,10 +337,7 @@ export async function pendingRewardAmount(
       });
       txb.moveCall({
         target: `${getConf().ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID}::alphafi_bluefin_type_1_pool::get_cur_acc_per_xtoken`,
-        typeArguments: [
-          doubleAssetPoolCoinMap[poolName].coin1,
-          doubleAssetPoolCoinMap[poolName].coin2,
-        ],
+        typeArguments: [coin1Type, coin2Type],
         arguments: [txb.object(poolInfo[poolName].poolId)],
       });
     }
@@ -352,9 +345,6 @@ export async function pendingRewardAmount(
       sender: userAddress,
       transactionBlock: txb,
     });
-    console.log(
-      parseReturnValue(res.results![res.results!.length - 1].returnValues![0]),
-    );
 
     const receipts = await getReceipts(poolName, userAddress, true);
     const receipt = receipts[0];
@@ -370,7 +360,6 @@ export async function pendingRewardAmount(
         "0x" + userPendingRewardsAll[i].fields.key.fields.name
       ] = userPendingRewardsAll[i].fields.value;
     }
-    const pool = await getPool(poolName, false);
     const currAccForAllRewards = parseReturnValue(
       res.results![res.results!.length - 1].returnValues![0],
     );
