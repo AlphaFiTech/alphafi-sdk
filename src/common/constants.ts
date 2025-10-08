@@ -825,7 +825,7 @@ export const conf = {
     // alphafi lyf
 
     ALPHAFI_LYF_STSUI_SUI_INVESTOR:
-      "0x8162b3989678e8233418255f4e2c87029ed16339641d5465e8de7c729254875e",
+      "0x43a974507f71bd9f67f15675db578be582d3fffb59e93a8707907f889a8d2f66",
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
