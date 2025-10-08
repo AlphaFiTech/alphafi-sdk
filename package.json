@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.94",
+  "version": "0.0.96",
   "description": "Official AlphaFi SDK to access AlphaFi data",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -70,8 +70,7 @@
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
-    "graphql": "^16.9.0",
-    "react": "^19.1.1"
+    "graphql": "^16.9.0"
   },
   "peerDependencies": {
     "@alphafi/stsui-sdk": "^0.0.22",
