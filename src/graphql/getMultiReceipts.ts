@@ -15,19 +15,19 @@ type ReceiptType = {
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: "https://sui-mainnet.mystenlabs.com/graphql",
+    uri: "https://graphql.mainnet.sui.io/graphql",
   }),
   cache: new InMemoryCache({
     typePolicies: {
-      Owner: {
-        keyFields: (owner) => {
-          const objectKeys = Object.keys(owner)
+      Address: {
+        keyFields: (addressObj) => {
+          const objectKeys = Object.keys(addressObj)
             .filter((k) => k !== "__typename")
             .sort();
           const uniqueKey = objectKeys.join(",");
 
           // Return the final unique ID string
-          return `Owner:${uniqueKey}`;
+          return `Address:${uniqueKey}`;
         },
       },
     },
@@ -81,7 +81,7 @@ export async function fetchMultiReceipts(
         `;
 
         type ReceiptBatchResponse = {
-          owner: Record<
+          address: Record<
             string,
             | undefined
             | {
@@ -96,10 +96,12 @@ export async function fetchMultiReceipts(
             address: address,
           },
         });
+        console.log("result", result);
 
         const data = result.data;
         if (!data) break;
-        const receipts = data.owner;
+        const receipts = data.address;
+        console.log("receipts", receipts);
         hasNextPage = false;
 
         Object.keys(receipts).forEach((key) => {
