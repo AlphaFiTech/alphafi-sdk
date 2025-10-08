@@ -204,8 +204,17 @@ export async function getCoinAmountsFromLiquidity(
     CommonInvestorFields;
 
   const upper_bound = 443636;
-  let lower_tick = Number(investor!.content.fields.lower_tick);
-  let upper_tick = Number(investor!.content.fields.upper_tick);
+  let lower_tick = 0;
+  let upper_tick = 0;
+  if (poolInfo[poolName].strategyType === "LEVERAGE-YIELD-FARMING") {
+    const pool = (await getPool(poolName, ignoreCache)) as PoolType;
+    const investor = pool.content.fields.investor as BluefinLyfInvestor;
+    lower_tick = Number(investor.fields.lower_tick);
+    upper_tick = Number(investor.fields.upper_tick);
+  } else {
+    lower_tick = Number(investor.content.fields.lower_tick);
+    upper_tick = Number(investor.content.fields.upper_tick);
+  }
 
   if (lower_tick > upper_bound) {
     lower_tick = -~(lower_tick - 1);
