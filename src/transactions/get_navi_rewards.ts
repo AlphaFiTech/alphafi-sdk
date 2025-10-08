@@ -25,7 +25,7 @@ export async function getAvailableRewards(address: string) {
           },
         } as any,
       );
-    } catch (_) {
+    } catch {
       // Fallback: if URL parsing fails, just use the original fetch
       return originalFetch(input as any, init as any);
     }
