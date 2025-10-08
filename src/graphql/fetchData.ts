@@ -60,13 +60,13 @@ export async function fetchChainIdentifier() {
 }
 
 export async function fetchUserVaults(walletAddress: string) {
-  const { data } = await client.query<{ owner: unknown }>({
+  const { data } = await client.query<{ address: unknown }>({
     query: GET_USER_VAULTS,
     variables: {
       address: walletAddress,
     },
   });
-  return (data as any)?.owner;
+  return (data as any)?.address;
 }
 
 export async function fetchUserVaultBalances(walletAddress: string) {

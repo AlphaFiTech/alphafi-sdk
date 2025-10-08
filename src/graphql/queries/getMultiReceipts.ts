@@ -1,7 +1,7 @@
 export function getMultiReceiptsQuery(receiptTypes: any) {
   let query = `
     query GetUserVaultBalances($address: SuiAddress!) {
-      owner(address: $address) {`;
+      address(address: $address) {`;
 
   Object.keys(receiptTypes).forEach((key) => {
     if (receiptTypes[key].cursor === "") {
