@@ -96,12 +96,10 @@ export async function fetchMultiReceipts(
             address: address,
           },
         });
-        console.log("result", result);
 
         const data = result.data;
         if (!data) break;
         const receipts = data.address;
-        console.log("receipts", receipts);
         hasNextPage = false;
 
         Object.keys(receipts).forEach((key) => {
