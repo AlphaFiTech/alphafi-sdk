@@ -21,6 +21,7 @@ import {
   getConf,
   BluefinPoolType,
   AlphaLendInvestor,
+  BluefinLyfInvestor,
 } from "../../index.js";
 import { poolInfo } from "../../common/maps.js";
 import { Decimal } from "decimal.js";
@@ -571,7 +572,13 @@ export async function getInvestor(
       } else if (poolInfo[poolName].parentProtocolName == "BUCKET") {
         cetusInvestor = o.data as BucketInvestor & CommonInvestorFields;
       } else if (poolInfo[poolName].parentProtocolName == "BLUEFIN") {
-        cetusInvestor = o.data as BluefinInvestor & CommonInvestorFields;
+        if (poolInfo[poolName].strategyType === "LEVERAGE-YIELD-FARMING") {
+          const pool = (await getPool(poolName, ignoreCache)) as PoolType;
+          cetusInvestor = pool.content.fields.investor as BluefinLyfInvestor &
+            CommonInvestorFields;
+        } else {
+          cetusInvestor = o.data as BluefinInvestor & CommonInvestorFields;
+        }
       } else if (poolInfo[poolName].parentProtocolName == "ALPHALEND") {
         cetusInvestor = o.data as AlphaLendInvestor & CommonInvestorFields;
       } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
