@@ -261,6 +261,19 @@ export async function calculateAprForInvestor(
               ),
             ),
           );
+        const totalAccruedInterestUsd = new Decimal(c1Price)
+          .mul(
+            new Decimal(event.accrued_interest_a.toString()).div(
+              Math.pow(10, coinsList[c1].expo),
+            ),
+          )
+          .plus(
+            new Decimal(c2Price).mul(
+              new Decimal(event.accrued_interest_b.toString()).div(
+                Math.pow(10, coinsList[c2].expo),
+              ),
+            ),
+          );
         const totalCompoundUsd = new Decimal(c1Price)
           .mul(
             new Decimal(event.compound_amount_a.toString()).div(
@@ -273,7 +286,8 @@ export async function calculateAprForInvestor(
                 Math.pow(10, coinsList[c2].expo),
               ),
             ),
-          );
+          )
+          .minus(totalAccruedInterestUsd);
         if (totalAmountUsd.gt(0)) {
           const totalDebtUsd = new Decimal(c1Price)
             .mul(

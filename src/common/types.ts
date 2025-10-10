@@ -337,22 +337,15 @@ export type AlphaLendInvestor = NaviInvestor & {
 };
 export type BluefinLyfInvestor = BluefinInvestor &
   AlphaLendInvestor & {
-    fields: {
-      cur_debt_a: number;
-      cur_debt_b: number;
-      current_debt_to_supply_ratio: {
-        type: string;
-        fields: {
-          value: number;
-        };
-      };
-      free_balance_a: string;
-      free_balance_b: string;
-      lower_tick: string;
-      upper_tick: string;
-      position_cap: {
-        fields: {
-          position_id: string;
+    content: {
+      fields: {
+        cur_debt_a: number;
+        cur_debt_b: number;
+        current_debt_to_supply_ratio: {
+          type: string;
+          fields: {
+            value: number;
+          };
         };
       };
     };

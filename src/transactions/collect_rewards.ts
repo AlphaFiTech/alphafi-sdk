@@ -877,6 +877,7 @@ export async function collectAndSwapRewardsLyf(
           txb.pure.bool(true),
           txb.pure.bool(true),
           txb.pure.bool(true),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
@@ -898,6 +899,7 @@ export async function collectAndSwapRewardsLyf(
           txb.pure.bool(true),
           txb.pure.bool(true),
           txb.pure.bool(false),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
@@ -919,6 +921,7 @@ export async function collectAndSwapRewardsLyf(
           txb.pure.bool(true),
           txb.pure.bool(true),
           txb.pure.bool(false),
+          txb.object(getConf().SUI_SYSTEM_STATE),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });

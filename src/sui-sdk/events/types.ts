@@ -24,6 +24,8 @@ export interface CetusAutoCompoundingEvent {
 export interface LyfAutoCompoundingEvent extends CetusAutoCompoundingEvent {
   cur_debt_a: bigint;
   cur_debt_b: bigint;
+  accrued_interest_a: bigint;
+  accrued_interest_b: bigint;
 }
 
 export interface NaviAutoCompoundingEvent {

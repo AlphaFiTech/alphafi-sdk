@@ -183,15 +183,15 @@ export const conf = {
       "0xfec16d61abb38d9223267dfdf5af16ab0d8de05664beb6b3d41394c37d1553fb",
     ],
     ALPHA_LYF_FIRST_PACKAGE_ID:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ALPHA_LYF_LATEST_PACKAGE_ID:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
 
     ALPHA_LYF_MODULE_PACKAGE_IDS: [
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ],
     ALPHA_LYF_PACKAGE_IDS: [
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ],
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
@@ -230,7 +230,7 @@ export const conf = {
       "0x667597483ce34d76254005081af09f5c17380c5b70ea1c0f1ca7a766c80be142",
 
     ALPHA_LYF_VERSION:
-      "0x2e537dc4ec6c53bc0cb5b020f483785675df4a92f8e209e8bb6a034aafe749f1",
+      "0x7f60ba67076924a86180aacd5e29085f27753f47f49c101f7f0ef75ed89d832b",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -504,7 +504,7 @@ export const conf = {
 
     //lyf pools
     ALPHAFI_LYF_STSUI_SUI_POOL:
-      "0x568589bb83305580a056607165f59223f2fc730a1fb67ddf6c0e93011306b83a",
+      "0xbc1f37227c1d252b8d0a5339bf714e7c79707137f10d00a726cf278aa8da1381",
 
     // CETUS Pool Id's
 
@@ -825,7 +825,7 @@ export const conf = {
     // alphafi lyf
 
     ALPHAFI_LYF_STSUI_SUI_INVESTOR:
-      "0x43a974507f71bd9f67f15675db578be582d3fffb59e93a8707907f889a8d2f66",
+      "0x52529dd5f0dc58e55cfbb75a79dbd25df86ca6984a8c2b8e62a9d0605d2b6e24",
     // Receipt Types
 
     ALPHA_POOL_RECEIPT:
@@ -1038,7 +1038,7 @@ export const conf = {
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_RECEIPT:
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
     ALPHAFI_LYF_STSUI_SUI_RECEIPT:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271::alphafi_lyf_pool::Receipt",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3::alphafi_lyf_pool::Receipt",
     // Receipt Names
     ALPHA_POOL_RECEIPT_NAME: "Betafi-BETA-receipt",
 
@@ -1430,7 +1430,7 @@ export const conf = {
     ALPHAFI_BLUEFIN_AUTOBALANCE_WAL_USDC_POOL_OLD_AUTO_COMPOUNDING_EVENT:
       "0x754afbce8c72c8e491e3b9d536aa9d9766fdbc68650224ce01072189b235eee3::alphafi_bluefin_type_1_investor::AutoCompoundingEvent",
     ALPHAFI_LYF_STSUI_SUI_AUTO_COMPOUNDING_EVENT:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271::alphafi_lyf_investor::AutoCompoundingEvent",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3::alphafi_lyf_investor::AutoCompoundingEvent",
 
     //ALPHALEND SINGLE LOOP
     ALPHAFI_ALPHALEND_SINGLE_LOOP_TBTC_POOL_AUTO_COMPOUNDING_EVENT: "",
@@ -2600,15 +2600,15 @@ export const conf = {
       "0xec4cb6335d046a48b6e027146e6b6d5a918f690b5eff183cd8921a858bafcf27",
     ],
     ALPHA_LYF_FIRST_PACKAGE_ID:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ALPHA_LYF_LATEST_PACKAGE_ID:
       "0x5623ed620b9d90da0f28e2a3ec9160f2bc35e0f40a000cc23393ecd3d26cd4ea",
 
     ALPHA_LYF_MODULE_PACKAGE_IDS: [
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ],
     ALPHA_LYF_PACKAGE_IDS: [
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3",
     ],
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
@@ -3541,7 +3541,7 @@ export const conf = {
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_RECEIPT:
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
     ALPHAFI_LYF_STSUI_SUI_RECEIPT:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271::alphafi_lyf_pool::Receipt",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3::alphafi_lyf_pool::Receipt",
 
     // Receipt Names
 
@@ -3960,7 +3960,7 @@ export const conf = {
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
 
     ALPHAFI_LYF_STSUI_SUI_AUTO_COMPOUNDING_EVENT:
-      "0x1e81d153f6cb0300958b1db1cb690aa8833f6d1ea8d00faa02a3ef732671c271::alphafi_lyf_investor::AutoCompoundingEvent",
+      "0x09790c044c823e15d86227ddf6b55d7f49f936c7ba3cf2601d3776435ec26dc3::alphafi_lyf_investor::AutoCompoundingEvent",
 
     //Rebalance Event Types
 

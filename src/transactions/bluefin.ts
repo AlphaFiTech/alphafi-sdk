@@ -2063,6 +2063,7 @@ export const withdrawBluefinSuiSecondTxb = async (
             txb.object(getConf().LENDING_PROTOCOL_ID),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(poolinfo.parentPoolId),
+            txb.object(getConf().SUI_SYSTEM_STATE),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });

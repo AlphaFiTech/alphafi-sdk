@@ -574,8 +574,15 @@ export async function getInvestor(
       } else if (poolInfo[poolName].parentProtocolName == "BLUEFIN") {
         if (poolInfo[poolName].strategyType === "LEVERAGE-YIELD-FARMING") {
           const pool = (await getPool(poolName, ignoreCache)) as PoolType;
-          cetusInvestor = pool.content.fields.investor as BluefinLyfInvestor &
-            CommonInvestorFields;
+          let lyfInvestorTemp = pool.content.fields.investor as any;
+          let lyfInvestor = {
+            content: {
+              fields: {
+                ...lyfInvestorTemp.fields,
+              },
+            },
+          } as BluefinLyfInvestor & CommonInvestorFields;
+          cetusInvestor = lyfInvestor;
         } else {
           cetusInvestor = o.data as BluefinInvestor & CommonInvestorFields;
         }

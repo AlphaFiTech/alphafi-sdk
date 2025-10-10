@@ -106,6 +106,12 @@ export async function fetchEvents(
           total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
           cur_debt_a: BigInt(suiEventJson.cur_debt_a.toString()),
           cur_debt_b: BigInt(suiEventJson.cur_debt_b.toString()),
+          accrued_interest_a: BigInt(
+            suiEventJson.accrued_interest_a.toString(),
+          ),
+          accrued_interest_b: BigInt(
+            suiEventJson.accrued_interest_b.toString(),
+          ),
           txDigest: suiEvent.id.txDigest,
           eventSeq: Number(suiEvent.id.eventSeq),
           transactionModule: suiEvent.transactionModule,
