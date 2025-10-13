@@ -1377,14 +1377,12 @@ export async function naviDepositTx(
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
           ]
             ? claimableRewards[
-                coinsList[singleAssetPoolCoinMap[poolName].coin].type.substring(
-                  2,
-                )
-              ]
+            coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
             : [
-                { rewardCoinType: coinsList["WAL"].type },
-                { rewardCoinType: coinsList["VSUI"].type },
-              ]) {
+              { rewardCoinType: coinsList["WAL"].type },
+              { rewardCoinType: coinsList["VSUI"].type },
+            ]) {
             if (reward.rewardCoinType === coinsList["WAL"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
