@@ -113,6 +113,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-DEEP-SUI-175": { coin1: "DEEP", coin2: "SUI" },
   "BLUEFIN-AUTOBALANCE-WAL-SUI": { coin1: "WAL", coin2: "SUI" },
   "BLUEFIN-AUTOBALANCE-SUI-USDC-175": { coin1: "SUI", coin2: "USDC" },
+  "BLUEFIN-AUTOBALANCE-XBTC-SUIBTC": { coin1: "XBTC", coin2: "SUIBTC" },
 };
 
 export const singleAssetPoolCoinMap: {
