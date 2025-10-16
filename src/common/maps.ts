@@ -198,6 +198,8 @@ export const alphalendMarketIdMap: {
   SUIBTC: "3",
   XAUM: "18",
   USDC: "6",
+  WAL: "7",
+  DEEP: "11",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -472,7 +474,7 @@ export const poolInfo: {
     autoCompoundingEventType: "",
     rebalanceEventType: undefined,
     liquidityChangeEventType: "",
-    retired: false
+    retired: false,
   },
   "BLUEFIN-AUTOBALANCE-XBTC-SUIBTC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
