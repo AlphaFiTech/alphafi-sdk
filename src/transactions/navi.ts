@@ -646,7 +646,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -728,7 +732,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps`,
@@ -888,7 +896,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -996,7 +1008,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -1120,7 +1136,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
@@ -1269,7 +1289,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["NAVX"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -1353,9 +1377,7 @@ export async function naviDepositTx(
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
           ]
             ? claimableRewards[
-                coinsList[singleAssetPoolCoinMap[poolName].coin].type.substring(
-                  2,
-                )
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
               ]
             : [
                 { rewardCoinType: coinsList["WAL"].type },
@@ -1440,7 +1462,11 @@ export async function naviDepositTx(
         if (claimableRewards) {
           for (const reward of claimableRewards[
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
-          ]) {
+          ]
+            ? claimableRewards[
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
+              ]
+            : []) {
             if (reward.rewardCoinType === coinsList["DEEP"].type) {
               txb.moveCall({
                 target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -1765,7 +1791,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_three_swaps`,
@@ -2041,7 +2071,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_investor::collect_v3_rewards_with_three_swaps`,
@@ -2136,7 +2170,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -2216,7 +2254,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps`,
@@ -2370,7 +2412,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -2476,7 +2522,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -2598,7 +2648,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_two_swaps_bluefin`,
@@ -2747,7 +2801,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
@@ -2915,7 +2973,11 @@ export async function naviWithdrawTx(
       if (claimableRewards) {
         for (const reward of claimableRewards[
           coinsList[singleAssetPoolCoinMap[poolName].coin].type
-        ]) {
+        ]
+          ? claimableRewards[
+              coinsList[singleAssetPoolCoinMap[poolName].coin].type
+            ]
+          : []) {
           if (reward.rewardCoinType === coinsList["DEEP"].type) {
             txb.moveCall({
               target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::collect_reward_with_no_swap`,
