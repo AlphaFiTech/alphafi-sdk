@@ -44,6 +44,7 @@ export const AUTOBALANCE_TYPE_1_POOLS = [
   "BLUEFIN-AUTOBALANCE-DEEP-BLUE",
   "BLUEFIN-AUTOBALANCE-WAL-USDC",
   "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO",
+  "BLUEFIN-AUTOBALANCE-XBTC-SUIBTC",
 ];
 
 export const doubleAssetPoolCoinMap: {
@@ -113,6 +114,7 @@ export const doubleAssetPoolCoinMap: {
   "BLUEFIN-AUTOBALANCE-WAL-SUI": { coin1: "WAL", coin2: "SUI" },
   "BLUEFIN-AUTOBALANCE-SUI-USDC-175": { coin1: "SUI", coin2: "USDC" },
   "BLUEFIN-LYF-STSUI-SUI": { coin1: "STSUI", coin2: "SUI" },
+  "BLUEFIN-AUTOBALANCE-XBTC-SUIBTC": { coin1: "XBTC", coin2: "SUIBTC" },
 };
 
 export const singleAssetPoolCoinMap: {
@@ -248,6 +250,7 @@ export const cetusPoolMap: { [key: string]: string } = {
   "SUIBTC-LBTC": conf[CONF_ENV].SUIBTC_LBTC_CETUS_POOL_ID,
   "WAL-SUI": conf[CONF_ENV].WAL_SUI_CETUS_POOL_ID,
   "USDC-WAL": conf[CONF_ENV].USDC_WAL_CETUS_POOL_ID,
+  "SUIBTC-XBTC": conf[CONF_ENV].SUIBTC_XBTC_CETUS_POOL_ID,
 };
 
 export const bluefinPoolMap: { [key: string]: string } = {
@@ -297,6 +300,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "XAUM-XBTC": conf[CONF_ENV].BLUEFIN_XAUM_XBTC_POOL,
   "XAUM-USDC": conf[CONF_ENV].BLUEFIN_XAUM_USDC_POOL,
   "XBTC-USDC": conf[CONF_ENV].BLUEFIN_XBTC_USDC_POOL,
+  "XBTC-SUIBTC": conf[CONF_ENV].BLUEFIN_XBTC_SUIBTC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -457,6 +461,29 @@ export const poolInfo: {
     liquidityChangeEventType:
       conf[CONF_ENV].ALPHAFI_LYF_STSUI_SUI_POOL_LIQUIDITY_CHANGE_EVENT,
     strategyType: "LEVERAGE-YIELD-FARMING",
+    retired: false,
+  },
+  "BLUEFIN-AUTOBALANCE-XBTC-SUIBTC": {
+    packageId: conf[CONF_ENV].ALPHA_BLUEFIN_AUTOBALANCE_LATEST_PACKAGE_ID,
+    packageNumber: 7,
+    parentProtocolName: "BLUEFIN",
+    parentPoolId: conf[CONF_ENV].BLUEFIN_XBTC_SUIBTC_POOL,
+    poolId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["XBTC"].type, coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_POOL_REBALANCE_EVENT,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "AUTOBALANCE-LIQUIDITY-POOL",
     retired: false,
   },
   "ALPHALEND-SINGLE-LOOP-XAUM": {
