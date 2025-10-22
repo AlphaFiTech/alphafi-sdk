@@ -152,7 +152,8 @@ export type CoinName =
   | "EBTC"
   | "EGUSDC"
   | "ETHIRD"
-  | "EXBTC";
+  | "EXBTC"
+  | "SDEUSD";
 
 export type StrategyType =
   | "LOOPING"
@@ -263,7 +264,8 @@ export type CoinType =
   | "0x244b98d29bd0bba401c7cfdd89f017c51759dad615e15a872ddfe45af079bb1d::ebtc::EBTC"
   | "0x68532559a19101b58757012207d82328e75fde7a696d20a59e8307c1a7f42ad7::egusdc::EGUSDC"
   | "0x89b0d4407f17cc1b1294464f28e176e29816a40612f7a553313ea0a797a5f803::ethird::ETHIRD"
-  | "0x56589f5381303a763a62e79ac118e5242f83652f4c5a9448af75162d8cb7140c::exbtc::EXBTC";
+  | "0x56589f5381303a763a62e79ac118e5242f83652f4c5a9448af75162d8cb7140c::exbtc::EXBTC"
+  | "0xf6b468748dced8435f4407d0ecb0457b921a2e89266a60862e36dbf243c71841::sdeusd::SDEUSD";
 
 type ConfEnv = (typeof conf)[typeof CONF_ENV];
 export type PoolReceipt = ConfEnv[
@@ -519,16 +521,16 @@ export type Receipt = {
         };
       };
       locked_balance:
-        | {
-            type: string;
-            fields: {
-              head: string;
-              id: { id: string };
-              size: string;
-              tail: string;
-            };
-          }
-        | undefined;
+      | {
+        type: string;
+        fields: {
+          head: string;
+          id: { id: string };
+          size: string;
+          tail: string;
+        };
+      }
+      | undefined;
       name: string;
       owner: string;
       pending_rewards: {
