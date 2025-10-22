@@ -277,4 +277,22 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 6,
   },
+  ETHIRD: {
+    name: "ETHIRD",
+    type: "0x89b0d4407f17cc1b1294464f28e176e29816a40612f7a553313ea0a797a5f803::ethird::ETHIRD",
+    icon: "",
+    expo: 6,
+  },
+  EXBTC: {
+    name: "EXBTC",
+    type: "0x56589f5381303a763a62e79ac118e5242f83652f4c5a9448af75162d8cb7140c::exbtc::EXBTC",
+    icon: "",
+    expo: 8,
+  },
+  SDEUSD: {
+    name: "SDEUSD",
+    type: "0xf6b468748dced8435f4407d0ecb0457b921a2e89266a60862e36dbf243c71841::sdeusd::SDEUSD",
+    icon: "",
+    expo: 6,
+  },
 };
