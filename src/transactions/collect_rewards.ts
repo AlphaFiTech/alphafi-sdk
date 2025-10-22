@@ -810,38 +810,21 @@ export async function collectAndSwapRewardsSingleLoop(
       ],
     });
     txb.moveCall({
-      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
+      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_mmt`,
       typeArguments: [
         coinsList["XAUM"].type,
-        coinsList["XBTC"].type,
+        coinsList["XAUM"].type,
         coinsList["USDC"].type,
       ],
       arguments: [
         txb.object(C.ALPHA_ALPHALEND_VERSION),
         txb.object(poolData.investorId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`XBTC-USDC`]),
-        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.object(C.MMT_XAUM_USDC_POOL),
+        txb.object(C.MMT_VERSION),
         txb.pure.bool(false),
         txb.pure.bool(true),
-        txb.object(C.CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [
-        coinsList["XAUM"].type,
-        coinsList["XAUM"].type,
-        coinsList["XBTC"].type,
-      ],
-      arguments: [
-        txb.object(C.ALPHA_ALPHALEND_VERSION),
-        txb.object(poolData.investorId),
-        txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`XAUM-XBTC`]),
-        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-        txb.pure.bool(false),
-        txb.pure.bool(true),
+        txb.pure.u64(10),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });

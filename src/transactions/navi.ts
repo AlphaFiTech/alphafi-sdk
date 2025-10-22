@@ -1377,9 +1377,7 @@ export async function naviDepositTx(
             coinsList[singleAssetPoolCoinMap[poolName].coin].type
           ]
             ? claimableRewards[
-                coinsList[singleAssetPoolCoinMap[poolName].coin].type.substring(
-                  2,
-                )
+                coinsList[singleAssetPoolCoinMap[poolName].coin].type
               ]
             : [
                 { rewardCoinType: coinsList["WAL"].type },
