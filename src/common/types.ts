@@ -521,16 +521,16 @@ export type Receipt = {
         };
       };
       locked_balance:
-      | {
-        type: string;
-        fields: {
-          head: string;
-          id: { id: string };
-          size: string;
-          tail: string;
-        };
-      }
-      | undefined;
+        | {
+            type: string;
+            fields: {
+              head: string;
+              id: { id: string };
+              size: string;
+              tail: string;
+            };
+          }
+        | undefined;
       name: string;
       owner: string;
       pending_rewards: {
