@@ -1,6 +1,21 @@
 import { getUserAvailableLendingRewards } from "@naviprotocol/lending";
 
+// Mutex to ensure only one execution at a time
+let fetchMutex: Promise<void> = Promise.resolve();
+
 export async function getAvailableRewards(address: string) {
+  // Wait for any previous execution to complete
+  const currentLock = fetchMutex;
+  let releaseLock: () => void;
+
+  // Create new lock for this execution
+  fetchMutex = new Promise((resolve) => {
+    releaseLock = resolve;
+  });
+
+  // Wait for previous execution
+  await currentLock;
+
   const originalFetch = globalThis.fetch;
   const headerWrappedFetch = async (input: any, init?: any) => {
     try {
@@ -37,9 +52,7 @@ export async function getAvailableRewards(address: string) {
   try {
     const rewards = await getUserAvailableLendingRewards(address);
 
-    // Convert array to map organized by asset coin type (with 0x prefix)
     const rewardsByAsset: Record<string, any[]> = {};
-
     if (Array.isArray(rewards)) {
       for (const reward of rewards) {
         const assetKey = reward.assetCoinType;
@@ -55,5 +68,6 @@ export async function getAvailableRewards(address: string) {
     return rewardsByAsset;
   } finally {
     (globalThis as any).fetch = originalFetch as any;
+    releaseLock!(); // Release the lock for next execution
   }
 }
