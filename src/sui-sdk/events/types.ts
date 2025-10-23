@@ -21,6 +21,12 @@ export interface CetusAutoCompoundingEvent {
   total_amount_a: bigint;
   total_amount_b: bigint;
 }
+export interface LyfAutoCompoundingEvent extends CetusAutoCompoundingEvent {
+  cur_debt_a: bigint;
+  cur_debt_b: bigint;
+  accrued_interest_a: bigint;
+  accrued_interest_b: bigint;
+}
 
 export interface NaviAutoCompoundingEvent {
   compound_amount: bigint;
@@ -207,13 +213,16 @@ export type AfterTransactionEventNode =
         id: { eventSeq: number; txDigest: string };
       });
 
-export type AutoCompoundingEventNode =
-  | (CetusAutoCompoundingEvent & CommonEventAttributes)
-  | (NaviAutoCompoundingEvent & CommonEventAttributes)
-  | (NaviLoopAutoCompoundingEvent & CommonEventAttributes)
-  | (AlphaAutoCompoundingEvent & CommonEventAttributes)
-  | (AutobalancingAutoCompoundingEvent & CommonEventAttributes)
-  | (AutobalancingOldAutoCompoundingEvent & CommonEventAttributes);
+export type AutoCompoundingEventNode = (
+  | CetusAutoCompoundingEvent
+  | NaviAutoCompoundingEvent
+  | NaviLoopAutoCompoundingEvent
+  | AlphaAutoCompoundingEvent
+  | AutobalancingAutoCompoundingEvent
+  | AutobalancingOldAutoCompoundingEvent
+  | LyfAutoCompoundingEvent
+) &
+  CommonEventAttributes;
 
 export type RebalanceEventNode = RebalanceEvent & CommonEventAttributes;
 

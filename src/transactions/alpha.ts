@@ -1,7 +1,7 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { CoinStruct } from "@mysten/sui/client";
 import { getConf, getReceipts, getSuiClient, Receipt } from "../index.js";
-import { getEstimatedGasBudget } from "./deposit.js";
+// import { getEstimatedGasBudget } from "./deposit.js";
 
 export const depositAlphaTxb = async (
   amount: string,
@@ -111,8 +111,8 @@ export const withdrawAlphaTxb = async (
       ],
     });
     txb.setSender(address);
-    const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
-    if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
+    // const estimatedGasBudget = await getEstimatedGasBudget(txb, address);
+    // if (estimatedGasBudget) txb.setGasBudget(estimatedGasBudget);
     return txb;
   } else {
     throw new Error("No receipt found!");

@@ -2,6 +2,7 @@ import { Transaction } from "@mysten/sui/transactions";
 import { doubleAssetPoolCoinMap, poolInfo } from "../common/maps.js";
 import {
   BluefinInvestor,
+  BluefinLyfInvestor,
   CetusInvestor,
   CommonInvestorFields,
   PoolName,
@@ -191,12 +192,13 @@ export async function getCoinAmountsFromLiquidity(
   const investor = (await getInvestor(poolName, ignoreCache)) as (
     | CetusInvestor
     | BluefinInvestor
+    | BluefinLyfInvestor
   ) &
     CommonInvestorFields;
 
   const upper_bound = 443636;
-  let lower_tick = Number(investor!.content.fields.lower_tick);
-  let upper_tick = Number(investor!.content.fields.upper_tick);
+  let lower_tick = Number(investor.content.fields.lower_tick);
+  let upper_tick = Number(investor.content.fields.upper_tick);
 
   if (lower_tick > upper_bound) {
     lower_tick = -~(lower_tick - 1);

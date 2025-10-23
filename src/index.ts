@@ -21,7 +21,6 @@ export {
 } from "./getVaultBalances.js";
 
 // transactions
-export { collectAndSwapRewardsSingleLoop } from "./transactions/alphalend.js";
 export {
   depositDoubleAssetTxb,
   depositSingleAssetTxb,
@@ -38,7 +37,11 @@ export {
 
 export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
-export { claimRewardTxb } from "./transactions/collect_rewards.js";
+export {
+  claimRewardTxb,
+  collectAndSwapRewardsSingleLoop,
+  collectAndSwapRewardsLyf,
+} from "./transactions/collect_rewards.js";
 
 export {
   collectRewardTxb,

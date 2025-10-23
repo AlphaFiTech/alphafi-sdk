@@ -60,6 +60,7 @@ export async function fetchRequiredPrices(): Promise<{
       coinInfo {
         coinType
         coingeckoPrice
+        pythPrice
       }
     }`;
   const response = await fetch(apiUrl, {
@@ -84,11 +85,15 @@ export async function fetchRequiredPrices(): Promise<{
     if (data.coinType === "0x2::sui::SUI") {
       coin = "SUI";
     }
-    if (!coin || !data.coingeckoPrice) {
+    if (!coin || (!data.coingeckoPrice && !data.pythPrice)) {
       // console.error(`Coin not found for coinType: ${data.coinType}`);
       continue;
     }
-    priceMap[coin] = data.coingeckoPrice.toString();
+    if (data.pythPrice) {
+      priceMap[coin] = data.pythPrice.toString();
+    } else {
+      priceMap[coin] = data.coingeckoPrice.toString();
+    }
   }
   return priceMap;
 }

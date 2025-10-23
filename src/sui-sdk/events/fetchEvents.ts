@@ -3,22 +3,17 @@ import { EventId, PaginatedEvents } from "@mysten/sui/client";
 import {
   AlphaLiquidityChangeEvent,
   AlphaAutoCompoundingEvent,
-  CetusAutoCompoundingEvent,
   CetusLiquidityChangeEvent,
   EventNode,
   FetchEventsParams,
-  NaviAutoCompoundingEvent,
-  NaviLoopAutoCompoundingEvent,
   NaviLiquidityChangeEvent,
   RebalanceEvent,
   AutoCompoundingEventNode,
   AlphaWithdrawV2Event,
   AfterTransactionEventNode,
   CheckRatioEvent,
-  AutobalancingAutoCompoundingEvent,
   VoteCastEvent,
   AirdropClaimEvent,
-  AutobalancingOldAutoCompoundingEvent,
 } from "./types.js";
 import { poolInfo } from "../../common/maps.js";
 import { conf, CONF_ENV } from "../../common/constants.js";
@@ -76,11 +71,7 @@ export async function fetchEvents(
       }
 
       const suiEventJson = suiEvent.parsedJson as
-        | CetusAutoCompoundingEvent
-        | NaviAutoCompoundingEvent
-        | NaviLoopAutoCompoundingEvent
-        | AutobalancingAutoCompoundingEvent
-        | AutobalancingOldAutoCompoundingEvent
+        | AutoCompoundingEventNode
         | RebalanceEvent
         | CetusLiquidityChangeEvent
         | AlphaLiquidityChangeEvent
@@ -93,8 +84,40 @@ export async function fetchEvents(
         | AirdropClaimEvent;
 
       let eventNode: EventNode;
-
       if (
+        isAutoCompoundingEvent(suiEvent.type) &&
+        "compound_amount_a" in suiEventJson &&
+        "compound_amount_b" in suiEventJson &&
+        "cur_debt_a" in suiEventJson
+      ) {
+        // Handling LyfAutoCompoundingEvent
+        eventNode = {
+          type: suiEvent.type,
+          timestamp: Number(suiEvent.timestampMs),
+          compound_amount_a: BigInt(suiEventJson.compound_amount_a.toString()),
+          compound_amount_b: BigInt(suiEventJson.compound_amount_b.toString()),
+          current_liquidity: BigInt(suiEventJson.current_liquidity.toString()),
+          fee_collected_a: BigInt(suiEventJson.fee_collected_a.toString()),
+          fee_collected_b: BigInt(suiEventJson.fee_collected_b.toString()),
+          free_balance_a: BigInt(suiEventJson.free_balance_a.toString()),
+          free_balance_b: BigInt(suiEventJson.free_balance_b.toString()),
+          investor_id: suiEventJson.investor_id,
+          total_amount_a: BigInt(suiEventJson.total_amount_a.toString()),
+          total_amount_b: BigInt(suiEventJson.total_amount_b.toString()),
+          cur_debt_a: BigInt(suiEventJson.cur_debt_a.toString()),
+          cur_debt_b: BigInt(suiEventJson.cur_debt_b.toString()),
+          accrued_interest_a: BigInt(
+            suiEventJson.accrued_interest_a.toString(),
+          ),
+          accrued_interest_b: BigInt(
+            suiEventJson.accrued_interest_b.toString(),
+          ),
+          txDigest: suiEvent.id.txDigest,
+          eventSeq: Number(suiEvent.id.eventSeq),
+          transactionModule: suiEvent.transactionModule,
+          sender: suiEvent.sender,
+        };
+      } else if (
         isAutoCompoundingEvent(suiEvent.type) &&
         "compound_amount_a" in suiEventJson &&
         "compound_amount_b" in suiEventJson
