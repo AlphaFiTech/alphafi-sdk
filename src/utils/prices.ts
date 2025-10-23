@@ -84,7 +84,7 @@ export async function fetchRequiredPrices(): Promise<{
     if (data.coinType === "0x2::sui::SUI") {
       coin = "SUI";
     }
-    if (!coin) {
+    if (!coin || !data.coingeckoPrice) {
       // console.error(`Coin not found for coinType: ${data.coinType}`);
       continue;
     }
