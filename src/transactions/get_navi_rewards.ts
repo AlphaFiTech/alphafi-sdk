@@ -32,7 +32,6 @@ export async function getAvailableRewards(
     }
 
     const data = await response.json();
-    console.log("data", data);
 
     // The API returns { address, rewards, timestamp }
     // We just need the rewards object
