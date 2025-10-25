@@ -237,6 +237,83 @@ export async function calculateAprForInvestor(
       if (
         "total_amount_a" in event &&
         "total_amount_b" in event &&
+        "compound_amount_a" in event &&
+        "cur_debt_a" in event
+      ) {
+        let prevCompound = new Decimal(0);
+        const poolName = investorPoolMap.get(events[0].investor_id.toString());
+        const c1 = doubleAssetPoolCoinMap[poolName!].coin1;
+        const c2 = doubleAssetPoolCoinMap[poolName!].coin2;
+        const [c1Price, c2Price] = await getLatestPrices(
+          [`${c1}/USD`, `${c2}/USD`],
+          false,
+        );
+        const totalAmountUsd = new Decimal(c1Price)
+          .mul(
+            new Decimal(event.total_amount_a.toString()).div(
+              Math.pow(10, coinsList[c1].expo),
+            ),
+          )
+          .plus(
+            new Decimal(c2Price).mul(
+              new Decimal(event.total_amount_b.toString()).div(
+                Math.pow(10, coinsList[c2].expo),
+              ),
+            ),
+          );
+        const totalAccruedInterestUsd = new Decimal(c1Price)
+          .mul(
+            new Decimal(event.accrued_interest_a.toString()).div(
+              Math.pow(10, coinsList[c1].expo),
+            ),
+          )
+          .plus(
+            new Decimal(c2Price).mul(
+              new Decimal(event.accrued_interest_b.toString()).div(
+                Math.pow(10, coinsList[c2].expo),
+              ),
+            ),
+          );
+        const totalCompoundUsd = new Decimal(c1Price)
+          .mul(
+            new Decimal(event.compound_amount_a.toString()).div(
+              Math.pow(10, coinsList[c1].expo),
+            ),
+          )
+          .plus(
+            new Decimal(c2Price).mul(
+              new Decimal(event.compound_amount_b.toString()).div(
+                Math.pow(10, coinsList[c2].expo),
+              ),
+            ),
+          )
+          .minus(totalAccruedInterestUsd);
+        if (totalAmountUsd.gt(0)) {
+          const totalDebtUsd = new Decimal(c1Price)
+            .mul(
+              new Decimal(event.cur_debt_a.toString()).div(
+                Math.pow(10, coinsList[c1].expo),
+              ),
+            )
+            .plus(
+              new Decimal(c2Price).mul(
+                new Decimal(event.cur_debt_b.toString()).div(
+                  Math.pow(10, coinsList[c2].expo),
+                ),
+              ),
+            );
+          growthRate = Number(
+            prevCompound
+              .div(totalAmountUsd.minus(totalDebtUsd).minus(prevCompound))
+              .plus(totalCompoundUsd.div(totalAmountUsd.minus(totalDebtUsd))),
+          );
+          prevCompound = new Decimal(0);
+        } else {
+          prevCompound = prevCompound.plus(totalCompoundUsd);
+        }
+      } else if (
+        "total_amount_a" in event &&
+        "total_amount_b" in event &&
         "compound_amount_a" in event
       ) {
         let growthA = 0;

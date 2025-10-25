@@ -87,6 +87,7 @@ export type DoubleAssetPoolNames =
   | "USDC-SUIUSDT"
   | "BLUEFIN-WAL-USDC"
   | "BLUEFIN-WAL-STSUI"
+  | "BLUEFIN-LYF-STSUI-SUI"
   | AutoBalancePoolNames;
 
 export type AutoBalancePoolNames =
@@ -163,7 +164,8 @@ export type StrategyType =
   | "LENDING"
   | "LIQUID-STAKING"
   | "AUTOBALANCE-LIQUIDITY-POOL"
-  | "SINGLE-LOOPING";
+  | "SINGLE-LOOPING"
+  | "LEVERAGE-YIELD-FARMING";
 
 /**
  * Represents a coin with its name, type, icon, and exponent.
@@ -340,7 +342,21 @@ export type AlphaLendInvestor = NaviInvestor & {
     };
   };
 };
-
+export type BluefinLyfInvestor = BluefinInvestor &
+  AlphaLendInvestor & {
+    content: {
+      fields: {
+        cur_debt_a: number;
+        cur_debt_b: number;
+        current_debt_to_supply_ratio: {
+          type: string;
+          fields: {
+            value: number;
+          };
+        };
+      };
+    };
+  };
 export type BucketInvestor = {
   content: {
     fields: {
@@ -374,12 +390,15 @@ export type CommonInvestorFields = {
   };
 };
 
-export type Investor =
-  | (CetusInvestor & CommonInvestorFields)
-  | (NaviInvestor & CommonInvestorFields)
-  | (BucketInvestor & CommonInvestorFields)
-  | (BluefinInvestor & CommonInvestorFields)
-  | (AlphaLendInvestor & CommonInvestorFields);
+export type Investor = (
+  | CetusInvestor
+  | NaviInvestor
+  | BucketInvestor
+  | BluefinInvestor
+  | AlphaLendInvestor
+  | BluefinLyfInvestor
+) &
+  CommonInvestorFields;
 
 export type CetusPoolType = {
   objectId: string;
@@ -569,6 +588,7 @@ export type PoolType = {
       id: { id: string };
       xTokenSupply: string;
       tokensInvested: string;
+      investor?: Investor;
       // rewards: Bag,
       acc_rewards_per_xtoken: {
         type: string;

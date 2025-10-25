@@ -19,6 +19,8 @@ import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { getAmounts } from "./deposit.js";
 import { claimRewardsTxb, collectRewardTxb } from "./blueRewards.js";
+import { collectAndSwapRewardsLyf } from "../index.js";
+import { alphalendClient } from "./alphalend.js";
 
 export const depositBluefinSuiFirstTxb = async (
   amount: string,
@@ -405,6 +407,40 @@ export const depositBluefinSuiSecondTxb = async (
             txb.object(poolinfo.investorId),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(poolinfo.parentPoolId),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+      } else if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
+        const coinAType =
+          pool1 === "SUI" ? "0x2::sui::SUI" : coinsList[pool1].type;
+        const coinBType =
+          pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
+        await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
+        console.log(
+          alphalendClient.constants.ALPHAFI_LATEST_ORACLE_PACKAGE_ID,
+          alphalendClient.constants.ALPHAFI_ORACLE_OBJECT_ID,
+          alphalendClient.constants.ALPHALEND_LATEST_PACKAGE_ID,
+          alphalendClient.constants.LENDING_PROTOCOL_ID,
+        );
+
+        await collectAndSwapRewardsLyf(poolName, txb);
+        console.log(amount1, amount2);
+
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_lyf_pool::user_deposit`,
+          typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
+          arguments: [
+            txb.object(getConf().ALPHA_LYF_VERSION),
+            txb.object(getConf().VERSION),
+            someReceipt,
+            txb.object(poolinfo.poolId),
+            depositCoinA,
+            depositCoinB,
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(getConf().LENDING_PROTOCOL_ID),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(poolinfo.parentPoolId),
+            txb.object(getConf().SUI_SYSTEM_STATE),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -2001,6 +2037,32 @@ export const withdrawBluefinSuiSecondTxb = async (
             txb.object(poolinfo.parentPoolId),
             txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
             txb.object(getConf().LST_INFO),
+            txb.object(getConf().SUI_SYSTEM_STATE),
+            txb.object(getConf().CLOCK_PACKAGE_ID),
+          ],
+        });
+      } else if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
+        const coinAType =
+          pool1 === "SUI" ? "0x2::sui::SUI" : coinsList[pool1].type;
+        const coinBType =
+          pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
+        await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
+        await collectAndSwapRewardsLyf(poolName, txb);
+        txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_lyf_pool::user_withdraw`,
+          typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
+          arguments: [
+            txb.object(getConf().ALPHA_LYF_VERSION),
+            txb.object(getConf().VERSION),
+            txb.object(receipt[0].objectId),
+            alpha_receipt,
+            txb.object(getConf().ALPHA_POOL),
+            txb.object(poolinfo.poolId),
+            txb.pure.u128(xTokens),
+            txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.object(getConf().LENDING_PROTOCOL_ID),
+            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+            txb.object(poolinfo.parentPoolId),
             txb.object(getConf().SUI_SYSTEM_STATE),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
