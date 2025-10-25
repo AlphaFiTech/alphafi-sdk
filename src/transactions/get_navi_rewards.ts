@@ -1,73 +1,44 @@
-import { getUserAvailableLendingRewards } from "@naviprotocol/lending";
-
-// Mutex to ensure only one execution at a time
-let fetchMutex: Promise<void> = Promise.resolve();
-
-export async function getAvailableRewards(address: string) {
-  // Wait for any previous execution to complete
-  const currentLock = fetchMutex;
-  let releaseLock: () => void;
-
-  // Create new lock for this execution
-  fetchMutex = new Promise((resolve) => {
-    releaseLock = resolve;
-  });
-
-  // Wait for previous execution
-  await currentLock;
-
-  const originalFetch = globalThis.fetch;
-  const headerWrappedFetch = async (input: any, init?: any) => {
-    try {
-      const url = typeof input === "string" ? input : input?.url;
-      const isNavi =
-        typeof url === "string" &&
-        /\.naviprotocol\.io$/i.test(new URL(url).hostname);
-      if (!isNavi) {
-        return originalFetch(input as any, init as any);
-      }
-      return originalFetch(
-        input as any,
-        {
-          ...init,
-          headers: {
-            ...init?.headers,
-            Host: "app.naviprotocol.io",
-            "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
-            Referer: "https://app.naviprotocol.io/",
-            origin: "app.naviprotocol.io",
-          },
-        } as any,
-      );
-    } catch {
-      // Fallback: if URL parsing fails, just use the original fetch
-      return originalFetch(input as any, init as any);
-    }
-  };
-
-  // Override fetch only within this function's execution
-  // and make sure to restore it.
-  (globalThis as any).fetch = headerWrappedFetch as any;
+/**
+ * Fetches available Navi rewards for a given address via the integration API
+ * This avoids the need to use the @naviprotocol/lending SDK directly
+ * and prevents any fetch override issues.
+ *
+ * @param address - The Sui address to fetch rewards for
+ * @returns A map of rewards organized by asset coin type
+ */
+export async function getAvailableRewards(
+  address: string,
+): Promise<Record<string, any[]>> {
   try {
-    const rewards = await getUserAvailableLendingRewards(address);
+    // Call the integration API
+    const apiUrl = "https://api.alphafi.xyz";
+    const response = await fetch(
+      `${apiUrl}/navi-params/rewards?address=${encodeURIComponent(address)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
-    const rewardsByAsset: Record<string, any[]> = {};
-    if (Array.isArray(rewards)) {
-      for (const reward of rewards) {
-        const assetKey = reward.assetCoinType;
-        if (assetKey) {
-          if (!rewardsByAsset[assetKey]) {
-            rewardsByAsset[assetKey] = [];
-          }
-          rewardsByAsset[assetKey].push(reward);
-        }
-      }
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.error ||
+          errorData.message ||
+          `Failed to fetch rewards: ${response.status} ${response.statusText}`,
+      );
     }
 
-    return rewardsByAsset;
-  } finally {
-    (globalThis as any).fetch = originalFetch as any;
-    releaseLock!(); // Release the lock for next execution
+    const data = await response.json();
+    console.log("data", data);
+
+    // The API returns { address, rewards, timestamp }
+    // We just need the rewards object
+    return data.rewards || {};
+  } catch (error: any) {
+    console.error("Error fetching Navi rewards from API:", error);
+    throw new Error(`Failed to fetch Navi rewards: ${error.message}`);
   }
 }
