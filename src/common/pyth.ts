@@ -53,4 +53,5 @@ export type PythPriceIdPair =
   | "EGUSDC/USD"
   | "ETHIRD/USD"
   | "EXBTC/USD"
-  | "SDEUSD/USD";
+  | "SDEUSD/USD"
+  | "EWAL/USD";
