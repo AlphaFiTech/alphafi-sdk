@@ -295,4 +295,10 @@ export const coinsList: { [key in CoinName]: Coin } = {
     icon: "",
     expo: 6,
   },
+  EWAL: {
+    name: "EWAL",
+    type: "0x8a398f65f8635be31c181632bf730aea25074505d70c77d9b287e7d4f063ef70::ewal::EWAL",
+    icon: "",
+    expo: 9,
+  }
 };
