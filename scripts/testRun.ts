@@ -57,7 +57,7 @@ async function runTest() {
   //   0.01,
   //   address, // "0xdad8b77b746f38cbac5044eb7b2c7232f9e38f30e2868f0e5bf311cd83554b5a",
   // );
-  const tx = await naviDepositTx("100000", "NAVI-NAVX", { address });
+  const tx = await naviDepositTx("100000", "NAVI-VSUI", { address });
   // const quote = await zapDepositQuoteTxb(
   //   100_000n,
   //   false,
@@ -95,7 +95,4 @@ async function getAvailableRewardsTest() {
   );
   console.log("rewards", rewards);
 }
-
-// Hey guys, I am trying to run this script but it returns some cloudflare related error. Is there any way to bypass this?
-
 // getAvailableRewardsTest();
