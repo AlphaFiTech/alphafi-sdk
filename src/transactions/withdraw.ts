@@ -1,6 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { doubleAssetPoolCoinMap, poolInfo } from "../common/maps.js";
-import { PoolName } from "../common/types.js";
+import { BluefinLyfInvestor, PoolName } from "../common/types.js";
 import {
   withdrawCetusAlphaSuiTxb,
   withdrawCetusSuiTxb,
@@ -16,13 +16,17 @@ import {
 } from "./bluefin.js";
 import { naviWithdrawTx } from "./navi.js";
 import { bucketWithdrawTx } from "./bucket.js";
-import { getPoolExchangeRate } from "../sui-sdk/functions/getReceipts.js";
+import {
+  getInvestor,
+  getPoolExchangeRate,
+} from "../sui-sdk/functions/getReceipts.js";
 import { loopingWithdraw } from "./navi-looping.js";
 import { getEstimatedGasBudget, getLiquidity } from "./deposit.js";
 import {
   alphalendLoopingWithdraw,
   alphalendSingleLoopWithdraw,
 } from "./alphalend.js";
+import { Decimal } from "decimal.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -116,9 +120,20 @@ export async function coinAmountToXTokensDoubleAsset(
   isAmountA: boolean,
 ): Promise<string> {
   const liquidity = await getLiquidity(poolName, isAmountA, amount);
+  let liquidityAmount = liquidity.liquidityAmount.toString();
+  if (poolInfo[poolName].strategyType === "LEVERAGE-YIELD-FARMING") {
+    let investor = (await getInvestor(poolName, true)) as BluefinLyfInvestor;
+    liquidityAmount = new Decimal(liquidityAmount)
+      .div(
+        new Decimal(1).minus(
+          new Decimal(
+            investor.content.fields.current_debt_to_supply_ratio.fields.value,
+          ).div(1e18),
+        ),
+      )
+      .toString();
+  }
   const exchangeRate = await getPoolExchangeRate(poolName, true);
-  const xTokens = Math.floor(
-    parseFloat(liquidity.liquidityAmount.toString()) / exchangeRate.toNumber(),
-  );
-  return xTokens.toString();
+  let xTokens = new Decimal(liquidityAmount).div(exchangeRate);
+  return xTokens.floor().toString();
 }
