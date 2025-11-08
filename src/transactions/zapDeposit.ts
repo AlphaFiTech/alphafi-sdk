@@ -142,7 +142,7 @@ export async function zapDepositTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     const [coinIn] = tx.splitCoins(coinObject, [
@@ -181,7 +181,7 @@ export async function zapDepositTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
     const [coinIn] = tx.splitCoins(coinObject, [
       inputCoinToType1.floor().toString(),
@@ -323,7 +323,7 @@ export async function zapDepositQuoteTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     const quoteResponse = await swapGateway.getQuote(
@@ -348,7 +348,7 @@ export async function zapDepositQuoteTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     const quoteResponse = await swapGateway.getQuote(
