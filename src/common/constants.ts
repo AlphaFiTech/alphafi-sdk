@@ -2638,6 +2638,17 @@ export const conf = {
     ALPHA_LYF_PACKAGE_IDS: [
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
     ],
+    ALPHA_KEEPER_FIRST_PACKAGE_ID:
+      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
+    ALPHA_KEEPER_LATEST_PACKAGE_ID:
+      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
+
+    ALPHA_KEEPER_MODULE_PACKAGE_IDS: [
+      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
+    ],
+    ALPHA_KEEPER_PACKAGE_IDS: [
+      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
+    ],
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
     ALPHA_DISTRIBUTOR:
@@ -2996,6 +3007,10 @@ export const conf = {
     //lyf pools
     ALPHAFI_LYF_STSUI_SUI_POOL:
       "0x139d3ed6292b4ac8978b31adb3415bfa5cdb1d1a6b8f364adbe3317158792413",
+
+    //keeper pool
+    ALPHAFI_KEEPER_POOL:
+      "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
 
     // CETUS Pool Id's
 
