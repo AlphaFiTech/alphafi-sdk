@@ -26,9 +26,13 @@ export async function updateSingleTokenPrice(
   );
 
   const priceFeedUpdateData = await pythConnection.getPriceFeedsUpdateData([
-    feedId,
+    pythPriceInfo,
   ]);
-  await pythClient.updatePriceFeeds(txb, priceFeedUpdateData, [feedId]);
+  const priceInfoObjectIds = await pythClient.updatePriceFeeds(
+    txb,
+    priceFeedUpdateData,
+    [pythPriceInfo],
+  );
 
   txb.moveCall({
     target:
@@ -38,7 +42,7 @@ export async function updateSingleTokenPrice(
       txb.object(getConf().NAVI_ORACLE_CONFIG),
       txb.object(getConf().PRICE_ORACLE),
       txb.object(getConf().SUPRA_ORACLE_HOLDER),
-      txb.object(pythPriceInfo),
+      txb.object(priceInfoObjectIds[0]),
       txb.pure.address(feedId),
     ],
   });
