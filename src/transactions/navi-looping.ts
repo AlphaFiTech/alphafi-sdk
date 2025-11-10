@@ -26,12 +26,14 @@ export async function loopingDeposit(
 ) {
   let txb = new Transaction();
 
-  updateSingleTokenPrice(
+  await updateSingleTokenPrice(
+    getSuiClient(),
     naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].pythPriceInfo,
     naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].feedId,
     txb,
   );
-  updateSingleTokenPrice(
+  await updateSingleTokenPrice(
+    getSuiClient(),
     naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].pythPriceInfo,
     naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].feedId,
     txb,
@@ -56,12 +58,14 @@ export async function loopingWithdraw(
 ) {
   let txb = new Transaction();
 
-  updateSingleTokenPrice(
+  await updateSingleTokenPrice(
+    getSuiClient(),
     naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].pythPriceInfo,
     naviPriceFeedMap[loopingPoolCoinMap[poolName].supplyCoin].feedId,
     txb,
   );
-  updateSingleTokenPrice(
+  await updateSingleTokenPrice(
+    getSuiClient(),
     naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].pythPriceInfo,
     naviPriceFeedMap[loopingPoolCoinMap[poolName].borrowCoin].feedId,
     txb,

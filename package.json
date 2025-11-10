@@ -66,6 +66,7 @@
     "@apollo/client": "^4.0.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "^5.4.0",
     "@hop.ag/sdk": "^4.0.17",
+    "@pythnetwork/pyth-sui-js": "^2.3.0",
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",

@@ -30,7 +30,8 @@ export async function naviDepositTx(
   const poolData = poolInfo[poolName];
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  updateSingleTokenPrice(
+  await updateSingleTokenPrice(
+    getSuiClient(),
     naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].pythPriceInfo,
     naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].feedId,
     txb,
@@ -1613,7 +1614,8 @@ export async function naviWithdrawTx(
       });
     }
 
-    updateSingleTokenPrice(
+    await updateSingleTokenPrice(
+      getSuiClient(),
       naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].pythPriceInfo,
       naviPriceFeedMap[singleAssetPoolCoinMap[poolName].coin].feedId,
       txb,
