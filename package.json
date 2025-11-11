@@ -1,6 +1,6 @@
 {
   "name": "@alphafi/alphafi-sdk",
-  "version": "0.0.100",
+  "version": "0.0.101",
   "description": "Official AlphaFi SDK to access AlphaFi data",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -66,6 +66,7 @@
     "@apollo/client": "^4.0.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "^5.4.0",
     "@hop.ag/sdk": "^4.0.17",
+    "@pythnetwork/pyth-sui-js": "^2.3.0",
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
@@ -73,7 +74,7 @@
   },
   "peerDependencies": {
     "@alphafi/stsui-sdk": "^0.0.22",
-    "@mysten/sui": "^1.38.0"
+    "@mysten/sui": "^1.44.0"
   },
   "overrides": {
     "ansi-regex": "^6.0.1",
