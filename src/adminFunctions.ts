@@ -105,7 +105,13 @@ export const setWeights = async (
   const poolIds: string[] = [];
   const txb = new Transaction();
   poolIdNames.forEach((poolName) => {
-    poolIds.push(poolInfo[poolName].poolId);
+    if (poolName === "ALPHA-KEEPER") {
+      poolIds.push(
+        "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
+      );
+    } else {
+      poolIds.push(poolInfo[poolName].poolId);
+    }
   });
   const adminCap = await getSuiClient().getOwnedObjects({
     owner: address,
@@ -117,6 +123,7 @@ export const setWeights = async (
       showContent: true,
     },
   });
+
   if (!adminCap.data || adminCap.data.length === 0) {
     throw new Error("No adminCap data found.");
   }
@@ -173,6 +180,33 @@ export async function getPoolsWeightDistribution(
   for (const member of members) {
     const poolId = member.fields.key;
     const poolName = poolIdmap[poolId];
+    if (
+      poolId ===
+      "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1"
+    ) {
+      let weight = 0;
+      if (member.fields.value.fields) {
+        const poolData = member.fields.value.fields.pool_data.fields.contents;
+        poolData.forEach((entry) => {
+          if (
+            entry.fields.key.fields.name ===
+            coinsList[coinTypetoSetWeight].type.substring(2)
+          ) {
+            weight = Number(entry.fields.value.fields.weight);
+          }
+        });
+      }
+
+      poolDataArray.push({
+        weight: weight,
+        imageUrl1: undefined,
+        imageUrl2: undefined,
+        lockIcon: undefined,
+        poolName: "ALPHA-KEEPER",
+      });
+      continue;
+    }
+
     if (!poolInfo[poolName]) {
       continue;
     }
