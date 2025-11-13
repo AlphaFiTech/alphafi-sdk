@@ -16,7 +16,7 @@ export class SevenKGateway {
     const quoteResponse = await getQuote({
       tokenIn,
       tokenOut,
-      amountIn: amountIn.toString(),
+      amountIn,
       excludedPools,
     });
     return quoteResponse;
