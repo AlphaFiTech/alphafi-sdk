@@ -21,6 +21,7 @@ import { getAmounts } from "./deposit.js";
 import { claimRewardsTxb, collectRewardTxb } from "./blueRewards.js";
 import { collectAndSwapRewardsLyf } from "../index.js";
 import { alphalendClient } from "./alphalend.js";
+import { getConf as getStsuiConf } from "@alphafi/stsui-sdk";
 
 export const depositBluefinSuiFirstTxb = async (
   amount: string,
@@ -2048,8 +2049,8 @@ export const withdrawBluefinSuiSecondTxb = async (
           pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
         await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
         await collectAndSwapRewardsLyf(poolName, txb);
-        txb.moveCall({
-          target: `${poolinfo.packageId}::alphafi_lyf_pool::user_withdraw`,
+        const [lyfReceiptOption, lyfBalanceA, lyfBalanceB] = txb.moveCall({
+          target: `${poolinfo.packageId}::alphafi_lyf_pool::withdraw`,
           typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
           arguments: [
             txb.object(getConf().ALPHA_LYF_VERSION),
@@ -2058,8 +2059,8 @@ export const withdrawBluefinSuiSecondTxb = async (
             alpha_receipt,
             txb.object(getConf().ALPHA_POOL),
             txb.object(poolinfo.poolId),
-            txb.pure.u128(xTokens),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
+            txb.pure.u128(xTokens),
             txb.object(getConf().LENDING_PROTOCOL_ID),
             txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
             txb.object(poolinfo.parentPoolId),
@@ -2067,6 +2068,42 @@ export const withdrawBluefinSuiSecondTxb = async (
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
+        if (receipt[0].content.fields.xTokenBalance !== xTokens) {
+          const [lyfReceipt] = txb.moveCall({
+            target: `0x1::option::extract`,
+            typeArguments: [poolinfo.receiptType],
+            arguments: [lyfReceiptOption],
+          });
+          txb.transferObjects([lyfReceipt], address);
+        }
+        txb.moveCall({
+          target: `0x1::option::destroy_none`,
+          typeArguments: [poolinfo.receiptType],
+          arguments: [lyfReceiptOption],
+        });
+
+        const lyfCoinA = txb.moveCall({
+          target: `0x2::coin::from_balance`,
+          typeArguments: [poolinfo.assetTypes[0]],
+          arguments: [lyfBalanceA],
+        });
+        const lyfCoinB = txb.moveCall({
+          target: `0x2::coin::from_balance`,
+          typeArguments: [poolinfo.assetTypes[1]],
+          arguments: [lyfBalanceB],
+        });
+        const [sui] = txb.moveCall({
+          target:
+            getStsuiConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::redeem",
+          arguments: [
+            txb.object(getStsuiConf().LST_INFO),
+            lyfCoinA,
+            txb.object(getStsuiConf().SUI_SYSTEM_STATE_OBJECT_ID),
+          ],
+          typeArguments: [getStsuiConf().STSUI_COIN_TYPE],
+        });
+        txb.mergeCoins(sui, [lyfCoinB]);
+        txb.transferObjects([sui], address);
       }
     }
   } else {

@@ -12,6 +12,7 @@ import {
   getParentPool,
   getCoinAmountsFromLiquidity,
   CoinName,
+  BluefinLyfInvestor,
 } from "../../index.js";
 import {
   getPool,
@@ -120,7 +121,22 @@ export async function getPortfolioAmount(
   } else {
     const receipts = await getReceipts(poolName, address, ignoreCache);
     if (receipts && receipts.length > 0) {
-      const xTokens = receipts[0].content.fields.xTokenBalance;
+      let xTokens = receipts[0].content.fields.xTokenBalance;
+      if (poolName === "BLUEFIN-LYF-STSUI-SUI") {
+        let investor = (await getInvestor(
+          poolName,
+          true,
+        )) as BluefinLyfInvestor;
+        xTokens = new Decimal(xTokens)
+          .mul(
+            new Decimal(1).minus(
+              new Decimal(
+                investor.content.fields.current_debt_to_supply_ratio.fields.value,
+              ).div(1e18),
+            ),
+          )
+          .toString();
+      }
       totalXTokens = totalXTokens.add(xTokens);
     }
   }
