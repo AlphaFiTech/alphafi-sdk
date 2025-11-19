@@ -73,7 +73,7 @@
     "graphql": "^16.9.0"
   },
   "peerDependencies": {
-    "@alphafi/stsui-sdk": "^0.0.22",
+    "@alphafi/stsui-sdk": "^0.0.23",
     "@mysten/sui": "^1.44.0"
   },
   "overrides": {
