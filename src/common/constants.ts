@@ -3042,7 +3042,7 @@ export const conf = {
 
     //keeper pool
     ALPHAFI_KEEPER_POOL:
-      "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
+      "0x1fef238763e8afa3180b0d6a74abecc94feeca2a92f671e881de034ae74c4a4f",
 
     // CETUS Pool Id's
 
