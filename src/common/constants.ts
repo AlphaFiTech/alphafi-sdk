@@ -207,7 +207,7 @@ export const conf = {
     ALPHAFI_RECEIPT_PACKAGE_ID:
       "0xe221191a4021401efd27346bef7b4142f9d85c1bd4f8d85b2c63ea511daf7a21",
     ALPHAFI_RECEIPT_IMAGE_URL: "",
-    ALPHAFI_RECEIPT_WHITELISTED_ADDRESS_OBJECT_ID:
+    ALPHAFI_RECEIPT_WHITELISTED_ADDRESSES:
       "0xb52694288db624fcb759b7fb06301feeb75b59e6ea8547b4efe8a436125569e7",
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
@@ -284,7 +284,7 @@ export const conf = {
     //   "0x3813ca8aa2849b6369106ea749b0bdc5d72a671a267bf55a4be68c6c86fb911f::beta::BETA",
 
     ALPHA_COIN_TYPE:
-      "0x3813ca8aa2849b6369106ea749b0bdc5d72a671a267bf55a4be68c6c86fb911f::beta::BETA",
+      "0xfe3afec26c59e874f3c1d60b8203cb3852d2bb2aa415df9548b8d688e6683f93::alpha::ALPHA",
 
     SUI_COIN_TYPE: "0x2::sui::SUI",
 
@@ -527,11 +527,7 @@ export const conf = {
       "0xbc1f37227c1d252b8d0a5339bf714e7c79707137f10d00a726cf278aa8da1381",
 
     //ember
-    EMBER_SUI_ESUI_VAULT:
-      "0xfaf4d0ec9b76147c926c0c8b2aba39ea21ec991500c1e3e53b60d447b0e5f655",
-    EMBER_CONFIG:
-      "0x3a515233ab817af082ef31454cee5eb8122b8b7cd586bf6b26ae9b879ee1e565",
-    ALPHA_EMBER_POOL:
+    ALPHAFI_EMBER_POOL:
       "0xc0c55a14bdfaa0b9b14f477d9ab50907cc2746faf6ddc9d25778a70d17849b84",
 
     // CETUS Pool Id's
@@ -624,8 +620,7 @@ export const conf = {
       "0xab9806a212de1355936cd88314d0539769baab27dc08f3169f35adbf9a188764",
     USDC_SEND_CETUS_POOL_ID:
       "0x19eded65f7d310e3d9c659f6566087a28d02bc5e12db3bb34a69daa7ca5ae56a",
-    STSUI_SUI_CETUS_POOL_ID:
-      "0xb5c52a3431afe80ccc362aee826b381b405cddab39415781726e23fcecabfa89",
+    STSUI_SUI_CETUS_POOL_ID: "",
     USDC_STSUI_CETUS_POOL_ID: "",
     STSUI_ETH_CETUS_POOL_ID: "",
     STSUI_WSOL_CETUS_POOL_ID: "",
@@ -859,15 +854,15 @@ export const conf = {
     ALPHAFI_LYF_STSUI_SUI_INVESTOR:
       "0x52529dd5f0dc58e55cfbb75a79dbd25df86ca6984a8c2b8e62a9d0605d2b6e24",
 
-    //ember
+    // ember
     ALPHA_EMBER_INVESTOR:
       "0xcb839a91824f92379c1516b62dddecdd13be690f8a0a17aac844144f31cddc1b",
     // Receipt Types
 
-    ALPHA_POOL_RECEIPT:
-      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphapool::Receipt",
     ALPHAFI_RECEIPT_TYPE:
       "0xff453b038c3259917d74dc4fc69f45b9312c51bb591744f5d2258821b94f81e6::alphafi_receipt::AlphaFiReceipt",
+    ALPHA_POOL_RECEIPT:
+      "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphapool::Receipt",
 
     ALPHA_SUI_POOL_RECEIPT:
       "0xfcadd5525628c306cc87d980c18aec71daa8a51f17a5eba34e3a105eb64a8b7e::alphafi_cetus_sui_pool::Receipt",
@@ -2670,17 +2665,13 @@ export const conf = {
     ALPHA_LYF_PACKAGE_IDS: [
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
     ],
-    ALPHA_KEEPER_FIRST_PACKAGE_ID:
-      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
-    ALPHA_KEEPER_LATEST_PACKAGE_ID:
-      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
+    ALPHA_EMBER_FIRST_PACKAGE_ID: "",
+    ALPHA_EMBER_LATEST_PACKAGE_ID: "",
 
-    ALPHA_KEEPER_MODULE_PACKAGE_IDS: [
-      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
-    ],
-    ALPHA_KEEPER_PACKAGE_IDS: [
-      "0xa3f1df39e8ce539478cbb7c6cb4344e1458daa71042486bb7ccb8d37831cf85c",
-    ],
+    ALPHA_EMBER_MODULE_PACKAGE_IDS: [""],
+    ALPHA_EMBER_PACKAGE_IDS: [""],
+    ALPHAFI_RECEIPT_PACKAGE_ID: "",
+    ALPHAFI_RECEIPT_IMAGE_URL: "",
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
     ALPHA_DISTRIBUTOR:
@@ -2721,6 +2712,7 @@ export const conf = {
       "0x66b34c1d2d0aa4198e1a2ba172cb4a80d0cfd501a376d5c3782365d0c8282abe",
     ALPHA_LYF_VERSION:
       "0xc1619e578f6d6488064babe43c2aee7ae69227d98972a4164107d6d3e9c713cd",
+    ALPHA_EMBER_VERSION: "",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -3040,9 +3032,8 @@ export const conf = {
     ALPHAFI_LYF_STSUI_SUI_POOL:
       "0x139d3ed6292b4ac8978b31adb3415bfa5cdb1d1a6b8f364adbe3317158792413",
 
-    //keeper pool
-    ALPHAFI_KEEPER_POOL:
-      "0x1fef238763e8afa3180b0d6a74abecc94feeca2a92f671e881de034ae74c4a4f",
+    //ember
+    ALPHAFI_EMBER_POOL: "",
 
     // CETUS Pool Id's
 
@@ -3413,6 +3404,8 @@ export const conf = {
       "0xabb42030e68058db8af3f623923ec1c0d365052af2a175d95d6c03b1c8fddb40",
 
     // Receipt Types
+
+    ALPHAFI_RECEIPT_TYPE: "0x0::alphafi_receipt::AlphaFiReceipt",
 
     ALPHA_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::Receipt",

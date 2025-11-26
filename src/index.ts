@@ -38,6 +38,13 @@ export {
 export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
 export {
+  depositAlphaTx,
+  initiateWithdrawAlphaTx,
+  claimAirdropTx,
+  claimWithdrawAlphaTx,
+} from "./transactions/alphaVault.js";
+
+export {
   claimRewardTxb,
   collectAndSwapRewardsSingleLoop,
   collectAndSwapRewardsLyf,
