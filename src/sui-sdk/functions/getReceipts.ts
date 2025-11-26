@@ -687,7 +687,7 @@ export async function getPoolExchangeRate(
     }
     let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
     if (poolName == "ALPHA") {
-      tokensInvested = new Decimal(pool.content.fields.alpha_bal);
+      tokensInvested = new Decimal(pool.content.fields.tokensInvested);
     } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
       const investor = (await getInvestor(
         poolName,

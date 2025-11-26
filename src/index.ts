@@ -39,7 +39,7 @@ export { withdrawAlphaTxb } from "./transactions/alpha.js";
 
 export {
   depositAlphaTx,
-  initiateWithdrawAlphaTx,
+  initiateWithdrawAlpha,
   claimAirdropTx,
   claimWithdrawAlphaTx,
 } from "./transactions/alphaVault.js";

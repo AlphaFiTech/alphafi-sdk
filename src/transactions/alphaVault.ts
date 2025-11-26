@@ -4,7 +4,9 @@ import { poolInfo } from "../common/maps.js";
 import { AlphalendClient } from "@alphafi/alphalend-sdk";
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
-import { getReceipts } from "../sui-sdk/functions/getReceipts.js";
+import { getPool, getReceipts } from "../sui-sdk/functions/getReceipts.js";
+import { Decimal } from "decimal.js";
+import { AlphaPoolType } from "../common/types.js";
 
 export async function depositAlphaTx(
   amount: string,
@@ -118,7 +120,70 @@ export async function depositAlphaTx(
   return tx;
 }
 
-export async function initiateWithdrawAlphaTx(
+export async function initiateWithdrawAlpha(
+  amount: string,
+  withdrawMax: boolean,
+  address: string,
+  suiClient: SuiClient,
+): Promise<Transaction> {
+  let xtokens = 0;
+  const alphaPool = (await getPool("ALPHA", true)) as AlphaPoolType;
+  if (withdrawMax) {
+    const alphafiReceipts = await getAlphaFiReceipt(address, suiClient);
+    const receipts = await getReceipts("ALPHA", address, true);
+    const receipt = receipts.length > 0 ? receipts[0] : undefined;
+    if (alphafiReceipts.length === 0 && !receipt) {
+      throw new Error(
+        `No AlphaFi receipts or receit found for address ${address}`,
+      );
+    }
+    if (alphafiReceipts.length === 0 && receipt) {
+      xtokens = Number(receipt.content.fields.xTokenBalance);
+    } else {
+      let positionUpdate =
+        alphaPool.content.fields.recently_updated_alphafi_receipts.fields.contents.find(
+          (item) => item.fields.key === alphafiReceipts[0].id,
+        );
+      xtokens =
+        Number(await getAlphaTotalShares(suiClient, alphafiReceipts[0])) -
+        (positionUpdate
+          ? Number(positionUpdate.fields.value.fields.xtokens_to_remove) -
+            Number(positionUpdate.fields.value.fields.xtokens_to_add)
+          : 0);
+    }
+  } else {
+    xtokens = new Decimal(amount)
+      .div(
+        new Decimal(
+          alphaPool.content.fields.current_exchange_rate.fields.value,
+        ).div(1e18),
+      )
+      .toNumber();
+  }
+  return initiateWithdrawAlphaTx(xtokens.toString(), address, suiClient);
+}
+
+async function getAlphaTotalShares(
+  suiClient: SuiClient,
+  alphafiReceipt: AlphaFiReceiptType,
+): Promise<string> {
+  let entry = alphafiReceipt.position_pool_map.find(
+    (item) => item.value.pool_id === poolInfo["ALPHA"].poolId,
+  );
+  if (!entry) {
+    console.error("no position for pool id found");
+    return "0";
+  }
+  const position = await suiClient.getObject({
+    id: entry.key,
+    options: {
+      showContent: true,
+    },
+  });
+  return (position.data?.content as any).fields.xtokens.toString();
+}
+
+async function initiateWithdrawAlphaTx(
   xTokens: string,
   address: string,
   suiClient: SuiClient,
