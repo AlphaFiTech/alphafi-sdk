@@ -1,4 +1,4 @@
-export const CONF_ENV = "testing";
+export const CONF_ENV = "production";
 
 export const conf = {
   testing: {
@@ -2665,13 +2665,22 @@ export const conf = {
     ALPHA_LYF_PACKAGE_IDS: [
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
     ],
-    ALPHA_EMBER_FIRST_PACKAGE_ID: "",
-    ALPHA_EMBER_LATEST_PACKAGE_ID: "",
+    ALPHA_EMBER_FIRST_PACKAGE_ID:
+      "0x25df6c57c98f646b7cc8d3c412034240d54b7fac49ecf7ef417f3455b686a1c7",
+    ALPHA_EMBER_LATEST_PACKAGE_ID:
+      "0x25df6c57c98f646b7cc8d3c412034240d54b7fac49ecf7ef417f3455b686a1c7",
 
-    ALPHA_EMBER_MODULE_PACKAGE_IDS: [""],
-    ALPHA_EMBER_PACKAGE_IDS: [""],
-    ALPHAFI_RECEIPT_PACKAGE_ID: "",
+    ALPHA_EMBER_MODULE_PACKAGE_IDS: [
+      "0x25df6c57c98f646b7cc8d3c412034240d54b7fac49ecf7ef417f3455b686a1c7",
+    ],
+    ALPHA_EMBER_PACKAGE_IDS: [
+      "0x25df6c57c98f646b7cc8d3c412034240d54b7fac49ecf7ef417f3455b686a1c7",
+    ],
+    ALPHAFI_RECEIPT_PACKAGE_ID:
+      "0xe221191a4021401efd27346bef7b4142f9d85c1bd4f8d85b2c63ea511daf7a21",
     ALPHAFI_RECEIPT_IMAGE_URL: "",
+    ALPHAFI_RECEIPT_WHITELISTED_ADDRESSES:
+      "0xb52694288db624fcb759b7fb06301feeb75b59e6ea8547b4efe8a436125569e7",
     VOLO_PACKAGE_ID:
       "0x68d22cf8bdbcd11ecba1e094922873e4080d4d11133e2443fddda0bfd11dae20",
     ALPHA_DISTRIBUTOR:
@@ -2712,7 +2721,8 @@ export const conf = {
       "0x66b34c1d2d0aa4198e1a2ba172cb4a80d0cfd501a376d5c3782365d0c8282abe",
     ALPHA_LYF_VERSION:
       "0xc1619e578f6d6488064babe43c2aee7ae69227d98972a4164107d6d3e9c713cd",
-    ALPHA_EMBER_VERSION: "",
+    ALPHA_EMBER_VERSION:
+      "0x2273a528f8493c63e37fddc68a48be2513c927bb616d7b33669671b8505db9cc",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -3033,7 +3043,8 @@ export const conf = {
       "0x139d3ed6292b4ac8978b31adb3415bfa5cdb1d1a6b8f364adbe3317158792413",
 
     //ember
-    ALPHAFI_EMBER_POOL: "",
+    ALPHAFI_EMBER_POOL:
+      "0xc0c55a14bdfaa0b9b14f477d9ab50907cc2746faf6ddc9d25778a70d17849b84",
 
     // CETUS Pool Id's
 
@@ -3405,7 +3416,8 @@ export const conf = {
 
     // Receipt Types
 
-    ALPHAFI_RECEIPT_TYPE: "0x0::alphafi_receipt::AlphaFiReceipt",
+    ALPHAFI_RECEIPT_TYPE:
+      "0xff453b038c3259917d74dc4fc69f45b9312c51bb591744f5d2258821b94f81e6::alphafi_receipt::AlphaFiReceipt",
 
     ALPHA_POOL_RECEIPT:
       "0x9bbd650b8442abb082c20f3bc95a9434a8d47b4bef98b0832dab57c1a8ba7123::alphapool::Receipt",
