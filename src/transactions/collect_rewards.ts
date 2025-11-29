@@ -14,21 +14,12 @@ import {
 export async function claimRewardTxb(address: string) {
   const txb = new Transaction();
   await getMultiReceipts(address);
-  const alphaReceipt = await getReceipts("ALPHA", address, false);
   let alpha_receipt: any;
-  if (alphaReceipt.length == 0) {
-    [alpha_receipt] = txb.moveCall({
-      target: `0x1::option::none`,
-      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-      arguments: [],
-    });
-  } else {
-    [alpha_receipt] = txb.moveCall({
-      target: `0x1::option::some`,
-      typeArguments: [alphaReceipt[0].content.type],
-      arguments: [txb.object(alphaReceipt[0].objectId)],
-    });
-  }
+  [alpha_receipt] = txb.moveCall({
+    target: `0x1::option::none`,
+    typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+    arguments: [],
+  });
   const keys = Object.keys(poolInfo);
   for (const poolName of keys) {
     if (poolInfo[poolName].poolId == "") {

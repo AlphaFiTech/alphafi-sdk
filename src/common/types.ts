@@ -648,44 +648,107 @@ export type AlphaPoolType = {
     type: string;
     hasPublicTransfer: boolean;
     fields: {
-      // acc_rewards_per_xtoken: VecMap<TypeName,u256>,
-      alpha_bal: string;
-      deposit_fee: string;
-      deposit_fee_max_cap: string;
-      id: { id: string };
-      // image_url: string;
-      instant_withdraw_fee: string;
-      instant_withdraw_fee_max_cap: string;
-      locked_period_in_days: string;
-      locking_start_day: string;
-      acc_rewards_per_xtoken: {
-        type: string;
+      id: {
+        id: string;
+      };
+      xTokenSupply: string;
+      tokensInvested: string;
+      unsupplied_balance: string;
+      claimable_balance: string;
+      positions: ObjectTable;
+      recently_updated_alphafi_receipts: VecMap<
+        string,
+        {
+          fields: {
+            xtokens_to_add: string;
+            xtokens_to_remove: string;
+          };
+          type: string;
+        }
+      >;
+      withdraw_requests: VecMap<
+        string,
+        {
+          fields: {
+            total_amount_to_withdraw: string;
+            leftover_amount: string;
+          };
+          type: string;
+        }
+      >;
+      fee_collected: string;
+      last_distribution_time: string;
+      last_autocompound_time: string;
+      locking_period: string;
+      time_from_locking_period_for_unstaking_to_start: string;
+      current_exchange_rate: {
         fields: {
-          contents: [
-            {
-              type: string;
-              fields: {
-                value: string;
-                key: {
-                  type: string;
-                  fields: {
-                    name: string;
-                  };
-                };
-              };
-            },
-          ];
+          value: string;
         };
       };
-      // name: string;
-      // rewards: Bag,
-      tokensInvested: string;
-      withdraw_fee_max_cap: string;
+      rewards: Bag;
+      acc_rewards_per_xtoken: VecMap<
+        {
+          fields: {
+            name: string;
+          };
+          type: string;
+        },
+        string
+      >;
+      total_distributed: VecMap<
+        {
+          fields: {
+            name: string;
+          };
+          type: string;
+        },
+        string
+      >;
+      deposit_fee: string;
+      deposit_fee_max_cap: string;
       withdrawal_fee: string;
-      xTokenSupply: string;
+      withdraw_fee_max_cap: string;
+      fee_address: string;
+      is_deposit_paused: boolean;
+      is_withdraw_paused: boolean;
+      alphafi_partner_cap: {
+        type: string;
+        fields: {
+          id: {
+            id: string;
+          };
+        };
+      };
+      additional_fields: Bag;
     };
   };
 };
+
+export type VecMap<K = any, V = any> = {
+  fields: {
+    contents: {
+      fields: {
+        key: K;
+        value: V;
+      };
+      type: string;
+    }[];
+  };
+  type: string;
+};
+
+export type Bag = {
+  fields: {
+    id: {
+      id: string;
+    };
+    size?: string;
+  };
+  type: string;
+};
+
+export type ObjectTable = Bag;
 
 export interface CoinPair {
   coinA: Coin;
