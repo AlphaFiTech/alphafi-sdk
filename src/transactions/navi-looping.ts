@@ -771,7 +771,7 @@ export async function naviUsdcUsdtLoopDepositTx(
       }
     }
     txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_deposit_v2`,
+      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_deposit_v3`,
       arguments: [
         txb.object(C.ALPHA_2_VERSION),
         txb.object(C.VERSION),
@@ -796,6 +796,7 @@ export async function naviUsdcUsdtLoopDepositTx(
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.object(C.BLUEFIN_USDT_USDC_POOL),
         txb.pure.bool(true),
+        txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -869,7 +870,7 @@ export async function naviUsdtUsdcLoopDepositTx(
     }
 
     txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_deposit`,
+      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_deposit_v3`,
       typeArguments: [coinsList["NAVX"].type],
       arguments: [
         txb.object(C.ALPHA_5_VERSION),
@@ -892,6 +893,7 @@ export async function naviUsdtUsdcLoopDepositTx(
         txb.object(cetusPoolMap["USDC-USDT"]),
         txb.object(cetusPoolMap["USDC-SUI"]),
         txb.object(cetusPoolMap["NAVX-SUI"]),
+        txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -1794,7 +1796,7 @@ export async function naviUsdcUsdtLoopWithdrawTx(
       }
     }
     const [usdcCoin] = txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_withdraw_v3`,
+      target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::user_withdraw_v4`,
       arguments: [
         txb.object(C.ALPHA_2_VERSION),
         txb.object(C.VERSION),
@@ -1816,6 +1818,7 @@ export async function naviUsdcUsdtLoopWithdrawTx(
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.object(C.BLUEFIN_USDT_USDC_POOL),
         txb.pure.bool(true),
+        txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -1984,7 +1987,7 @@ export async function naviUsdtUsdcLoopWithdrawTx(
       }
     }
     const [usdtCoin] = txb.moveCall({
-      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_withdraw_v2`,
+      target: `${poolData.packageId}::alphafi_navi_usdt_usdc_pool::user_withdraw_v3`,
       arguments: [
         txb.object(C.ALPHA_5_VERSION),
         txb.object(C.VERSION),
@@ -2003,6 +2006,7 @@ export async function naviUsdtUsdcLoopWithdrawTx(
         txb.object(C.NAVI_INCENTIVE_V2),
         txb.object(C.CETUS_GLOBAL_CONFIG_ID),
         txb.object(cetusPoolMap["USDC-USDT"]),
+        txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });

@@ -109,7 +109,7 @@ export async function naviDepositTx(
       }
     }
     txb.moveCall({
-      target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+      target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
       typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
       arguments: [
         txb.object(C.VERSION),
@@ -126,6 +126,7 @@ export async function naviDepositTx(
         ),
         txb.object(C.NAVI_INCENTIVE_V3),
         txb.object(C.NAVI_INCENTIVE_V2),
+        txb.object(C.SUI_SYSTEM_STATE),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
@@ -236,7 +237,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -255,6 +256,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -335,7 +337,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -354,6 +356,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -427,7 +430,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -446,6 +449,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -519,7 +523,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -538,6 +542,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -615,7 +620,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit`,
+          target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -634,6 +639,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -703,7 +709,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -723,6 +729,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -867,7 +874,7 @@ export async function naviDepositTx(
           ],
         });
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -887,6 +894,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -979,7 +987,7 @@ export async function naviDepositTx(
           ],
         });
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -999,6 +1007,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1107,7 +1116,7 @@ export async function naviDepositTx(
           ],
         });
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -1127,6 +1136,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1227,7 +1237,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool`,
+          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
             coinsList["VSUI"].type,
@@ -1257,10 +1267,11 @@ export async function naviDepositTx(
             txb.object(bluefinPoolMap["SUI-SUIBTC"]),
             txb.object(C.BLUEFIN_GLOBAL_CONFIG),
             txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+            txb.object(C.SUI_SYSTEM_STATE),
           ],
         });
         txb.moveCall({
-          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
+          target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v3`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -1280,6 +1291,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1346,7 +1358,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -1366,6 +1378,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1433,7 +1446,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -1453,6 +1466,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1517,7 +1531,7 @@ export async function naviDepositTx(
           }
         }
         txb.moveCall({
-          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit`,
+          target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_deposit_v2`,
           typeArguments: [
             coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           ],
@@ -1537,6 +1551,7 @@ export async function naviDepositTx(
             ),
             txb.object(C.NAVI_INCENTIVE_V3),
             txb.object(C.NAVI_INCENTIVE_V2),
+            txb.object(C.SUI_SYSTEM_STATE),
             txb.object(C.CLOCK_PACKAGE_ID),
           ],
         });
@@ -1678,7 +1693,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -1697,6 +1712,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -1761,7 +1777,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -1780,6 +1796,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -1860,7 +1877,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -1879,6 +1896,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -1956,7 +1974,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -1975,6 +1993,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2044,7 +2063,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -2063,6 +2082,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2140,7 +2160,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw`,
+        target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.VERSION),
@@ -2159,6 +2179,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2226,7 +2247,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2246,6 +2267,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2384,7 +2406,7 @@ export async function naviWithdrawTx(
         ],
       });
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2404,6 +2426,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2494,7 +2517,7 @@ export async function naviWithdrawTx(
         ],
       });
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2514,6 +2537,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2620,7 +2644,7 @@ export async function naviWithdrawTx(
         ],
       });
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2640,6 +2664,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2740,7 +2765,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool`,
+        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_v2`,
         typeArguments: [
           coinsList[singleAssetPoolCoinMap[poolName].coin].type,
           coinsList["VSUI"].type,
@@ -2770,10 +2795,11 @@ export async function naviWithdrawTx(
           txb.object(bluefinPoolMap["SUI-SUIBTC"]),
           txb.object(C.BLUEFIN_GLOBAL_CONFIG),
           txb.object(C.CETUS_GLOBAL_CONFIG_ID),
+          txb.object(C.SUI_SYSTEM_STATE),
         ],
       });
       txb.moveCall({
-        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+        target: `${C.ALPHA_NAVI_V2_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v3`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_NAVI_V2_VERSION),
@@ -2793,6 +2819,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2858,7 +2885,7 @@ export async function naviWithdrawTx(
       }
 
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2878,6 +2905,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -2945,7 +2973,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -2965,6 +2993,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
@@ -3029,7 +3058,7 @@ export async function naviWithdrawTx(
         }
       }
       txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw`,
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
@@ -3049,6 +3078,7 @@ export async function naviWithdrawTx(
           ),
           txb.object(C.NAVI_INCENTIVE_V3),
           txb.object(C.NAVI_INCENTIVE_V2),
+          txb.object(C.SUI_SYSTEM_STATE),
           txb.object(C.CLOCK_PACKAGE_ID),
         ],
       });
