@@ -405,7 +405,7 @@ export async function claimWithdrawAlphaTx(
   return tx;
 }
 
-async function getCoinFromWallet(
+export async function getCoinFromWallet(
   tx: Transaction,
   suiClient: SuiClient,
   address: string,

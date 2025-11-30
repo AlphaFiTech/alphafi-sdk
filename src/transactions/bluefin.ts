@@ -1594,6 +1594,13 @@ export const getCoinObject = async (
   } else {
     txb = tx;
   }
+  if (
+    type === "0x2::sui::SUI" ||
+    type ===
+      "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+  ) {
+    return txb.gas;
+  }
   let coins1: CoinStruct[] = [];
 
   let currentCursor: string | null | undefined = null;

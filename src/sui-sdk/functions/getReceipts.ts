@@ -672,31 +672,52 @@ export async function getPoolExchangeRate(
   ignoreCache: boolean,
 ): Promise<Decimal> {
   let pool: PoolType | AlphaPoolType;
+  let xTokenSupply = new Decimal(0);
+  let tokensInvested = new Decimal(0);
   try {
-    pool = await getPool(poolName, ignoreCache);
-    let xTokenSupply = new Decimal(0);
-    if (
-      poolName.toString().includes("-FUNGIBLE-") &&
-      "treasury_cap" in pool.content.fields
-    ) {
+    if (poolName.toString().includes("ALPHALEND-SLUSH")) {
+      const o = await getSuiClient().getObject({
+        id: poolInfo[poolName].poolId,
+        options: {
+          showContent: true,
+        },
+      });
+      if (!o.data) {
+        throw new Error(`couldnt fetch pool object for pool: ${poolName}`);
+      }
+      tokensInvested = new Decimal(
+        (o.data.content as any).fields.tokensInvested,
+      );
       xTokenSupply = new Decimal(
-        pool.content.fields.treasury_cap.fields.total_supply.fields.value,
+        (o.data.content as any)?.fields.xTokenSupply.fields.value,
       );
     } else {
-      xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
-    }
-    let tokensInvested = new Decimal(pool.content.fields.tokensInvested);
-    if (poolName == "ALPHA") {
-      tokensInvested = new Decimal(pool.content.fields.tokensInvested);
-    } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
-      const investor = (await getInvestor(
-        poolName,
-        ignoreCache,
-      )) as CetusInvestor & CommonInvestorFields;
-      if (!investor) {
-        throw new Error(`couldnt fetch investor object for pool: ${poolName}`);
+      pool = await getPool(poolName, ignoreCache);
+      if (
+        poolName.toString().includes("-FUNGIBLE-") &&
+        "treasury_cap" in pool.content.fields
+      ) {
+        xTokenSupply = new Decimal(
+          pool.content.fields.treasury_cap.fields.total_supply.fields.value,
+        );
+      } else {
+        xTokenSupply = new Decimal(pool.content.fields.xTokenSupply);
       }
       tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+      if (poolName == "ALPHA") {
+        tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+      } else if (poolInfo[poolName].parentProtocolName == "CETUS") {
+        const investor = (await getInvestor(
+          poolName,
+          ignoreCache,
+        )) as CetusInvestor & CommonInvestorFields;
+        if (!investor) {
+          throw new Error(
+            `couldnt fetch investor object for pool: ${poolName}`,
+          );
+        }
+        tokensInvested = new Decimal(pool.content.fields.tokensInvested);
+      }
     }
 
     // Check for division by zero
