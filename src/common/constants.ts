@@ -3453,7 +3453,8 @@ export const conf = {
     // Receipt Types
     ALPHA_SLUSH_POSITION_CAP_TYPE:
       "0x41b1def47b6259cd7306e049d6500eabb1a984e25558b56eefa9b6c000a038c3::alphalend_slush_pool::PositionCap",
-    ALPHA_SLUSH_POSITION_CAP_IMAGE_URL: "",
+    ALPHA_SLUSH_POSITION_CAP_IMAGE_URL:
+      "https://images.alphafi.xyz/ALPHALEND-SLUSH-POSITIONCAP.png",
     ALPHAFI_RECEIPT_TYPE:
       "0xff453b038c3259917d74dc4fc69f45b9312c51bb591744f5d2258821b94f81e6::alphafi_receipt::AlphaFiReceipt",
 
