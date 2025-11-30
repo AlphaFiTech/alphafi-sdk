@@ -27,6 +27,7 @@ import {
   alphalendSingleLoopWithdraw,
 } from "./alphalend.js";
 import { Decimal } from "decimal.js";
+import { slushWithdraw } from "./slush.js";
 
 export async function withdrawTxb(
   xTokensAmount: string,
@@ -97,6 +98,8 @@ export async function withdrawTxb(
       txb = await alphalendSingleLoopWithdraw(poolName, xTokensAmount, {
         address: address,
       });
+    } else if (poolInfo[poolName].strategyType === "LENDING") {
+      txb = await slushWithdraw(poolName, xTokensAmount, { address: address });
     }
   }
   txb.setSender(address);

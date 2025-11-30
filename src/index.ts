@@ -22,6 +22,11 @@ export {
 
 // transactions
 export {
+  slushDeposit,
+  slushWithdraw,
+  getSlushUserTotalXtokens,
+} from "./transactions/slush.js";
+export {
   depositDoubleAssetTxb,
   depositSingleAssetTxb,
   getAmounts,
@@ -48,6 +53,7 @@ export {
   claimRewardTxb,
   collectAndSwapRewardsSingleLoop,
   collectAndSwapRewardsLyf,
+  collectRewardsAndSwapSlush,
 } from "./transactions/collect_rewards.js";
 
 export {
