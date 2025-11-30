@@ -35,6 +35,7 @@ import {
   alphalendLoopingDeposit,
   alphalendSingleLoopDeposit,
 } from "./alphalend.js";
+import { slushDeposit } from "./slush.js";
 
 export async function depositSingleAssetTxb(
   poolName: PoolName,
@@ -59,6 +60,8 @@ export async function depositSingleAssetTxb(
       txb = await alphalendSingleLoopDeposit(poolName, amount, {
         address: address,
       });
+    } else if (poolInfo[poolName].strategyType === "LENDING") {
+      txb = await slushDeposit(poolName, amount, { address: address });
     }
   }
   txb.setSender(address);
