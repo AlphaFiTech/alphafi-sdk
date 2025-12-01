@@ -25,8 +25,10 @@ import {
 } from "./common/maps.js";
 import { Decimal } from "decimal.js";
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV } from "./common/constants.js";
-import { getSuiClient } from "./index.js";
+import { conf, CONF_ENV, getConf } from "./common/constants.js";
+import { getSuiClient, singleAssetPoolCoinMap } from "./index.js";
+import { Pool } from "../../alphafi-sdk-js/src/models/pool.js";
+import { getCoinObject } from "./transactions/bluefin.js";
 
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
@@ -240,4 +242,79 @@ export async function getPoolsWeightDistribution(
     totalWeight: totalWeight,
     coinType: coinTypetoSetWeight,
   };
+}
+// alpha vault functions
+export async function processWithdrawRequestsManual(
+  amount: string,
+  address: string,
+): Promise<Transaction> {
+  const txb = new Transaction();
+  const poolName = "ALPHA" as PoolName;
+  const pool = poolInfo[poolName];
+  const coin1 = singleAssetPoolCoinMap[poolName].coin;
+  const typeT = coinsList[coin1].type;
+  let coin = await getCoinObject(typeT, address, txb);
+  if (!coin) {
+    throw new Error("no coin available");
+  }
+  let finalCoin = txb.splitCoins(coin, [amount]);
+  txb.transferObjects([coin], address);
+  txb.moveCall({
+    target: `${pool.packageId}::interface::process_withdraw_requests_manual`,
+    typeArguments: [typeT],
+    arguments: [
+      txb.object(getConf().ALPHA_EMBER_VERSION),
+      txb.object(pool.poolId),
+      txb.object(finalCoin),
+    ],
+  });
+  return txb;
+}
+
+export async function collectUnsuppliedBalance(): Promise<Transaction> {
+  const txb = new Transaction();
+  const poolName = "ALPHA" as PoolName;
+  const pool = poolInfo[poolName];
+  const coin1 = singleAssetPoolCoinMap[poolName].coin;
+  const typeT = coinsList[coin1].type;
+
+  txb.moveCall({
+    target: `${pool.packageId}::interface::collect_unsupplied_balance`,
+    typeArguments: [typeT],
+    arguments: [
+      txb.object(getConf().ALPHA_EMBER_VERSION),
+      txb.object(pool.poolId),
+    ],
+  });
+
+  return txb;
+}
+
+export async function addAirdropCoin(
+  amount: string,
+  address: string,
+): Promise<Transaction> {
+  const txb = new Transaction();
+  const poolName = "ALPHA" as PoolName;
+  const pool = poolInfo[poolName];
+  const coin1 = singleAssetPoolCoinMap[poolName].coin;
+  const coin2 = "SUI";
+  const typeT = coinsList[coin1].type;
+  const typeR = coinsList[coin2].type;
+  let coin = await getCoinObject(typeR, address, txb);
+  if (!coin) {
+    throw new Error("no coin available");
+  }
+  let finalCoin = txb.splitCoins(coin, [amount]);
+  txb.transferObjects([coin], address);
+  txb.moveCall({
+    target: `${pool.packageId}::interface::add_airdrop_coin`,
+    typeArguments: [typeT, typeR],
+    arguments: [
+      txb.object(getConf().ALPHA_EMBER_VERSION),
+      txb.object(pool.poolId),
+      txb.object(finalCoin),
+    ],
+  });
+  return txb;
 }
