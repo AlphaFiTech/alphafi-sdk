@@ -158,6 +158,7 @@ export async function initiateWithdrawAlpha(
           alphaPool.content.fields.current_exchange_rate.fields.value,
         ).div(1e18),
       )
+      .ceil()
       .toNumber();
   }
   return initiateWithdrawAlphaTx(xtokens.toString(), address, suiClient);
