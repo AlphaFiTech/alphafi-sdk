@@ -1,4 +1,4 @@
-import { Transaction } from "@mysten/sui/transactions";
+import { Transaction, TransactionResult } from "@mysten/sui/transactions";
 import {
   coinsList,
   collectRewardsAndSwapSlush,
@@ -102,6 +102,7 @@ export async function slushDeposit(
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
+    txb.transferObjects([positionCap], address);
   } else {
     txb.moveCall({
       target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
@@ -160,14 +161,15 @@ export async function slushWithdraw(
 
   return txb;
 }
-function createPositionCap(txb: Transaction): {
-  $kind: "NestedResult";
-  NestedResult: [number, number];
-} {
+function createPositionCap(txb: Transaction): TransactionResult {
   const C = getConf();
-  const [positionCap] = txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush::create_position_cap`,
-    arguments: [txb.pure.string(C.ALPHA_SLUSH_POSITION_CAP_IMAGE_URL)],
+  const urlBytes = Array.from(
+    new TextEncoder().encode(C.ALPHA_SLUSH_POSITION_CAP_IMAGE_URL),
+  );
+
+  const positionCap = txb.moveCall({
+    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::create_position_cap`,
+    arguments: [txb.pure.vector("u8", urlBytes)],
   });
 
   return positionCap;
