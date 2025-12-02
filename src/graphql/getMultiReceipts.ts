@@ -56,7 +56,7 @@ export async function fetchMultiReceipts(
   const multiReceipts: any[] = [];
 
   const receiptTypes = getReceiptTypes();
-  const batchSize = 10; // Set the desired batch size
+  const batchSize = 4; // Set the desired batch size
 
   // Convert the receiptTypes object into an array of entries
   const entries = Object.entries(receiptTypes);
