@@ -291,6 +291,7 @@ export async function collectUnsuppliedBalance(): Promise<Transaction> {
 export async function getWithdrawRequestAndUnsuppliedAmounts(): Promise<{
   withdrawRequestAmount: string;
   unsuppliedAmount: string;
+  settleRequestTime: string;
 }> {
   const poolName = "ALPHA" as PoolName;
   const poolId = poolInfo[poolName].poolId;
@@ -307,16 +308,17 @@ export async function getWithdrawRequestAndUnsuppliedAmounts(): Promise<{
   const unsuppliedAmount = (
     pool.data.content as any
   ).fields.unsupplied_balance.toString();
+  let settleRequestTime = "";
   const withdrawRequests = (pool.data.content as any).fields.withdraw_requests
     .fields.contents;
   let withdrawRequestAmount = "0";
-  withdrawRequests.forEach((entry: any) => {
-    const amount = entry.fields.value.fields.leftover_amount.toString();
-    withdrawRequestAmount = new BN(withdrawRequestAmount)
-      .add(new BN(amount))
-      .toString();
-  });
-  return { withdrawRequestAmount, unsuppliedAmount };
+  if (withdrawRequests[0]) {
+    withdrawRequestAmount =
+      withdrawRequests[0].fields.value.fields.leftover_amount.toString();
+    settleRequestTime = withdrawRequests[0].fields.key.toString();
+  }
+
+  return { withdrawRequestAmount, unsuppliedAmount, settleRequestTime };
 }
 export async function addAirdropCoin(
   amount: string,
