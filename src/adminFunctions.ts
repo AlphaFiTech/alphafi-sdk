@@ -288,7 +288,36 @@ export async function collectUnsuppliedBalance(): Promise<Transaction> {
 
   return txb;
 }
+export async function getWithdrawRequestAndUnsuppliedAmounts(): Promise<{
+  withdrawRequestAmount: string;
+  unsuppliedAmount: string;
+}> {
+  const poolName = "ALPHA" as PoolName;
+  const poolId = poolInfo[poolName].poolId;
+  const pool = await getSuiClient().getObject({
+    id: poolId,
+    options: {
+      showContent: true,
+    },
+  });
+  if (!pool.data || !pool.data.content) {
+    throw new Error("Pool data not found");
+  }
 
+  const unsuppliedAmount = (
+    pool.data.content as any
+  ).fields.unsupplied_balance.toString();
+  const withdrawRequests = (pool.data.content as any).fields.withdraw_requests
+    .fields.contents;
+  let withdrawRequestAmount = "0";
+  withdrawRequests.forEach((entry: any) => {
+    const amount = entry.fields.value.fields.leftover_amount.toString();
+    withdrawRequestAmount = new BN(withdrawRequestAmount)
+      .add(new BN(amount))
+      .toString();
+  });
+  return { withdrawRequestAmount, unsuppliedAmount };
+}
 export async function addAirdropCoin(
   amount: string,
   address: string,
