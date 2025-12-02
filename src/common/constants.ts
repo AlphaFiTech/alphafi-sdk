@@ -1,4 +1,4 @@
-export const CONF_ENV = "production";
+export const CONF_ENV = "testing";
 
 export const conf = {
   testing: {
@@ -204,6 +204,17 @@ export const conf = {
     ALPHA_EMBER_PACKAGE_IDS: [
       "0x25df6c57c98f646b7cc8d3c412034240d54b7fac49ecf7ef417f3455b686a1c7",
     ],
+    ALPHA_SLUSH_FIRST_PACKAGE_ID:
+      "0x41b1def47b6259cd7306e049d6500eabb1a984e25558b56eefa9b6c000a038c3",
+    ALPHA_SLUSH_LATEST_PACKAGE_ID:
+      "0x79df8fe670eeb8d198dfddb7405d5b58656ebfe46c0c35ab54c3bd023ce9dc32",
+
+    ALPHA_SLUSH_MODULE_PACKAGE_IDS: [
+      "0x41b1def47b6259cd7306e049d6500eabb1a984e25558b56eefa9b6c000a038c3",
+    ],
+    ALPHA_SLUSH_PACKAGE_IDS: [
+      "0x41b1def47b6259cd7306e049d6500eabb1a984e25558b56eefa9b6c000a038c3",
+    ],
     ALPHAFI_RECEIPT_PACKAGE_ID:
       "0xe221191a4021401efd27346bef7b4142f9d85c1bd4f8d85b2c63ea511daf7a21",
     ALPHAFI_RECEIPT_IMAGE_URL: "",
@@ -249,6 +260,8 @@ export const conf = {
       "0x7f60ba67076924a86180aacd5e29085f27753f47f49c101f7f0ef75ed89d832b",
     ALPHA_EMBER_VERSION:
       "0x2273a528f8493c63e37fddc68a48be2513c927bb616d7b33669671b8505db9cc",
+    ALPHA_SLUSH_VERSION:
+      "0x146d1785834528d08a44cac4a59c6a981d43cc13b1d07818e7fa3d29318ca00f",
 
     VOLO_NATIVE_POOL:
       "0x7fa2faa111b8c65bea48a23049bfd81ca8f971a262d981dcd9a17c3825cb5baf",
@@ -529,6 +542,16 @@ export const conf = {
     //ember
     ALPHAFI_EMBER_POOL:
       "0xc0c55a14bdfaa0b9b14f477d9ab50907cc2746faf6ddc9d25778a70d17849b84",
+
+    //SLUSH
+    ALPHA_SLUSH_USDC_POOL_ID:
+      "0x15a537db45889267354a2576e1cf24e84ea7674a4e5691e71dd4c4592c9a8ce9",
+    ALPHA_SLUSH_SUI_POOL_ID:
+      "0x18db5470cc2da4f74b1b957891f274d896764d08c56c3941788cef84d2a1362e",
+    ALPHA_SLUSH_WAL_POOL_ID:
+      "0xcb8b3311b50c89edc2a0e51a0ffc591a651f8c8819ad000aa46f5974a619378d",
+    ALPHA_SLUSH_DEEP_POOL_ID:
+      "0xed4302b0db5a1eabc2f8404222572892c0bf7c81004935b23e4f22808b52a0af",
 
     // CETUS Pool Id's
 
@@ -857,8 +880,21 @@ export const conf = {
     // ember
     ALPHA_EMBER_INVESTOR:
       "0xcb839a91824f92379c1516b62dddecdd13be690f8a0a17aac844144f31cddc1b",
-    // Receipt Types
 
+    //slush
+    ALPHAFI_SLUSH_SUI_INVESTOR:
+      "0xb3f36ec60ec15b8422b87b3c891b5fb31ef491bedb6916062b1e91457ec776a5",
+    ALPHAFI_SLUSH_USDC_INVESTOR:
+      "0x8b225e3d795430573144397dd837e1349c7b3d52b86ede9128916d72d6170c9a",
+    ALPHAFI_SLUSH_WAL_INVESTOR:
+      "0x4e394fe8e9ec4a1caf98a58c8677c6d8867c6c2364da0417a362bbf6569396f4",
+    ALPHAFI_SLUSH_DEEP_INVESTOR:
+      "0x3805a893dfeeb15baf3f19629c0443e1c3993bf90bad8fb89dd0b25e2e68f3ee",
+    // Receipt Types
+    ALPHA_SLUSH_POSITION_CAP_TYPE:
+      "0x41b1def47b6259cd7306e049d6500eabb1a984e25558b56eefa9b6c000a038c3::alphalend_slush_pool::PositionCap",
+    ALPHA_SLUSH_POSITION_CAP_IMAGE_URL:
+      "https://images.alphafi.xyz/ALPHALEND-SLUSH-POSITIONCAP.png",
     ALPHAFI_RECEIPT_TYPE:
       "0xff453b038c3259917d74dc4fc69f45b9312c51bb591744f5d2258821b94f81e6::alphafi_receipt::AlphaFiReceipt",
     ALPHA_POOL_RECEIPT:

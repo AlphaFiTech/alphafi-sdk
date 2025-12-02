@@ -27,7 +27,6 @@ import { Decimal } from "decimal.js";
 import { Transaction } from "@mysten/sui/transactions";
 import { conf, CONF_ENV, getConf } from "./common/constants.js";
 import { getSuiClient, singleAssetPoolCoinMap } from "./index.js";
-import { Pool } from "../../alphafi-sdk-js/src/models/pool.js";
 import { getCoinObject } from "./transactions/bluefin.js";
 
 export async function getCurrentTick(poolName: PoolName) {
