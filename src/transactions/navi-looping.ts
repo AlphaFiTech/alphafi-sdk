@@ -40,13 +40,13 @@ export async function loopingDeposit(
   );
 
   if (poolName === "NAVI-LOOP-HASUI-SUI") {
-    txb = await naviHasuiSuiLoopDepositTx(amount, options);
+    txb = await naviHasuiSuiLoopDepositTx(txb, amount, options);
   } else if (poolName === "NAVI-LOOP-SUI-VSUI") {
-    txb = await naviSuiVsuiLoopDepositTx(amount, options);
+    txb = await naviSuiVsuiLoopDepositTx(txb, amount, options);
   } else if (poolName === "NAVI-LOOP-USDC-USDT") {
-    txb = await naviUsdcUsdtLoopDepositTx(amount, options);
+    txb = await naviUsdcUsdtLoopDepositTx(txb, amount, options);
   } else if (poolName === "NAVI-LOOP-USDT-USDC") {
-    txb = await naviUsdtUsdcLoopDepositTx(amount, options);
+    txb = await naviUsdtUsdcLoopDepositTx(txb, amount, options);
   }
   return txb;
 }
@@ -72,25 +72,25 @@ export async function loopingWithdraw(
   );
 
   if (poolName === "NAVI-LOOP-HASUI-SUI") {
-    txb = await naviHasuiSuiLoopWithdrawTx(xTokens, options);
+    txb = await naviHasuiSuiLoopWithdrawTx(txb, xTokens, options);
   } else if (poolName === "NAVI-LOOP-SUI-VSUI") {
-    txb = await naviSuiVsuiLoopWithdrawTx(xTokens, options);
+    txb = await naviSuiVsuiLoopWithdrawTx(txb, xTokens, options);
   } else if (poolName === "NAVI-LOOP-USDC-USDT") {
-    txb = await naviUsdcUsdtLoopWithdrawTx(xTokens, options);
+    txb = await naviUsdcUsdtLoopWithdrawTx(txb, xTokens, options);
   } else if (poolName === "NAVI-LOOP-USDT-USDC") {
-    txb = await naviUsdtUsdcLoopWithdrawTx(xTokens, options);
+    txb = await naviUsdtUsdcLoopWithdrawTx(txb, xTokens, options);
   }
   return txb;
 }
 
 export async function naviHasuiSuiLoopDepositTx(
+  txb: Transaction,
   amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = getConf();
   const suiClient = getSuiClient();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-HASUI-SUI";
   const poolData = poolInfo[poolName];
 
@@ -278,12 +278,12 @@ export async function naviHasuiSuiLoopDepositTx(
 }
 
 export async function naviSuiVsuiLoopDepositTx(
+  txb: Transaction,
   amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-SUI-VSUI";
   const poolData = poolInfo[poolName];
 
@@ -433,12 +433,12 @@ export async function naviSuiVsuiLoopDepositTx(
 }
 
 export async function naviSuiStsuiLoopDepositTx(
+  txb: Transaction,
   amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-SUI-STSUI";
   const poolData = poolInfo[poolName];
 
@@ -615,13 +615,13 @@ export async function naviSuiStsuiLoopDepositTx(
 }
 
 export async function naviUsdcUsdtLoopDepositTx(
+  txb: Transaction,
   amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
   const suiClient = getSuiClient();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-USDC-USDT";
   const poolData = poolInfo["NAVI-LOOP-USDC-USDT"];
 
@@ -808,13 +808,13 @@ export async function naviUsdcUsdtLoopDepositTx(
 }
 
 export async function naviUsdtUsdcLoopDepositTx(
+  txb: Transaction,
   amount: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
   const suiClient = getSuiClient();
   const address = options.address;
-  const txb = new Transaction();
 
   const poolData = poolInfo["NAVI-LOOP-USDT-USDC"];
 
@@ -905,12 +905,12 @@ export async function naviUsdtUsdcLoopDepositTx(
 }
 
 export async function naviHasuiSuiLoopWithdrawTx(
+  txb: Transaction,
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-HASUI-SUI";
   const poolData = poolInfo["NAVI-LOOP-HASUI-SUI"];
 
@@ -1078,12 +1078,12 @@ export async function naviHasuiSuiLoopWithdrawTx(
 }
 
 export async function naviSuiVsuiLoopWithdrawTx(
+  txb: Transaction,
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = getConf();
   const address = options.address;
-  const txb = new Transaction();
 
   const poolName = "NAVI-LOOP-SUI-VSUI";
   const poolData = poolInfo[poolName];
@@ -1245,12 +1245,14 @@ export async function naviSuiVsuiLoopWithdrawTx(
 
   return txb;
 }
-export async function migrateBoostedToLoop(options: {
-  address: string;
-}): Promise<Transaction> {
+export async function migrateBoostedToLoop(
+  txb: Transaction,
+  options: {
+    address: string;
+  },
+): Promise<Transaction> {
   const C = getConf();
   const address = options.address;
-  const txb = new Transaction();
 
   let poolName = "NAVI-LOOP-SUI-VSUI";
   let poolData = poolInfo[poolName];
@@ -1489,12 +1491,12 @@ export async function migrateBoostedToLoop(options: {
   return txb;
 }
 export async function naviSuiStsuiLoopWithdrawTx(
+  txb: Transaction,
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-SUI-STSUI";
   const poolData = poolInfo[poolName];
 
@@ -1668,12 +1670,12 @@ export async function naviSuiStsuiLoopWithdrawTx(
 }
 
 export async function naviUsdcUsdtLoopWithdrawTx(
+  txb: Transaction,
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = await getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-USDC-USDT";
   const poolData = poolInfo[poolName];
 
@@ -1835,12 +1837,12 @@ export async function naviUsdcUsdtLoopWithdrawTx(
 }
 
 export async function naviUsdtUsdcLoopWithdrawTx(
+  txb: Transaction,
   xTokens: string,
   options: { address: string },
 ): Promise<Transaction> {
   const C = getConf();
   const address = options.address;
-  const txb = new Transaction();
   const poolName = "NAVI-LOOP-USDT-USDC";
   const poolData = poolInfo["NAVI-LOOP-USDT-USDC"];
 
