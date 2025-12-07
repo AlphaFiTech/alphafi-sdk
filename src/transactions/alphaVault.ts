@@ -332,7 +332,14 @@ export async function claimAirdropTx(
       ],
     });
 
-    tx.transferObjects([alphafiReceiptObj], address);
+    tx.moveCall({
+      target: `${getConf().ALPHAFI_RECEIPT_PACKAGE_ID}::alphafi_receipt::transfer_receipt_to_new_owner`,
+      arguments: [
+        alphafiReceiptObj,
+        tx.pure.address(address),
+        tx.object(getConf().ALPHAFI_RECEIPT_WHITELISTED_ADDRESSES),
+      ],
+    });
   } else {
     const existingReceipt = alphafiReceipt[0];
     const isPresent = isPositionPresent(
