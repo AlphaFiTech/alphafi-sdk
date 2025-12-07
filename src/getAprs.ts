@@ -55,26 +55,6 @@ export async function getAprs(
 
   const aprMap = await calculateAprForPools(events);
 
-  for (const pool of Object.keys(poolInfo)) {
-    const poolName = pool as PoolName;
-    if (poolName === "BLUEFIN-AUTOBALANCE-WAL-USDC") {
-      aprMap[poolName] = 17.14;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
-      aprMap[poolName] = 11.36;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO") {
-      aprMap[poolName] = 15.51;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC") {
-      aprMap[poolName] = 15.14;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-BLUE") {
-      aprMap[poolName] = 14.76;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
-      aprMap[poolName] = 15.18;
-    } else if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
-      aprMap[poolName] = 7.72;
-    } else if (!(poolName in aprMap)) {
-      aprMap[poolName] = 0;
-    }
-  }
   return aprMap;
 }
 
