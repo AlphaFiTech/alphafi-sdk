@@ -29,6 +29,9 @@ import { conf, CONF_ENV, getConf } from "./common/constants.js";
 import { getSuiClient, singleAssetPoolCoinMap } from "./index.js";
 import { getCoinObject } from "./transactions/bluefin.js";
 
+const ALPHA_KEEPER_POOL_ID =
+  "0x1fef238763e8afa3180b0d6a74abecc94feeca2a92f671e881de034ae74c4a4f";
+
 export async function getCurrentTick(poolName: PoolName) {
   const parentPool = await getParentPool(poolName, false);
   const current_sqrt_price = parentPool.content.fields.current_sqrt_price;
@@ -107,9 +110,7 @@ export const setWeights = async (
   const txb = new Transaction();
   poolIdNames.forEach((poolName) => {
     if (poolName === "ALPHA-KEEPER") {
-      poolIds.push(
-        "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1",
-      );
+      poolIds.push(ALPHA_KEEPER_POOL_ID);
     } else {
       poolIds.push(poolInfo[poolName].poolId);
     }
@@ -181,10 +182,7 @@ export async function getPoolsWeightDistribution(
   for (const member of members) {
     const poolId = member.fields.key;
     const poolName = poolIdmap[poolId];
-    if (
-      poolId ===
-      "0x5a9fac4148605191b8e0de25a6671ba8008c344c1558bbaac73a947bd6c903b1"
-    ) {
+    if (poolId === ALPHA_KEEPER_POOL_ID) {
       let weight = 0;
       if (member.fields.value.fields) {
         const poolData = member.fields.value.fields.pool_data.fields.contents;
