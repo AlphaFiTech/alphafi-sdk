@@ -1,7 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { getConf } from "../common/constants.js";
 import { poolInfo } from "../common/maps.js";
-import { AlphalendClient } from "@alphafi/alphalend-sdk";
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getPool, getReceipts } from "../sui-sdk/functions/getReceipts.js";
@@ -13,7 +12,6 @@ export async function depositAlphaTx(
   address: string,
   suiClient: SuiClient,
 ): Promise<Transaction> {
-  const alphalendClient = new AlphalendClient("mainnet", suiClient);
   const tx = new Transaction();
   const poolinfo = poolInfo["ALPHA"];
 
@@ -33,11 +31,7 @@ export async function depositAlphaTx(
   const receipts = await getReceipts("ALPHA", address, true);
   const receipt = receipts.length > 0 ? receipts[0] : undefined;
   const alphafiReceipt = await getAlphaFiReceipt(address, suiClient);
-  await alphalendClient.updatePrices(tx, [
-    coinsList["ALPHA"].type,
-    coinsList["SUI"].type,
-    coinsList["ESUI"].type,
-  ]);
+
   if (alphafiReceipt.length === 0) {
     // Create new AlphaFi receipt
     const alphafiReceiptObj = createAlphaFiReceipt(tx);
@@ -189,17 +183,11 @@ async function initiateWithdrawAlphaTx(
   address: string,
   suiClient: SuiClient,
 ): Promise<Transaction> {
-  const alphalendClient = new AlphalendClient("mainnet", suiClient);
   const tx = new Transaction();
 
   const receipts = await getReceipts("ALPHA", address, true);
   const receipt = receipts.length > 0 ? receipts[0] : undefined;
   const alphafiReceipt = await getAlphaFiReceipt(address, suiClient);
-  await alphalendClient.updatePrices(tx, [
-    coinsList["ALPHA"].type,
-    coinsList["SUI"].type,
-    coinsList["ESUI"].type,
-  ]);
   if (alphafiReceipt.length === 0) {
     // Create new AlphaFi receipt
     const alphafiReceiptObj = createAlphaFiReceipt(tx);
@@ -290,16 +278,10 @@ export async function claimAirdropTx(
   suiClient: SuiClient,
 ): Promise<Transaction> {
   const tx = new Transaction();
-  const alphalendClient = new AlphalendClient("mainnet", suiClient);
   let airdropCoin;
   const receipts = await getReceipts("ALPHA", address, true);
   const receipt = receipts.length > 0 ? receipts[0] : undefined;
   const alphafiReceipt = await getAlphaFiReceipt(address, suiClient);
-  await alphalendClient.updatePrices(tx, [
-    coinsList["ALPHA"].type,
-    coinsList["SUI"].type,
-    coinsList["ESUI"].type,
-  ]);
   if (alphafiReceipt.length === 0) {
     // Create new AlphaFi receipt
     const alphafiReceiptObj = createAlphaFiReceipt(tx);
@@ -387,17 +369,11 @@ export async function claimWithdrawAlphaTx(
   suiClient: SuiClient,
 ): Promise<Transaction> {
   const tx = new Transaction();
-  const alphalendClient = new AlphalendClient("mainnet", suiClient);
   const alphafiReceipt = await getAlphaFiReceipt(address, suiClient);
 
   if (alphafiReceipt.length === 0) {
     throw new Error("No Alphafi receipt found!");
   }
-  await alphalendClient.updatePrices(tx, [
-    coinsList["ALPHA"].type,
-    coinsList["SUI"].type,
-    coinsList["ESUI"].type,
-  ]);
   let coin = tx.moveCall({
     target: `${getConf().ALPHA_EMBER_LATEST_PACKAGE_ID}::alphafi_ember_pool::user_claim_withdraw`,
     typeArguments: [getConf().ALPHA_COIN_TYPE],
