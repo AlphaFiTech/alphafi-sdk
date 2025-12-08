@@ -9,7 +9,7 @@ import {
   zapDepositQuoteTxb,
   zapDepositTxb,
 } from "../src/transactions/zapDeposit";
-import { getConf } from "../src";
+import { getConf, getWithdrawRequestsAndUnsuppliedAmount } from "../src";
 import { getAvailableRewards } from "../src/transactions/get_navi_rewards";
 import { naviDepositTx } from "../src/transactions/navi";
 
@@ -87,7 +87,7 @@ async function runTest() {
     await simulateTransactionBlock(tx);
   }
 }
-runTest();
+// runTest();
 
 async function getAvailableRewardsTest() {
   const rewards = await getAvailableRewards(
@@ -96,3 +96,8 @@ async function getAvailableRewardsTest() {
   console.log("rewards", rewards);
 }
 // getAvailableRewardsTest();
+
+async function getValue() {
+  console.log("hi bro", await getWithdrawRequestsAndUnsuppliedAmount());
+}
+getValue();
