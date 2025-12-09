@@ -1737,8 +1737,6 @@ export const withdrawBluefinSuiFirstTxb = async (
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
     if (poolName.toString().includes("AUTOBALANCE")) {
@@ -1769,20 +1767,11 @@ export const withdrawBluefinSuiFirstTxb = async (
         });
       }
     } else {
-      let alpha_receipt: any;
-      if (alphaReceipt.length == 0) {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::none`,
-          typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-          arguments: [],
-        });
-      } else {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::some`,
-          typeArguments: [alphaReceipt[0].content.type],
-          arguments: [txb.object(alphaReceipt[0].objectId)],
-        });
-      }
+      let alpha_receipt = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+        arguments: [],
+      });
       if (poolName === "BLUEFIN-SUI-USDC") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_withdraw_v2`,
@@ -1890,7 +1879,6 @@ export const withdrawBluefinSuiSecondTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
@@ -1922,20 +1910,11 @@ export const withdrawBluefinSuiSecondTxb = async (
         });
       }
     } else {
-      let alpha_receipt: any;
-      if (alphaReceipt.length == 0) {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::none`,
-          typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-          arguments: [],
-        });
-      } else {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::some`,
-          typeArguments: [alphaReceipt[0].content.type],
-          arguments: [txb.object(alphaReceipt[0].objectId)],
-        });
-      }
+      let alpha_receipt = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+        arguments: [],
+      });
       if (poolName === "BLUEFIN-BLUE-SUI") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_withdraw_v2`,
@@ -2130,7 +2109,6 @@ export const withdrawBluefinType1Txb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
     const poolinfo = poolInfo[poolName];
@@ -2162,20 +2140,11 @@ export const withdrawBluefinType1Txb = async (
         });
       }
     } else {
-      let alpha_receipt: any;
-      if (alphaReceipt.length == 0) {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::none`,
-          typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-          arguments: [],
-        });
-      } else {
-        [alpha_receipt] = txb.moveCall({
-          target: `0x1::option::some`,
-          typeArguments: [alphaReceipt[0].content.type],
-          arguments: [txb.object(alphaReceipt[0].objectId)],
-        });
-      }
+      let alpha_receipt = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+        arguments: [],
+      });
       if (poolName === "BLUEFIN-USDT-USDC") {
         txb.moveCall({
           target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
@@ -2632,23 +2601,13 @@ export const withdrawBluefinType2Txb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const poolinfo = poolInfo[poolName];
     if (poolName === "BLUEFIN-ALPHA-USDC") {
       txb.moveCall({
@@ -2815,23 +2774,13 @@ export const withdrawBluefinStsuiTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const poolinfo = poolInfo[poolName];
     if (poolName === "BLUEFIN-STSUI-USDC") {
       txb.moveCall({
