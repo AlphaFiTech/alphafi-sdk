@@ -358,7 +358,7 @@ export const depositCetusTxb = async (
             txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
             txb.object(cetusPoolMap[`${pool2}-SUI`]),
             txb.object(cetusPoolMap["CETUS-SUI"]),
-            txb.object(cetusPoolMap[poolName]),
+            txb.object(poolinfo.parentPoolId),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -526,7 +526,7 @@ export const withdrawCetusTxb = async (
           txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
           txb.object(cetusPoolMap[`${pool2}-SUI`]),
           txb.object(cetusPoolMap["CETUS-SUI"]),
-          txb.object(cetusPoolMap[poolName]),
+          txb.object(poolinfo.parentPoolId),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
