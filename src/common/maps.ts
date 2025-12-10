@@ -832,7 +832,7 @@ export const poolInfo: {
     packageId: conf[CONF_ENV].ALPHA_LATEST_PACKAGE_ID,
     packageNumber: 1,
     parentProtocolName: "CETUS",
-    parentPoolId: conf[CONF_ENV].USDC_SUIUSDT_CETUS_POOL_ID_OLD,
+    parentPoolId: conf[CONF_ENV].USDC_SUIUSDT_CETUS_POOL_ID,
     poolId: conf[CONF_ENV].USDC_SUIUSDT_POOL,
     investorId: conf[CONF_ENV].USDC_SUIUSDT_CETUS_INVESTOR,
     receiptName: conf[CONF_ENV].USDC_SUIUSDT_POOL_RECEIPT_NAME,
