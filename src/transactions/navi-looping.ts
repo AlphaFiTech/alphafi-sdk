@@ -691,7 +691,7 @@ export async function naviUsdcUsdtLoopDepositTx(
         if (rewardCoinSet.has(reward.reward_coin_type) === false) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["NAVX"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -707,7 +707,7 @@ export async function naviUsdcUsdtLoopDepositTx(
             });
           } else if (reward.rewardCoinType === coinsList["VSUI"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -735,7 +735,7 @@ export async function naviUsdcUsdtLoopDepositTx(
         if (rewardCoinSet.has(reward.reward_coin_type) === false) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["NAVX"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -751,7 +751,7 @@ export async function naviUsdcUsdtLoopDepositTx(
             });
           } else if (reward.rewardCoinType === coinsList["VSUI"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(poolData.investorId),
