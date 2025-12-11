@@ -436,7 +436,13 @@ export async function calculateAprForInvestor(
       previousTimestamp = event.timestamp;
     }
 
-    apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
+    // Handle case where there's only 1 event (totalTimeSpan = 0)
+    // In this case, we cannot calculate APR reliably, so return 0
+    if (totalTimeSpan === 0) {
+      apr = 0;
+    } else {
+      apr = (totalGrowth / totalTimeSpan) * (1000 * 60 * 60 * 24 * 365) * 100;
+    }
   } catch (error) {
     console.error("Error calculating apr from events.", error);
     if (events.length > 0) {
