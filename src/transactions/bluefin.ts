@@ -1946,13 +1946,8 @@ export const withdrawBluefinSuiSecondTxb = async (
         });
       } else if (poolName === "BLUEFIN-WBTC-SUI") {
         txb.moveCall({
-          target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_withdraw_v2`,
-          typeArguments: [
-            coinsList[pool1].type,
-            coinsList[pool2].type,
-            coinsList["BLUE"].type,
-            coinsList["SUI"].type,
-          ],
+          target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_emergency_withdraw`,
+          typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
           arguments: [
             txb.object(getConf().ALPHA_4_VERSION),
             txb.object(getConf().VERSION),
@@ -1962,14 +1957,6 @@ export const withdrawBluefinSuiSecondTxb = async (
             txb.object(poolinfo.poolId),
             txb.object(getConf().ALPHA_DISTRIBUTOR),
             txb.object(poolinfo.investorId),
-            txb.pure.u128(xTokens),
-            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-            txb.object(getConf().BLUEFIN_WBTC_SUI_POOL),
-            txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-            txb.object(cetusPoolMap["WBTC-SUI"]),
-            txb.object(getConf().LST_INFO),
-            txb.object(getConf().SUI_SYSTEM_STATE),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
