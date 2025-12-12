@@ -39,7 +39,10 @@ export type LoopingPoolNames =
   | "ALPHALEND-LOOP-SUI-STSUI"
   | "ALPHALEND-SINGLE-LOOP-TBTC"
   | "ALPHALEND-SINGLE-LOOP-SUIBTC"
-  | "ALPHALEND-SINGLE-LOOP-XAUM";
+  | "ALPHALEND-SINGLE-LOOP-XAUM"
+  | "ALPHALEND-SINGLE-LOOP-WBTC"
+  | "ALPHALEND-SINGLE-LOOP-DEEP"
+  | "ALPHALEND-SINGLE-LOOP-WAL";
 
 export type DoubleAssetPoolNames =
   | "HASUI-SUI"
@@ -159,7 +162,8 @@ export type CoinName =
   | "ETHIRD"
   | "EXBTC"
   | "SDEUSD"
-  | "EWAL";
+  | "EWAL"
+  | "WBTC-LayerZero";
 
 export type StrategyType =
   | "LOOPING"
@@ -273,7 +277,8 @@ export type CoinType =
   | "0x89b0d4407f17cc1b1294464f28e176e29816a40612f7a553313ea0a797a5f803::ethird::ETHIRD"
   | "0x56589f5381303a763a62e79ac118e5242f83652f4c5a9448af75162d8cb7140c::exbtc::EXBTC"
   | "0xf6b468748dced8435f4407d0ecb0457b921a2e89266a60862e36dbf243c71841::sdeusd::SDEUSD"
-  | "0x8a398f65f8635be31c181632bf730aea25074505d70c77d9b287e7d4f063ef70::ewal::EWAL";
+  | "0x8a398f65f8635be31c181632bf730aea25074505d70c77d9b287e7d4f063ef70::ewal::EWAL"
+  | "0x0041f9f9344cac094454cd574e333c4fdb132d7bcc9379bcd4aab485b2a63942::wbtc::WBTC";
 
 type ConfEnv = (typeof conf)[typeof CONF_ENV];
 export type PoolReceipt = ConfEnv[

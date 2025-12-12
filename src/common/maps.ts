@@ -170,6 +170,18 @@ export const loopingPoolCoinMap: {
     supplyCoin: "XAUM",
     borrowCoin: "XAUM",
   },
+  "ALPHALEND-SINGLE-LOOP-WBTC": {
+    supplyCoin: "WBTC-LayerZero",
+    borrowCoin: "WBTC-LayerZero",
+  },
+  "ALPHALEND-SINGLE-LOOP-DEEP": {
+    supplyCoin: "DEEP",
+    borrowCoin: "DEEP",
+  },
+  "ALPHALEND-SINGLE-LOOP-WAL": {
+    supplyCoin: "WAL",
+    borrowCoin: "WAL",
+  },
 };
 
 export const naviAssetMap: {
@@ -202,6 +214,9 @@ export const alphalendMarketIdMap: {
   TBTC: "14",
   SUIBTC: "3",
   XAUM: "18",
+  "WBTC-LayerZero": "29",
+  DEEP: "11",
+  WAL: "7",
 };
 
 export const cetusPoolMap: { [key: string]: string } = {
@@ -305,6 +320,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "XAUM-USDC": conf[CONF_ENV].BLUEFIN_XAUM_USDC_POOL,
   "XBTC-USDC": conf[CONF_ENV].BLUEFIN_XBTC_USDC_POOL,
   "XBTC-SUIBTC": conf[CONF_ENV].BLUEFIN_XBTC_SUIBTC_POOL,
+  "WBTC-LayerZero-USDC": conf[CONF_ENV].BLUEFIN_WBTC_LAYERZERO_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
@@ -448,6 +464,69 @@ export const poolInfo: {
     naviParentPoolCoinType?: string;
   };
 } = {
+  "ALPHALEND-SINGLE-LOOP-WBTC": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
+  "ALPHALEND-SINGLE-LOOP-DEEP": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
+  "ALPHALEND-SINGLE-LOOP-WAL": {
+    packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
+    packageNumber: 10,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL, //NO PARENT POOL
+    poolId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL,
+    investorId: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_INVESTOR,
+    receiptName:
+      conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT_NAME,
+    receiptType: conf[CONF_ENV].ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_RECEIPT,
+    assetTypes: [coinsList["SUIBTC"].type],
+    autoCompoundingEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT,
+    rebalanceEventType: undefined,
+    liquidityChangeEventType:
+      conf[CONF_ENV]
+        .ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT,
+    strategyType: "SINGLE-LOOPING",
+    retired: false,
+  },
   "ALPHALEND-SLUSH-SUI": {
     packageId: conf[CONF_ENV].ALPHA_SLUSH_LATEST_PACKAGE_ID,
     packageNumber: 12,

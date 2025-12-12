@@ -54,4 +54,5 @@ export type PythPriceIdPair =
   | "ETHIRD/USD"
   | "EXBTC/USD"
   | "SDEUSD/USD"
-  | "EWAL/USD";
+  | "EWAL/USD"
+  | "WBTC-LayerZero/USD";
