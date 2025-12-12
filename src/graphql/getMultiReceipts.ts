@@ -39,12 +39,15 @@ const getReceiptTypes = () => {
   const mySet: Set<string> = new Set();
   Object.keys(poolInfo).forEach((pool) => {
     const key = pool.replace(/-/g, "_");
-    if (!mySet.has(poolInfo[pool].receiptType)) {
+    const type = poolInfo[pool].receiptType;
+    // Skip pools that do not emit a receipt object
+    if (!type) return;
+    if (!mySet.has(type)) {
       receiptTypes[key] = {
-        type: poolInfo[pool].receiptType,
+        type,
         cursor: "",
       } as ReceiptType;
-      mySet.add(poolInfo[pool].receiptType);
+      mySet.add(type);
     }
   });
   return receiptTypes;
