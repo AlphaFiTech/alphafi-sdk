@@ -205,27 +205,16 @@ export async function alphalendSuiStsuiLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   await alphalendClient.updatePrices(txb, [
     coinsList["STSUI"].type,
     "0x2::sui::SUI",
   ]);
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     txb.moveCall({
       target: `${poolData.packageId}::alphafi_navi_sui_stsui_pool::collect_v3_rewards_with_one_swap`,
       typeArguments: [coinsList["ALPHA"].type],
@@ -306,26 +295,15 @@ export async function alphalendSingleLoopWithdraw(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   const coinName = loopingPoolCoinMap[poolName].supplyCoin;
 
   await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     await collectAndSwapRewardsSingleLoop(poolName, txb);
     const [coin] = txb.moveCall({
       target: `${poolData.packageId}::alphafi_alphalend_single_loop_pool::user_withdraw`,

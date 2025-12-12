@@ -848,7 +848,7 @@ export const poolInfo: {
       conf[CONF_ENV].USDC_SUIUSDT_POOL_LIQUIDITY_CHANGE_EVENT,
     imageUrl1: "https://images.alphafi.xyz/adminweb/USDC.svg",
     imageUrl2: "https://images.alphafi.xyz/adminweb/wusdc.svg",
-    retired: true,
+    retired: false,
   },
   "BLUEFIN-LBTC-SUIBTC": {
     packageId: conf[CONF_ENV].ALPHA_BLUEFIN_V2_LATEST_PACKAGE_ID,

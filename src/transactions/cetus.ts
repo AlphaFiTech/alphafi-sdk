@@ -358,7 +358,7 @@ export const depositCetusTxb = async (
             txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
             txb.object(cetusPoolMap[`${pool2}-SUI`]),
             txb.object(cetusPoolMap["CETUS-SUI"]),
-            txb.object(cetusPoolMap[poolName]),
+            txb.object(poolinfo.parentPoolId),
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
@@ -385,23 +385,13 @@ export const withdrawCetusAlphaSuiTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const poolinfo = poolInfo[poolName];
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_cetus_sui_pool::user_withdraw`,
@@ -440,23 +430,13 @@ export const withdrawCetusSuiTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const poolinfo = poolInfo[poolName];
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_cetus_sui_pool::user_withdraw`,
@@ -495,23 +475,13 @@ export const withdrawCetusTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
 
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [getConf().ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const poolinfo = poolInfo[poolName];
     if (
       poolName == "WUSDC-WBTC" ||
@@ -556,7 +526,7 @@ export const withdrawCetusTxb = async (
           txb.object(getConf().CETUS_REWARDER_GLOBAL_VAULT_ID),
           txb.object(cetusPoolMap[`${pool2}-SUI`]),
           txb.object(cetusPoolMap["CETUS-SUI"]),
-          txb.object(cetusPoolMap[poolName]),
+          txb.object(poolinfo.parentPoolId),
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });

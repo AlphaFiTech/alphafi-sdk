@@ -124,23 +124,12 @@ export async function bucketWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     txb.moveCall({
       target: `${poolData.packageId}::alphafi_bucket_investor_v1::collect_and_convert_reward_to_buck`,
       arguments: [

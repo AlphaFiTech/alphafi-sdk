@@ -691,7 +691,7 @@ export async function naviUsdcUsdtLoopDepositTx(
         if (rewardCoinSet.has(reward.reward_coin_type) === false) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["NAVX"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -707,7 +707,7 @@ export async function naviUsdcUsdtLoopDepositTx(
             });
           } else if (reward.rewardCoinType === coinsList["VSUI"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -735,7 +735,7 @@ export async function naviUsdcUsdtLoopDepositTx(
         if (rewardCoinSet.has(reward.reward_coin_type) === false) {
           if (reward.rewardCoinType === coinsList["NAVX"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["NAVX"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -751,7 +751,7 @@ export async function naviUsdcUsdtLoopDepositTx(
             });
           } else if (reward.rewardCoinType === coinsList["VSUI"].type) {
             txb.moveCall({
-              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_pool::collect_reward_with_two_swaps`,
+              target: `${poolData.packageId}::alphafi_navi_native_usdc_usdt_investor::collect_reward_with_two_swaps`,
               typeArguments: [coinsList["VSUI"].type],
               arguments: [
                 txb.object(poolData.investorId),
@@ -920,23 +920,12 @@ export async function naviHasuiSuiLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
     );
@@ -1094,23 +1083,12 @@ export async function naviSuiVsuiLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
 
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
@@ -1263,23 +1241,12 @@ export async function migrateBoostedToLoop(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
 
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
@@ -1506,27 +1473,17 @@ export async function naviSuiStsuiLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
   const alphalendClient = new AlphalendClient("mainnet", getSuiClient());
   await alphalendClient.updatePrices(txb, [
     coinsList["STSUI"].type,
     "0x2::sui::SUI",
   ]);
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
     );
@@ -1685,23 +1642,12 @@ export async function naviUsdcUsdtLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
     );
@@ -1852,23 +1798,12 @@ export async function naviUsdtUsdcLoopWithdrawTx(
     true,
   );
 
-  const alphaReceipt: Receipt[] = await getReceipts("ALPHA", address, true);
-
   if (receipt.length > 0) {
-    let alpha_receipt: any;
-    if (alphaReceipt.length == 0) {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::none`,
-        typeArguments: [C.ALPHA_POOL_RECEIPT],
-        arguments: [],
-      });
-    } else {
-      [alpha_receipt] = txb.moveCall({
-        target: `0x1::option::some`,
-        typeArguments: [alphaReceipt[0].content.type],
-        arguments: [txb.object(alphaReceipt[0].objectId)],
-      });
-    }
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [C.ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
     const claimableRewards = await getAvailableRewards(
       loopingAccountAddresses[poolName],
     );
