@@ -1984,7 +1984,7 @@ const depositBluefinStsuiTxb = async (
   return txb;
 };
 
-export const depositBluefinFungibleTxb = async (
+const depositBluefinFungibleTxb = async (
   txb: Transaction,
   poolName: PoolName,
   depositCoinA: TransactionObjectArgument,
