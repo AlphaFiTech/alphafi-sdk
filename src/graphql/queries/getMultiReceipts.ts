@@ -19,8 +19,8 @@ export function getMultiReceiptsQuery(receiptTypes: any) {
         ${key}: objects(
           filter: {
             type: "${receiptTypes[key].type}"
-            after: "${receiptTypes[key].cursor}"
           }
+          after: "${receiptTypes[key].cursor}"
           first: 10
         ) {
           ...ReceiptFields
