@@ -279,6 +279,7 @@ async function initiateWithdrawAlphaTx(
 export async function claimAirdropTx(
   address: string,
   suiClient: SuiClient,
+  transferToWallet: boolean,
 ): Promise<Transaction> {
   const tx = new Transaction();
   let airdropCoin;
@@ -364,62 +365,68 @@ export async function claimAirdropTx(
       ],
     });
   }
-  await alphalendClient.updatePrices(tx, ["0x2::sui::SUI"]);
-  const alphalendConstants = getConstants("mainnet");
-  const userPositionCapId = await getUserPositionCapId(
-    getSuiClient(),
-    "mainnet",
-    address,
-  );
-  let portfolio = await alphalendClient.getUserPortfolio(address);
-  if (
-    portfolio &&
-    portfolio[0] &&
-    portfolio[0].borrowedAmounts.has(
-      Number(alphalendMarketIdMap[airdropCoinName]),
-    ) &&
-    userPositionCapId
-  ) {
-    airdropCoin = tx.moveCall({
-      target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::repay`,
-      typeArguments: [airdropCoinType],
-      arguments: [
-        tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
-        tx.object(userPositionCapId), // Position capability
-        tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
-        airdropCoin, // Coin to repay with
-        tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
-      ],
-    });
-  } else {
-    if (!userPositionCapId) {
-      let positionCap = alphalendClient.createPosition(tx);
-      tx.moveCall({
-        target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
-        typeArguments: [airdropCoinType],
-        arguments: [
-          tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
-          positionCap, // Position capability
-          tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
-          airdropCoin, // Coin to supply as collateral
-          tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
-        ],
-      });
-      tx.transferObjects([positionCap], address);
-    } else {
-      tx.moveCall({
-        target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
+  if (!transferToWallet) {
+    await alphalendClient.updatePrices(tx, ["0x2::sui::SUI"]);
+    const alphalendConstants = getConstants("mainnet");
+    const userPositionCapId = await getUserPositionCapId(
+      getSuiClient(),
+      "mainnet",
+      address,
+    );
+    let portfolio = await alphalendClient.getUserPortfolio(address);
+    if (
+      portfolio &&
+      portfolio[0] &&
+      portfolio[0].borrowedAmounts.has(
+        Number(alphalendMarketIdMap[airdropCoinName]),
+      ) &&
+      userPositionCapId
+    ) {
+      airdropCoin = tx.moveCall({
+        target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::repay`,
         typeArguments: [airdropCoinType],
         arguments: [
           tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
           tx.object(userPositionCapId), // Position capability
           tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
-          airdropCoin, // Coin to supply as collateral
+          airdropCoin, // Coin to repay with
           tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
         ],
       });
+      tx.transferObjects([airdropCoin], address);
+    } else {
+      if (!userPositionCapId) {
+        let positionCap = alphalendClient.createPosition(tx);
+        tx.moveCall({
+          target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
+          typeArguments: [airdropCoinType],
+          arguments: [
+            tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
+            positionCap, // Position capability
+            tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
+            airdropCoin, // Coin to supply as collateral
+            tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
+          ],
+        });
+        tx.transferObjects([positionCap], address);
+      } else {
+        tx.moveCall({
+          target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
+          typeArguments: [airdropCoinType],
+          arguments: [
+            tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
+            tx.object(userPositionCapId), // Position capability
+            tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
+            airdropCoin, // Coin to supply as collateral
+            tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
+          ],
+        });
+      }
     }
+  } else {
+    tx.transferObjects([airdropCoin], address);
   }
+
   return tx;
 }
 
