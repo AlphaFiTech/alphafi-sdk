@@ -151,6 +151,9 @@ export const singleAssetPoolCoinMap: {
   "ALPHALEND-SLUSH-WAL": { coin: "WAL" },
   "ALPHALEND-SLUSH-USDC": { coin: "USDC" },
   "ALPHALEND-SLUSH-DEEP": { coin: "DEEP" },
+  "ALPHALEND-SINGLE-LOOP-WBTC": { coin: "WBTC-LayerZero" },
+  "ALPHALEND-SINGLE-LOOP-DEEP": { coin: "DEEP" },
+  "ALPHALEND-SINGLE-LOOP-WAL": { coin: "WAL" },
 };
 
 export const loopingPoolCoinMap: {
