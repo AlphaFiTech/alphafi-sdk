@@ -3121,6 +3121,9 @@ export const conf = {
       "0xc38279f945d14b4ec7f8c7b6956d0485ee8fa31a6cf710e462d17714bff028a2",
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL:
       "0x4db8dacf91a31daa296cd3a32a11a140aa44f4ede663798e92cb1cf2e157e6cb",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_POOL: "",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_POOL: "",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_POOL: "",
 
     //lyf pools
     ALPHAFI_LYF_STSUI_SUI_POOL:
@@ -3504,6 +3507,9 @@ export const conf = {
       "0x0f03b5c37f49c18d6e13ddc58939df17586a0b80cb83ceda2e4494addd571990",
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_INVESTOR:
       "0x0f859f3ec685882133f1d8ba2a20843a9e818575d32a4bc7b816c77e887753e2",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_INVESTOR: "",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_INVESTOR: "",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_INVESTOR: "",
 
     // alphafi lyf
 
@@ -3737,6 +3743,12 @@ export const conf = {
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_RECEIPT:
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_RECEIPT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_RECEIPT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_RECEIPT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::Receipt",
     ALPHAFI_LYF_STSUI_SUI_RECEIPT:
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb::alphafi_lyf_pool::Receipt",
 
@@ -3881,6 +3893,12 @@ export const conf = {
     ALPHAFI_LYF_STSUI_SUI_RECEIPT_NAME: "AlphaFi lyf stSUI-SUI Receipt",
     ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_RECEIPT_NAME:
       "AlphaFi-Bluefin-Autobalance xBTC-suiBTC Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_RECEIPT_NAME:
+      "AlphaFi-AlphaLend Single-Loop WBTC(LayerZero) Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_RECEIPT_NAME:
+      "AlphaFi-AlphaLend Single-Loop DEEP Receipt",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_RECEIPT_NAME:
+      "AlphaFi-AlphaLend Single-Loop WAL Receipt",
 
     //alphafi navi account addresses
     NAVI_USDC_USDT_LOOP_ACCOUNT_ADDRESS:
@@ -4158,6 +4176,12 @@ export const conf = {
     ALPHAFI_ALPHALEND_SINGLE_LOOP_SUIBTC_POOL_AUTO_COMPOUNDING_EVENT:
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
     ALPHAFI_ALPHALEND_SINGLE_LOOP_XAUM_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_POOL_AUTO_COMPOUNDING_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_POOL_AUTO_COMPOUNDING_EVENT:
       "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_investor::AutoCompoundingEvent",
 
     ALPHAFI_LYF_STSUI_SUI_AUTO_COMPOUNDING_EVENT:
@@ -4533,6 +4557,12 @@ export const conf = {
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb::alphafi_lyf_pool::LiquidityChangeEvent",
     ALPHAFI_BLUEFIN_AUTOBALANCE_XBTC_SUIBTC_POOL_LIQUIDITY_CHANGE_EVENT:
       "0x754afbce8c72c8e491e3b9d536aa9d9766fdbc68650224ce01072189b235eee3::alphafi_bluefin_type_1_pool::LiquidityChangeEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WBTC_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::LiquidityChangeEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_WAL_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::LiquidityChangeEvent",
+    ALPHAFI_ALPHALEND_SINGLE_LOOP_DEEP_POOL_LIQUIDITY_CHANGE_EVENT:
+      "0x45564ea956f9b25890a5c1c3a199c8d86aabd5291b34723fb662283419ee2f4d::alphafi_alphalend_single_loop_pool::LiquidityChangeEvent",
 
     // WithdrawV2 Events
     ALPHA_POOL_WITHDRAW_V2_EVENT:
@@ -4748,6 +4778,8 @@ export const conf = {
       "0x1b0cc1c66185ceb8eccbc807c73243ce957f0053dfa1026149265bb2ff704a07",
     BLUEFIN_XBTC_SUIBTC_POOL:
       "0x6490f12f357a95dd5cb2415258efc3377a73ef0979a3f785a05ab67351ed4a98",
+    BLUEFIN_WBTC_LAYERZERO_USDC_POOL:
+      "0x2a98773f44d34c16c8c9213e56050fdfc04ee210d5b7b7b26b14555ff5643b7f",
 
     // stsui
     LST_INFO:
