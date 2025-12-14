@@ -151,6 +151,9 @@ export const singleAssetPoolCoinMap: {
   "ALPHALEND-SLUSH-WAL": { coin: "WAL" },
   "ALPHALEND-SLUSH-USDC": { coin: "USDC" },
   "ALPHALEND-SLUSH-DEEP": { coin: "DEEP" },
+  "ALPHALEND-SINGLE-LOOP-WBTC": { coin: "WBTC-LayerZero" },
+  "ALPHALEND-SINGLE-LOOP-DEEP": { coin: "DEEP" },
+  "ALPHALEND-SINGLE-LOOP-WAL": { coin: "WAL" },
 };
 
 export const loopingPoolCoinMap: {
@@ -321,6 +324,7 @@ export const bluefinPoolMap: { [key: string]: string } = {
   "XBTC-USDC": conf[CONF_ENV].BLUEFIN_XBTC_USDC_POOL,
   "XBTC-SUIBTC": conf[CONF_ENV].BLUEFIN_XBTC_SUIBTC_POOL,
   "WBTC-LayerZero-USDC": conf[CONF_ENV].BLUEFIN_WBTC_LAYERZERO_USDC_POOL,
+  "DEEP-USDC": conf[CONF_ENV].BLUEFIN_DEEP_USDC_POOL,
 };
 
 export const loopingAccountAddresses: { [key: string]: string } = {
