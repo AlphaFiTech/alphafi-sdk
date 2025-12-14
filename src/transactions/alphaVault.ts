@@ -1,11 +1,14 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { getConf } from "../common/constants.js";
-import { poolInfo } from "../common/maps.js";
+import { alphalendMarketIdMap, poolInfo } from "../common/maps.js";
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getPool, getReceipts } from "../sui-sdk/functions/getReceipts.js";
 import { Decimal } from "decimal.js";
 import { AlphaPoolType } from "../common/types.js";
+import { alphalendClient } from "./alphalend.js";
+import { getConstants, getUserPositionCapId } from "@alphafi/alphalend-sdk";
+import { getSuiClient } from "@alphafi/stsui-sdk";
 
 export async function depositAlphaTx(
   amount: string,
@@ -276,9 +279,12 @@ async function initiateWithdrawAlphaTx(
 export async function claimAirdropTx(
   address: string,
   suiClient: SuiClient,
+  transferToWallet: boolean,
 ): Promise<Transaction> {
   const tx = new Transaction();
   let airdropCoin;
+  const airdropCoinName = "SUI";
+  const airdropCoinType = coinsList[airdropCoinName].type;
   const receipts = await getReceipts("ALPHA", address, true);
   const receipt = receipts.length > 0 ? receipts[0] : undefined;
   const alphafiReceipt = await getAlphaFiReceipt(address, suiClient);
@@ -306,7 +312,7 @@ export async function claimAirdropTx(
     // Get user rewards
     airdropCoin = tx.moveCall({
       target: `${getConf().ALPHA_EMBER_LATEST_PACKAGE_ID}::alphafi_ember_pool::get_user_rewards`,
-      typeArguments: [getConf().ALPHA_COIN_TYPE, coinsList["SUI"].type],
+      typeArguments: [getConf().ALPHA_COIN_TYPE, airdropCoinType],
       arguments: [
         tx.object(getConf().ALPHA_EMBER_VERSION),
         alphafiReceiptObj,
@@ -351,7 +357,7 @@ export async function claimAirdropTx(
     // Get user rewards
     airdropCoin = tx.moveCall({
       target: `${getConf().ALPHA_EMBER_LATEST_PACKAGE_ID}::alphafi_ember_pool::get_user_rewards`,
-      typeArguments: [getConf().ALPHA_COIN_TYPE, coinsList["SUI"].type],
+      typeArguments: [getConf().ALPHA_COIN_TYPE, airdropCoinType],
       arguments: [
         tx.object(getConf().ALPHA_EMBER_VERSION),
         tx.object(existingReceipt.id),
@@ -359,7 +365,69 @@ export async function claimAirdropTx(
       ],
     });
   }
-  tx.transferObjects([airdropCoin], address);
+  if (!transferToWallet) {
+    await alphalendClient.updatePrices(tx, ["0x2::sui::SUI"]);
+    const alphalendConstants = getConstants("mainnet");
+    const userPositionCapId = await getUserPositionCapId(
+      getSuiClient(),
+      "mainnet",
+      address,
+    );
+    if (!userPositionCapId) {
+      let positionCap = alphalendClient.createPosition(tx);
+      tx.moveCall({
+        target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
+        typeArguments: [airdropCoinType],
+        arguments: [
+          tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
+          positionCap, // Position capability
+          tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
+          airdropCoin, // Coin to supply as collateral
+          tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
+        ],
+      });
+      tx.transferObjects([positionCap], address);
+    } else {
+      let portfolio =
+        await alphalendClient.getUserPortfolioFromPositionCapId(
+          userPositionCapId,
+        );
+      if (
+        portfolio &&
+        portfolio.borrowedAmounts.has(
+          Number(alphalendMarketIdMap[airdropCoinName]),
+        )
+      ) {
+        airdropCoin = tx.moveCall({
+          target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::repay`,
+          typeArguments: [airdropCoinType],
+          arguments: [
+            tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
+            tx.object(userPositionCapId), // Position capability
+            tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
+            airdropCoin, // Coin to repay with
+            tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
+          ],
+        });
+        tx.transferObjects([airdropCoin], address);
+      } else {
+        tx.moveCall({
+          target: `${alphalendConstants.ALPHALEND_LATEST_PACKAGE_ID}::alpha_lending::add_collateral`,
+          typeArguments: [airdropCoinType],
+          arguments: [
+            tx.object(alphalendConstants.LENDING_PROTOCOL_ID), // Protocol object
+            tx.object(userPositionCapId), // Position capability
+            tx.pure.u64(alphalendMarketIdMap[airdropCoinName]), // Market ID
+            airdropCoin, // Coin to supply as collateral
+            tx.object(alphalendConstants.SUI_CLOCK_OBJECT_ID), // Clock object
+          ],
+        });
+      }
+    }
+  } else {
+    tx.transferObjects([airdropCoin], address);
+  }
+
   return tx;
 }
 
