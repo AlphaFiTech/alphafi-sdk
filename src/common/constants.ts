@@ -2722,7 +2722,7 @@ export const conf = {
     ALPHA_LYF_FIRST_PACKAGE_ID:
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
     ALPHA_LYF_LATEST_PACKAGE_ID:
-      "0x43e7977db2678fb15adb2fff008c6c48cebde37ca107b48fa9c005cc566bfcb5",
+      "0x5f177de63efb7163179c1f25c1fa51c901c38359a2e5760dd3c59c8c951aecfa",
 
     ALPHA_LYF_MODULE_PACKAGE_IDS: [
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
@@ -2730,6 +2730,7 @@ export const conf = {
     ALPHA_LYF_PACKAGE_IDS: [
       "0xff296a9ea1430e47ffc3e0e4e6aa8dd0f821f78ec37daba52dcdc517845559bb",
       "0x43e7977db2678fb15adb2fff008c6c48cebde37ca107b48fa9c005cc566bfcb5",
+      "0x5f177de63efb7163179c1f25c1fa51c901c38359a2e5760dd3c59c8c951aecfa",
     ],
     ALPHA_EMBER_FIRST_PACKAGE_ID:
       "0x975430704dc4d8536464a5d78e0938236d0e035a72b8224fb9606b28f6a75658",
