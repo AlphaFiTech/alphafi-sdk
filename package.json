@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@7kprotocol/sdk-ts": "^3.5.1",
-    "@alphafi/alphalend-sdk": "^1.1.20",
+    "@alphafi/alphalend-sdk": "^1.1.27",
     "@apollo/client": "^4.0.4",
     "@cetusprotocol/cetus-sui-clmm-sdk": "^5.4.0",
     "@hop.ag/sdk": "^4.0.17",
