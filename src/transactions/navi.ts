@@ -2201,31 +2201,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (poolName === "NAVI-NS") {
       const claimableRewards = await getAvailableRewards(
         getConf().NAVI_NS_ACCOUNT_ADDRESS,
@@ -2332,59 +2319,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_with_two_swaps_v2`,
-        typeArguments: [
-          coinsList[singleAssetPoolCoinMap[poolName].coin].type,
-          coinsList["SUI"].type,
-          coinsList["VSUI"].type,
-        ],
-        arguments: [
-          txb.object(C.ALPHA_3_VERSION),
-          txb.object(poolData.poolId),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
-          txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V1),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.NAVI_VSUI_FUNDS_POOL),
-          txb.object(C.NAVI_NS_FUNDS_POOL),
-          txb.object(C.CETUS_GLOBAL_CONFIG_ID),
-          txb.object(cetusPoolMap["VSUI-SUI"]),
-          txb.object(cetusPoolMap["NS-SUI"]),
-          txb.object(C.CLOCK_PACKAGE_ID),
-        ],
-      });
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (poolName === "NAVI-NAVX") {
       const claimableRewards = await getAvailableRewards(
         getConf().NAVI_NAVX_ACCOUNT_ADDRESS,
@@ -2443,59 +2389,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_with_two_swaps_v2`,
-        typeArguments: [
-          coinsList[singleAssetPoolCoinMap[poolName].coin].type,
-          coinsList["SUI"].type,
-          coinsList["VSUI"].type,
-        ],
-        arguments: [
-          txb.object(C.ALPHA_3_VERSION),
-          txb.object(poolData.poolId),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
-          txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V1),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.NAVI_VSUI_FUNDS_POOL),
-          txb.object(C.NAVI_NAVX_FUNDS_POOL),
-          txb.object(C.CETUS_GLOBAL_CONFIG_ID),
-          txb.object(cetusPoolMap["VSUI-SUI"]),
-          txb.object(cetusPoolMap["NAVX-SUI"]),
-          txb.object(C.CLOCK_PACKAGE_ID),
-        ],
-      });
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (poolName === "NAVI-STSUI") {
       const claimableRewards = await getAvailableRewards(
         getConf().NAVI_STSUI_ACCOUNT_ADDRESS,
@@ -2570,59 +2475,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::update_pool_with_two_swaps_v2`,
-        typeArguments: [
-          coinsList[singleAssetPoolCoinMap[poolName].coin].type,
-          coinsList["SUI"].type,
-          coinsList["VSUI"].type,
-        ],
-        arguments: [
-          txb.object(C.ALPHA_3_VERSION),
-          txb.object(poolData.poolId),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
-          txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V1),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.NAVI_VSUI_FUNDS_POOL),
-          txb.object(C.NAVI_STSUI_FUNDS_POOL),
-          txb.object(C.CETUS_GLOBAL_CONFIG_ID),
-          txb.object(cetusPoolMap["VSUI-SUI"]),
-          txb.object(cetusPoolMap["STSUI-SUI"]),
-          txb.object(C.CLOCK_PACKAGE_ID),
-        ],
-      });
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (poolName === "NAVI-SUIBTC") {
       const claimableRewards = await getAvailableRewards(
         getConf().NAVI_SUIBTC_ACCOUNT_ADDRESS,
@@ -2805,31 +2669,18 @@ export async function naviWithdrawTx(
         }
       }
 
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (singleAssetPoolCoinMap[poolName].coin == "WAL") {
       const claimableRewards = await getAvailableRewards(
         loopingAccountAddresses[poolName],
@@ -2893,31 +2744,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else if (singleAssetPoolCoinMap[poolName].coin == "DEEP") {
       const claimableRewards = await getAvailableRewards(
         loopingAccountAddresses[poolName],
@@ -2978,31 +2816,18 @@ export async function naviWithdrawTx(
           }
         }
       }
-      txb.moveCall({
-        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_withdraw_v2`,
+      let [withdrawnCoin, alphaCoin] = txb.moveCall({
+        target: `${C.ALPHA_3_LATEST_PACKAGE_ID}::alphafi_navi_pool_v2::user_emergency_withdraw`,
         typeArguments: [coinsList[singleAssetPoolCoinMap[poolName].coin].type],
         arguments: [
           txb.object(C.ALPHA_3_VERSION),
-          txb.object(C.VERSION),
           txb.object(receipt[0].objectId),
-          alpha_receipt,
-          txb.object(C.ALPHA_POOL),
           txb.object(poolData.poolId),
-          txb.pure.u64(xTokens),
-          txb.object(poolData.investorId),
-          txb.object(C.ALPHA_DISTRIBUTOR),
-          txb.object(C.PRICE_ORACLE),
-          txb.object(C.NAVI_STORAGE),
           txb.object(poolData.parentPoolId),
-          txb.pure.u8(
-            Number(naviAssetMap[singleAssetPoolCoinMap[poolName].coin]),
-          ),
-          txb.object(C.NAVI_INCENTIVE_V3),
-          txb.object(C.NAVI_INCENTIVE_V2),
-          txb.object(C.SUI_SYSTEM_STATE),
-          txb.object(C.CLOCK_PACKAGE_ID),
+          txb.object(C.ALPHA_DISTRIBUTOR),
         ],
       });
+      txb.transferObjects([withdrawnCoin, alphaCoin], address);
     } else {
       txb.moveCall({
         target: `${C.ALPHA_LATEST_PACKAGE_ID}::alphafi_navi_pool::user_withdraw_with_two_swaps`,
