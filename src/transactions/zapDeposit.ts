@@ -53,7 +53,6 @@ export async function zapDepositTxb(
     tx,
     suiClient,
     address,
-    inputCoinAmount,
   );
   const investor = (await getInvestor(poolName, true)) as CetusInvestor &
     CommonInvestorFields;
@@ -316,7 +315,9 @@ export async function zapDepositQuoteTxb(
   let [amountA, amountB] = (
     await getAmounts(poolName, isInputA, inputCoinAmount.toString())
   ).map((a) => new Decimal(a));
-
+  console.log("amountA", amountA.toString(), coinTypeA);
+  console.log("amountB", amountB.toString(), coinTypeB);
+  console.log("is amount A", isInputA);
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
     // const quoteResponse = await swapGateway.getQuote(
@@ -447,15 +448,13 @@ async function getCoinObject(
   tx: Transaction,
   suiClient: SuiClient,
   address: string,
-  amount: bigint,
 ): Promise<TransactionObjectArgument> {
   if (
     coinType === "0x2::sui::SUI" ||
     coinType ===
       "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
   ) {
-    const [coin] = tx.splitCoins(tx.gas, [amount]);
-    return coin;
+    return tx.gas;
   }
   let currentCursor: string | null | undefined = null;
   let coins1: CoinStruct[] = [];
@@ -474,14 +473,11 @@ async function getCoinObject(
   if (coins1.length === 0) {
     throw new Error(`No coins found for ${coinType} for owner ${address}`);
   }
-  // const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0]);
-  const coinObjectId = coins1[0].coinObjectId;
-  const [coin] = tx.splitCoins(tx.object(coinObjectId), [amount]);
+  const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0]);
   tx.mergeCoins(
     coin,
     coins1.map((c) => c.coinObjectId),
   );
-  // return tx.object(coins1[0].coinObjectId);
   return coin;
 }
 
