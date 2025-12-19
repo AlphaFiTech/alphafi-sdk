@@ -349,3 +349,17 @@ export async function addAirdropCoin(
   });
   return txb;
 }
+export async function getRebalanceCap(address: string): Promise<string> {
+  const rebalanceCapType = `${getConf().ALPHA_FIRST_PACKAGE_ID}::distributor::RebalanceCap`;
+
+  const data = await getSuiClient().getOwnedObjects({
+    owner: address,
+    filter: {
+      StructType: rebalanceCapType,
+    },
+  });
+  if (!data.data[0] || !data.data[0].data) {
+    throw new Error("no rebalance cap found");
+  }
+  return data.data[0].data.objectId;
+}
