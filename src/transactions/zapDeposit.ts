@@ -18,7 +18,7 @@ import {
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
-import { SevenKGateway } from "./7k.js";
+// import { SevenKGateway } from "./7k.js";
 import { CetusSwap } from "./cetusSwap.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../sui-sdk/client.js";
@@ -155,7 +155,7 @@ export async function zapDepositTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     const [coinIn] = tx.splitCoins(coinObject, [
@@ -194,7 +194,7 @@ export async function zapDepositTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
     const [coinIn] = tx.splitCoins(coinObject, [
       inputCoinToType1.floor().toString(),
@@ -315,9 +315,6 @@ export async function zapDepositQuoteTxb(
   let [amountA, amountB] = (
     await getAmounts(poolName, isInputA, inputCoinAmount.toString())
   ).map((a) => new Decimal(a));
-  console.log("amountA", amountA.toString(), coinTypeA);
-  console.log("amountB", amountB.toString(), coinTypeB);
-  console.log("is amount A", isInputA);
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
     // const quoteResponse = await swapGateway.getQuote(
@@ -367,7 +364,7 @@ export async function zapDepositQuoteTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     // const quoteResponse = await swapGateway.getQuote(
@@ -403,7 +400,7 @@ export async function zapDepositQuoteTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     // const quoteResponse = await swapGateway.getQuote(
@@ -438,8 +435,8 @@ export async function zapDepositQuoteTxb(
   }
 
   return [
-    inputCoinToType1.mul(0.9995).floor().toString(),
-    inputCoinToType2.mul(0.9995).floor().toString(),
+    inputCoinToType1.floor().toString(),
+    inputCoinToType2.floor().toString(),
   ];
 }
 
@@ -494,31 +491,17 @@ async function zapSwap(params: {
   coinOut: TransactionObjectArgument;
   amountOut: Decimal;
 }> {
-  // const swapGateway = new SevenKGateway();
   const cetusSwap = new CetusSwap("mainnet");
-  // const quoteResponse1 = await swapGateway.getQuote(
-  //   params.tokenIn,
-  //   params.tokenOut,
-  //   params.amountIn,
-  //   [poolInfo[params.poolName].parentPoolId],
-  // );
+
   const quoteResponse = await cetusSwap.getCetusSwapQuote(
     params.tokenIn,
     params.tokenOut,
     params.amountIn,
-    // [poolInfo[params.poolName].parentPoolId],
   );
   if (!quoteResponse) {
     throw new Error("Error fetching quote for zap");
   }
-  // const coinOut1 = await swapGateway.getTransactionBlock(
-  //   params.tx,
-  //   params.address,
-  //   quoteResponse1,
-  //   params.slippage,
-  //   params.coinIn,
-  // );
-  // console.log("coinOut1", coinOut1);
+
   // Pass the existing transaction to ensure all operations are in the same transaction
   const { coinOut } = await cetusSwap.cetusSwapTokensTxb(
     quoteResponse,

@@ -1,4 +1,8 @@
-import { AggregatorClient, RouterDataV3 } from "@cetusprotocol/aggregator-sdk";
+import {
+  AggregatorClient,
+  getProvidersExcluding,
+  RouterDataV3,
+} from "@cetusprotocol/aggregator-sdk";
 // import { getFullnodeUrl } from '@mysten/sui/client/network.js';
 import {
   Transaction,
@@ -24,17 +28,22 @@ export class CetusSwap {
     from: string,
     target: string,
     amount: string,
-    poolIds?: string[],
   ): Promise<RouterDataV3 | undefined> {
     try {
-      // const providers = getAllProviders();
+      const providersExcept = getProvidersExcluding([
+        "STEAMM_OMM_V2",
+        "OBRIC",
+        "METASTABLE",
+        "HAEDALHMMV2",
+        "HAEDALPMM",
+      ]);
 
       const router = await this.client.findRouters({
         from,
         target,
         amount,
         byAmountIn: true, // `true` means fix input amount, `false` means fix output amount
-        // providers: providers,
+        providers: providersExcept,
       });
       return router || undefined;
     } catch (error) {
