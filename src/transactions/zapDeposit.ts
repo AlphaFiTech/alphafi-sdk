@@ -18,7 +18,7 @@ import {
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
-import { SevenKGateway } from "./7k.js";
+import { CetusSwap } from "./cetusSwap.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../sui-sdk/client.js";
 import { getConf } from "../common/constants.js";
@@ -43,7 +43,7 @@ export async function zapDepositTxb(
 ): Promise<Transaction | undefined> {
   const tx = new Transaction();
   const suiClient = getSuiClient();
-  const swapGateway = new SevenKGateway();
+  const cetusSwap = new CetusSwap("mainnet");
   const [coinTypeA, coinTypeB] = poolInfo[poolName].assetTypes;
 
   const coinObject = await getCoinObject(
@@ -52,7 +52,6 @@ export async function zapDepositTxb(
     suiClient,
     address,
   );
-
   const investor = (await getInvestor(poolName, true)) as CetusInvestor &
     CommonInvestorFields;
   const parentPool = await getParentPool(poolName, true);
@@ -109,29 +108,27 @@ export async function zapDepositTxb(
 
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeA,
       coinTypeB,
       amountA.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    amountA = new Decimal(quoteResponse.returnAmountWithDecimal);
+    amountA = new Decimal(quoteResponse.amountOut.toString());
   } else {
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeB,
       coinTypeA,
       amountB.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    amountB = new Decimal(quoteResponse.returnAmountWithDecimal);
+    amountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
   // get input coin and handle how much of input coin needs to be swapped
@@ -142,7 +139,7 @@ export async function zapDepositTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
     const [coinIn] = tx.splitCoins(coinObject, [
@@ -181,7 +178,7 @@ export async function zapDepositTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
     const [coinIn] = tx.splitCoins(coinObject, [
       inputCoinToType1.floor().toString(),
@@ -227,7 +224,7 @@ export async function zapDepositQuoteTxb(
   poolName: PoolName,
   slippage: number, // 1% --> 0.01
 ): Promise<[string, string] | undefined> {
-  const swapGateway = new SevenKGateway();
+  const cetusSwap = new CetusSwap("mainnet");
   const [coinTypeA, coinTypeB] = poolInfo[poolName].assetTypes;
 
   const investor = (await getInvestor(poolName, true)) as CetusInvestor &
@@ -253,16 +250,15 @@ export async function zapDepositQuoteTxb(
 
   if (current_tick_index >= upper_tick) {
     if (isInputA) {
-      const quoteResponse = await swapGateway.getQuote(
+      const quoteResponse = await cetusSwap.getCetusSwapQuote(
         coinTypeA,
         coinTypeB,
         inputCoinAmount.toString(),
-        [poolInfo[poolName].parentPoolId],
       );
       if (!quoteResponse) {
         throw new Error("Error fetching quote for zap");
       }
-      return ["0", quoteResponse.returnAmountWithDecimal];
+      return ["0", quoteResponse.amountOut.toString()];
     } else {
       return ["0", inputCoinAmount.toString()];
     }
@@ -270,16 +266,15 @@ export async function zapDepositQuoteTxb(
     if (isInputA) {
       return [inputCoinAmount.toString(), "0"];
     } else {
-      const quoteResponse = await swapGateway.getQuote(
+      const quoteResponse = await cetusSwap.getCetusSwapQuote(
         coinTypeB,
         coinTypeA,
         inputCoinAmount.toString(),
-        [poolInfo[poolName].parentPoolId],
       );
       if (!quoteResponse) {
         throw new Error("Error fetching quote for zap");
       }
-      return [quoteResponse.returnAmountWithDecimal, "0"];
+      return [quoteResponse.amountOut.toString(), "0"];
     }
   }
 
@@ -287,32 +282,29 @@ export async function zapDepositQuoteTxb(
   let [amountA, amountB] = (
     await getAmounts(poolName, isInputA, inputCoinAmount.toString())
   ).map((a) => new Decimal(a));
-
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeA,
       coinTypeB,
       amountA.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    amountA = new Decimal(quoteResponse.returnAmountWithDecimal);
+    amountA = new Decimal(quoteResponse.amountOut.toString());
   } else {
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeB,
       coinTypeA,
       amountB.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    amountB = new Decimal(quoteResponse.returnAmountWithDecimal);
+    amountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
   // get input coin and handle how much of input coin needs to be swapped
@@ -323,20 +315,19 @@ export async function zapDepositQuoteTxb(
     inputCoinToType2 = new Decimal(inputCoinAmount.toString())
       .mul(amountB)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
 
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeA,
       coinTypeB,
       inputCoinToType2.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       throw new Error("Error fetching quote for zap");
     }
     const slippageReducedAmount = new Decimal(
-      quoteResponse.returnAmountWithDecimal,
+      quoteResponse.amountOut.toString(),
     )
       .mul(new Decimal(1).sub(slippage))
       .floor();
@@ -348,20 +339,19 @@ export async function zapDepositQuoteTxb(
     inputCoinToType1 = new Decimal(inputCoinAmount.toString())
       .mul(amountA)
       .div(totalAmount)
-      // .mul(amountB.mul(slippage).div(totalAmount).add(1))
+      .mul(amountB.mul(slippage).div(totalAmount).add(1))
       .floor();
 
-    const quoteResponse = await swapGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinTypeB,
       coinTypeA,
       inputCoinToType1.toString(),
-      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       throw new Error("Error fetching quote for zap");
     }
     const slippageReducedAmount = new Decimal(
-      quoteResponse.returnAmountWithDecimal,
+      quoteResponse.amountOut.toString(),
     )
       .mul(new Decimal(1).sub(slippage))
       .floor();
@@ -372,8 +362,8 @@ export async function zapDepositQuoteTxb(
   }
 
   return [
-    inputCoinToType1.mul(0.9995).floor().toString(),
-    inputCoinToType2.mul(0.9995).floor().toString(),
+    inputCoinToType1.floor().toString(),
+    inputCoinToType2.floor().toString(),
   ];
 }
 
@@ -407,7 +397,6 @@ async function getCoinObject(
   if (coins1.length === 0) {
     throw new Error(`No coins found for ${coinType} for owner ${address}`);
   }
-
   const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0]);
   tx.mergeCoins(
     coin,
@@ -429,30 +418,30 @@ async function zapSwap(params: {
   coinOut: TransactionObjectArgument;
   amountOut: Decimal;
 }> {
-  const swapGateway = new SevenKGateway();
-  const quoteResponse = await swapGateway.getQuote(
+  const cetusSwap = new CetusSwap("mainnet");
+  const quoteResponse = await cetusSwap.getCetusSwapQuote(
     params.tokenIn,
     params.tokenOut,
     params.amountIn,
-    [poolInfo[params.poolName].parentPoolId],
   );
   if (!quoteResponse) {
     throw new Error("Error fetching quote for zap");
   }
-  const coinOut = await swapGateway.getTransactionBlock(
-    params.tx,
-    params.address,
+
+  // Pass the existing transaction to ensure all operations are in the same transaction
+  const { coinOut } = await cetusSwap.cetusSwapTokensTxb(
     quoteResponse,
     params.slippage,
     params.coinIn,
+    params.address,
+    params.tx, // Pass existing transaction
   );
+
   if (!coinOut) {
     throw new Error("Error getting transaction block for zap");
   }
 
-  const slippageReducedAmount = new Decimal(
-    quoteResponse.returnAmountWithDecimal,
-  )
+  const slippageReducedAmount = new Decimal(quoteResponse.amountOut.toString())
     .mul(new Decimal(1).sub(params.slippage))
     .floor();
   const [returnCoinOut] = params.tx.splitCoins(coinOut, [
@@ -1248,7 +1237,7 @@ const depositBluefinType1Txb = async (
         txb.object(poolinfo.investorId),
         txb.object(getConf().ALPHA_4_VERSION),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
         txb.object(bluefinPoolMap["SUI-USDC"]),
         txb.object(getConf().LST_INFO),
@@ -1275,7 +1264,7 @@ const depositBluefinType1Txb = async (
         txb.object(poolinfo.investorId),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
         txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
         txb.object(cetusPoolMap["USDC-SUIUSDT"]),
         txb.object(cetusPoolMap["USDC-SUI"]),

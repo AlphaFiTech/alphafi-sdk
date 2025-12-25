@@ -14,6 +14,9 @@ import {
   getReceipts,
 } from "../sui-sdk/functions/getReceipts.js";
 import {
+  AUTOBALANCE_SUI_FIRST_POOLS,
+  AUTOBALANCE_SUI_SECOND_POOLS,
+  AUTOBALANCE_TYPE_1_POOLS,
   bluefinPoolMap,
   cetusPoolMap,
   doubleAssetPoolCoinMap,
@@ -23,8 +26,11 @@ import { getSuiClient } from "../sui-sdk/client.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
 import { Decimal } from "decimal.js";
-import { SevenKGateway } from "./7k.js";
 import { coinsList } from "../common/coins.js";
+import { CetusSwap } from "./cetusSwap.js";
+import { collectRewardTxb } from "./blueRewards.js";
+import { collectAndSwapRewardsLyf } from "./collect_rewards.js";
+import { alphalendClient } from "./alphalend.js";
 
 async function getCoinObject(
   coinType: string,
@@ -32,6 +38,13 @@ async function getCoinObject(
   suiClient: SuiClient,
   address: string,
 ): Promise<TransactionObjectArgument> {
+  if (
+    coinType === "0x2::sui::SUI" ||
+    coinType ===
+      "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+  ) {
+    return tx.gas;
+  }
   let currentCursor: string | null | undefined = null;
   let coins1: CoinStruct[] = [];
   do {
@@ -49,8 +62,7 @@ async function getCoinObject(
   if (coins1.length === 0) {
     throw new Error(`No coins found for ${coinType} for owner ${address}`);
   }
-
-  const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0n]);
+  const [coin] = tx.splitCoins(tx.object(coins1[0].coinObjectId), [0]);
   tx.mergeCoins(
     coin,
     coins1.map((c) => c.coinObjectId),
@@ -68,25 +80,27 @@ export async function zapSwap(params: {
   amountIn: string;
   coinIn: TransactionObjectArgument;
 }): Promise<TransactionObjectArgument | undefined> {
-  const swapGateway = new SevenKGateway();
-  const quoteResponse = await swapGateway.getQuote(
+  const swapGateway = new CetusSwap("mainnet");
+  const quoteResponse = await swapGateway.getCetusSwapQuote(
     params.tokenIn,
     params.tokenOut,
     params.amountIn,
-    [poolInfo[params.poolName].parentPoolId],
+    // [poolInfo[params.poolName].parentPoolId],
   );
   if (!quoteResponse) {
     console.error("Error fetching quote for zap");
     return undefined;
   }
 
-  const coinOut = await swapGateway.getTransactionBlock(
-    params.tx,
-    params.address,
-    quoteResponse,
-    params.slippage,
-    params.coinIn,
-  );
+  const coinOut = (
+    await swapGateway.cetusSwapTokensTxb(
+      quoteResponse,
+      params.slippage,
+      params.coinIn,
+      params.address,
+      params.tx,
+    )
+  ).coinOut;
   if (!coinOut) {
     console.error("Error getting transaction block for zap");
     return undefined;
@@ -112,10 +126,6 @@ async function getCoinsInRatio(params: {
   const current_sqrt_price = parentPool.content.fields.current_sqrt_price;
   const current_tick_index =
     parentPool.content.fields.current_tick_index.fields.bits;
-  console.log("current_tick_index", current_tick_index);
-  console.log("lower_tick", lower_tick);
-  console.log("upper_tick", upper_tick);
-  console.log("current_sqrt_price", current_sqrt_price);
 
   const [
     coinA,
@@ -159,7 +169,7 @@ export async function zapDepositTxb(
 ) {
   const tx = new Transaction();
   const suiClient = getSuiClient();
-  const sevenKGateway = new SevenKGateway();
+  const cetusSwap = new CetusSwap("mainnet");
   const coinAType = poolInfo[poolName].assetTypes[0];
   const coinBType = poolInfo[poolName].assetTypes[1];
 
@@ -173,36 +183,34 @@ export async function zapDepositTxb(
   let [amountA, amountB] = (
     await getAmounts(poolName, isInputA, "1000000001")
   ).map((a) => new Decimal(a));
-  console.log("amountA", amountA.toString());
-  console.log("amountB", amountB.toString());
 
   let [convertedAmountA, convertedAmountB] = [amountA, amountB];
 
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
-    const quoteResponse = await sevenKGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinAType,
       coinBType,
       amountA.toString(),
-      [poolInfo[poolName].parentPoolId],
+      // [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    convertedAmountA = new Decimal(quoteResponse.returnAmountWithDecimal);
+    convertedAmountA = new Decimal(quoteResponse.amountOut.toString());
   } else {
-    const quoteResponse = await sevenKGateway.getQuote(
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
       coinBType,
       coinAType,
       amountB.toString(),
-      [poolInfo[poolName].parentPoolId],
+      // [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    convertedAmountB = new Decimal(quoteResponse.returnAmountWithDecimal);
+    convertedAmountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
   const totalAmount = convertedAmountA.add(convertedAmountB);
@@ -211,11 +219,12 @@ export async function zapDepositTxb(
     const toSwap = new Decimal(inputCoinAmount.toString())
       .mul(convertedAmountB)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
+      .floor();
+    const notToSwap = new Decimal(inputCoinAmount.toString())
+      .sub(toSwap)
       .floor();
 
     const coinIn = tx.splitCoins(coinObject, [toSwap.floor().toString()]);
-
     const coinOut = await zapSwap({
       tx,
       address,
@@ -234,10 +243,11 @@ export async function zapDepositTxb(
     const { coinA, coinB, remCoinA, remCoinB } = await getCoinsInRatio({
       tx,
       poolName,
-      coinA: coinObject,
+      coinA: tx.splitCoins(coinObject, [notToSwap.toString()]),
       coinB: coinOut,
     });
-    tx.transferObjects([remCoinA, remCoinB], address);
+
+    tx.transferObjects([remCoinA, remCoinB, coinObject], address);
     await deposit({
       tx,
       depositCoinA: coinA,
@@ -250,16 +260,12 @@ export async function zapDepositTxb(
     const toSwap = new Decimal(inputCoinAmount.toString())
       .mul(convertedAmountA)
       .div(totalAmount)
-      // .mul(amountA.mul(slippage).div(totalAmount).add(1))
       .floor();
-    console.log("inputCoinAmount", inputCoinAmount.toString());
-    console.log("convertedAmountA", convertedAmountA.toString());
-    console.log("convertedAmountB", convertedAmountB.toString());
-    console.log("totalAmount", totalAmount.toString());
-    console.log("toSwap", toSwap.toString());
+    const notToSwap = new Decimal(inputCoinAmount.toString())
+      .sub(toSwap)
+      .floor();
 
     const coinIn = tx.splitCoins(coinObject, [toSwap.floor().toString()]);
-
     const coinOut = await zapSwap({
       tx,
       address,
@@ -275,26 +281,14 @@ export async function zapDepositTxb(
       return undefined;
     }
 
-    const {
-      coinA,
-      coinB,
-      remCoinA,
-      remCoinB,
-      coinAVal,
-      coinBVal,
-      remCoinAVal,
-      remCoinBVal,
-    } = await getCoinsInRatio({
+    const { coinA, coinB, remCoinA, remCoinB } = await getCoinsInRatio({
       tx,
       poolName,
       coinA: coinOut,
-      coinB: coinObject,
+      coinB: tx.splitCoins(coinObject, [notToSwap.toString()]),
     });
-    console.log("coinAVal", coinAVal.toString());
-    console.log("coinBVal", coinBVal.toString());
-    console.log("remCoinAVal", remCoinAVal.toString());
-    console.log("remCoinBVal", remCoinBVal.toString());
-    tx.transferObjects([remCoinA, remCoinB], address);
+
+    tx.transferObjects([remCoinA, remCoinB, coinObject], address);
     await deposit({
       tx,
       depositCoinA: coinA,
@@ -304,6 +298,152 @@ export async function zapDepositTxb(
     });
   }
   return tx;
+}
+
+export async function zapDepositQuoteTxb(
+  inputCoinAmount: bigint,
+  isInputA: boolean,
+  poolName: PoolName,
+): Promise<[string, string] | undefined> {
+  const cetusSwap = new CetusSwap("mainnet");
+  const [coinTypeA, coinTypeB] = poolInfo[poolName].assetTypes;
+
+  const investor = (await getInvestor(poolName, true)) as CetusInvestor &
+    CommonInvestorFields;
+  const parentPool = await getParentPool(poolName, true);
+
+  // get lower_tick, upper_tick, current_tick_index without 2's complement
+  const upper_bound = 443636;
+  let lower_tick = Number(investor.content.fields.lower_tick);
+  let upper_tick = Number(investor.content.fields.upper_tick);
+  let current_tick_index = Number(
+    parentPool.content.fields.current_tick_index.fields.bits,
+  );
+  if (lower_tick > upper_bound) {
+    lower_tick = -~(lower_tick - 1);
+  }
+  if (upper_tick > upper_bound) {
+    upper_tick = -~(upper_tick - 1);
+  }
+  if (current_tick_index > upper_bound) {
+    current_tick_index = -~(current_tick_index - 1);
+  }
+
+  if (current_tick_index >= upper_tick) {
+    if (isInputA) {
+      const quoteResponse = await cetusSwap.getCetusSwapQuote(
+        coinTypeA,
+        coinTypeB,
+        inputCoinAmount.toString(),
+      );
+      if (!quoteResponse) {
+        throw new Error("Error fetching quote for zap");
+      }
+      return ["0", quoteResponse.amountOut.toString()];
+    } else {
+      return ["0", inputCoinAmount.toString()];
+    }
+  } else if (current_tick_index < lower_tick) {
+    if (isInputA) {
+      return [inputCoinAmount.toString(), "0"];
+    } else {
+      const quoteResponse = await cetusSwap.getCetusSwapQuote(
+        coinTypeB,
+        coinTypeA,
+        inputCoinAmount.toString(),
+      );
+      if (!quoteResponse) {
+        throw new Error("Error fetching quote for zap");
+      }
+      return [quoteResponse.amountOut.toString(), "0"];
+    }
+  }
+
+  // get inital ratio in terms of 2 coins
+  let [amountA, amountB] = (
+    await getAmounts(poolName, isInputA, inputCoinAmount.toString())
+  ).map((a) => new Decimal(a));
+  // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
+  if (isInputA) {
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      coinTypeA,
+      coinTypeB,
+      amountA.toString(),
+    );
+    if (!quoteResponse) {
+      console.error("Error fetching quote for zap");
+      return undefined;
+    }
+    amountA = new Decimal(quoteResponse.amountOut.toString());
+  } else {
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      coinTypeB,
+      coinTypeA,
+      amountB.toString(),
+    );
+    if (!quoteResponse) {
+      console.error("Error fetching quote for zap");
+      return undefined;
+    }
+    amountB = new Decimal(quoteResponse.amountOut.toString());
+  }
+
+  // get input coin and handle how much of input coin needs to be swapped
+  const totalAmount = amountA.add(amountB);
+  let [inputCoinToType1, inputCoinToType2] = [new Decimal(0), new Decimal(0)];
+
+  if (isInputA) {
+    inputCoinToType2 = new Decimal(inputCoinAmount.toString())
+      .mul(amountB)
+      .div(totalAmount)
+      .floor();
+
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      coinTypeA,
+      coinTypeB,
+      inputCoinToType2.toString(),
+    );
+    if (!quoteResponse) {
+      throw new Error("Error fetching quote for zap");
+    }
+
+    [inputCoinToType1, inputCoinToType2] = (
+      await getAmounts(
+        poolName,
+        false,
+        quoteResponse.amountOut.toString(),
+        false,
+      )
+    ).map((a) => new Decimal(a));
+  } else {
+    inputCoinToType1 = new Decimal(inputCoinAmount.toString())
+      .mul(amountA)
+      .div(totalAmount)
+      .floor();
+
+    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      coinTypeB,
+      coinTypeA,
+      inputCoinToType1.toString(),
+    );
+    if (!quoteResponse) {
+      throw new Error("Error fetching quote for zap");
+    }
+
+    [inputCoinToType1, inputCoinToType2] = (
+      await getAmounts(
+        poolName,
+        true,
+        quoteResponse.amountOut.toString(),
+        false,
+      )
+    ).map((a) => new Decimal(a));
+  }
+
+  return [
+    inputCoinToType1.floor().toString(),
+    inputCoinToType2.floor().toString(),
+  ];
 }
 
 async function deposit(params: {
@@ -395,7 +535,14 @@ async function deposit(params: {
       );
     }
   } else if (poolInfo[params.poolName].parentProtocolName === "BLUEFIN") {
-    if (
+    if (params.poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+      params.tx = await depositBluefinFungibleTxb(
+        params.tx,
+        params.poolName,
+        params.depositCoinA,
+        params.depositCoinB,
+      );
+    } else if (
       params.poolName === "BLUEFIN-NAVX-VSUI" ||
       params.poolName === "BLUEFIN-ALPHA-USDC" ||
       params.poolName === "BLUEFIN-BLUE-USDC"
@@ -575,6 +722,9 @@ const depositBluefinSuiFirstTxb = async (
   const poolinfo = poolInfo[poolName];
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+  if (poolinfo.strategyType === "AUTOBALANCE-LIQUIDITY-POOL") {
+    await collectRewardTxb(poolName, true, txb);
+  }
   if (poolName === "BLUEFIN-SUI-USDC") {
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit_v2`,
@@ -659,41 +809,7 @@ const depositBluefinSuiFirstTxb = async (
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-SUI-USDC") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["BLUE"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.poolId),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["STSUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.poolId),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
+  } else if (AUTOBALANCE_SUI_FIRST_POOLS.includes(poolName)) {
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit_v4`,
       typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
@@ -706,58 +822,7 @@ const depositBluefinSuiFirstTxb = async (
         txb.object(getConf().ALPHA_DISTRIBUTOR),
         txb.object(poolinfo.investorId),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-SUI-LBTC") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["BLUE"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.poolId),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::collect_reward`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["STSUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.poolId),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_first_pool::user_deposit_v4`,
-      typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        someReceipt,
-        txb.object(poolinfo.poolId),
-        depositCoinA,
-        depositCoinB,
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUI_LBTC_POOL),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
@@ -775,6 +840,9 @@ const depositBluefinType1Txb = async (
   const poolinfo = poolInfo[poolName];
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+  if (poolinfo.strategyType === "AUTOBALANCE-LIQUIDITY-POOL") {
+    await collectRewardTxb(poolName, true, txb);
+  }
   if (poolName === "BLUEFIN-USDT-USDC") {
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_bluefin_type_1_investor::collect_and_swap_rewards_to_token_b_bluefin`,
@@ -998,31 +1066,10 @@ const depositBluefinType1Txb = async (
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-USDT-USDC") {
+  } else if (AUTOBALANCE_TYPE_1_POOLS.includes(poolName)) {
     txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_and_swap_trade_fee`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList["USDT"].type,
-        coinsList["USDC"].type,
-        coinsList["BLUE"].type,
-        coinsList["SUI"].type,
-      ],
+      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v3`,
+      typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
       arguments: [
         txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
         someReceipt,
@@ -1032,13 +1079,7 @@ const depositBluefinType1Txb = async (
         txb.object(getConf().ALPHA_DISTRIBUTOR),
         txb.object(poolinfo.investorId),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_USDT_USDC_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(cetusPoolMap["USDC-USDT"]),
-        txb.object(cetusPoolMap["USDC-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
@@ -1055,7 +1096,7 @@ const depositBluefinType1Txb = async (
         txb.object(poolinfo.investorId),
         txb.object(getConf().ALPHA_4_VERSION),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
         txb.object(bluefinPoolMap["SUI-USDC"]),
         txb.object(getConf().LST_INFO),
@@ -1082,125 +1123,9 @@ const depositBluefinType1Txb = async (
         txb.object(poolinfo.investorId),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
         txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
         txb.object(cetusPoolMap["USDC-SUIUSDT"]),
-        txb.object(cetusPoolMap["USDC-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_and_swap_trade_fee`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList["SUIUSDT"].type,
-        coinsList["USDC"].type,
-        coinsList["BLUE"].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        someReceipt,
-        txb.object(poolinfo.poolId),
-        depositCoinA,
-        depositCoinB,
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(cetusPoolMap["USDC-SUIUSDT"]),
-        txb.object(cetusPoolMap["USDC-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-BLUE") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList["DEEP"].type,
-        coinsList["BLUE"].type,
-        coinsList["BLUE"].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        someReceipt,
-        txb.object(poolinfo.poolId),
-        depositCoinA,
-        depositCoinB,
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_DEEP_BLUE_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(cetusPoolMap["BLUE-DEEP"]),
-        txb.object(cetusPoolMap["BLUE-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-WAL-USDC") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_and_swap_trade_fee`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_WAL_USDC_POOL),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList["WAL"].type,
-        coinsList["USDC"].type,
-        coinsList["BLUE"].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        someReceipt,
-        txb.object(poolinfo.poolId),
-        depositCoinA,
-        depositCoinB,
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_WAL_USDC_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(cetusPoolMap["USDC-WAL"]),
         txb.object(cetusPoolMap["USDC-SUI"]),
         txb.object(getConf().LST_INFO),
         txb.object(getConf().SUI_SYSTEM_STATE),
@@ -1356,50 +1281,6 @@ const depositBluefinType1Txb = async (
         txb.object(getConf().BLUEFIN_WAL_USDC_POOL),
         txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
         txb.object(cetusPoolMap["USDC-WAL"]),
-        txb.object(cetusPoolMap["USDC-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-SUIUSDT-USDC-ZERO-ZERO") {
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::collect_and_swap_trade_fee`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL),
-        txb.object(getConf().BLUEFIN_SUI_USDC_POOL),
-        txb.object(getConf().CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_type_1_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList["SUIUSDT"].type,
-        coinsList["USDC"].type,
-        coinsList["BLUE"].type,
-        coinsList["SUI"].type,
-      ],
-      arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
-        someReceipt,
-        txb.object(poolinfo.poolId),
-        depositCoinA,
-        depositCoinB,
-        txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
-        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_SUIUSDT_USDC_ZERO_ZERO_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL_AUTOCOMPOUND),
-        txb.object(cetusPoolMap["USDC-SUIUSDT"]),
         txb.object(cetusPoolMap["USDC-SUI"]),
         txb.object(getConf().LST_INFO),
         txb.object(getConf().SUI_SYSTEM_STATE),
@@ -1575,6 +1456,9 @@ const depositBluefinSuiSecondTxb = async (
   const poolinfo = poolInfo[poolName];
   const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+  if (poolinfo.strategyType === "AUTOBALANCE-LIQUIDITY-POOL") {
+    await collectRewardTxb(poolName, true, txb);
+  }
   if (poolName === "BLUEFIN-BLUE-SUI") {
     txb.moveCall({
       target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit_v2`,
@@ -1684,14 +1568,10 @@ const depositBluefinSuiSecondTxb = async (
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-DEEP-SUI") {
+  } else if (AUTOBALANCE_SUI_SECOND_POOLS.includes(poolName)) {
     txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["BLUE"].type,
-      ],
+      target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit_v3`,
+      typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
       arguments: [
         txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
         someReceipt,
@@ -1701,37 +1581,31 @@ const depositBluefinSuiSecondTxb = async (
         txb.object(getConf().ALPHA_DISTRIBUTOR),
         txb.object(poolinfo.investorId),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(cetusPoolMap["DEEP-SUI"]),
-        txb.object(getConf().LST_INFO),
-        txb.object(getConf().SUI_SYSTEM_STATE),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (poolName === "BLUEFIN-AUTOBALANCE-BLUE-SUI") {
+  } else if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
+    const coinAType = pool1 === "SUI" ? "0x2::sui::SUI" : coinsList[pool1].type;
+    const coinBType = pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
+    await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
+
+    await collectAndSwapRewardsLyf(poolName, txb);
+
     txb.moveCall({
-      target: `${poolinfo.packageId}::alphafi_bluefin_sui_second_pool::user_deposit_v2`,
-      typeArguments: [
-        coinsList[pool1].type,
-        coinsList[pool2].type,
-        coinsList["DEEP"].type,
-      ],
+      target: `${poolinfo.packageId}::alphafi_lyf_pool::user_deposit`,
+      typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
       arguments: [
-        txb.object(getConf().ALPHA_BLUEFIN_AUTOBALANCE_VERSION),
+        txb.object(getConf().ALPHA_LYF_VERSION),
+        txb.object(getConf().VERSION),
         someReceipt,
         txb.object(poolinfo.poolId),
         depositCoinA,
         depositCoinB,
         txb.object(getConf().ALPHA_DISTRIBUTOR),
-        txb.object(poolinfo.investorId),
+        txb.object(getConf().LENDING_PROTOCOL_ID),
         txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-        txb.object(getConf().CETUS_GLOBAL_CONFIG_ID),
-        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
-        txb.object(getConf().BLUEFIN_DEEP_SUI_POOL),
-        txb.object(cetusPoolMap["BLUE-SUI"]),
-        txb.object(getConf().LST_INFO),
+        txb.object(poolinfo.parentPoolId),
         txb.object(getConf().SUI_SYSTEM_STATE),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
@@ -1951,6 +1825,43 @@ const depositBluefinStsuiTxb = async (
         txb.object(getConf().LST_INFO),
         txb.object(getConf().SUI_SYSTEM_STATE),
         txb.pure.bool(true),
+        txb.object(getConf().CLOCK_PACKAGE_ID),
+      ],
+    });
+  }
+  return txb;
+};
+
+const depositBluefinFungibleTxb = async (
+  txb: Transaction,
+  poolName: PoolName,
+  depositCoinA: TransactionObjectArgument,
+  depositCoinB: TransactionObjectArgument,
+): Promise<Transaction> => {
+  const poolinfo = poolInfo[poolName];
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
+  if (poolName === "BLUEFIN-FUNGIBLE-STSUI-SUI") {
+    txb.moveCall({
+      target: `${poolinfo.packageId}::alphafi_bluefin_stsui_sui_ft_pool::user_deposit`,
+      typeArguments: [
+        coinsList[pool1].type,
+        coinsList[pool2].type,
+        poolinfo.receiptType,
+        coinsList["BLUE"].type,
+      ],
+      arguments: [
+        txb.object(getConf().ALPHA_FUNGIBLE_VERSION),
+        txb.object(poolinfo.poolId),
+        depositCoinA,
+        depositCoinB,
+        txb.object(getConf().ALPHA_DISTRIBUTOR),
+        txb.object(poolinfo.investorId),
+        txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+        txb.object(getConf().BLUEFIN_STSUI_SUI_POOL),
+        txb.object(getConf().BLUEFIN_BLUE_SUI_POOL),
+        txb.object(getConf().LST_INFO),
+        txb.object(getConf().SUI_SYSTEM_STATE),
         txb.object(getConf().CLOCK_PACKAGE_ID),
       ],
     });

@@ -8,8 +8,14 @@ import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import {
   zapDepositQuoteTxb,
   zapDepositTxb,
-} from "../src/transactions/zapDeposit";
-import { getConf, getWithdrawRequestsAndUnsuppliedAmount } from "../src";
+} from "../src/transactions/newZapDeposit";
+import {
+  getAllVaultBalances,
+  getConf,
+  getDoubleAssetVaults,
+  getVaults,
+  getWithdrawRequestsAndUnsuppliedAmount,
+} from "../src";
 import { getAvailableRewards } from "../src/transactions/get_navi_rewards";
 import { naviDepositTx } from "../src/transactions/navi";
 
@@ -49,6 +55,8 @@ async function getCoinObject(
 
 async function runTest() {
   const { address, suiClient, keypair } = getExecStuff();
+  // const address =
+  // "0x396c8d5f9560f2ffa5d67dcdf3f458ee654ad3e3e08d4eb6ff50e7ddf66a82e5";
   // zapDepositTxb 200000000n true BLUEFIN-STSUI-SUI 0.01 0x8983f49747f2c700a15dd22508a0af973b4f961c5c90fe7750188d8099e3fa1a
   // const tx = await zapDepositTxb(
   //   100_000_000n,
@@ -57,16 +65,19 @@ async function runTest() {
   //   0.01,
   //   address, // "0xdad8b77b746f38cbac5044eb7b2c7232f9e38f30e2868f0e5bf311cd83554b5a",
   // );
-  const tx = await naviDepositTx("100000", "NAVI-VSUI", { address });
-  // const quote = await zapDepositQuoteTxb(
-  //   100_000n,
-  //   false,
-  //   "BLUEFIN-SUI-USDC",
-  //   0.01,
-  // );
+  // const tx = await naviDepositTx("100000", "NAVI-VSUI", { address });
+  // const res = await getAllVaultBalances(address);
+  // console.log("res", res);
+  const tx = await zapDepositTxb(
+    1_000_000_000n,
+    false,
+    "BLUEFIN-STSUI-SUI",
+    0.01,
+    address,
+  );
   // console.log(quote);
   if (tx) {
-    tx.setGasBudget(1_000_000_000n);
+    // tx.setGasBudget(1_000_000_000n);
     // await suiClient
     //   .signAndExecuteTransaction({
     //     signer: keypair,
@@ -84,10 +95,10 @@ async function runTest() {
     //   .catch((error) => {
     //     console.error(error);
     //   });
-    await simulateTransactionBlock(tx);
+    await simulateTransactionBlock(tx, address);
   }
 }
-// runTest();
+runTest();
 
 async function getAvailableRewardsTest() {
   const rewards = await getAvailableRewards(
@@ -100,4 +111,4 @@ async function getAvailableRewardsTest() {
 async function getValue() {
   console.log("hi bro", await getWithdrawRequestsAndUnsuppliedAmount());
 }
-getValue();
+// getValue();

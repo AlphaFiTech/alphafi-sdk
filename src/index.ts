@@ -65,7 +65,7 @@ export {
 export {
   zapDepositTxb,
   zapDepositQuoteTxb,
-} from "./transactions/zapDeposit.js";
+} from "./transactions/newZapDeposit.js";
 
 //
 export {
