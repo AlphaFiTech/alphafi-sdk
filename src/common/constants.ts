@@ -2880,7 +2880,7 @@ export const conf = {
       "0x4f6f2f638362505836114f313809b834dafd58e3910df5110f6e54e4e35c929b",
 
     ALPHAFI_SWAPPER_PACKAGE_ID:
-      "0xaff9333d3d69aec8d4eca3acc80722bdb4607f53544201d1384fa54e5c7955da",
+      "0x50e09e94f9864e0cc85f95868fa68585482977d1fb714664cc895cd77c3de2aa",
 
     // Coin Types
 
