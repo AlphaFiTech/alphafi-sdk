@@ -18,7 +18,6 @@ import {
 import { coinsList } from "../common/coins.js";
 import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
-// import { SevenKGateway } from "./7k.js";
 import { CetusSwap } from "./cetusSwap.js";
 import { Decimal } from "decimal.js";
 import { getSuiClient } from "../sui-sdk/client.js";
@@ -129,7 +128,6 @@ export async function zapDepositTxb(
       console.error("Error fetching quote for zap");
       return undefined;
     }
-    // amountB = new Decimal(quoteResponse.returnAmountWithDecimal);
     amountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
@@ -421,7 +419,6 @@ async function zapSwap(params: {
   amountOut: Decimal;
 }> {
   const cetusSwap = new CetusSwap("mainnet");
-
   const quoteResponse = await cetusSwap.getCetusSwapQuote(
     params.tokenIn,
     params.tokenOut,
