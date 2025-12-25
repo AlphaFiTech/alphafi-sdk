@@ -72,8 +72,11 @@ export async function dryRunTransactionBlock(txb: Transaction) {
   }
 }
 
-export async function simulateTransactionBlock(txb: Transaction) {
-  const { suiClient, address } = getExecStuff();
+export async function simulateTransactionBlock(
+  txb: Transaction,
+  address: string,
+) {
+  const { suiClient } = getExecStuff();
   txb.setSender(address);
   try {
     // suiClient
@@ -89,8 +92,9 @@ export async function simulateTransactionBlock(txb: Transaction) {
     //     console.error(error);
     //   });
     await suiClient
-      .dryRunTransactionBlock({
-        transactionBlock: await txb.build({ client: suiClient }),
+      .devInspectTransactionBlock({
+        transactionBlock: txb,
+        sender: address,
       })
       .then((res) => {
         console.log(JSON.stringify(res, null, 2));
