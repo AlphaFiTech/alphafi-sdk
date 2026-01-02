@@ -411,40 +411,6 @@ export const depositBluefinSuiSecondTxb = async (
             txb.object(getConf().CLOCK_PACKAGE_ID),
           ],
         });
-      } else if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
-        const coinAType =
-          pool1 === "SUI" ? "0x2::sui::SUI" : coinsList[pool1].type;
-        const coinBType =
-          pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
-        await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
-        console.log(
-          alphalendClient.constants.ALPHAFI_LATEST_ORACLE_PACKAGE_ID,
-          alphalendClient.constants.ALPHAFI_ORACLE_OBJECT_ID,
-          alphalendClient.constants.ALPHALEND_LATEST_PACKAGE_ID,
-          alphalendClient.constants.LENDING_PROTOCOL_ID,
-        );
-
-        await collectAndSwapRewardsLyf(poolName, txb);
-        console.log(amount1, amount2);
-
-        txb.moveCall({
-          target: `${poolinfo.packageId}::alphafi_lyf_pool::user_deposit`,
-          typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
-          arguments: [
-            txb.object(getConf().ALPHA_LYF_VERSION),
-            txb.object(getConf().VERSION),
-            someReceipt,
-            txb.object(poolinfo.poolId),
-            depositCoinA,
-            depositCoinB,
-            txb.object(getConf().ALPHA_DISTRIBUTOR),
-            txb.object(getConf().LENDING_PROTOCOL_ID),
-            txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
-            txb.object(poolinfo.parentPoolId),
-            txb.object(getConf().SUI_SYSTEM_STATE),
-            txb.object(getConf().CLOCK_PACKAGE_ID),
-          ],
-        });
       }
 
       txb.transferObjects([coin1], address);
@@ -455,7 +421,83 @@ export const depositBluefinSuiSecondTxb = async (
 
   return txb;
 };
+export async function depositBluefinLyfTxb(
+  amount: string,
+  poolName: PoolName,
+  isAmountA: boolean,
+  options: { address: string },
+  transaction: Transaction | undefined = undefined,
+): Promise<Transaction> {
+  const address = options.address;
+  let txb;
+  if (transaction) txb = transaction;
+  else txb = new Transaction();
+  poolName = poolName.toUpperCase() as PoolName;
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
+  const receipt: Receipt[] = await getReceipts(poolName, address, true);
+
+  const amounts = await getAmounts(poolName, isAmountA, amount);
+  if (amounts) {
+    const amount1 = amounts[0];
+    const amount2 = amounts[1];
+    let coin1 = await getCoinObject(coinsList[pool1].type, address, txb);
+    let coin2 = await getCoinObject(coinsList[pool2].type, address, txb);
+    if (!coin1 || !coin2) {
+      throw new Error("coin not available");
+    }
+    const [depositCoinA] = txb.splitCoins(coin1, [amount1]);
+
+    //coin2
+    const [depositCoinB] = txb.splitCoins(coin2, [amount2]);
+    txb.transferObjects([coin1, coin2], address);
+    const poolinfo = poolInfo[poolName];
+    let someReceipt: any;
+    if (receipt.length == 0) {
+      [someReceipt] = txb.moveCall({
+        target: `0x1::option::none`,
+        typeArguments: [poolinfo.receiptType],
+        arguments: [],
+      });
+    } else {
+      [someReceipt] = txb.moveCall({
+        target: `0x1::option::some`,
+        typeArguments: [receipt[0].content.type],
+        arguments: [txb.object(receipt[0].objectId)],
+      });
+    }
+    if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
+      await alphalendClient.updatePrices(txb, [
+        coinsList[pool1].type,
+        coinsList[pool2].type,
+      ]);
+
+      await collectAndSwapRewardsLyf(poolName, txb);
+      console.log(amount1, amount2);
+
+      txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_lyf_pool::user_deposit`,
+        typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
+        arguments: [
+          txb.object(getConf().ALPHA_LYF_VERSION),
+          txb.object(getConf().VERSION),
+          someReceipt,
+          txb.object(poolinfo.poolId),
+          depositCoinA,
+          depositCoinB,
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.object(getConf().LENDING_PROTOCOL_ID),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(poolinfo.parentPoolId),
+          txb.object(getConf().SUI_SYSTEM_STATE),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+  }
+  return txb;
+}
 export const depositBluefinType1Txb = async (
   amount: string,
   poolName: PoolName,
@@ -2097,7 +2139,98 @@ export const withdrawBluefinSuiSecondTxb = async (
   }
   return txb;
 };
+export const withdrawBluefinLyfTxb = async (
+  xTokens: string,
+  poolName: PoolName,
+  options: { address: string },
+) => {
+  const address = options.address;
+  let txb = new Transaction();
+  const pool1 = doubleAssetPoolCoinMap[poolName].coin1;
+  const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
+  const receipt: Receipt[] = await getReceipts(poolName, address, true);
+  console.log(receipt);
+
+  if (receipt.length > 0) {
+    let alpha_receipt = txb.moveCall({
+      target: `0x1::option::none`,
+      typeArguments: [getConf().ALPHA_POOL_RECEIPT],
+      arguments: [],
+    });
+    const poolinfo = poolInfo[poolName];
+    if (poolinfo.strategyType === "LEVERAGE-YIELD-FARMING") {
+      const coinAType =
+        pool1 === "SUI" ? "0x2::sui::SUI" : coinsList[pool1].type;
+      const coinBType =
+        pool2 === "SUI" ? "0x2::sui::SUI" : coinsList[pool2].type;
+      await alphalendClient.updatePrices(txb, [coinAType, coinBType]);
+      await collectAndSwapRewardsLyf(poolName, txb);
+      const [lyfReceiptOption, lyfBalanceA, lyfBalanceB] = txb.moveCall({
+        target: `${poolinfo.packageId}::alphafi_lyf_pool::withdraw`,
+        typeArguments: [coinsList[pool1].type, coinsList[pool2].type],
+        arguments: [
+          txb.object(getConf().ALPHA_LYF_VERSION),
+          txb.object(getConf().VERSION),
+          txb.object(receipt[0].objectId),
+          alpha_receipt,
+          txb.object(getConf().ALPHA_POOL),
+          txb.object(poolinfo.poolId),
+          txb.object(getConf().ALPHA_DISTRIBUTOR),
+          txb.pure.u128(xTokens),
+          txb.object(getConf().LENDING_PROTOCOL_ID),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.object(poolinfo.parentPoolId),
+          txb.object(getConf().SUI_SYSTEM_STATE),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
+      if (receipt[0].content.fields.xTokenBalance !== xTokens) {
+        const [lyfReceipt] = txb.moveCall({
+          target: `0x1::option::extract`,
+          typeArguments: [poolinfo.receiptType],
+          arguments: [lyfReceiptOption],
+        });
+        txb.transferObjects([lyfReceipt], address);
+      }
+      txb.moveCall({
+        target: `0x1::option::destroy_none`,
+        typeArguments: [poolinfo.receiptType],
+        arguments: [lyfReceiptOption],
+      });
+
+      const lyfCoinA = txb.moveCall({
+        target: `0x2::coin::from_balance`,
+        typeArguments: [poolinfo.assetTypes[0]],
+        arguments: [lyfBalanceA],
+      });
+      const lyfCoinB = txb.moveCall({
+        target: `0x2::coin::from_balance`,
+        typeArguments: [poolinfo.assetTypes[1]],
+        arguments: [lyfBalanceB],
+      });
+      if (pool1 === "STSUI" && pool2 === "SUI") {
+        const [sui] = txb.moveCall({
+          target:
+            getStsuiConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::redeem",
+          arguments: [
+            txb.object(getStsuiConf().LST_INFO),
+            lyfCoinA,
+            txb.object(getStsuiConf().SUI_SYSTEM_STATE_OBJECT_ID),
+          ],
+          typeArguments: [getStsuiConf().STSUI_COIN_TYPE],
+        });
+        txb.mergeCoins(sui, [lyfCoinB]);
+        txb.transferObjects([sui], address);
+      } else {
+        txb.transferObjects([lyfCoinA, lyfCoinB], address);
+      }
+    }
+  } else {
+    throw new Error(`no receipt found for lyf pool: ${poolName}`);
+  }
+  return txb;
+};
 export const withdrawBluefinType1Txb = async (
   xTokens: string,
   poolName: PoolName,
