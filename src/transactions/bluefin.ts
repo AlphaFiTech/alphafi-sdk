@@ -2150,7 +2150,6 @@ export const withdrawBluefinLyfTxb = async (
   const pool2 = doubleAssetPoolCoinMap[poolName].coin2;
 
   const receipt: Receipt[] = await getReceipts(poolName, address, true);
-  console.log(receipt);
 
   if (receipt.length > 0) {
     let alpha_receipt = txb.moveCall({
