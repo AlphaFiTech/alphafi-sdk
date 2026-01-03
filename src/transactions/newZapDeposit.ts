@@ -27,7 +27,8 @@ import { CoinStruct, SuiClient } from "@mysten/sui/client";
 import { getAmounts } from "./deposit.js";
 import { Decimal } from "decimal.js";
 import { coinsList } from "../common/coins.js";
-import { CetusSwap } from "./cetusSwap.js";
+// import { CetusSwap } from "./cetusSwap.js";
+import { SevenKGateway } from "./7k.js";
 import { collectRewardTxb } from "./blueRewards.js";
 import { collectAndSwapRewardsLyf } from "./collect_rewards.js";
 import { alphalendClient } from "./alphalend.js";
@@ -67,6 +68,14 @@ async function getCoinObject(
     coin,
     coins1.map((c) => c.coinObjectId),
   );
+  /*
+  if (coins1.length > 1) {
+    tx.mergeCoins(
+      coin,
+      coins1.slice(1).map((c) => tx.object(c.coinObjectId)),
+    );
+  }
+  */
   return coin;
 }
 
@@ -80,27 +89,27 @@ export async function zapSwap(params: {
   amountIn: string;
   coinIn: TransactionObjectArgument;
 }): Promise<TransactionObjectArgument | undefined> {
-  const swapGateway = new CetusSwap("mainnet");
-  const quoteResponse = await swapGateway.getCetusSwapQuote(
+  console.log("params inside zapSwap", params);
+  // const swapGateway = new CetusSwap("mainnet");
+  const swapGateway = new SevenKGateway();
+  const quoteResponse = await swapGateway.getQuote(
     params.tokenIn,
     params.tokenOut,
     params.amountIn,
-    // [poolInfo[params.poolName].parentPoolId],
+    [poolInfo[params.poolName].parentPoolId],
   );
   if (!quoteResponse) {
     console.error("Error fetching quote for zap");
     return undefined;
   }
 
-  const coinOut = (
-    await swapGateway.cetusSwapTokensTxb(
-      quoteResponse,
-      params.slippage,
-      params.coinIn,
-      params.address,
-      params.tx,
-    )
-  ).coinOut;
+  const coinOut = await swapGateway.getTransactionBlock(
+    params.tx,
+    params.address,
+    quoteResponse,
+    params.slippage,
+    params.coinIn,
+  );
   if (!coinOut) {
     console.error("Error getting transaction block for zap");
     return undefined;
@@ -167,9 +176,18 @@ export async function zapDepositTxb(
   slippage: number, // 1% --> 0.01
   address: string,
 ) {
+  console.log(
+    "params inside zapDepositTxb",
+    inputCoinAmount,
+    isInputA,
+    poolName,
+    slippage,
+    address,
+  );
   const tx = new Transaction();
   const suiClient = getSuiClient();
-  const cetusSwap = new CetusSwap("mainnet");
+  // const cetusSwap = new CetusSwap("mainnet");
+  const sevenKGateway = new SevenKGateway();
   const coinAType = poolInfo[poolName].assetTypes[0];
   const coinBType = poolInfo[poolName].assetTypes[1];
 
@@ -188,32 +206,44 @@ export async function zapDepositTxb(
 
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinAType,
       coinBType,
       amountA.toString(),
-      // [poolInfo[poolName].parentPoolId],
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
+    // convertedAmountA = new Decimal(
+    //   quoteResponse.returnAmountWithDecimal.toString(),
+    // );
     convertedAmountA = new Decimal(quoteResponse.amountOut.toString());
   } else {
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinBType,
       coinAType,
       amountB.toString(),
-      // [poolInfo[poolName].parentPoolId],
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
+    // convertedAmountB = new Decimal(
+    //   quoteResponse.returnAmountWithDecimal.toString(),
+    // );
     convertedAmountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
   const totalAmount = convertedAmountA.add(convertedAmountB);
+  console.log(
+    "totalAmount in zapDepositTxb",
+    totalAmount.toString(),
+    convertedAmountA.toString(),
+    convertedAmountB.toString(),
+  );
   if (isInputA) {
     // calculate amount of coinA to swap to Type B
     const toSwap = new Decimal(inputCoinAmount.toString())
@@ -223,7 +253,8 @@ export async function zapDepositTxb(
     const notToSwap = new Decimal(inputCoinAmount.toString())
       .sub(toSwap)
       .floor();
-
+    console.log("toSwap in zapDepositTxb", toSwap.toString());
+    console.log("notToSwap in zapDepositTxb", notToSwap.toString());
     const coinIn = tx.splitCoins(coinObject, [toSwap.floor().toString()]);
     const coinOut = await zapSwap({
       tx,
@@ -239,15 +270,23 @@ export async function zapDepositTxb(
       console.error("Error swapping for zap");
       return undefined;
     }
-
+    console.log("coinOut in zapDepositTxb", coinOut);
     const { coinA, coinB, remCoinA, remCoinB } = await getCoinsInRatio({
       tx,
       poolName,
       coinA: tx.splitCoins(coinObject, [notToSwap.toString()]),
       coinB: coinOut,
     });
-
+    console.log(
+      "coinA, coinB, remCoinA, remCoinB in zapDepositTxb",
+      coinA,
+      coinB,
+      remCoinA,
+      remCoinB,
+    );
+    console.log("tx before transferObjects", tx);
     tx.transferObjects([remCoinA, remCoinB, coinObject], address);
+    console.log("tx after transferObjects", tx);
     await deposit({
       tx,
       depositCoinA: coinA,
@@ -305,7 +344,8 @@ export async function zapDepositQuoteTxb(
   isInputA: boolean,
   poolName: PoolName,
 ): Promise<[string, string] | undefined> {
-  const cetusSwap = new CetusSwap("mainnet");
+  // const cetusSwap = new CetusSwap("mainnet");
+  const sevenKGateway = new SevenKGateway();
   const [coinTypeA, coinTypeB] = poolInfo[poolName].assetTypes;
 
   const investor = (await getInvestor(poolName, true)) as CetusInvestor &
@@ -331,14 +371,16 @@ export async function zapDepositQuoteTxb(
 
   if (current_tick_index >= upper_tick) {
     if (isInputA) {
-      const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      const quoteResponse = await sevenKGateway.getQuote(
         coinTypeA,
         coinTypeB,
         inputCoinAmount.toString(),
+        [poolInfo[poolName].parentPoolId],
       );
       if (!quoteResponse) {
         throw new Error("Error fetching quote for zap");
       }
+      // return ["0", quoteResponse.returnAmountWithDecimal.toString()];
       return ["0", quoteResponse.amountOut.toString()];
     } else {
       return ["0", inputCoinAmount.toString()];
@@ -347,14 +389,16 @@ export async function zapDepositQuoteTxb(
     if (isInputA) {
       return [inputCoinAmount.toString(), "0"];
     } else {
-      const quoteResponse = await cetusSwap.getCetusSwapQuote(
+      const quoteResponse = await sevenKGateway.getQuote(
         coinTypeB,
         coinTypeA,
         inputCoinAmount.toString(),
+        [poolInfo[poolName].parentPoolId],
       );
       if (!quoteResponse) {
         throw new Error("Error fetching quote for zap");
       }
+      // return [quoteResponse.returnAmountWithDecimal.toString(), "0"];
       return [quoteResponse.amountOut.toString(), "0"];
     }
   }
@@ -365,26 +409,30 @@ export async function zapDepositQuoteTxb(
   ).map((a) => new Decimal(a));
   // convert coinA of the initial ratio to coinB to get the ratio in terms of 1 coin i.e. coinB
   if (isInputA) {
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinTypeA,
       coinTypeB,
       amountA.toString(),
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
+    // amountA = new Decimal(quoteResponse.returnAmountWithDecimal.toString());
     amountA = new Decimal(quoteResponse.amountOut.toString());
   } else {
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinTypeB,
       coinTypeA,
       amountB.toString(),
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       console.error("Error fetching quote for zap");
       return undefined;
     }
+    // amountB = new Decimal(quoteResponse.returnAmountWithDecimal.toString());
     amountB = new Decimal(quoteResponse.amountOut.toString());
   }
 
@@ -398,15 +446,24 @@ export async function zapDepositQuoteTxb(
       .div(totalAmount)
       .floor();
 
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinTypeA,
       coinTypeB,
       inputCoinToType2.toString(),
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       throw new Error("Error fetching quote for zap");
     }
 
+    // [inputCoinToType1, inputCoinToType2] = (
+    //   await getAmounts(
+    //     poolName,
+    //     false,
+    //     quoteResponse.returnAmountWithDecimal.toString(),
+    //     false,
+    //   )
+    // ).map((a) => new Decimal(a));
     [inputCoinToType1, inputCoinToType2] = (
       await getAmounts(
         poolName,
@@ -421,15 +478,24 @@ export async function zapDepositQuoteTxb(
       .div(totalAmount)
       .floor();
 
-    const quoteResponse = await cetusSwap.getCetusSwapQuote(
+    const quoteResponse = await sevenKGateway.getQuote(
       coinTypeB,
       coinTypeA,
       inputCoinToType1.toString(),
+      [poolInfo[poolName].parentPoolId],
     );
     if (!quoteResponse) {
       throw new Error("Error fetching quote for zap");
     }
 
+    // [inputCoinToType1, inputCoinToType2] = (
+    //   await getAmounts(
+    //     poolName,
+    //     true,
+    //     quoteResponse.returnAmountWithDecimal.toString(),
+    //     false,
+    //   )
+    // ).map((a) => new Decimal(a));
     [inputCoinToType1, inputCoinToType2] = (
       await getAmounts(
         poolName,
