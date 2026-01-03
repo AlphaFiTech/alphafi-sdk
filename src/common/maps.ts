@@ -154,6 +154,7 @@ export const singleAssetPoolCoinMap: {
   "ALPHALEND-SINGLE-LOOP-WBTC": { coin: "WBTC-LayerZero" },
   "ALPHALEND-SINGLE-LOOP-DEEP": { coin: "DEEP" },
   "ALPHALEND-SINGLE-LOOP-WAL": { coin: "WAL" },
+  "ALPHALEND-SLUSH-STSUI-LOOP": { coin: "STSUI" },
 };
 
 export const loopingPoolCoinMap: {
@@ -184,6 +185,10 @@ export const loopingPoolCoinMap: {
   "ALPHALEND-SINGLE-LOOP-WAL": {
     supplyCoin: "WAL",
     borrowCoin: "WAL",
+  },
+  "ALPHALEND-SLUSH-STSUI-LOOP": {
+    supplyCoin: "STSUI",
+    borrowCoin: "SUI",
   },
 };
 
@@ -468,6 +473,22 @@ export const poolInfo: {
     naviParentPoolCoinType?: string;
   };
 } = {
+  "ALPHALEND-SLUSH-STSUI-LOOP": {
+    packageId: conf[CONF_ENV].ALPHA_SLUSH_LATEST_PACKAGE_ID,
+    packageNumber: 12,
+    parentProtocolName: "ALPHALEND",
+    parentPoolId: "",
+    poolId: conf[CONF_ENV].ALPHA_SLUSH_STSUI_LOOP_POOL_ID,
+    investorId: conf[CONF_ENV].ALPHAFI_SLUSH_STSUI_LOOP_INVESTOR,
+    receiptName: "",
+    receiptType: "",
+    assetTypes: [coinsList["STSUI"].type],
+    autoCompoundingEventType: "",
+    liquidityChangeEventType: "",
+    rebalanceEventType: undefined,
+    strategyType: "LOOPING",
+    retired: false,
+  },
   "ALPHALEND-SINGLE-LOOP-WBTC": {
     packageId: conf[CONF_ENV].ALPHA_ALPHALEND_LATEST_PACKAGE_ID,
     packageNumber: 10,
