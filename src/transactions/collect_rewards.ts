@@ -941,7 +941,7 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(C.ALPHA_ALPHALEND_VERSION),
         txb.object(poolData.investorId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`STSUI-SUI`]),
+        txb.object(bluefinPoolMap[`STSUI-SUI-ZERO-ZERO`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(true),
