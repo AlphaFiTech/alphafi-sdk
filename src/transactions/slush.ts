@@ -4,6 +4,7 @@ import {
   collectRewardsAndSwapSlush,
   getConf,
   getSuiClient,
+  loopingPoolCoinMap,
   poolInfo,
   singleAssetPoolCoinMap,
 } from "../index.js";
@@ -78,46 +79,86 @@ export async function slushDeposit(
   const poolData = poolInfo[poolName];
 
   const coinName = singleAssetPoolCoinMap[poolName].coin;
-
-  await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
   let positionCapId = await getSlushPositionCapId(address, getSuiClient());
   let totalCoin = await getCoinObject(coinsList[coinName].type, address, txb);
   if (!totalCoin) {
     throw new Error(`No ${coinName} coin found in wallet`);
   }
   const [depositCoin] = txb.splitCoins(totalCoin, [amount]);
-  await collectRewardsAndSwapSlush(poolName, txb);
-  if (!positionCapId) {
-    let positionCap: any = createPositionCap(txb);
-    txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
-      typeArguments: [coinsList[coinName].type],
-      arguments: [
-        txb.object(C.ALPHA_SLUSH_VERSION),
-        positionCap,
-        txb.object(poolData.poolId),
-        depositCoin,
-        txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(C.SUI_SYSTEM_STATE),
-        txb.object(C.CLOCK_PACKAGE_ID),
-      ],
-    });
-    txb.transferObjects([positionCap], address);
-  } else {
-    txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
-      typeArguments: [coinsList[coinName].type],
-      arguments: [
-        txb.object(C.ALPHA_SLUSH_VERSION),
-        txb.object(positionCapId),
-        txb.object(poolData.poolId),
-        depositCoin,
-        txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(C.SUI_SYSTEM_STATE),
-        txb.object(C.CLOCK_PACKAGE_ID),
-      ],
-    });
+  if (poolData.strategyType == "LENDING") {
+    await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
+    await collectRewardsAndSwapSlush(poolName, txb);
+    if (!positionCapId) {
+      let positionCap: any = createPositionCap(txb);
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
+        typeArguments: [coinsList[coinName].type],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          positionCap,
+          txb.object(poolData.poolId),
+          depositCoin,
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(C.SUI_SYSTEM_STATE),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.transferObjects([positionCap], address);
+    } else {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
+        typeArguments: [coinsList[coinName].type],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(positionCapId),
+          txb.object(poolData.poolId),
+          depositCoin,
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(C.SUI_SYSTEM_STATE),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+  } else if (poolName == "ALPHALEND-SLUSH-STSUI-LOOP") {
+    let borrowCoin = loopingPoolCoinMap[poolName].borrowCoin;
+    await alphalendClient.updatePrices(txb, [
+      coinsList[coinName].type,
+      coinsList[borrowCoin].type,
+    ]);
+    await collectRewardsAndSwapSlush(poolName, txb);
+    if (!positionCapId) {
+      let positionCap: any = createPositionCap(txb);
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          positionCap,
+          txb.object(poolData.poolId),
+          depositCoin,
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(C.LST_INFO),
+          txb.object(C.SUI_SYSTEM_STATE),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+      txb.transferObjects([positionCap], address);
+    } else {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(positionCapId),
+          txb.object(poolData.poolId),
+          depositCoin,
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(C.LST_INFO),
+          txb.object(C.SUI_SYSTEM_STATE),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
   }
+
   txb.transferObjects([totalCoin], address);
   return txb;
 }
@@ -133,8 +174,6 @@ export async function slushWithdraw(
 
   const coinName = singleAssetPoolCoinMap[poolName].coin;
 
-  await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
-  await collectRewardsAndSwapSlush(poolName, txb);
   const suiClient = getSuiClient();
   const positionCapId = await getSlushPositionCapId(address, suiClient);
   if (!positionCapId) {
@@ -142,20 +181,43 @@ export async function slushWithdraw(
       "No PositionCap found in wallet — cannot perform slush withdraw",
     );
   }
-
-  const [slushCoin] = txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_withdraw`,
-    typeArguments: [coinsList[coinName].type],
-    arguments: [
-      txb.object(C.ALPHA_SLUSH_VERSION),
-      txb.object(positionCapId),
-      txb.object(poolData.poolId),
-      txb.pure.u64(xTokens),
-      txb.object(C.LENDING_PROTOCOL_ID),
-      txb.object(C.SUI_SYSTEM_STATE),
-      txb.object(C.CLOCK_PACKAGE_ID),
-    ],
-  });
+  let slushCoin: any;
+  if (poolData.strategyType == "LENDING") {
+    await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
+    await collectRewardsAndSwapSlush(poolName, txb);
+    slushCoin = txb.moveCall({
+      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_withdraw`,
+      typeArguments: [coinsList[coinName].type],
+      arguments: [
+        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(positionCapId),
+        txb.object(poolData.poolId),
+        txb.pure.u64(xTokens),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(C.SUI_SYSTEM_STATE),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+  } else if (poolName == "ALPHALEND-SLUSH-STSUI-LOOP") {
+    await alphalendClient.updatePrices(txb, [
+      coinsList[coinName].type,
+      coinsList[loopingPoolCoinMap[poolName].borrowCoin].type,
+    ]);
+    await collectRewardsAndSwapSlush(poolName, txb);
+    slushCoin = txb.moveCall({
+      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_withdraw`,
+      arguments: [
+        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(positionCapId),
+        txb.object(poolData.poolId),
+        txb.pure.u64(xTokens),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(C.LST_INFO),
+        txb.object(C.SUI_SYSTEM_STATE),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+  }
 
   txb.transferObjects([slushCoin], address);
 

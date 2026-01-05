@@ -593,7 +593,7 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(C.ALPHA_ALPHALEND_VERSION),
         txb.object(poolData.investorId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`BLUE-SUI`]),
+        txb.object(bluefinPoolMap[`BLUE-SUI-AUTOCOMPOUND`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(true),
@@ -684,7 +684,7 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(C.ALPHA_ALPHALEND_VERSION),
         txb.object(poolData.investorId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`BLUE-SUI`]),
+        txb.object(bluefinPoolMap[`BLUE-SUI-AUTOCOMPOUND`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(true),
@@ -775,7 +775,7 @@ export async function collectAndSwapRewardsSingleLoop(
         txb.object(C.ALPHA_ALPHALEND_VERSION),
         txb.object(poolData.investorId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap[`BLUE-SUI`]),
+        txb.object(bluefinPoolMap[`BLUE-SUI-AUTOCOMPOUND`]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(true),
@@ -993,7 +993,7 @@ export async function collectAndSwapRewardsLyf(
           txb.object(pool.poolId),
           txb.object(getConf().LENDING_PROTOCOL_ID),
           txb.object(pool.parentPoolId),
-          txb.object(bluefinPoolMap["BLUE-SUI"]),
+          txb.object(bluefinPoolMap["BLUE-SUI-AUTOCOMPOUND"]),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.pure.bool(true),
           txb.pure.bool(true),
@@ -1015,7 +1015,7 @@ export async function collectAndSwapRewardsLyf(
           txb.object(pool.poolId),
           txb.object(getConf().LENDING_PROTOCOL_ID),
           txb.object(pool.parentPoolId),
-          txb.object(bluefinPoolMap["BLUE-SUI"]),
+          txb.object(bluefinPoolMap["BLUE-SUI-AUTOCOMPOUND"]),
           txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
           txb.pure.bool(true),
           txb.pure.bool(true),
@@ -1059,112 +1059,154 @@ export async function collectRewardsAndSwapSlush(
   const poolData = poolInfo[poolName];
   const coinName = singleAssetPoolCoinMap[poolName].coin;
   const coinType = coinsList[coinName].type;
-
-  txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-    typeArguments: [coinType, coinsList["ALPHA"].type, coinsList["STSUI"].type],
-    arguments: [
-      txb.object(C.ALPHA_SLUSH_VERSION),
-      txb.object(poolData.poolId),
-      txb.object(C.LENDING_PROTOCOL_ID),
-      txb.object(bluefinPoolMap["ALPHA-STSUI"]),
-      txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-      txb.pure.bool(true),
-      txb.pure.bool(true),
-      txb.object(C.CLOCK_PACKAGE_ID),
-    ],
-  });
-  txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-    typeArguments: [coinType, coinsList["STSUI"].type, coinsList["SUI"].type],
-    arguments: [
-      txb.object(C.ALPHA_SLUSH_VERSION),
-      txb.object(poolData.poolId),
-      txb.object(C.LENDING_PROTOCOL_ID),
-      txb.object(bluefinPoolMap["STSUI-SUI-ZERO-ZERO"]),
-      txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-      txb.pure.bool(true),
-      txb.pure.bool(true),
-      txb.object(C.CLOCK_PACKAGE_ID),
-    ],
-  });
-  txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-    typeArguments: [coinType, coinsList["BLUE"].type, coinsList["SUI"].type],
-    arguments: [
-      txb.object(C.ALPHA_SLUSH_VERSION),
-      txb.object(poolData.poolId),
-      txb.object(C.LENDING_PROTOCOL_ID),
-      txb.object(bluefinPoolMap["BLUE-SUI"]),
-      txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-      txb.pure.bool(true),
-      txb.pure.bool(true),
-      txb.object(C.CLOCK_PACKAGE_ID),
-    ],
-  });
-
-  if (coinType !== coinsList["DEEP"].type) {
+  if (poolName === "ALPHALEND-SLUSH-STSUI-LOOP") {
     txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [coinType, coinsList["DEEP"].type, coinsList["SUI"].type],
+      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [coinsList["BLUE"].type, coinsList["SUI"].type],
       arguments: [
         txb.object(C.ALPHA_SLUSH_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap["DEEP-SUI"]),
+        txb.object(bluefinPoolMap["BLUE-SUI-AUTOCOMPOUND"]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
-  }
-
-  if (coinType === coinsList["USDC"].type) {
     txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [coinType, coinsList["SUI"].type, coinType],
+      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [coinsList["STSUI"].type, coinsList["SUI"].type],
       arguments: [
         txb.object(C.ALPHA_SLUSH_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap["SUI-USDC"]),
+        txb.object(bluefinPoolMap["STSUI-SUI-ZERO-ZERO"]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
         txb.pure.bool(true),
         txb.pure.bool(false),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (coinType === coinsList["WAL"].type) {
+  } else {
     txb.moveCall({
       target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [coinType, coinsList["WAL"].type, coinsList["SUI"].type],
+      typeArguments: [
+        coinType,
+        coinsList["ALPHA"].type,
+        coinsList["STSUI"].type,
+      ],
       arguments: [
         txb.object(C.ALPHA_SLUSH_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap["WAL-SUI"]),
+        txb.object(bluefinPoolMap["ALPHA-STSUI"]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-        txb.pure.bool(false),
+        txb.pure.bool(true),
         txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
-  } else if (coinType === coinsList["DEEP"].type) {
     txb.moveCall({
       target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
-      typeArguments: [coinType, coinsList["DEEP"].type, coinsList["SUI"].type],
+      typeArguments: [coinType, coinsList["STSUI"].type, coinsList["SUI"].type],
       arguments: [
         txb.object(C.ALPHA_SLUSH_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
-        txb.object(bluefinPoolMap["DEEP-SUI"]),
+        txb.object(bluefinPoolMap["STSUI-SUI-ZERO-ZERO"]),
         txb.object(C.BLUEFIN_GLOBAL_CONFIG),
-        txb.pure.bool(false),
+        txb.pure.bool(true),
         txb.pure.bool(true),
         txb.object(C.CLOCK_PACKAGE_ID),
       ],
     });
+    txb.moveCall({
+      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
+      typeArguments: [coinType, coinsList["BLUE"].type, coinsList["SUI"].type],
+      arguments: [
+        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(poolData.poolId),
+        txb.object(C.LENDING_PROTOCOL_ID),
+        txb.object(bluefinPoolMap["BLUE-SUI-AUTOCOMPOUND"]),
+        txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+        txb.pure.bool(true),
+        txb.pure.bool(true),
+        txb.object(C.CLOCK_PACKAGE_ID),
+      ],
+    });
+
+    if (coinType !== coinsList["DEEP"].type) {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinType,
+          coinsList["DEEP"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(poolData.poolId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap["DEEP-SUI"]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
+
+    if (coinType === coinsList["USDC"].type) {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [coinType, coinsList["SUI"].type, coinType],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(poolData.poolId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap["SUI-USDC"]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.pure.bool(false),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (coinType === coinsList["WAL"].type) {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [coinType, coinsList["WAL"].type, coinsList["SUI"].type],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(poolData.poolId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap["WAL-SUI"]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(false),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    } else if (coinType === coinsList["DEEP"].type) {
+      txb.moveCall({
+        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinType,
+          coinsList["DEEP"].type,
+          coinsList["SUI"].type,
+        ],
+        arguments: [
+          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(poolData.poolId),
+          txb.object(C.LENDING_PROTOCOL_ID),
+          txb.object(bluefinPoolMap["DEEP-SUI"]),
+          txb.object(C.BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(false),
+          txb.pure.bool(true),
+          txb.object(C.CLOCK_PACKAGE_ID),
+        ],
+      });
+    }
   }
 
   return txb;
