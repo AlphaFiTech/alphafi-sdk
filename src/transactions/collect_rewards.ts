@@ -1091,6 +1091,28 @@ export async function collectAndSwapRewardsLyf(
           txb.object(getConf().CLOCK_PACKAGE_ID),
         ],
       });
+      txb.moveCall({
+        target: `${pool.packageId}::alphafi_lyf_pool::collect_reward_and_swap_bluefin`,
+        typeArguments: [
+          coinsList[coin1].type,
+          coinsList[coin2].type,
+          coinsList["SUI"].type,
+          coinsList["USDC"].type,
+        ],
+        arguments: [
+          txb.object(getConf().ALPHA_LYF_VERSION),
+          txb.object(pool.poolId),
+          txb.object(getConf().LENDING_PROTOCOL_ID),
+          txb.object(pool.parentPoolId),
+          txb.object(bluefinPoolMap["SUI-USDC-175"]),
+          txb.object(getConf().BLUEFIN_GLOBAL_CONFIG),
+          txb.pure.bool(true),
+          txb.pure.bool(true),
+          txb.pure.bool(true),
+          txb.object(getConf().SUI_SYSTEM_STATE),
+          txb.object(getConf().CLOCK_PACKAGE_ID),
+        ],
+      });
     }
   }
   return txb;
