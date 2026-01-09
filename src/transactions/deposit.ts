@@ -55,14 +55,14 @@ export async function depositSingleAssetTxb(
       txb = await naviDepositTx(amount, poolName, { address });
     }
   } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
-    if (poolInfo[poolName].strategyType === "LOOPING") {
+    if (poolName.includes("ALPHALEND-SLUSH")) {
+      txb = await slushDeposit(poolName, amount, { address: address });
+    } else if (poolInfo[poolName].strategyType === "LOOPING") {
       txb = await alphalendLoopingDeposit(poolName, amount, { address });
     } else if (poolInfo[poolName].strategyType === "SINGLE-LOOPING") {
       txb = await alphalendSingleLoopDeposit(poolName, amount, {
         address: address,
       });
-    } else if (poolInfo[poolName].strategyType === "LENDING") {
-      txb = await slushDeposit(poolName, amount, { address: address });
     }
   }
   txb.setSender(address);

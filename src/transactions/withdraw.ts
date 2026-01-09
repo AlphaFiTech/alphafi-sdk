@@ -95,7 +95,9 @@ export async function withdrawTxb(
   } else if (poolInfo[poolName].parentProtocolName === "BUCKET") {
     txb = await bucketWithdrawTx(xTokensAmount, { address });
   } else if (poolInfo[poolName].parentProtocolName === "ALPHALEND") {
-    if (poolInfo[poolName].strategyType === "LOOPING") {
+    if (poolName.includes("ALPHALEND-SLUSH")) {
+      txb = await slushWithdraw(poolName, xTokensAmount, { address: address });
+    } else if (poolInfo[poolName].strategyType === "LOOPING") {
       txb = await alphalendLoopingWithdraw(poolName, xTokensAmount, {
         address,
       });
@@ -103,8 +105,6 @@ export async function withdrawTxb(
       txb = await alphalendSingleLoopWithdraw(poolName, xTokensAmount, {
         address: address,
       });
-    } else if (poolInfo[poolName].strategyType === "LENDING") {
-      txb = await slushWithdraw(poolName, xTokensAmount, { address: address });
     }
   }
   txb.setSender(address);
