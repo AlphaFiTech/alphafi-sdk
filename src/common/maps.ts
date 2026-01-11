@@ -494,7 +494,7 @@ export const poolInfo: {
     retired: false,
   },
   "ALPHALEND-SLUSH-STSUI-LOOP": {
-    packageId: conf[CONF_ENV].ALPHA_SLUSH_LATEST_PACKAGE_ID,
+    packageId: conf[CONF_ENV].ALPHA_SLUSH_TEST_LATEST_PACKAGE_ID,
     packageNumber: 12,
     parentProtocolName: "ALPHALEND",
     parentPoolId: "",
