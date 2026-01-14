@@ -1128,10 +1128,10 @@ export async function collectRewardsAndSwapSlush(
   const coinType = coinsList[coinName].type;
   if (poolName === "ALPHALEND-SLUSH-STSUI-LOOP") {
     txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
+      target: `${poolData.packageId}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
       typeArguments: [coinsList["BLUE"].type, coinsList["SUI"].type],
       arguments: [
-        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(C.ALPHA_SLUSH_TEST_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
         txb.object(bluefinPoolMap["BLUE-SUI-AUTOCOMPOUND"]),
@@ -1142,10 +1142,10 @@ export async function collectRewardsAndSwapSlush(
       ],
     });
     txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
+      target: `${poolData.packageId}::alphafi_slush_stsui_sui_loop_pool::collect_reward_and_swap_bluefin`,
       typeArguments: [coinsList["STSUI"].type, coinsList["SUI"].type],
       arguments: [
-        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(C.ALPHA_SLUSH_TEST_VERSION),
         txb.object(poolData.poolId),
         txb.object(C.LENDING_PROTOCOL_ID),
         txb.object(bluefinPoolMap["STSUI-SUI-ZERO-ZERO"]),

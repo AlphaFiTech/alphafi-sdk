@@ -14,13 +14,20 @@ import { getCoinObject } from "./bluefin.js";
 import { SuiClient } from "@mysten/sui/client";
 export const alphalendClient = new AlphalendClient("mainnet", getSuiClient());
 async function getSlushPositionCapId(
+  poolName: PoolName,
   address: string,
   suiClient: SuiClient,
 ): Promise<string | undefined> {
+  let positionCapType: any;
+  if (poolName === "ALPHALEND-SLUSH-STSUI-LOOP") {
+    positionCapType = getConf().ALPHA_SLUSH_TEST_POSITION_CAP_TYPE;
+  } else {
+    positionCapType = getConf().ALPHA_SLUSH_POSITION_CAP_TYPE;
+  }
   const receipts = await suiClient.getOwnedObjects({
     owner: address,
     filter: {
-      StructType: getConf().ALPHA_SLUSH_POSITION_CAP_TYPE,
+      StructType: positionCapType,
     },
     options: {
       showContent: true,
@@ -34,7 +41,11 @@ export async function getSlushUserTotalXtokens(
   poolName: PoolName,
   address: string,
 ) {
-  let slushPositionCapId = await getSlushPositionCapId(address, getSuiClient());
+  let slushPositionCapId = await getSlushPositionCapId(
+    poolName,
+    address,
+    getSuiClient(),
+  );
   if (!slushPositionCapId) {
     return "0";
   }
@@ -79,7 +90,11 @@ export async function slushDeposit(
   const poolData = poolInfo[poolName];
 
   const coinName = singleAssetPoolCoinMap[poolName].coin;
-  let positionCapId = await getSlushPositionCapId(address, getSuiClient());
+  let positionCapId = await getSlushPositionCapId(
+    poolName,
+    address,
+    getSuiClient(),
+  );
   let totalCoin = await getCoinObject(coinsList[coinName].type, address, txb);
   if (!totalCoin) {
     throw new Error(`No ${coinName} coin found in wallet`);
@@ -89,7 +104,7 @@ export async function slushDeposit(
     await alphalendClient.updatePrices(txb, [coinsList[coinName].type]);
     await collectRewardsAndSwapSlush(poolName, txb);
     if (!positionCapId) {
-      let positionCap: any = createPositionCap(txb);
+      let positionCap: any = createPositionCap(txb, poolName);
       txb.moveCall({
         target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::user_deposit`,
         typeArguments: [coinsList[coinName].type],
@@ -127,11 +142,11 @@ export async function slushDeposit(
     ]);
     await collectRewardsAndSwapSlush(poolName, txb);
     if (!positionCapId) {
-      let positionCap: any = createPositionCap(txb);
+      let positionCap: any = createPositionCap(txb, poolName);
       txb.moveCall({
-        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
+        target: `${poolData.packageId}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
         arguments: [
-          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(C.ALPHA_SLUSH_TEST_VERSION),
           positionCap,
           txb.object(poolData.poolId),
           depositCoin,
@@ -144,9 +159,9 @@ export async function slushDeposit(
       txb.transferObjects([positionCap], address);
     } else {
       txb.moveCall({
-        target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
+        target: `${poolData.packageId}::alphafi_slush_stsui_sui_loop_pool::user_deposit`,
         arguments: [
-          txb.object(C.ALPHA_SLUSH_VERSION),
+          txb.object(C.ALPHA_SLUSH_TEST_VERSION),
           txb.object(positionCapId),
           txb.object(poolData.poolId),
           depositCoin,
@@ -175,7 +190,11 @@ export async function slushWithdraw(
   const coinName = singleAssetPoolCoinMap[poolName].coin;
 
   const suiClient = getSuiClient();
-  const positionCapId = await getSlushPositionCapId(address, suiClient);
+  const positionCapId = await getSlushPositionCapId(
+    poolName,
+    address,
+    suiClient,
+  );
   if (!positionCapId) {
     throw new Error(
       "No PositionCap found in wallet — cannot perform slush withdraw",
@@ -205,9 +224,9 @@ export async function slushWithdraw(
     ]);
     await collectRewardsAndSwapSlush(poolName, txb);
     slushCoin = txb.moveCall({
-      target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphafi_slush_stsui_sui_loop_pool::user_withdraw`,
+      target: `${poolData.packageId}::alphafi_slush_stsui_sui_loop_pool::user_withdraw`,
       arguments: [
-        txb.object(C.ALPHA_SLUSH_VERSION),
+        txb.object(C.ALPHA_SLUSH_TEST_VERSION),
         txb.object(positionCapId),
         txb.object(poolData.poolId),
         txb.pure.u64(xTokens),
@@ -223,14 +242,17 @@ export async function slushWithdraw(
 
   return txb;
 }
-function createPositionCap(txb: Transaction): TransactionResult {
+function createPositionCap(
+  txb: Transaction,
+  poolName: PoolName,
+): TransactionResult {
   const C = getConf();
   const urlBytes = Array.from(
     new TextEncoder().encode(C.ALPHA_SLUSH_POSITION_CAP_IMAGE_URL),
   );
 
   const positionCap = txb.moveCall({
-    target: `${C.ALPHA_SLUSH_LATEST_PACKAGE_ID}::alphalend_slush_pool::create_position_cap`,
+    target: `${poolInfo[poolName].packageId}::alphalend_slush_pool::create_position_cap`,
     arguments: [txb.pure.vector("u8", urlBytes)],
   });
 
